@@ -1,0 +1,681 @@
+@prefix : <http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33> .
+
+<http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#cameFrom
+
+:cameFrom rdf:type owl:ObjectProperty ;
+          
+          rdfs:domain :ENVIROsource ;
+          
+          rdfs:range :Environment .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasAnimal
+
+:hasAnimal rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain :ANIMALsource ;
+           
+           rdfs:range :Animal .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasBIOdata
+
+:hasBIOdata rdf:type owl:ObjectProperty ;
+            
+            rdfs:range :BIOdata ;
+            
+            rdfs:domain :Isolate .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasCGFdata
+
+:hasCGFdata rdf:type owl:ObjectProperty ;
+            
+            rdfs:domain :BIOdata ;
+            
+            rdfs:range :CGFdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasCity
+
+:hasCity rdf:type owl:ObjectProperty ;
+         
+         rdfs:range :City ;
+         
+         rdfs:domain :GEOdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasCoordinates
+
+:hasCoordinates rdf:type owl:ObjectProperty ;
+                
+                rdfs:domain :GEOdata ;
+                
+                rdfs:range :GPScoordinate .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasCountry
+
+:hasCountry rdf:type owl:ObjectProperty ;
+            
+            rdfs:range :Country ;
+            
+            rdfs:domain :GEOdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasEPIdata
+
+:hasEPIdata rdf:type owl:FunctionalProperty ,
+                     owl:InverseFunctionalProperty ,
+                     owl:ObjectProperty ;
+            
+            rdfs:range :EPIdata ;
+            
+            rdfs:domain :Isolate .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasGEO
+
+:hasGEO rdf:type owl:ObjectProperty ;
+        
+        rdfs:domain :EPIdata ;
+        
+        rdfs:range :GEOdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasGene
+
+:hasGene rdf:type owl:ObjectProperty ;
+         
+         rdfs:domain :CGFdata ;
+         
+         rdfs:range :Gene .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasHuman
+
+:hasHuman rdf:type owl:ObjectProperty ;
+          
+          rdfs:domain :HUMANsource ;
+          
+          rdfs:range :Human .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasLMIdata
+
+:hasLMIdata rdf:type owl:FunctionalProperty ,
+                     owl:InverseFunctionalProperty ,
+                     owl:ObjectProperty ;
+            
+            rdfs:domain :Isolate ;
+            
+            rdfs:range :LMIdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasProvince
+
+:hasProvince rdf:type owl:ObjectProperty ;
+             
+             rdfs:domain :GEOdata ;
+             
+             rdfs:range :Province .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasRegion
+
+:hasRegion rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain :GEOdata ;
+           
+           rdfs:range :Region .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasSource
+
+:hasSource rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain :EPIdata ;
+           
+           rdfs:range :SOURCEdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasTIME
+
+:hasTIME rdf:type owl:ObjectProperty ;
+         
+         rdfs:domain :EPIdata ;
+         
+         rdfs:range :TIMEdata .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasAnimalSourceType
+
+:hasAnimalSourceType rdf:type owl:DatatypeProperty ;
+                     
+                     rdfs:domain :ANIMALsource ;
+                     
+                     rdfs:range [ rdf:type rdfs:Datatype ;
+                                  owl:oneOf [ rdf:type rdf:List ;
+                                              rdf:first "abbatoir" ;
+                                              rdf:rest [ rdf:type rdf:List ;
+                                                         rdf:first "faecal" ;
+                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                    rdf:first "retail" ;
+                                                                    rdf:rest rdf:nil
+                                                                  ]
+                                                       ]
+                                            ]
+                                ] .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasBinary
+
+:hasBinary rdf:type owl:DatatypeProperty ;
+           
+           rdfs:domain :CGFdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasClass
+
+:hasClass rdf:type owl:DatatypeProperty .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasFamily
+
+:hasFamily rdf:type owl:DatatypeProperty .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasGenus
+
+:hasGenus rdf:type owl:DatatypeProperty .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasHexNum
+
+:hasHexNum rdf:type owl:DatatypeProperty ;
+           
+           rdfs:domain :CGFdata ;
+           
+           rdfs:range xsd:string .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasLatitude
+
+:hasLatitude rdf:type owl:DatatypeProperty ;
+             
+             rdfs:domain :GPScoordinate ;
+             
+             rdfs:range xsd:decimal .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasLongitude
+
+:hasLongitude rdf:type owl:DatatypeProperty ;
+              
+              rdfs:domain :GPScoordinate ;
+              
+              rdfs:range xsd:decimal .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasMonth
+
+:hasMonth rdf:type owl:DatatypeProperty ;
+          
+          rdfs:domain :TIMEdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasName
+
+:hasName rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         
+         rdfs:domain :Object ;
+         
+         rdfs:range xsd:string .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasOrder
+
+:hasOrder rdf:type owl:DatatypeProperty .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasScientificName
+
+:hasScientificName rdf:type owl:DatatypeProperty .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasSeason
+
+:hasSeason rdf:type owl:DatatypeProperty ;
+           
+           rdfs:domain :TIMEdata ;
+           
+           rdfs:range [ rdf:type rdfs:Datatype ;
+                        owl:oneOf [ rdf:type rdf:List ;
+                                    rdf:first "Fall" ;
+                                    rdf:rest [ rdf:type rdf:List ;
+                                               rdf:first "Spring" ;
+                                               rdf:rest [ rdf:type rdf:List ;
+                                                          rdf:first "Summer" ;
+                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                     rdf:first "Winter" ;
+                                                                     rdf:rest rdf:nil
+                                                                   ]
+                                                        ]
+                                             ]
+                                  ]
+                      ] .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasSpecies
+
+:hasSpecies rdf:type owl:DatatypeProperty .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasUnixDate
+
+:hasUnixDate rdf:type owl:DatatypeProperty ;
+             
+             rdfs:domain :TIMEdata ;
+             
+             rdfs:range xsd:int .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasYear
+
+:hasYear rdf:type owl:DatatypeProperty ;
+         
+         rdfs:domain :TIMEdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#isWild
+
+:isWild rdf:type owl:DatatypeProperty ;
+        
+        rdfs:domain :ANIMALsource ;
+        
+        rdfs:range xsd:boolean .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#ANIMALsource
+
+:ANIMALsource rdf:type owl:Class ;
+              
+              rdfs:subClassOf :SOURCEdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Animal
+
+:Animal rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Object .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Avian
+
+:Avian rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Animal .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#BIOdata
+
+:BIOdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#CGFdata
+
+:CGFdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Camelid
+
+:Camelid rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Animal .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#City
+
+:City rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Place .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Country
+
+:Country rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Place .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#ENVIROsource
+
+:ENVIROsource rdf:type owl:Class ;
+              
+              rdfs:subClassOf :SOURCEdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#EPIdata
+
+:EPIdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Environment
+
+:Environment rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Object .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Equine
+
+:Equine rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Animal .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#GEOdata
+
+:GEOdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#GPScoordinate
+
+:GPScoordinate rdf:type owl:Class ;
+               
+               rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Gene
+
+:Gene rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Object .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#HUMANsource
+
+:HUMANsource rdf:type owl:Class ;
+             
+             rdfs:subClassOf :SOURCEdata .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Human
+
+:Human rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Object .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Isolate
+
+:Isolate rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Object .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#LMIdata
+
+:LMIdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Lagoon
+
+:Lagoon rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Water .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Object
+
+:Object rdf:type owl:Class .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Place
+
+:Place rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Object .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Porcine
+
+:Porcine rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Animal .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Province
+
+:Province rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Place .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Region
+
+:Region rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Place .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#River
+
+:River rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Water .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Ruminant
+
+:Ruminant rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Animal .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#SOURCEdata
+
+:SOURCEdata rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Sewage
+
+:Sewage rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Water .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Soil
+
+:Soil rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Environment .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#TIMEdata
+
+:TIMEdata rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Thing
+
+:Thing rdf:type owl:Class .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Water
+
+:Water rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Environment .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#AsourceTest
+
+:AsourceTest rdf:type :ANIMALsource ,
+                      owl:NamedIndividual ;
+             
+             :hasAnimal :chicken .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#EPItest
+
+:EPItest rdf:type :EPIdata ,
+                  owl:NamedIndividual ;
+         
+         :hasSource :AsourceTest .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#chicken
+
+:chicken rdf:type :Avian ,
+                  owl:NamedIndividual ;
+         
+         :hasAnimalSourceType "nillu"^^xsd:string .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#oldman
+
+:oldman rdf:type :Sewage ,
+                 owl:NamedIndividual .
+
+
+
+###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#testISO
+
+:testISO rdf:type :Isolate ,
+                  owl:NamedIndividual ;
+         
+         :hasEPIdata :EPItest .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+
