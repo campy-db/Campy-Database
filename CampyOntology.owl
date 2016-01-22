@@ -4,9 +4,9 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33> .
+@base <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> .
 
-<http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33> rdf:type owl:Ontology .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> rdf:type owl:Ontology .
 
 
 #################################################################
@@ -16,167 +16,177 @@
 #################################################################
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#cameFrom
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#cameFrom
 
-:cameFrom rdf:type owl:ObjectProperty ;
-          
-          rdfs:domain :ENVIROsource ;
-          
-          rdfs:range :Environment .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasAnimal
-
-:hasAnimal rdf:type owl:ObjectProperty ;
-           
-           rdfs:domain :ANIMALsource ;
-           
-           rdfs:range :Animal .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#cameFrom> rdf:type owl:ObjectProperty ;
+                                                                                       
+                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource> ;
+                                                                                       
+                                                                                       rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasBIOdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal
 
-:hasBIOdata rdf:type owl:ObjectProperty ;
-            
-            rdfs:range :BIOdata ;
-            
-            rdfs:domain :Isolate .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasCGFdata
-
-:hasCGFdata rdf:type owl:ObjectProperty ;
-            
-            rdfs:domain :BIOdata ;
-            
-            rdfs:range :CGFdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal> rdf:type owl:ObjectProperty ;
+                                                                                        
+                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> ;
+                                                                                        
+                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasCity
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata
 
-:hasCity rdf:type owl:ObjectProperty ;
-         
-         rdfs:range :City ;
-         
-         rdfs:domain :GEOdata .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasCoordinates
-
-:hasCoordinates rdf:type owl:ObjectProperty ;
-                
-                rdfs:domain :GEOdata ;
-                
-                rdfs:range :GPScoordinate .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata> rdf:type owl:ObjectProperty ;
+                                                                                         
+                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasCountry
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFdata
 
-:hasCountry rdf:type owl:ObjectProperty ;
-            
-            rdfs:range :Country ;
-            
-            rdfs:domain :GEOdata .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasEPIdata
-
-:hasEPIdata rdf:type owl:FunctionalProperty ,
-                     owl:InverseFunctionalProperty ,
-                     owl:ObjectProperty ;
-            
-            rdfs:range :EPIdata ;
-            
-            rdfs:domain :Isolate .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFdata> rdf:type owl:ObjectProperty ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> ;
+                                                                                         
+                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasGEO
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCity
 
-:hasGEO rdf:type owl:ObjectProperty ;
-        
-        rdfs:domain :EPIdata ;
-        
-        rdfs:range :GEOdata .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasGene
-
-:hasGene rdf:type owl:ObjectProperty ;
-         
-         rdfs:domain :CGFdata ;
-         
-         rdfs:range :Gene .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCity> rdf:type owl:ObjectProperty ;
+                                                                                      
+                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City> ;
+                                                                                      
+                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasHuman
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCoordinates
 
-:hasHuman rdf:type owl:ObjectProperty ;
-          
-          rdfs:domain :HUMANsource ;
-          
-          rdfs:range :Human .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasLMIdata
-
-:hasLMIdata rdf:type owl:FunctionalProperty ,
-                     owl:InverseFunctionalProperty ,
-                     owl:ObjectProperty ;
-            
-            rdfs:domain :Isolate ;
-            
-            rdfs:range :LMIdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCoordinates> rdf:type owl:ObjectProperty ;
+                                                                                             
+                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
+                                                                                             
+                                                                                             rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasProvince
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCountry
 
-:hasProvince rdf:type owl:ObjectProperty ;
-             
-             rdfs:domain :GEOdata ;
-             
-             rdfs:range :Province .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasRegion
-
-:hasRegion rdf:type owl:ObjectProperty ;
-           
-           rdfs:domain :GEOdata ;
-           
-           rdfs:range :Region .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCountry> rdf:type owl:ObjectProperty ;
+                                                                                         
+                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country> ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasSource
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata
 
-:hasSource rdf:type owl:ObjectProperty ;
-           
-           rdfs:domain :EPIdata ;
-           
-           rdfs:range :SOURCEdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata> rdf:type owl:FunctionalProperty ,
+                                                                                                  owl:InverseFunctionalProperty ,
+                                                                                                  owl:ObjectProperty ;
+                                                                                         
+                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasTIME
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO
 
-:hasTIME rdf:type owl:ObjectProperty ;
-         
-         rdfs:domain :EPIdata ;
-         
-         rdfs:range :TIMEdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO> rdf:type owl:ObjectProperty ;
+                                                                                     
+                                                                                     rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
+                                                                                     
+                                                                                     rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGene
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGene> rdf:type owl:ObjectProperty ;
+                                                                                      
+                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> ;
+                                                                                      
+                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHuman
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHuman> rdf:type owl:ObjectProperty ;
+                                                                                       
+                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> ;
+                                                                                       
+                                                                                       rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLMIdata
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLMIdata> rdf:type owl:FunctionalProperty ,
+                                                                                                  owl:InverseFunctionalProperty ,
+                                                                                                  owl:ObjectProperty ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> ;
+                                                                                         
+                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProvince
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProvince> rdf:type owl:ObjectProperty ;
+                                                                                          
+                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
+                                                                                          
+                                                                                          rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegion
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegion> rdf:type owl:ObjectProperty ;
+                                                                                        
+                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
+                                                                                        
+                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSource
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSource> rdf:type owl:ObjectProperty ;
+                                                                                        
+                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
+                                                                                        
+                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTIME
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTIME> rdf:type owl:ObjectProperty ;
+                                                                                      
+                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
+                                                                                      
+                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab> rdf:type owl:ObjectProperty ;
+                                                                                           
+                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> ;
+                                                                                           
+                                                                                           rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab> .
 
 
 
@@ -189,169 +199,264 @@
 #################################################################
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasAnimalSourceType
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType
 
-:hasAnimalSourceType rdf:type owl:DatatypeProperty ;
-                     
-                     rdfs:domain :ANIMALsource ;
-                     
-                     rdfs:range [ rdf:type rdfs:Datatype ;
-                                  owl:oneOf [ rdf:type rdf:List ;
-                                              rdf:first "abbatoir" ;
-                                              rdf:rest [ rdf:type rdf:List ;
-                                                         rdf:first "faecal" ;
-                                                         rdf:rest [ rdf:type rdf:List ;
-                                                                    rdf:first "retail" ;
-                                                                    rdf:rest rdf:nil
-                                                                  ]
-                                                       ]
-                                            ]
-                                ] .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType> rdf:type owl:DatatypeProperty ;
+                                                                                                  
+                                                                                                  rdfs:range xsd:string ;
+                                                                                                  
+                                                                                                  rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasBinary
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBinary
 
-:hasBinary rdf:type owl:DatatypeProperty ;
-           
-           rdfs:domain :CGFdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBinary> rdf:type owl:DatatypeProperty ;
+                                                                                        
+                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasClass
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasClass
 
-:hasClass rdf:type owl:DatatypeProperty .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasClass> rdf:type owl:DatatypeProperty .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasFamily
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComments
 
-:hasFamily rdf:type owl:DatatypeProperty .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComments> rdf:type owl:DatatypeProperty ;
+                                                                                          
+                                                                                          rdfs:range xsd:string ;
+                                                                                          
+                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasGenus
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDataOfBirth
 
-:hasGenus rdf:type owl:DatatypeProperty .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDataOfBirth> rdf:type owl:DatatypeProperty ;
+                                                                                             
+                                                                                             rdfs:range xsd:string ;
+                                                                                             
+                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasHexNum
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateAddedtoDB
 
-:hasHexNum rdf:type owl:DatatypeProperty ;
-           
-           rdfs:domain :CGFdata ;
-           
-           rdfs:range xsd:string .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateAddedtoDB> rdf:type owl:DatatypeProperty ;
+                                                                                               
+                                                                                               rdfs:range xsd:string ;
+                                                                                               
+                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasLatitude
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateCompleted
 
-:hasLatitude rdf:type owl:DatatypeProperty ;
-             
-             rdfs:domain :GPScoordinate ;
-             
-             rdfs:range xsd:decimal .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateCompleted> rdf:type owl:DatatypeProperty ;
+                                                                                               
+                                                                                               rdfs:range xsd:string ;
+                                                                                               
+                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasLongitude
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFamily
 
-:hasLongitude rdf:type owl:DatatypeProperty ;
-              
-              rdfs:domain :GPScoordinate ;
-              
-              rdfs:range xsd:decimal .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFamily> rdf:type owl:DatatypeProperty .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasMonth
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender
 
-:hasMonth rdf:type owl:DatatypeProperty ;
-          
-          rdfs:domain :TIMEdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender> rdf:type owl:DatatypeProperty ;
+                                                                                        
+                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> ;
+                                                                                        
+                                                                                        rdfs:range [ rdf:type rdfs:Datatype ;
+                                                                                                     owl:oneOf [ rdf:type rdf:List ;
+                                                                                                                 rdf:first "f" ;
+                                                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                                                            rdf:first "female" ;
+                                                                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                       rdf:first "m" ;
+                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                  rdf:first "male" ;
+                                                                                                                                                  rdf:rest rdf:nil
+                                                                                                                                                ]
+                                                                                                                                     ]
+                                                                                                                          ]
+                                                                                                               ]
+                                                                                                   ] .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasName
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGenus
 
-:hasName rdf:type owl:DatatypeProperty ,
-                  owl:FunctionalProperty ;
-         
-         rdfs:domain :Object ;
-         
-         rdfs:range xsd:string .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGenus> rdf:type owl:DatatypeProperty .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasOrder
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHexNum
 
-:hasOrder rdf:type owl:DatatypeProperty .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHexNum> rdf:type owl:DatatypeProperty ;
+                                                                                        
+                                                                                        rdfs:range xsd:string ;
+                                                                                        
+                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasScientificName
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSourceType
 
-:hasScientificName rdf:type owl:DatatypeProperty .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSourceType> rdf:type owl:DatatypeProperty ;
+                                                                                                 
+                                                                                                 rdfs:range xsd:string ;
+                                                                                                 
+                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasSeason
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude
 
-:hasSeason rdf:type owl:DatatypeProperty ;
-           
-           rdfs:domain :TIMEdata ;
-           
-           rdfs:range [ rdf:type rdfs:Datatype ;
-                        owl:oneOf [ rdf:type rdf:List ;
-                                    rdf:first "Fall" ;
-                                    rdf:rest [ rdf:type rdf:List ;
-                                               rdf:first "Spring" ;
-                                               rdf:rest [ rdf:type rdf:List ;
-                                                          rdf:first "Summer" ;
-                                                          rdf:rest [ rdf:type rdf:List ;
-                                                                     rdf:first "Winter" ;
-                                                                     rdf:rest rdf:nil
-                                                                   ]
-                                                        ]
-                                             ]
-                                  ]
-                      ] .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude> rdf:type owl:DatatypeProperty ;
+                                                                                          
+                                                                                          rdfs:range xsd:decimal ;
+                                                                                          
+                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasSpecies
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude
 
-:hasSpecies rdf:type owl:DatatypeProperty .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude> rdf:type owl:DatatypeProperty ;
+                                                                                           
+                                                                                           rdfs:range xsd:decimal ;
+                                                                                           
+                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasUnixDate
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonth
 
-:hasUnixDate rdf:type owl:DatatypeProperty ;
-             
-             rdfs:domain :TIMEdata ;
-             
-             rdfs:range xsd:int .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonth> rdf:type owl:DatatypeProperty ;
+                                                                                       
+                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#hasYear
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName
 
-:hasYear rdf:type owl:DatatypeProperty ;
-         
-         rdfs:domain :TIMEdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName> rdf:type owl:DatatypeProperty ,
+                                                                                               owl:FunctionalProperty ;
+                                                                                      
+                                                                                      rdfs:range xsd:string ;
+                                                                                      
+                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#isWild
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOrder
 
-:isWild rdf:type owl:DatatypeProperty ;
-        
-        rdfs:domain :ANIMALsource ;
-        
-        rdfs:range xsd:boolean .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOrder> rdf:type owl:DatatypeProperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode> rdf:type owl:DatatypeProperty ;
+                                                                                            
+                                                                                            rdfs:range xsd:string ;
+                                                                                            
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)> rdf:type owl:DatatypeProperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> rdf:type owl:DatatypeProperty ;
+                                                                                                   
+                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)> rdf:type owl:DatatypeProperty ;
+                                                                                                       
+                                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName> rdf:type owl:DatatypeProperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSeason
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSeason> rdf:type owl:DatatypeProperty ;
+                                                                                        
+                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> ;
+                                                                                        
+                                                                                        rdfs:range [ rdf:type rdfs:Datatype ;
+                                                                                                     owl:oneOf [ rdf:type rdf:List ;
+                                                                                                                 rdf:first "Fall" ;
+                                                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                                                            rdf:first "Spring" ;
+                                                                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                       rdf:first "Summer" ;
+                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                  rdf:first "Winter" ;
+                                                                                                                                                  rdf:rest rdf:nil
+                                                                                                                                                ]
+                                                                                                                                     ]
+                                                                                                                          ]
+                                                                                                               ]
+                                                                                                   ] .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSpecies
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSpecies> rdf:type owl:DatatypeProperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasUnixDate
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasUnixDate> rdf:type owl:DatatypeProperty ;
+                                                                                          
+                                                                                          rdfs:range xsd:int ;
+                                                                                          
+                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYear
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYear> rdf:type owl:DatatypeProperty ;
+                                                                                      
+                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild> rdf:type owl:DatatypeProperty ;
+                                                                                     
+                                                                                     rdfs:range xsd:boolean ;
+                                                                                     
+                                                                                     rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> .
 
 
 
@@ -364,319 +469,274 @@
 #################################################################
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#ANIMALsource
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource
 
-:ANIMALsource rdf:type owl:Class ;
-              
-              rdfs:subClassOf :SOURCEdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Animal
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal
 
-:Animal rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Object .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> rdf:type owl:Class ;
+                                                                                     
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Avian
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian
 
-:Avian rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Animal .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian> rdf:type owl:Class ;
+                                                                                    
+                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#BIOdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata
 
-:BIOdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Thing .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#CGFdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata
 
-:CGFdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Thing .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Camelid
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Camelid
 
-:Camelid rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Animal .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Camelid> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#City
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City
 
-:City rdf:type owl:Class ;
-      
-      rdfs:subClassOf :Place .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City> rdf:type owl:Class ;
+                                                                                   
+                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Country
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country
 
-:Country rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Place .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#ENVIROsource
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource
 
-:ENVIROsource rdf:type owl:Class ;
-              
-              rdfs:subClassOf :SOURCEdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#EPIdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata
 
-:EPIdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Thing .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Environment
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment
 
-:Environment rdf:type owl:Class ;
-             
-             rdfs:subClassOf :Object .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Equine
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine
 
-:Equine rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Animal .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine> rdf:type owl:Class ;
+                                                                                     
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#GEOdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata
 
-:GEOdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Thing .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#GPScoordinate
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate
 
-:GPScoordinate rdf:type owl:Class ;
-               
-               rdfs:subClassOf :Thing .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> rdf:type owl:Class ;
+                                                                                            
+                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Gene
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene
 
-:Gene rdf:type owl:Class ;
-      
-      rdfs:subClassOf :Object .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene> rdf:type owl:Class ;
+                                                                                   
+                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#HUMANsource
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource
 
-:HUMANsource rdf:type owl:Class ;
-             
-             rdfs:subClassOf :SOURCEdata .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Human
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human
 
-:Human rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Object .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human> rdf:type owl:Class ;
+                                                                                    
+                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Isolate
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate
 
-:Isolate rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Object .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#LMIdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata
 
-:LMIdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Thing .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Lagoon
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab
 
-:Lagoon rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Water .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab> rdf:type owl:Class ;
+                                                                                  
+                                                                                  rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Object
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lagoon
 
-:Object rdf:type owl:Class .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lagoon> rdf:type owl:Class ;
+                                                                                     
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Place
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object
 
-:Place rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Object .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> rdf:type owl:Class .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Porcine
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place
 
-:Porcine rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Animal .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> rdf:type owl:Class ;
+                                                                                    
+                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Province
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine
 
-:Province rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Place .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Region
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province
 
-:Region rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Place .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province> rdf:type owl:Class ;
+                                                                                       
+                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#River
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region
 
-:River rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Water .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region> rdf:type owl:Class ;
+                                                                                     
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Ruminant
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#River
 
-:Ruminant rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Animal .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#River> rdf:type owl:Class ;
+                                                                                    
+                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#SOURCEdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant
 
-:SOURCEdata rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Thing .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant> rdf:type owl:Class ;
+                                                                                       
+                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Sewage
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata
 
-:Sewage rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Water .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> rdf:type owl:Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Soil
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sewage
 
-:Soil rdf:type owl:Class ;
-      
-      rdfs:subClassOf :Environment .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sewage> rdf:type owl:Class ;
+                                                                                     
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#TIMEdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Soil
 
-:TIMEdata rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Thing .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Soil> rdf:type owl:Class ;
+                                                                                   
+                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Thing
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata
 
-:Thing rdf:type owl:Class .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> rdf:type owl:Class ;
+                                                                                       
+                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
 
 
 
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#Water
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing
 
-:Water rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Environment .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> rdf:type owl:Class .
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water
 
-
-#################################################################
-#
-#    Individuals
-#
-#################################################################
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#AsourceTest
-
-:AsourceTest rdf:type :ANIMALsource ,
-                      owl:NamedIndividual ;
-             
-             :hasAnimal :chicken .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#EPItest
-
-:EPItest rdf:type :EPIdata ,
-                  owl:NamedIndividual ;
-         
-         :hasSource :AsourceTest .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#chicken
-
-:chicken rdf:type :Avian ,
-                  owl:NamedIndividual ;
-         
-         :hasAnimalSourceType "nillu"^^xsd:string .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#oldman
-
-:oldman rdf:type :Sewage ,
-                 owl:NamedIndividual .
-
-
-
-###  http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#testISO
-
-:testISO rdf:type :Isolate ,
-                  owl:NamedIndividual ;
-         
-         :hasEPIdata :EPItest .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> rdf:type owl:Class ;
+                                                                                    
+                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
 
 
 
 
 ###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
-
 
