@@ -6,6 +6,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> .
 
+
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> rdf:type owl:Ontology .
 
 
@@ -128,15 +129,25 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLMIdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLIMdata
 
-:hasLMIdata rdf:type owl:FunctionalProperty ,
+:hasLIMdata rdf:type owl:FunctionalProperty ,
                      owl:InverseFunctionalProperty ,
                      owl:ObjectProperty ;
             
             rdfs:domain :Isolate ;
             
             rdfs:range :LIMdata .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProject
+
+:hasProject rdf:type owl:ObjectProperty ;
+            
+            rdfs:domain :LIMdata ;
+            
+            rdfs:range :Project .
 
 
 
@@ -319,19 +330,29 @@
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationDay
 
-:hasIsolationDay rdf:type owl:DatatypeProperty .
+:hasIsolationDay rdf:type owl:DatatypeProperty ;
+                 
+                 rdfs:range xsd:int ;
+                 
+                 rdfs:domain :TIMEdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationMonth
 
-:hasIsolationMonth rdf:type owl:DatatypeProperty .
+:hasIsolationMonth rdf:type owl:DatatypeProperty ;
+                   
+                   rdfs:range xsd:int ;
+                   
+                   rdfs:domain :TIMEdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationYear
 
 :hasIsolationYear rdf:type owl:DatatypeProperty ;
+                  
+                  rdfs:range xsd:int ;
                   
                   rdfs:domain :TIMEdata .
 
@@ -781,7 +802,7 @@
 
 :Lab rdf:type owl:Class ;
      
-     rdfs:subClassOf :Object .
+     rdfs:subClassOf :Place .
 
 
 
@@ -934,10 +955,219 @@
 #################################################################
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#samsquatch
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AB_south
 
-:samsquatch rdf:type owl:NamedIndividual ,
-                     owl:Thing .
+:AB_south rdf:type owl:NamedIndividual ,
+                   :Region ;
+          
+          :hasName "AB South"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Alberta
+
+:Alberta rdf:type owl:NamedIndividual ,
+                  :Province ;
+         
+         :hasName "Alberta"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AsourceTestISO
+
+:AsourceTestISO rdf:type owl:NamedIndividual ,
+                         :ANIMALsource ;
+                
+                :hasAnimalSourceType "Faecal"^^xsd:string ;
+                
+                :isWild "false"^^xsd:boolean ;
+                
+                :hasAnimal :chicken .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Canada
+
+:Canada rdf:type owl:NamedIndividual ,
+                 :Country ;
+        
+        :hasName "Canada"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CgfTestISO
+
+:CgfTestISO rdf:type owl:NamedIndividual ,
+                     :CGFdata ;
+            
+            :hasFingerprint 1101 ;
+            
+            :hasHexNum "whatever"^^xsd:string ;
+            
+            :hasGene :a-gene ;
+            :hasGene :b-gene ;
+            :hasGene :d-gene .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GeoTestISO
+
+:GeoTestISO rdf:type owl:NamedIndividual ,
+                     :GEOdata ;
+            
+            :hasRegion :AB_south ;
+            
+            :hasProvince :Alberta ;
+            
+            :hasCountry :Canada ;
+            
+            :hasCoordinates :GpsTestISO ;
+            
+            :hasCity :Lethbridge .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GpsTestISO
+
+:GpsTestISO rdf:type owl:NamedIndividual ,
+                     :GPScoordinate ;
+            
+            :hasLatitude -1.99 ;
+            
+            :hasLongitude 1.01 .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LFZ_Guelph
+
+:LFZ_Guelph rdf:type owl:NamedIndividual ,
+                     :Lab ;
+            
+            :hasName "LFZ Guelph"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lethbridge
+
+:Lethbridge rdf:type owl:NamedIndividual ,
+                     :City ;
+            
+            :hasName "Lethbridge"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LimTestISO
+
+:LimTestISO rdf:type owl:NamedIndividual ,
+                     :LIMdata ;
+            
+            :hasTypingLab :LFZ_Guelph ;
+            
+            :hasProject :OMAFRA_34 .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#OMAFRA_34
+
+:OMAFRA_34 rdf:type owl:NamedIndividual ,
+                    :OMAFRA ;
+           
+           :hasName "OMAFRA_34"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TimeTestISO
+
+:TimeTestISO rdf:type owl:NamedIndividual ,
+                      :TIMEdata ;
+             
+             :hasIsolationMonth "1"^^xsd:int ;
+             
+             :hasIsolationYear "2016"^^xsd:int ;
+             
+             :hasIsolationDay "22"^^xsd:int ;
+             
+             :hasSeason "Winter"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#a-gene
+
+:a-gene rdf:type owl:NamedIndividual ,
+                 :Gene ;
+        
+        :hasName "a-gene"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#b-gene
+
+:b-gene rdf:type owl:NamedIndividual ,
+                 :Gene ;
+        
+        :hasName "b-gene"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#bioTestISO
+
+:bioTestISO rdf:type owl:NamedIndividual ,
+                     :BIOdata ;
+            
+            :hasCGFdata :CgfTestISO .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#c-gene
+
+:c-gene rdf:type owl:NamedIndividual ,
+                 :Gene ;
+        
+        :hasName "c-gene"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#chicken
+
+:chicken rdf:type owl:NamedIndividual ,
+                  :Avian ;
+         
+         :hasName "chicken"^^xsd:string ;
+         
+         :hasScientificName "chickenas chickanus"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#d-gene
+
+:d-gene rdf:type owl:NamedIndividual ,
+                 :Gene ;
+        
+        :hasName "d-gene"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#epiTestISO
+
+:epiTestISO rdf:type owl:NamedIndividual ,
+                     :EPIdata ;
+            
+            :hasSource :AsourceTestISO ;
+            
+            :hasGEO :GeoTestISO ;
+            
+            :hasTIME :TimeTestISO .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#testISO
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#testISO> rdf:type owl:NamedIndividual , <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> ;
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLIMdata> <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LimTestISO> ;
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata> <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#bioTestISO> ;
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata> <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#epiTestISO> ;
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName> "testISO" .
+
 
 
 
