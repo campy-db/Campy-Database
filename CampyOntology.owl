@@ -1,4 +1,4 @@
-@prefix : <http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#> .
+@prefix : <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -18,175 +18,175 @@
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#cameFrom
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#cameFrom> rdf:type owl:ObjectProperty ;
-                                                                                       
-                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource> ;
-                                                                                       
-                                                                                       rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
+:cameFrom rdf:type owl:ObjectProperty ;
+          
+          rdfs:domain :ENVIROsource ;
+          
+          rdfs:range :Environment .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal> rdf:type owl:ObjectProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> ;
-                                                                                        
-                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
+:hasAnimal rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain :ANIMALsource ;
+           
+           rdfs:range :Animal .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata> rdf:type owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
+:hasBIOdata rdf:type owl:ObjectProperty ;
+            
+            rdfs:range :BIOdata ;
+            
+            rdfs:domain :Isolate .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFdata> rdf:type owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
+:hasCGFdata rdf:type owl:ObjectProperty ;
+            
+            rdfs:domain :BIOdata ;
+            
+            rdfs:range :CGFdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCity
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCity> rdf:type owl:ObjectProperty ;
-                                                                                      
-                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City> ;
-                                                                                      
-                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
+:hasCity rdf:type owl:ObjectProperty ;
+         
+         rdfs:range :City ;
+         
+         rdfs:domain :GEOdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCoordinates
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCoordinates> rdf:type owl:ObjectProperty ;
-                                                                                             
-                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
-                                                                                             
-                                                                                             rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
+:hasCoordinates rdf:type owl:ObjectProperty ;
+                
+                rdfs:domain :GEOdata ;
+                
+                rdfs:range :GPScoordinate .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCountry
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCountry> rdf:type owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country> ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
+:hasCountry rdf:type owl:ObjectProperty ;
+            
+            rdfs:range :Country ;
+            
+            rdfs:domain :GEOdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata> rdf:type owl:FunctionalProperty ,
-                                                                                                  owl:InverseFunctionalProperty ,
-                                                                                                  owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
+:hasEPIdata rdf:type owl:FunctionalProperty ,
+                     owl:InverseFunctionalProperty ,
+                     owl:ObjectProperty ;
+            
+            rdfs:range :EPIdata ;
+            
+            rdfs:domain :Isolate .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO> rdf:type owl:ObjectProperty ;
-                                                                                     
-                                                                                     rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
-                                                                                     
-                                                                                     rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
+:hasGEO rdf:type owl:ObjectProperty ;
+        
+        rdfs:domain :EPIdata ;
+        
+        rdfs:range :GEOdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGene
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGene> rdf:type owl:ObjectProperty ;
-                                                                                      
-                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> ;
-                                                                                      
-                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene> .
+:hasGene rdf:type owl:ObjectProperty ;
+         
+         rdfs:domain :CGFdata ;
+         
+         rdfs:range :Gene .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHuman
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHuman> rdf:type owl:ObjectProperty ;
-                                                                                       
-                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> ;
-                                                                                       
-                                                                                       rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human> .
+:hasHuman rdf:type owl:ObjectProperty ;
+          
+          rdfs:domain :HUMANsource ;
+          
+          rdfs:range :Human .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLMIdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLMIdata> rdf:type owl:FunctionalProperty ,
-                                                                                                  owl:InverseFunctionalProperty ,
-                                                                                                  owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> .
+:hasLMIdata rdf:type owl:FunctionalProperty ,
+                     owl:InverseFunctionalProperty ,
+                     owl:ObjectProperty ;
+            
+            rdfs:domain :Isolate ;
+            
+            rdfs:range :LIMdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProvince
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProvince> rdf:type owl:ObjectProperty ;
-                                                                                          
-                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
-                                                                                          
-                                                                                          rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province> .
+:hasProvince rdf:type owl:ObjectProperty ;
+             
+             rdfs:domain :GEOdata ;
+             
+             rdfs:range :Province .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegion
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegion> rdf:type owl:ObjectProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
-                                                                                        
-                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region> .
+:hasRegion rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain :GEOdata ;
+           
+           rdfs:range :Region .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSource
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSource> rdf:type owl:ObjectProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
-                                                                                        
-                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
+:hasSource rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain :EPIdata ;
+           
+           rdfs:range :SOURCEdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTIME
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTIME> rdf:type owl:ObjectProperty ;
-                                                                                      
-                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
-                                                                                      
-                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> .
+:hasTIME rdf:type owl:ObjectProperty ;
+         
+         rdfs:domain :EPIdata ;
+         
+         rdfs:range :TIMEdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab> rdf:type owl:ObjectProperty ;
-                                                                                           
-                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> ;
-                                                                                           
-                                                                                           rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab> .
+:hasTypingLab rdf:type owl:ObjectProperty ;
+              
+              rdfs:domain :LIMdata ;
+              
+              rdfs:range :Lab .
 
 
 
@@ -201,210 +201,210 @@
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType> rdf:type owl:DatatypeProperty ;
-                                                                                                  
-                                                                                                  rdfs:comment "faecal, abbatoir, retail"^^xsd:string ;
-                                                                                                  
-                                                                                                  rdfs:range xsd:string ;
-                                                                                                  
-                                                                                                  rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> .
+:hasAnimalSourceType rdf:type owl:DatatypeProperty ;
+                     
+                     rdfs:comment "faecal, abbatoir, retail"^^xsd:string ;
+                     
+                     rdfs:range xsd:string ;
+                     
+                     rdfs:domain :ANIMALsource .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasClass
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasClass> rdf:type owl:DatatypeProperty .
+:hasClass rdf:type owl:DatatypeProperty .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComments
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComments> rdf:type owl:DatatypeProperty ;
-                                                                                          
-                                                                                          rdfs:range xsd:string ;
-                                                                                          
-                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
+:hasComments rdf:type owl:DatatypeProperty ;
+             
+             rdfs:range xsd:string ;
+             
+             rdfs:domain :Isolate .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayAdded
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayAdded> rdf:type owl:DatatypeProperty ;
-                                                                                          
-                                                                                          rdfs:comment "The day the info was added to DB"^^xsd:string .
+:hasDayAdded rdf:type owl:DatatypeProperty ;
+             
+             rdfs:comment "The day the info was added to DB"^^xsd:string .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayCompleted
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayCompleted> rdf:type owl:DatatypeProperty ;
-                                                                                              
-                                                                                              rdfs:comment "The day CGF data was completed"^^xsd:string .
+:hasDayCompleted rdf:type owl:DatatypeProperty ;
+                 
+                 rdfs:comment "The day CGF data was completed"^^xsd:string .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayofBirth
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayofBirth> rdf:type owl:DatatypeProperty ;
-                                                                                            
-                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
+:hasDayofBirth rdf:type owl:DatatypeProperty ;
+               
+               rdfs:domain :HUMANsource .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFamily
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFamily> rdf:type owl:DatatypeProperty .
+:hasFamily rdf:type owl:DatatypeProperty .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFingerprint
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFingerprint> rdf:type owl:DatatypeProperty ;
-                                                                                             
-                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
+:hasFingerprint rdf:type owl:DatatypeProperty ;
+                
+                rdfs:domain :CGFdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender> rdf:type owl:DatatypeProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> ;
-                                                                                        
-                                                                                        rdfs:range [ rdf:type rdfs:Datatype ;
-                                                                                                     owl:oneOf [ rdf:type rdf:List ;
-                                                                                                                 rdf:first "f" ;
-                                                                                                                 rdf:rest [ rdf:type rdf:List ;
-                                                                                                                            rdf:first "female" ;
-                                                                                                                            rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                       rdf:first "m" ;
-                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                  rdf:first "male" ;
-                                                                                                                                                  rdf:rest rdf:nil
-                                                                                                                                                ]
-                                                                                                                                     ]
-                                                                                                                          ]
-                                                                                                               ]
-                                                                                                   ] .
+:hasGender rdf:type owl:DatatypeProperty ;
+           
+           rdfs:domain :HUMANsource ;
+           
+           rdfs:range [ rdf:type rdfs:Datatype ;
+                        owl:oneOf [ rdf:type rdf:List ;
+                                    rdf:first "f" ;
+                                    rdf:rest [ rdf:type rdf:List ;
+                                               rdf:first "female" ;
+                                               rdf:rest [ rdf:type rdf:List ;
+                                                          rdf:first "m" ;
+                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                     rdf:first "male" ;
+                                                                     rdf:rest rdf:nil
+                                                                   ]
+                                                        ]
+                                             ]
+                                  ]
+                      ] .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGenus
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGenus> rdf:type owl:DatatypeProperty .
+:hasGenus rdf:type owl:DatatypeProperty .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHexNum
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHexNum> rdf:type owl:DatatypeProperty ;
-                                                                                        
-                                                                                        rdfs:range xsd:string ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
+:hasHexNum rdf:type owl:DatatypeProperty ;
+           
+           rdfs:range xsd:string ;
+           
+           rdfs:domain :CGFdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSourceType
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSourceType> rdf:type owl:DatatypeProperty ;
-                                                                                                 
-                                                                                                 rdfs:comment "Stool, blood"^^xsd:string ;
-                                                                                                 
-                                                                                                 rdfs:range xsd:string ;
-                                                                                                 
-                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
+:hasHumanSourceType rdf:type owl:DatatypeProperty ;
+                    
+                    rdfs:comment "Stool, blood"^^xsd:string ;
+                    
+                    rdfs:range xsd:string ;
+                    
+                    rdfs:domain :HUMANsource .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationDay
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationDay> rdf:type owl:DatatypeProperty .
+:hasIsolationDay rdf:type owl:DatatypeProperty .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationMonth
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationMonth> rdf:type owl:DatatypeProperty .
+:hasIsolationMonth rdf:type owl:DatatypeProperty .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationYear
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationYear> rdf:type owl:DatatypeProperty ;
-                                                                                               
-                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> .
+:hasIsolationYear rdf:type owl:DatatypeProperty ;
+                  
+                  rdfs:domain :TIMEdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude> rdf:type owl:DatatypeProperty ;
-                                                                                          
-                                                                                          rdfs:range xsd:decimal ;
-                                                                                          
-                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
+:hasLatitude rdf:type owl:DatatypeProperty ;
+             
+             rdfs:range xsd:decimal ;
+             
+             rdfs:domain :GPScoordinate .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude> rdf:type owl:DatatypeProperty ;
-                                                                                           
-                                                                                           rdfs:range xsd:decimal ;
-                                                                                           
-                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
+:hasLongitude rdf:type owl:DatatypeProperty ;
+              
+              rdfs:range xsd:decimal ;
+              
+              rdfs:domain :GPScoordinate .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthAdded
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthAdded> rdf:type owl:DatatypeProperty ;
-                                                                                            
-                                                                                            rdfs:comment "The month the info was added to DB"^^xsd:string .
+:hasMonthAdded rdf:type owl:DatatypeProperty ;
+               
+               rdfs:comment "The month the info was added to DB"^^xsd:string .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthCompleted
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthCompleted> rdf:type owl:DatatypeProperty ;
-                                                                                                
-                                                                                                rdfs:comment "The month CGF was completed"^^xsd:string .
+:hasMonthCompleted rdf:type owl:DatatypeProperty ;
+                   
+                   rdfs:comment "The month CGF was completed"^^xsd:string .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthofBirth
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthofBirth> rdf:type owl:DatatypeProperty ;
-                                                                                              
-                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
+:hasMonthofBirth rdf:type owl:DatatypeProperty ;
+                 
+                 rdfs:domain :HUMANsource .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName> rdf:type owl:DatatypeProperty ,
-                                                                                               owl:FunctionalProperty ;
-                                                                                      
-                                                                                      rdfs:range xsd:string ;
-                                                                                      
-                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
+:hasName rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         
+         rdfs:range xsd:string ;
+         
+         rdfs:domain :Object .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOrder
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOrder> rdf:type owl:DatatypeProperty .
+:hasOrder rdf:type owl:DatatypeProperty .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode> rdf:type owl:DatatypeProperty ;
-                                                                                            
-                                                                                            rdfs:range xsd:string ;
-                                                                                            
-                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
+:hasPostalCode rdf:type owl:DatatypeProperty ;
+               
+               rdfs:range xsd:string ;
+               
+               rdfs:domain :HUMANsource .
 
 
 
@@ -412,7 +412,7 @@
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)> rdf:type owl:DatatypeProperty ;
                                                                                                 
-                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
+                                                                                                rdfs:domain :CGFdata .
 
 
 
@@ -420,7 +420,7 @@
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> rdf:type owl:DatatypeProperty ;
                                                                                                    
-                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
+                                                                                                   rdfs:domain :CGFdata .
 
 
 
@@ -428,79 +428,79 @@
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)> rdf:type owl:DatatypeProperty ;
                                                                                                        
-                                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
+                                                                                                       rdfs:domain :CGFdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName> rdf:type owl:DatatypeProperty ;
-                                                                                                
-                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
+:hasScientificName rdf:type owl:DatatypeProperty ;
+                   
+                   rdfs:domain :Animal .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSeason
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSeason> rdf:type owl:DatatypeProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> ;
-                                                                                        
-                                                                                        rdfs:range [ rdf:type rdfs:Datatype ;
-                                                                                                     owl:oneOf [ rdf:type rdf:List ;
-                                                                                                                 rdf:first "Fall" ;
-                                                                                                                 rdf:rest [ rdf:type rdf:List ;
-                                                                                                                            rdf:first "Spring" ;
-                                                                                                                            rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                       rdf:first "Summer" ;
-                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                  rdf:first "Winter" ;
-                                                                                                                                                  rdf:rest rdf:nil
-                                                                                                                                                ]
-                                                                                                                                     ]
-                                                                                                                          ]
-                                                                                                               ]
-                                                                                                   ] .
+:hasSeason rdf:type owl:DatatypeProperty ;
+           
+           rdfs:domain :TIMEdata ;
+           
+           rdfs:range [ rdf:type rdfs:Datatype ;
+                        owl:oneOf [ rdf:type rdf:List ;
+                                    rdf:first "Fall" ;
+                                    rdf:rest [ rdf:type rdf:List ;
+                                               rdf:first "Spring" ;
+                                               rdf:rest [ rdf:type rdf:List ;
+                                                          rdf:first "Summer" ;
+                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                     rdf:first "Winter" ;
+                                                                     rdf:rest rdf:nil
+                                                                   ]
+                                                        ]
+                                             ]
+                                  ]
+                      ] .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSpecies
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSpecies> rdf:type owl:DatatypeProperty .
+:hasSpecies rdf:type owl:DatatypeProperty .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearAdded
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearAdded> rdf:type owl:DatatypeProperty ;
-                                                                                           
-                                                                                           rdfs:comment "The year the info was added to DB"^^xsd:string .
+:hasYearAdded rdf:type owl:DatatypeProperty ;
+              
+              rdfs:comment "The year the info was added to DB"^^xsd:string .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearCompleted
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearCompleted> rdf:type owl:DatatypeProperty ;
-                                                                                               
-                                                                                               rdfs:comment "The year CGF was completed"^^xsd:string .
+:hasYearCompleted rdf:type owl:DatatypeProperty ;
+                  
+                  rdfs:comment "The year CGF was completed"^^xsd:string .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearofBirth
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearofBirth> rdf:type owl:DatatypeProperty ;
-                                                                                             
-                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
+:hasYearofBirth rdf:type owl:DatatypeProperty ;
+                
+                rdfs:domain :HUMANsource .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild> rdf:type owl:DatatypeProperty ;
-                                                                                     
-                                                                                     rdfs:range xsd:boolean ;
-                                                                                     
-                                                                                     rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> .
+:isWild rdf:type owl:DatatypeProperty ;
+        
+        rdfs:range xsd:boolean ;
+        
+        rdfs:domain :ANIMALsource .
 
 
 
@@ -513,1057 +513,415 @@
 #################################################################
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AAFC_Lethbridge
+
+:AAFC_Lethbridge rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :Project .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> rdf:type owl:Class ;
-                                                                                           
-                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
+:ANIMALsource rdf:type owl:Class ;
+              
+              rdfs:subClassOf :SOURCEdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
+:Animal rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Object .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Auburn_USA
+
+:Auburn_USA rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
+:Avian rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Animal .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BCCDC
+
+:BCCDC rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Project .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BC_ProvLab
+
+:BC_ProvLab rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
+:BIOdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BMH_Ottawa
+
+:BMH_Ottawa rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Project .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#C-EnterNet
+
+:C-EnterNet rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Project .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CFIA
+
+:CFIA rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Project .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CFIA_Poultry_MBS
+
+:CFIA_Poultry_MBS rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
+:CGFdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CIPARS
+
+:CIPARS rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Camelid
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Camelid> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
+:Camelid rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Animal .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City> rdf:type owl:Class ;
-                                                                                   
-                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
+:City rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Place .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
+:Country rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Place .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource> rdf:type owl:Class ;
-                                                                                           
-                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
+:ENVIROsource rdf:type owl:Class ;
+              
+              rdfs:subClassOf :SOURCEdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
+:EPIdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> rdf:type owl:Class ;
-                                                                                          
-                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
+:Environment rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Object .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
+:Equine rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Animal .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#FoodNet
+
+:FoodNet rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
+:GEOdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> rdf:type owl:Class ;
-                                                                                            
-                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
+:GPScoordinate rdf:type owl:Class ;
+               
+               rdfs:subClassOf :Thing .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene> rdf:type owl:Class ;
-                                                                                   
-                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
+:Gene rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Object .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Guelph_45
+
+:Guelph_45 rdf:type owl:Class ;
+           
+           rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> rdf:type owl:Class ;
-                                                                                          
-                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
+:HUMANsource rdf:type owl:Class ;
+             
+             rdfs:subClassOf :SOURCEdata .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
+:Human rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Object .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Iceland_2011
+
+:Iceland_2011 rdf:type owl:Class ;
+              
+              rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
+:Isolate rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Object .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LFZ_Leth
+
+:LFZ_Leth rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Project .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LFZ_St._Hyacinthe
+
+:LFZ_St._Hyacinthe rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
+:LIMdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab> rdf:type owl:Class ;
-                                                                                  
-                                                                                  rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
+:Lab rdf:type owl:Class ;
+     
+     rdfs:subClassOf :Object .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Laboratoire_de_Sante_Publique_du_Quebec
+
+:Laboratoire_de_Sante_Publique_du_Quebec rdf:type owl:Class ;
+                                         
+                                         rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lagoon
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lagoon> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
+:Lagoon rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Water .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Nova_Scotia_Clinical
+
+:Nova_Scotia_Clinical rdf:type owl:Class ;
+                      
+                      rdfs:subClassOf :Project .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#OMAFRA
+
+:OMAFRA rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Project .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> rdf:type owl:Class .
+:Object rdf:type owl:Class .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
+:Place rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Object .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
+:Porcine rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Animal .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Project
+
+:Project rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Object .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province> rdf:type owl:Class ;
-                                                                                       
-                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
+:Province rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Place .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
+:Region rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Place .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#River
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#River> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
+:River rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Water .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant> rdf:type owl:Class ;
-                                                                                       
-                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
+:Ruminant rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Animal .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> rdf:type owl:Class ;
-                                                                                         
-                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
+:SOURCEdata rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Thing .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sewage
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sewage> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
+:Sewage rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Water .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Soil
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Soil> rdf:type owl:Class ;
-                                                                                   
-                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
+:Soil rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Environment .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> rdf:type owl:Class ;
-                                                                                       
-                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
+:TIMEdata rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Thing .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> rdf:type owl:Class .
+:Thing rdf:type owl:Class .
 
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
-
-
-
-
-###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
-
-@prefix : <http://www.semanticweb.org/student/ontologies/2016/0/untitled-ontology-33#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> .
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> rdf:type owl:Ontology .
-
-
-#################################################################
-#
-#    Object Properties
-#
-#################################################################
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#cameFrom
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#cameFrom> rdf:type owl:ObjectProperty ;
-                                                                                       
-                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource> ;
-                                                                                       
-                                                                                       rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal> rdf:type owl:ObjectProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> ;
-                                                                                        
-                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata> rdf:type owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFdata> rdf:type owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCity
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCity> rdf:type owl:ObjectProperty ;
-                                                                                      
-                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City> ;
-                                                                                      
-                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCoordinates
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCoordinates> rdf:type owl:ObjectProperty ;
-                                                                                             
-                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
-                                                                                             
-                                                                                             rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCountry
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCountry> rdf:type owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country> ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata> rdf:type owl:FunctionalProperty ,
-                                                                                                  owl:InverseFunctionalProperty ,
-                                                                                                  owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO> rdf:type owl:ObjectProperty ;
-                                                                                     
-                                                                                     rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
-                                                                                     
-                                                                                     rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGene
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGene> rdf:type owl:ObjectProperty ;
-                                                                                      
-                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> ;
-                                                                                      
-                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHuman
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHuman> rdf:type owl:ObjectProperty ;
-                                                                                       
-                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> ;
-                                                                                       
-                                                                                       rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLMIdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLMIdata> rdf:type owl:FunctionalProperty ,
-                                                                                                  owl:InverseFunctionalProperty ,
-                                                                                                  owl:ObjectProperty ;
-                                                                                         
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> ;
-                                                                                         
-                                                                                         rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProvince
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProvince> rdf:type owl:ObjectProperty ;
-                                                                                          
-                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
-                                                                                          
-                                                                                          rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegion
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegion> rdf:type owl:ObjectProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> ;
-                                                                                        
-                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSource
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSource> rdf:type owl:ObjectProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
-                                                                                        
-                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTIME
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTIME> rdf:type owl:ObjectProperty ;
-                                                                                      
-                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> ;
-                                                                                      
-                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab> rdf:type owl:ObjectProperty ;
-                                                                                           
-                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> ;
-                                                                                           
-                                                                                           rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab> .
-
-
-
-
-
-#################################################################
-#
-#    Data properties
-#
-#################################################################
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType> rdf:type owl:DatatypeProperty ;
-                                                                                                  
-                                                                                                  rdfs:comment "faecal, abbatoir, retail"^^xsd:string ;
-                                                                                                  
-                                                                                                  rdfs:range xsd:string ;
-                                                                                                  
-                                                                                                  rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasClass
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasClass> rdf:type owl:DatatypeProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComments
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComments> rdf:type owl:DatatypeProperty ;
-                                                                                          
-                                                                                          rdfs:range xsd:string ;
-                                                                                          
-                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayAdded
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayAdded> rdf:type owl:DatatypeProperty ;
-                                                                                          
-                                                                                          rdfs:comment "The day the info was added to DB"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayCompleted
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayCompleted> rdf:type owl:DatatypeProperty ;
-                                                                                              
-                                                                                              rdfs:comment "The day CGF data was completed"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayofBirth
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayofBirth> rdf:type owl:DatatypeProperty ;
-                                                                                            
-                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFamily
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFamily> rdf:type owl:DatatypeProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFingerprint
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFingerprint> rdf:type owl:DatatypeProperty ;
-                                                                                             
-                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender> rdf:type owl:DatatypeProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> ;
-                                                                                        
-                                                                                        rdfs:range [ rdf:type rdfs:Datatype ;
-                                                                                                     owl:oneOf [ rdf:type rdf:List ;
-                                                                                                                 rdf:first "f" ;
-                                                                                                                 rdf:rest [ rdf:type rdf:List ;
-                                                                                                                            rdf:first "female" ;
-                                                                                                                            rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                       rdf:first "m" ;
-                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                  rdf:first "male" ;
-                                                                                                                                                  rdf:rest rdf:nil
-                                                                                                                                                ]
-                                                                                                                                     ]
-                                                                                                                          ]
-                                                                                                               ]
-                                                                                                   ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGenus
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGenus> rdf:type owl:DatatypeProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHexNum
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHexNum> rdf:type owl:DatatypeProperty ;
-                                                                                        
-                                                                                        rdfs:range xsd:string ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSourceType
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSourceType> rdf:type owl:DatatypeProperty ;
-                                                                                                 
-                                                                                                 rdfs:comment "Stool, blood"^^xsd:string ;
-                                                                                                 
-                                                                                                 rdfs:range xsd:string ;
-                                                                                                 
-                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationDay
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationDay> rdf:type owl:DatatypeProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationMonth
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationMonth> rdf:type owl:DatatypeProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationYear
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationYear> rdf:type owl:DatatypeProperty ;
-                                                                                               
-                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude> rdf:type owl:DatatypeProperty ;
-                                                                                          
-                                                                                          rdfs:range xsd:decimal ;
-                                                                                          
-                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude> rdf:type owl:DatatypeProperty ;
-                                                                                           
-                                                                                           rdfs:range xsd:decimal ;
-                                                                                           
-                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthAdded
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthAdded> rdf:type owl:DatatypeProperty ;
-                                                                                            
-                                                                                            rdfs:comment "The month the info was added to DB"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthCompleted
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthCompleted> rdf:type owl:DatatypeProperty ;
-                                                                                                
-                                                                                                rdfs:comment "The month CGF was completed"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthofBirth
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthofBirth> rdf:type owl:DatatypeProperty ;
-                                                                                              
-                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName> rdf:type owl:DatatypeProperty ,
-                                                                                               owl:FunctionalProperty ;
-                                                                                      
-                                                                                      rdfs:range xsd:string ;
-                                                                                      
-                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOrder
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOrder> rdf:type owl:DatatypeProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode> rdf:type owl:DatatypeProperty ;
-                                                                                            
-                                                                                            rdfs:range xsd:string ;
-                                                                                            
-                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)> rdf:type owl:DatatypeProperty ;
-                                                                                                
-                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> rdf:type owl:DatatypeProperty ;
-                                                                                                   
-                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)> rdf:type owl:DatatypeProperty ;
-                                                                                                       
-                                                                                                       rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName> rdf:type owl:DatatypeProperty ;
-                                                                                                
-                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSeason
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSeason> rdf:type owl:DatatypeProperty ;
-                                                                                        
-                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> ;
-                                                                                        
-                                                                                        rdfs:range [ rdf:type rdfs:Datatype ;
-                                                                                                     owl:oneOf [ rdf:type rdf:List ;
-                                                                                                                 rdf:first "Fall" ;
-                                                                                                                 rdf:rest [ rdf:type rdf:List ;
-                                                                                                                            rdf:first "Spring" ;
-                                                                                                                            rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                       rdf:first "Summer" ;
-                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                  rdf:first "Winter" ;
-                                                                                                                                                  rdf:rest rdf:nil
-                                                                                                                                                ]
-                                                                                                                                     ]
-                                                                                                                          ]
-                                                                                                               ]
-                                                                                                   ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSpecies
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSpecies> rdf:type owl:DatatypeProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearAdded
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearAdded> rdf:type owl:DatatypeProperty ;
-                                                                                           
-                                                                                           rdfs:comment "The year the info was added to DB"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearCompleted
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearCompleted> rdf:type owl:DatatypeProperty ;
-                                                                                               
-                                                                                               rdfs:comment "The year CGF was completed"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearofBirth
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearofBirth> rdf:type owl:DatatypeProperty ;
-                                                                                             
-                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild> rdf:type owl:DatatypeProperty ;
-                                                                                     
-                                                                                     rdfs:range xsd:boolean ;
-                                                                                     
-                                                                                     rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> .
-
-
-
-
-
-#################################################################
-#
-#    Classes
-#
-#################################################################
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource> rdf:type owl:Class ;
-                                                                                           
-                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Camelid
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Camelid> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City> rdf:type owl:Class ;
-                                                                                   
-                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource> rdf:type owl:Class ;
-                                                                                           
-                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> rdf:type owl:Class ;
-                                                                                          
-                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate> rdf:type owl:Class ;
-                                                                                            
-                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene> rdf:type owl:Class ;
-                                                                                   
-                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource> rdf:type owl:Class ;
-                                                                                          
-                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lab> rdf:type owl:Class ;
-                                                                                  
-                                                                                  rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lagoon
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lagoon> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province> rdf:type owl:Class ;
-                                                                                       
-                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#River
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#River> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant> rdf:type owl:Class ;
-                                                                                       
-                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata> rdf:type owl:Class ;
-                                                                                         
-                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sewage
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sewage> rdf:type owl:Class ;
-                                                                                     
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Soil
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Soil> rdf:type owl:Class ;
-                                                                                   
-                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TIMEdata> rdf:type owl:Class ;
-                                                                                       
-                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing> rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water> rdf:type owl:Class ;
-                                                                                    
-                                                                                    rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment> .
+:Water rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Environment .
 
 
 
