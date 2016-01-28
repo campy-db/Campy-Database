@@ -16,6 +16,16 @@
 #################################################################
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAMRdata
+
+:hasAMRdata rdf:type owl:ObjectProperty ;
+            
+            rdfs:range :AMRdata ;
+            
+            rdfs:domain :BIOdata .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal
 
 :hasAnimal rdf:type owl:ObjectProperty ;
@@ -37,18 +47,6 @@
             rdfs:range :BIOdata ;
             
             rdfs:domain :Isolate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFdata
-
-:hasCGFdata rdf:type owl:FunctionalProperty ,
-                     owl:InverseFunctionalProperty ,
-                     owl:ObjectProperty ;
-            
-            rdfs:domain :BIOdata ;
-            
-            rdfs:range :CGFdata .
 
 
 
@@ -221,6 +219,16 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTYPINGdata
+
+:hasTYPINGdata rdf:type owl:ObjectProperty ;
+               
+               rdfs:domain :BIOdata ;
+               
+               rdfs:range :TYPINGdata .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab
 
 :hasTypingLab rdf:type owl:FunctionalProperty ,
@@ -239,6 +247,16 @@
 #    Data properties
 #
 #################################################################
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAlternateSampleID
+
+:hasAlternateSampleID rdf:type owl:DatatypeProperty ;
+                      
+                      rdfs:range xsd:string ;
+                      
+                      rdfs:domain :Isolate .
+
 
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType
@@ -343,6 +361,18 @@
                     rdfs:range xsd:string ;
                     
                     rdfs:domain :HUMANsource .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolateSpecies
+
+:hasIsolateSpecies rdf:type owl:DatatypeProperty ;
+                   
+                   rdfs:comment "In reference to the CSV containing Campy information, the species is the combination of columns \"Campy Species\" (BJ) and \"Alt. Speciation\" (BK). If the corresponding column values are not equal, column BJ is to be taken as the correct species"^^xsd:string ;
+                   
+                   rdfs:range xsd:string ;
+                   
+                   rdfs:domain :BIOdata .
 
 
 
@@ -473,6 +503,16 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPulsovar
+
+:hasPulsovar rdf:type owl:DatatypeProperty ;
+             
+             rdfs:range xsd:string ;
+             
+             rdfs:domain :PFGE .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)> rdf:type owl:DatatypeProperty ,
@@ -514,6 +554,16 @@
                    rdfs:range xsd:string ;
                    
                    rdfs:domain :Animal .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSerotype
+
+:hasSerotype rdf:type owl:DatatypeProperty ;
+             
+             rdfs:range xsd:string ;
+             
+             rdfs:domain :SEROTYPE .
 
 
 
@@ -609,6 +659,26 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isInSilico
+
+:isInSilico rdf:type owl:DatatypeProperty ;
+            
+            rdfs:range xsd:boolean ;
+            
+            rdfs:domain :TYPINGdata .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isInVitro
+
+:isInVitro rdf:type owl:DatatypeProperty ;
+           
+           rdfs:range xsd:boolean ;
+           
+           rdfs:domain :TYPINGdata .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild
 
 :isWild rdf:type owl:DatatypeProperty ,
@@ -634,6 +704,22 @@
 :AAFC_Lethbridge rdf:type owl:Class ;
                  
                  rdfs:subClassOf :Project .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ALLELIC
+
+:ALLELIC rdf:type owl:Class ;
+         
+         rdfs:subClassOf :TYPINGdata .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdata
+
+:AMRdata rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Thing .
 
 
 
@@ -685,6 +771,14 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BINARY
+
+:BINARY rdf:type owl:Class ;
+        
+        rdfs:subClassOf :TYPINGdata .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata
 
 :BIOdata rdf:type owl:Class ;
@@ -729,7 +823,7 @@
 
 :CGFdata rdf:type owl:Class ;
          
-         rdfs:subClassOf :Thing .
+         rdfs:subClassOf :BINARY .
 
 
 
@@ -737,7 +831,7 @@
 
 :CGFgene rdf:type owl:Class ;
          
-         rdfs:subClassOf :Object .
+         rdfs:subClassOf :Gene .
 
 
 
@@ -839,6 +933,14 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Gene
+
+:Gene rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Object .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Guelph_45
 
 :Guelph_45 rdf:type owl:Class ;
@@ -935,6 +1037,22 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLST
+
+:MLST rdf:type owl:Class ;
+      
+      rdfs:subClassOf :ALLELIC .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLSTgene
+
+:MLSTgene rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Gene .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Nova_Scotia_Clinical
 
 :Nova_Scotia_Clinical rdf:type owl:Class ;
@@ -954,6 +1072,14 @@
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object
 
 :Object rdf:type owl:Class .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#PFGE
+
+:PFGE rdf:type owl:Class ;
+      
+      rdfs:subClassOf :TYPINGdata .
 
 
 
@@ -1013,6 +1139,22 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SEROTYPE
+
+:SEROTYPE rdf:type owl:Class ;
+          
+          rdfs:subClassOf :TYPINGdata .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SMA_1
+
+:SMA_1 rdf:type owl:Class ;
+       
+       rdfs:subClassOf :PFGE .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata
 
 :SOURCEdata rdf:type owl:Class ;
@@ -1037,6 +1179,14 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TYPINGdata
+
+:TYPINGdata rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Thing .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing
 
 :Thing rdf:type owl:Class .
@@ -1048,6 +1198,30 @@
 :Water rdf:type owl:Class ;
        
        rdfs:subClassOf :Environment .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaAPeptide
+
+:flaAPeptide rdf:type owl:Class ;
+             
+             rdfs:subClassOf :ALLELIC .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaASVR
+
+:flaASVR rdf:type owl:Class ;
+         
+         rdfs:subClassOf :ALLELIC .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#porA_MOMP
+
+:porA_MOMP rdf:type owl:Class ;
+           
+           rdfs:subClassOf :ALLELIC .
 
 
 
@@ -1217,9 +1391,7 @@
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#bioTestISO
 
 :bioTestISO rdf:type owl:NamedIndividual ,
-                     :BIOdata ;
-            
-            :hasCGFdata :CgfTestISO .
+                     :BIOdata .
 
 
 
