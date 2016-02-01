@@ -167,26 +167,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFlaASVR_gene
-
-:hasFlaASVR_gene rdf:type owl:ObjectProperty ;
-                 
-                 rdfs:domain :flaASVR ;
-                 
-                 rdfs:range :flaASVRtyping_gene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFlaApeptide_gene
-
-:hasFlaApeptide_gene rdf:type owl:ObjectProperty ;
-                     
-                     rdfs:domain :flaAPeptide ;
-                     
-                     rdfs:range :flaAPeptideTyping_gene .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO
 
 :hasGEO rdf:type owl:FunctionalProperty ,
@@ -257,16 +237,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPorAMOMP_gene
-
-:hasPorAMOMP_gene rdf:type owl:ObjectProperty ;
-                  
-                  rdfs:range :porAMOMPtyping_gene ;
-                  
-                  rdfs:domain :porA_MOMP .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProject
 
 :hasProject rdf:type owl:ObjectProperty ;
@@ -311,6 +281,26 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSubProject
+
+:hasSubProject rdf:type owl:ObjectProperty ;
+               
+               rdfs:domain :LIMdata ;
+               
+               rdfs:range :SubProject .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSubRegion
+
+:hasSubRegion rdf:type owl:ObjectProperty ;
+              
+              rdfs:domain :EPIdata ;
+              
+              rdfs:range :subRegion .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTESTdata
 
 :hasTESTdata rdf:type owl:ObjectProperty ;
@@ -335,7 +325,22 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :partOfOutbreak rdf:type owl:ObjectProperty ;
                 
-                rdfs:domain :EPIdata .
+                rdfs:domain :EPIdata ;
+                
+                rdfs:range :Outbreak .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#usesTypingGene
+
+:usesTypingGene rdf:type owl:ObjectProperty ;
+                
+                rdfs:range :AllelicTypingGene ;
+                
+                rdfs:domain :MLST ,
+                            :flaAPeptide ,
+                            :flaASVR ,
+                            :porA_MOMP .
 
 
 
@@ -377,7 +382,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :hasAnimalSourceSpecific rdf:type owl:DatatypeProperty ,
                                   owl:FunctionalProperty ;
                          
-                         rdfs:comment "Corresonds with column \"Source Specific 2\" (AZ). Things like \"chicken breast\" and so forth. Also has \"Petting Zoo\" in this col so I don't if that should go in geodata or not."^^xsd:string ;
+                         rdfs:comment "Corresonds with column \"Source Specific 2\" (AZ). Things like \"chicken breast\" and so forth. Also has \"Petting Zoo\". Probably just manually put that into column \"Region L2\""^^xsd:string ;
                          
                          rdfs:range xsd:string ;
                          
@@ -939,14 +944,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 #################################################################
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AAFC_Lethbridge
-
-:AAFC_Lethbridge rdf:type owl:Class ;
-                 
-                 rdfs:subClassOf :Project .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ALLELIC
 
 :ALLELIC rdf:type owl:Class ;
@@ -1018,11 +1015,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
               
               rdfs:subClassOf :SOURCEdata ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty :hasAnimalSourceSpecific ;
-                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                owl:onDataRange xsd:string
-                              ] ,
-                              [ rdf:type owl:Restriction ;
                                 owl:onProperty :hasAnimalSourceType ;
                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                 owl:onDataRange xsd:string
@@ -1030,16 +1022,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :hasAnimal ;
                                 owl:allValuesFrom :Animal
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :isWild ;
-                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                owl:onDataRange xsd:boolean
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :isDomestic ;
-                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                owl:onDataRange xsd:boolean
                               ] .
 
 
@@ -1090,35 +1072,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Auburn_USA
-
-:Auburn_USA rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Project .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian
 
 :Avian rdf:type owl:Class ;
        
        rdfs:subClassOf :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BCCDC
-
-:BCCDC rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Project .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BC_ProvLab
-
-:BC_ProvLab rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Project .
 
 
 
@@ -1139,38 +1097,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                            owl:onProperty :hasTESTdata ;
                            owl:allValuesFrom :TESTdata
                          ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BMH_Ottawa
-
-:BMH_Ottawa rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Project .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#C-EnterNet
-
-:C-EnterNet rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Project .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CFIA
-
-:CFIA rdf:type owl:Class ;
-      
-      rdfs:subClassOf :Project .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CFIA_Poultry_MBS
-
-:CFIA_Poultry_MBS rdf:type owl:Class ;
-                  
-                  rdfs:subClassOf :Project .
 
 
 
@@ -1241,14 +1167,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :CGFgene rdf:type owl:Class ;
          
          rdfs:subClassOf :TypingGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CIPARS
-
-:CIPARS rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Project .
 
 
 
@@ -1324,17 +1242,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :DataNode rdf:type owl:Class ;
           
-          rdfs:subClassOf :Thing ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty :isInSilico ;
-                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onDataRange xsd:boolean
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty :isInVitro ;
-                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onDataRange xsd:boolean
-                          ] ;
+          rdfs:subClassOf :Thing ;
           
           owl:disjointWith :Object ;
           
@@ -1358,17 +1266,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :EPIdata rdf:type owl:Class ;
          
-         rdfs:subClassOf :DataNode ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasGEO ;
-                           owl:onClass :GEOdata ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasSource ;
-                           owl:onClass :SOURCEdata ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                         ] .
+         rdfs:subClassOf :DataNode .
 
 
 
@@ -1388,44 +1286,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#FoodNet
-
-:FoodNet rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Project .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata
 
 :GEOdata rdf:type owl:Class ;
          
-         rdfs:subClassOf :DataNode ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasProvince ;
-                           owl:onClass :Province ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasCountry ;
-                           owl:onClass :Country ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasCity ;
-                           owl:onClass :City ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasCoordinates ;
-                           owl:onClass :GPScoordinate ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasRegion ;
-                           owl:onClass :Region ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                         ] .
+         rdfs:subClassOf :DataNode .
 
 
 
@@ -1447,29 +1312,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Guelph_45
-
-:Guelph_45 rdf:type owl:Class ;
-           
-           rdfs:subClassOf :Project .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource
 
 :HUMANsource rdf:type owl:Class ;
              
              rdfs:subClassOf :SOURCEdata ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasDateOfBirth ;
-                               owl:onClass :DATE ;
-                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasHuman ;
-                               owl:onClass :Human ;
-                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
-                             ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :hasPostalCode ;
                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -1526,14 +1373,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Iceland_2011
-
-:Iceland_2011 rdf:type owl:Class ;
-              
-              rdfs:subClassOf :Project .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate
 
 :Isolate rdf:type owl:Class ;
@@ -1542,35 +1381,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LFZ_Leth
-
-:LFZ_Leth rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Project .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LFZ_St._Hyacinthe
-
-:LFZ_St._Hyacinthe rdf:type owl:Class ;
-                   
-                   rdfs:subClassOf :Project .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata
 
 :LIMdata rdf:type owl:Class ;
          
          rdfs:subClassOf :DataNode .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Laboratoire_de_Sante_Publique_du_Quebec
-
-:Laboratoire_de_Sante_Publique_du_Quebec rdf:type owl:Class ;
-                                         
-                                         rdfs:subClassOf :Project .
 
 
 
@@ -1586,7 +1401,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :MLST rdf:type owl:Class ;
       
-      rdfs:subClassOf :ALLELIC .
+      rdfs:subClassOf :ALLELIC ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :usesTypingGene ;
+                        owl:allValuesFrom :MLSTtyping_gene
+                      ] .
 
 
 
@@ -1603,22 +1422,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :Misc rdf:type owl:Class ;
       
       rdfs:subClassOf :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Nova_Scotia_Clinical
-
-:Nova_Scotia_Clinical rdf:type owl:Class ;
-                      
-                      rdfs:subClassOf :Project .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#OMAFRA
-
-:OMAFRA rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Project .
 
 
 
@@ -1680,11 +1483,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :Region rdf:type owl:Class ;
         
-        rdfs:subClassOf :Place ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasRegionSpecific ;
-                          owl:allValuesFrom xsd:string
-                        ] ;
+        rdfs:subClassOf :Place ;
         
         rdfs:comment "Corresponds with column \"Region_L1\" (BE)"^^xsd:string .
 
@@ -1756,6 +1555,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SubProject
+
+:SubProject rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Project .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TESTdata
 
 :TESTdata rdf:type owl:Class ;
@@ -1806,7 +1613,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :flaAPeptide rdf:type owl:Class ;
              
-             rdfs:subClassOf :ALLELIC .
+             rdfs:subClassOf :ALLELIC ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :usesTypingGene ;
+                               owl:allValuesFrom :flaAPeptideTyping_gene
+                             ] .
 
 
 
@@ -1822,7 +1633,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :flaASVR rdf:type owl:Class ;
          
-         rdfs:subClassOf :ALLELIC .
+         rdfs:subClassOf :ALLELIC ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :usesTypingGene ;
+                           owl:allValuesFrom :flaASVRtyping_gene
+                         ] .
 
 
 
@@ -1846,7 +1661,21 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :porA_MOMP rdf:type owl:Class ;
            
-           rdfs:subClassOf :ALLELIC .
+           rdfs:subClassOf :ALLELIC ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :usesTypingGene ;
+                             owl:allValuesFrom :porAMOMPtyping_gene
+                           ] .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#subRegion
+
+:subRegion rdf:type owl:Class ;
+           
+           rdfs:subClassOf :Region ;
+           
+           rdfs:comment "Column \"Region_L2\" (BF). Places like \"superstoe\", \"petting zoo\" (note column \"Source Specific 2\" (AZ) has some of this information. I think I'll just manually put those values into Region_L2). CFIA-Dart Research is also found in this column, not sure why. It's redundant info so I'll just manually remove it when the time comes."^^xsd:string .
 
 
 
@@ -1969,8 +1798,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#OMAFRA_34
 
-:OMAFRA_34 rdf:type owl:NamedIndividual ,
-                    :OMAFRA ;
+:OMAFRA_34 rdf:type owl:NamedIndividual ;
            
            :hasName "OMAFRA_34"^^xsd:string .
 
@@ -2040,6 +1868,15 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                  :CGFgene ;
         
         :hasName "d-gene"^^xsd:string .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#date001
+
+:date001 rdf:type owl:NamedIndividual ,
+                  :DATE ;
+         
+         :hasMonth "12"^^xsd:int .
 
 
 
