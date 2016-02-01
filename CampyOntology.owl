@@ -31,6 +31,18 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType
+
+:hasAnimalSourceType rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:comment "Column \"Sample Type 2\" (AW). Faecal, Retail, Abbatoir"^^xsd:string ;
+                     
+                     rdfs:domain :ANIMALsource ;
+                     
+                     rdfs:range :AnimalSampleType .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata
 
 :hasBIOdata rdf:type owl:FunctionalProperty ,
@@ -95,7 +107,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
               
               rdfs:range :DATE ;
               
-              rdfs:domain :LIMdata .
+              rdfs:domain :LIMSdata .
 
 
 
@@ -190,6 +202,18 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSourceType
+
+:hasHumanSourceType rdf:type owl:ObjectProperty ;
+                    
+                    rdfs:comment "Stool, blood. Note that the columns \"Clinical Sample Type\" and \"Source_Specific_2\" have the same info, but some fields are empty in one column but not the other. So the values for this property will be the combination of these 2 columns."^^xsd:string ;
+                    
+                    rdfs:domain :HUMANsource ;
+                    
+                    rdfs:range :HumanSampleType .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasISOLATIONdata
 
 :hasISOLATIONdata rdf:type owl:FunctionalProperty ,
@@ -223,7 +247,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
             
             rdfs:domain :Isolate ;
             
-            rdfs:range :LIMdata .
+            rdfs:range :LIMSdata .
 
 
 
@@ -241,7 +265,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :hasProject rdf:type owl:ObjectProperty ;
             
-            rdfs:domain :LIMdata ;
+            rdfs:domain :LIMSdata ;
             
             rdfs:range :Project .
 
@@ -285,7 +309,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :hasSubProject rdf:type owl:ObjectProperty ;
                
-               rdfs:domain :LIMdata ;
+               rdfs:domain :LIMSdata ;
                
                rdfs:range :SubProject .
 
@@ -315,7 +339,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :hasTypingLab rdf:type owl:ObjectProperty ;
               
-              rdfs:domain :LIMdata ;
+              rdfs:domain :LIMSdata ;
               
               rdfs:range :Typing_Lab .
 
@@ -390,19 +414,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceType
-
-:hasAnimalSourceType rdf:type owl:DatatypeProperty ,
-                              owl:FunctionalProperty ;
-                     
-                     rdfs:comment "faecal, abbatoir, or retail. Corresponds to the column \"Sample Type 2\""^^xsd:string ;
-                     
-                     rdfs:range xsd:string ;
-                     
-                     rdfs:domain :ANIMALsource .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasC_EnterNetNum
 
 :hasC_EnterNetNum rdf:type owl:DatatypeProperty ,
@@ -410,7 +421,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                   
                   rdfs:range xsd:string ;
                   
-                  rdfs:domain :LIMdata .
+                  rdfs:domain :LIMSdata .
 
 
 
@@ -421,7 +432,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                    
                    rdfs:range xsd:string ;
                    
-                   rdfs:domain :LIMdata .
+                   rdfs:domain :LIMSdata .
 
 
 
@@ -533,18 +544,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSourceType
-
-:hasHumanSourceType rdf:type owl:DatatypeProperty ;
-                    
-                    rdfs:comment "Stool, blood. Note that the columns \"Clinical Sample Type\" and \"Source_Specific_2\" have the same info, but some fields are empty in one column but not the other. So the values for this property will be the combination of these 2 columns."^^xsd:string ;
-                    
-                    rdfs:range xsd:string ;
-                    
-                    rdfs:domain :HUMANsource .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolateSpecies
 
 :hasIsolateSpecies rdf:type owl:DatatypeProperty ,
@@ -565,7 +564,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
            
            rdfs:range xsd:string ;
            
-           rdfs:domain :LIMdata .
+           rdfs:domain :LIMSdata .
 
 
 
@@ -639,7 +638,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
           
           rdfs:range xsd:string ;
           
-          rdfs:domain :LIMdata .
+          rdfs:domain :LIMSdata .
 
 
 
@@ -760,7 +759,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                        
                        rdfs:range xsd:string ;
                        
-                       rdfs:domain :LIMdata .
+                       rdfs:domain :LIMSdata .
 
 
 
@@ -970,10 +969,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
          
          rdfs:subClassOf :Object ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasMIC ;
-                           owl:allValuesFrom xsd:integer
-                         ] ,
-                         [ rdf:type owl:Restriction ;
                            owl:onProperty :hasSusceptibilityLevel ;
                            owl:allValuesFrom [ rdf:type rdfs:Datatype ;
                                                owl:oneOf [ rdf:type rdf:List ;
@@ -1005,6 +1000,10 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                     ]
                                                          ]
                                              ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasMIC ;
+                           owl:allValuesFrom xsd:integer
                          ] .
 
 
@@ -1014,11 +1013,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :ANIMALsource rdf:type owl:Class ;
               
               rdfs:subClassOf :SOURCEdata ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :hasAnimalSourceType ;
-                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                owl:onDataRange xsd:string
-                              ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :hasAnimal ;
                                 owl:allValuesFrom :Animal
@@ -1040,17 +1034,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
         
         rdfs:subClassOf :Object ,
                         [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoGenus ;
-                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoOrder ;
-                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoFamily ;
+                          owl:onProperty :hasTaxoClass ;
                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                           owl:onDataRange xsd:string
                         ] ,
@@ -1060,15 +1044,33 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                           owl:onDataRange xsd:string
                         ] ,
                         [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasScientificName ;
+                          owl:onProperty :hasTaxoOrder ;
                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                           owl:onDataRange xsd:string
                         ] ,
                         [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoClass ;
+                          owl:onProperty :hasTaxoGenus ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasTaxoFamily ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasScientificName ;
                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                           owl:onDataRange xsd:string
                         ] .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AnimalSampleType
+
+:AnimalSampleType rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :SampleType .
 
 
 
@@ -1092,11 +1094,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 :BIOdata rdf:type owl:Class ;
          
-         rdfs:subClassOf :DataNode ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasTESTdata ;
-                           owl:allValuesFrom :TESTdata
-                         ] .
+         rdfs:subClassOf :DataNode .
 
 
 
@@ -1105,36 +1103,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :CGFdata rdf:type owl:Class ;
          
          rdfs:subClassOf :BINARY ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasHexNum ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                             owl:onDatatype xsd:string ;
-                                             owl:withRestrictions ( [ xsd:pattern "[0-9a-fA-F]+"
-                                                                    ]
-                                                                  )
-                                           ]
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                             owl:onDatatype xsd:string ;
-                                             owl:withRestrictions ( [ xsd:pattern "[0-9]+.[0-9]+"
-                                                                    ]
-                                                                  )
-                                           ]
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasFingerprint ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                             owl:onDatatype xsd:string ;
-                                             owl:withRestrictions ( [ xsd:pattern "[01]{40}"
-                                                                    ]
-                                                                  )
-                                           ]
-                         ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)> ;
                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -1151,6 +1119,36 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                            owl:onDataRange [ rdf:type rdfs:Datatype ;
                                              owl:onDatatype xsd:string ;
                                              owl:withRestrictions ( [ xsd:pattern "[0-9]"
+                                                                    ]
+                                                                  )
+                                           ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onDataRange [ rdf:type rdfs:Datatype ;
+                                             owl:onDatatype xsd:string ;
+                                             owl:withRestrictions ( [ xsd:pattern "[0-9]+.[0-9]+"
+                                                                    ]
+                                                                  )
+                                           ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasHexNum ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onDataRange [ rdf:type rdfs:Datatype ;
+                                             owl:onDatatype xsd:string ;
+                                             owl:withRestrictions ( [ xsd:pattern "[0-9a-fA-F]+"
+                                                                    ]
+                                                                  )
+                                           ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasFingerprint ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onDataRange [ rdf:type rdfs:Datatype ;
+                                             owl:onDatatype xsd:string ;
+                                             owl:withRestrictions ( [ xsd:pattern "[01]{40}"
                                                                     ]
                                                                   )
                                            ]
@@ -1200,18 +1198,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
       
       rdfs:subClassOf :DataNode ,
                       [ rdf:type owl:Restriction ;
-                        owl:onProperty :hasMonth ;
-                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                        owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                          owl:onDatatype xsd:int ;
-                                          owl:withRestrictions ( [ xsd:minInclusive 1
-                                                                 ]
-                                                                 [ xsd:maxInclusive 12
-                                                                 ]
-                                                               )
-                                        ]
-                      ] ,
-                      [ rdf:type owl:Restriction ;
                         owl:onProperty :hasDay ;
                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                         owl:onDataRange [ rdf:type rdfs:Datatype ;
@@ -1231,6 +1217,18 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                           owl:withRestrictions ( [ xsd:maxInclusive 9999
                                                                  ]
                                                                  [ xsd:minInclusive 0
+                                                                 ]
+                                                               )
+                                        ]
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasMonth ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onDataRange [ rdf:type rdfs:Datatype ;
+                                          owl:onDatatype xsd:int ;
+                                          owl:withRestrictions ( [ xsd:maxInclusive 12
+                                                                 ]
+                                                                 [ xsd:minInclusive 1
                                                                  ]
                                                                )
                                         ]
@@ -1318,16 +1316,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
              
              rdfs:subClassOf :SOURCEdata ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasPostalCode ;
-                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:string
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasHumanSourceType ;
-                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:string
-                             ] ,
-                             [ rdf:type owl:Restriction ;
                                owl:onProperty :hasGender ;
                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                owl:onDataRange [ rdf:type rdfs:Datatype ;
@@ -1339,6 +1327,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                       ]
                                                            ]
                                                ]
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasPostalCode ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:string
                              ] .
 
 
@@ -1348,6 +1341,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :Human rdf:type owl:Class ;
        
        rdfs:subClassOf :Object .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HumanSampleType
+
+:HumanSampleType rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :SampleType .
 
 
 
@@ -1381,11 +1382,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMdata
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMSdata
 
-:LIMdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :DataNode .
+:LIMSdata rdf:type owl:Class ;
+          
+          rdfs:subClassOf :DataNode .
 
 
 
@@ -1536,6 +1537,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :SOURCEdata rdf:type owl:Class ;
             
             rdfs:subClassOf :DataNode .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SampleType
+
+:SampleType rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Thing .
 
 
 
@@ -1711,8 +1720,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :AsourceTestISO rdf:type owl:NamedIndividual ,
                          :ANIMALsource ;
                 
-                :hasAnimalSourceType "Faecal"^^xsd:string ;
-                
                 :isWild "true"^^xsd:boolean ;
                 
                 :hasAnimal :chicken .
@@ -1788,7 +1795,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LimTestISO
 
 :LimTestISO rdf:type owl:NamedIndividual ,
-                     :LIMdata ;
+                     :LIMSdata ;
             
             :hasTypingLab :LFZ_Guelph ;
             
