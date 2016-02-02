@@ -4,2007 +4,1487 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> .
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> rdf:type owl:Ontology ;
-                                                                              
-                                                                              rdfs:comment """An ontology for storing information related to Campylobacter Jejuni. The main categories of info are: EPI data (source type, source location, isolation date etc.), BIO data (typing results, AMR info etc.), and LIMS data (typing lab, project etc.). 
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> a owl:Ontology ;
+	rdfs:comment """An ontology for storing information related to Campylobacter Jejuni. The main categories of info are: EPI data (source type, source location, isolation date etc.), BIO data (typing results, AMR info etc.), and LIMS data (typing lab, project etc.). 
 Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. """^^xsd:string .
-
-
-#################################################################
-#
-#    Object Properties
-#
-#################################################################
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal
-
-:hasAnimal rdf:type owl:ObjectProperty ;
-           
-           rdfs:comment "Should be functional; an isolate can only have one animal source. But there were some that had goat/sheep as animal source"^^xsd:string ;
-           
-           rdfs:domain :ANIMALsource ;
-           
-           rdfs:range :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSampleType
-
-:hasAnimalSampleType rdf:type owl:ObjectProperty ;
-                     
-                     rdfs:domain :ANIMALsource ;
-                     
-                     rdfs:range :AnimalSampleType .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata
-
-:hasBIOdata rdf:type owl:FunctionalProperty ,
-                     owl:InverseFunctionalProperty ,
-                     owl:ObjectProperty ;
-            
-            rdfs:range :BIOdata ;
-            
-            rdfs:domain :Isolate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFgene
-
-:hasCGFgene rdf:type owl:ObjectProperty ;
-            
-            rdfs:domain :CGFdata ;
-            
-            rdfs:range :CGFgene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCity
-
-:hasCity rdf:type owl:FunctionalProperty ,
-                  owl:ObjectProperty ;
-         
-         rdfs:range :City ;
-         
-         rdfs:domain :GEOdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCoordinates
-
-:hasCoordinates rdf:type owl:FunctionalProperty ,
-                         owl:InverseFunctionalProperty ,
-                         owl:ObjectProperty ;
-                
-                rdfs:domain :GEOdata ;
-                
-                rdfs:range :GPScoordinate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCountry
-
-:hasCountry rdf:type owl:FunctionalProperty ,
-                     owl:ObjectProperty ;
-            
-            rdfs:range :Country ;
-            
-            rdfs:domain :GEOdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateAdded
-
-:hasDateAdded rdf:type owl:ObjectProperty ;
-              
-              rdfs:comment "The date the isolate was added to the database. Column \"Date added to Database\" (CY)"^^xsd:string ;
-              
-              rdfs:range :DATE ;
-              
-              rdfs:domain :LIMSdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateCompleted
-
-:hasDateCompleted rdf:type owl:ObjectProperty ;
-                  
-                  rdfs:comment "The day that the CGF typing was completed. Column \"Date CGF completed\" (CX)"^^xsd:string ;
-                  
-                  rdfs:domain :CGFdata ;
-                  
-                  rdfs:range :DATE .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateOfBirth
-
-:hasDateOfBirth rdf:type owl:ObjectProperty ;
-                
-                rdfs:comment "Column \"Patient D.O.B/Age\" (CJ)"^^xsd:string ;
-                
-                rdfs:range :DATE ;
-                
-                rdfs:domain :HUMANsource .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateProcessed
-
-:hasDateProcessed rdf:type owl:ObjectProperty ;
-                  
-                  rdfs:comment "?? Column \"date processed\" (CT)"^^xsd:string ;
-                  
-                  rdfs:range :DATE ;
-                  
-                  rdfs:domain :ISOLATIONdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDrug
-
-:hasDrug rdf:type owl:ObjectProperty ;
-         
-         rdfs:domain :AMRdata ;
-         
-         rdfs:range :AMRdrug .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata
-
-:hasEPIdata rdf:type owl:FunctionalProperty ,
-                     owl:InverseFunctionalProperty ,
-                     owl:ObjectProperty ;
-            
-            rdfs:range :EPIdata ;
-            
-            rdfs:domain :Isolate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEnvironment
-
-:hasEnvironment rdf:type owl:ObjectProperty ;
-                
-                rdfs:domain :ENVIROsource ;
-                
-                rdfs:range :Environment .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO
-
-:hasGEO rdf:type owl:FunctionalProperty ,
-                 owl:InverseFunctionalProperty ,
-                 owl:ObjectProperty ;
-        
-        rdfs:domain :EPIdata ;
-        
-        rdfs:range :GEOdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHuman
-
-:hasHuman rdf:type owl:FunctionalProperty ,
-                   owl:ObjectProperty ;
-          
-          rdfs:domain :HUMANsource ;
-          
-          rdfs:range :Human .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSampleType
-
-:hasHumanSampleType rdf:type owl:ObjectProperty ;
-                    
-                    rdfs:domain :HUMANsource ;
-                    
-                    rdfs:range :HumanSampleType .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasISOLATIONdata
-
-:hasISOLATIONdata rdf:type owl:FunctionalProperty ,
-                           owl:InverseFunctionalProperty ,
-                           owl:ObjectProperty ;
-                  
-                  rdfs:range :ISOLATIONdata ;
-                  
-                  rdfs:domain :Isolate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationDate
-
-:hasIsolationDate rdf:type owl:FunctionalProperty ,
-                           owl:ObjectProperty ;
-                  
-                  rdfs:comment "Columns \"Day\" (BG), \"Month\" (BH), and \"Year\" (BI)"^^xsd:string ;
-                  
-                  rdfs:range :DATE ;
-                  
-                  rdfs:domain :EPIdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLIMdata
-
-:hasLIMdata rdf:type owl:FunctionalProperty ,
-                     owl:InverseFunctionalProperty ,
-                     owl:ObjectProperty ;
-            
-            rdfs:domain :Isolate ;
-            
-            rdfs:range :LIMSdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTgene
-
-:hasMLSTgene rdf:type owl:ObjectProperty ;
-             
-             rdfs:domain :MLST ;
-             
-             rdfs:range :MLSTtyping_gene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProject
-
-:hasProject rdf:type owl:ObjectProperty ;
-            
-            rdfs:domain :LIMSdata ;
-            
-            rdfs:range :Project .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProvince
-
-:hasProvince rdf:type owl:FunctionalProperty ,
-                      owl:ObjectProperty ;
-             
-             rdfs:domain :GEOdata ;
-             
-             rdfs:range :Province .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegion
-
-:hasRegion rdf:type owl:FunctionalProperty ,
-                    owl:ObjectProperty ;
-           
-           rdfs:domain :GEOdata ;
-           
-           rdfs:range :Region .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSource
-
-:hasSource rdf:type owl:FunctionalProperty ,
-                    owl:InverseFunctionalProperty ,
-                    owl:ObjectProperty ;
-           
-           rdfs:domain :EPIdata ;
-           
-           rdfs:range :SOURCEdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSubProject
-
-:hasSubProject rdf:type owl:ObjectProperty ;
-               
-               rdfs:domain :LIMSdata ;
-               
-               rdfs:range :SubProject .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSubRegion
-
-:hasSubRegion rdf:type owl:ObjectProperty ;
-              
-              rdfs:domain :EPIdata ;
-              
-              rdfs:range :subRegion .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTESTdata
-
-:hasTESTdata rdf:type owl:ObjectProperty ;
-             
-             rdfs:domain :BIOdata ;
-             
-             rdfs:range :TESTdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab
-
-:hasTypingLab rdf:type owl:ObjectProperty ;
-              
-              rdfs:domain :LIMSdata ;
-              
-              rdfs:range :Typing_Lab .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#partOfOutbreak
-
-:partOfOutbreak rdf:type owl:ObjectProperty ;
-                
-                rdfs:domain :EPIdata ;
-                
-                rdfs:range :Outbreak .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#usesTypingGene
-
-:usesTypingGene rdf:type owl:ObjectProperty ;
-                
-                rdfs:range :AllelicTypingGene ;
-                
-                rdfs:domain :MLST ,
-                            :flaAPeptide ,
-                            :flaASVR ,
-                            :porA_MOMP .
-
-
-
-
-
-#################################################################
-#
-#    Data properties
-#
-#################################################################
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAlleleIndex
-
-:hasAlleleIndex rdf:type owl:DatatypeProperty ,
-                         owl:FunctionalProperty ;
-                
-                rdfs:range xsd:integer ;
-                
-                rdfs:domain :AllelicTypingGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAlternateSampleID
-
-:hasAlternateSampleID rdf:type owl:DatatypeProperty ,
-                               owl:FunctionalProperty ;
-                      
-                      rdfs:comment "A combination of the columns \"Alternate Sample ID\" (BM) and \"Alt. Sample ID\" (ES)."^^xsd:string ;
-                      
-                      rdfs:range xsd:string ;
-                      
-                      rdfs:domain :Isolate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceSpecific
-
-:hasAnimalSourceSpecific rdf:type owl:DatatypeProperty ,
-                                  owl:FunctionalProperty ;
-                         
-                         rdfs:comment "Corresonds with column \"Source Specific 2\" (AZ). Things like \"chicken breast\" and so forth. Also has \"Petting Zoo\". Probably just manually put that into column \"Region L2\""^^xsd:string ;
-                         
-                         rdfs:range xsd:string ;
-                         
-                         rdfs:domain :ANIMALsource .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasC_EnterNetNum
-
-:hasC_EnterNetNum rdf:type owl:DatatypeProperty ,
-                           owl:FunctionalProperty ;
-                  
-                  rdfs:range xsd:string ;
-                  
-                  rdfs:domain :LIMSdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasC_EnterNetSite
-
-:hasC_EnterNetSite rdf:type owl:DatatypeProperty ,
-                            owl:FunctionalProperty ;
-                   
-                   rdfs:range xsd:string ;
-                   
-                   rdfs:domain :LIMSdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasClonalComplex
-
-:hasClonalComplex rdf:type owl:DatatypeProperty ,
-                           owl:FunctionalProperty ;
-                  
-                  rdfs:comment "Derived from allele indices for MLST typing"^^xsd:string ;
-                  
-                  rdfs:range xsd:string ;
-                  
-                  rdfs:domain :MLST .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComments
-
-:hasComments rdf:type owl:DatatypeProperty ;
-             
-             rdfs:range xsd:string ;
-             
-             rdfs:domain :Isolate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDay
-
-:hasDay rdf:type owl:DatatypeProperty ,
-                 owl:FunctionalProperty ;
-        
-        rdfs:range xsd:int ;
-        
-        rdfs:domain :DATE .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDilution
-
-:hasDilution rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
-             
-             rdfs:comment "Column \"Dilution\" (CO)"^^xsd:string ;
-             
-             rdfs:range xsd:string ;
-             
-             rdfs:domain :ISOLATIONdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFingerprint
-
-:hasFingerprint rdf:type owl:DatatypeProperty ,
-                         owl:FunctionalProperty ;
-                
-                rdfs:range xsd:string ;
-                
-                rdfs:domain :CGFdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender
-
-:hasGender rdf:type owl:DatatypeProperty ,
-                    owl:FunctionalProperty ;
-           
-           rdfs:comment "Male or female" ;
-           
-           rdfs:range xsd:string ;
-           
-           rdfs:domain :HUMANsource .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGlycStock
-
-:hasGlycStock rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
-              
-              rdfs:comment "Column \"No glycerol stock\" (CQ). The col will be changed to Glycerol stock, because as of right now, the values in the column are 1 or just empty. So 1 means true; no glyc stock. While empty cells can be interpreted as false; yes glyc stock. Not very intuitive. So we'll change it so the empty ones are changed into 1s and the 1s are changed into 0. "^^xsd:string ;
-              
-              rdfs:range xsd:boolean ;
-              
-              rdfs:domain :ISOLATIONdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHexNum
-
-:hasHexNum rdf:type owl:DatatypeProperty ,
-                    owl:FunctionalProperty ;
-           
-           rdfs:range xsd:string ;
-           
-           rdfs:domain :CGFdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHip0
-
-:hasHip0 rdf:type owl:DatatypeProperty ,
-                  owl:FunctionalProperty ;
-         
-         rdfs:comment "Column \"HipO\" (CS). Has values 1, 0, (for true and false), and \"?\". Empty cells are not to be interpreted as false or true. They just mean the test wan't done I guess."^^xsd:string ;
-         
-         rdfs:range xsd:string ;
-         
-         rdfs:domain :ISOLATIONdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolateSpecies
-
-:hasIsolateSpecies rdf:type owl:DatatypeProperty ,
-                            owl:FunctionalProperty ;
-                   
-                   rdfs:comment "In reference to the CSV containing Campy information, the species is the combination of columns \"Campy Species\" (BJ) and \"Alt. Speciation\" (BK). If the corresponding column values are not equal, column BJ is to be taken as the correct species"^^xsd:string ;
-                   
-                   rdfs:range xsd:string ;
-                   
-                   rdfs:domain :Isolate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLDMSid
-
-:hasLDMSid rdf:type owl:DatatypeProperty ,
-                    owl:FunctionalProperty ;
-           
-           rdfs:range xsd:string ;
-           
-           rdfs:domain :LIMSdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude
-
-:hasLatitude rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
-             
-             rdfs:comment "To be in signed degree format. Column \"Latitude\" (EQ)"^^xsd:string ;
-             
-             rdfs:range xsd:decimal ;
-             
-             rdfs:domain :GPScoordinate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude
-
-:hasLongitude rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
-              
-              rdfs:comment "To be in signed degree format. Column \"Longitude\" (ER)"^^xsd:string ;
-              
-              rdfs:range xsd:decimal ;
-              
-              rdfs:domain :GPScoordinate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMIC
-
-:hasMIC rdf:type owl:DatatypeProperty ,
-                 owl:FunctionalProperty ;
-        
-        rdfs:comment "Column DT to EC"^^xsd:string ;
-        
-        rdfs:range xsd:string ;
-        
-        rdfs:domain :AMRdrug .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMedia
-
-:hasMedia rdf:type owl:DatatypeProperty ,
-                   owl:FunctionalProperty ;
-          
-          rdfs:comment "Column \"Media\" (CM)"^^xsd:string ;
-          
-          rdfs:range xsd:string ;
-          
-          rdfs:domain :ISOLATIONdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonth
-
-:hasMonth rdf:type owl:DatatypeProperty ,
-                   owl:FunctionalProperty ;
-          
-          rdfs:range xsd:int ;
-          
-          rdfs:domain :DATE .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasNMLid
-
-:hasNMLid rdf:type owl:DatatypeProperty ,
-                   owl:FunctionalProperty ;
-          
-          rdfs:range xsd:string ;
-          
-          rdfs:domain :LIMSdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName
-
-:hasName rdf:type owl:DatatypeProperty ,
-                  owl:FunctionalProperty ;
-         
-         rdfs:comment "Note that when naming an isolate, it is to have it's original name, ie it's strain name found in the csv with colons, spaces, parantheses etc. The uri for an isolate is the strain name from the csv without colons, spaces, parentheses etc."^^xsd:string ;
-         
-         rdfs:range xsd:string ;
-         
-         rdfs:domain :Object .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOriginalSampleName
-
-:hasOriginalSampleName rdf:type owl:DatatypeProperty ,
-                                owl:FunctionalProperty ;
-                       
-                       rdfs:comment "Corresponds with column \"Mostly Original Sample Names ...\" (CU)"^^xsd:string ;
-                       
-                       rdfs:range xsd:string ;
-                       
-                       rdfs:domain :Isolate .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode
-
-:hasPostalCode rdf:type owl:DatatypeProperty ,
-                        owl:FunctionalProperty ;
-               
-               rdfs:range xsd:string ;
-               
-               rdfs:domain :HUMANsource .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPulsovar
-
-:hasPulsovar rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
-             
-             rdfs:range xsd:string ;
-             
-             rdfs:domain :PFGE .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)> rdf:type owl:DatatypeProperty ,
-                                                                                                         owl:FunctionalProperty ;
-                                                                                                
-                                                                                                rdfs:range xsd:string ;
-                                                                                                
-                                                                                                rdfs:domain :CGFdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> rdf:type owl:DatatypeProperty ,
-                                                                                                            owl:FunctionalProperty ;
-                                                                                                   
-                                                                                                   rdfs:range xsd:string ;
-                                                                                                   
-                                                                                                   rdfs:domain :CGFdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)> rdf:type owl:DatatypeProperty ,
-                                                                                                                owl:FunctionalProperty ;
-                                                                                                       
-                                                                                                       rdfs:range xsd:string ;
-                                                                                                       
-                                                                                                       rdfs:domain :CGFdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegionSpecific
-
-:hasRegionSpecific rdf:type owl:DatatypeProperty ,
-                            owl:FunctionalProperty ;
-                   
-                   rdfs:comment "Corresponds with column \"Region_L2\" (BF)"^^xsd:string ,
-                                "Note the region field (\"Region_L1\" (BE)) is sometimes empty while the specific region (\"Region_L2\" (BF)) is not. In such a case, Region is set as the value found in \"Region_L2\" "^^xsd:string ;
-                   
-                   rdfs:range xsd:string ;
-                   
-                   rdfs:domain :Region .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasST
-
-:hasST rdf:type owl:DatatypeProperty ,
-                owl:FunctionalProperty ;
-       
-       rdfs:comment "Derived from allele indices for MLST typing. Column \"ST\" (BS)"^^xsd:string ;
-       
-       rdfs:range xsd:integer ;
-       
-       rdfs:domain :MLST .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSampleCollectionID
-
-:hasSampleCollectionID rdf:type owl:DatatypeProperty ,
-                                owl:FunctionalProperty ;
-                       
-                       rdfs:comment "Column \"Sample Collection ID\" (ET)"^^xsd:string ;
-                       
-                       rdfs:range xsd:string ;
-                       
-                       rdfs:domain :LIMSdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName
-
-:hasScientificName rdf:type owl:DatatypeProperty ,
-                            owl:FunctionalProperty ;
-                   
-                   rdfs:range xsd:string ;
-                   
-                   rdfs:domain :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSerotype
-
-:hasSerotype rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
-             
-             rdfs:range xsd:string ;
-             
-             rdfs:domain :SEROTYPE .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSusceptibilityLevel
-
-:hasSusceptibilityLevel rdf:type owl:DatatypeProperty ,
-                                 owl:FunctionalProperty ;
-                        
-                        rdfs:comment "Column EE to EO. Note column EE is the \"r_pattern\" and is derivable from the MIC of the drugs tested. We choose not to store the \"r_pattern\" as we can just use a sparl query to get it"^^xsd:string ;
-                        
-                        rdfs:range xsd:string ;
-                        
-                        rdfs:domain :AMRdrug .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoClass
-
-:hasTaxoClass rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
-              
-              rdfs:range xsd:string ;
-              
-              rdfs:domain :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoFamily
-
-:hasTaxoFamily rdf:type owl:DatatypeProperty ,
-                        owl:FunctionalProperty ;
-               
-               rdfs:range xsd:string ;
-               
-               rdfs:domain :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoGenus
-
-:hasTaxoGenus rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
-              
-              rdfs:range xsd:string ;
-              
-              rdfs:domain :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoOrder
-
-:hasTaxoOrder rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
-              
-              rdfs:range xsd:string ;
-              
-              rdfs:domain :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoSpecies
-
-:hasTaxoSpecies rdf:type owl:DatatypeProperty ,
-                         owl:FunctionalProperty ;
-                
-                rdfs:range xsd:string ;
-                
-                rdfs:domain :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTechnique
-
-:hasTechnique rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
-              
-              rdfs:comment "Column \"technique\" (CN)"^^xsd:string ;
-              
-              rdfs:range xsd:string ;
-              
-              rdfs:domain :ISOLATIONdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTreatment
-
-:hasTreatment rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
-              
-              rdfs:comment "Column \"Treatment\" (CP)"^^xsd:string ;
-              
-              rdfs:range xsd:string ;
-              
-              rdfs:domain :ISOLATIONdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYear
-
-:hasYear rdf:type owl:DatatypeProperty ,
-                  owl:FunctionalProperty ;
-         
-         rdfs:range xsd:int ;
-         
-         rdfs:domain :DATE .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isDomestic
-
-:isDomestic rdf:type owl:DatatypeProperty ,
-                     owl:FunctionalProperty ;
-            
-            rdfs:range xsd:boolean ;
-            
-            rdfs:domain :ANIMALsource .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isInSilico
-
-:isInSilico rdf:type owl:DatatypeProperty ,
-                     owl:FunctionalProperty ;
-            
-            rdfs:range xsd:boolean ;
-            
-            rdfs:domain :TESTdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isInVitro
-
-:isInVitro rdf:type owl:DatatypeProperty ,
-                    owl:FunctionalProperty ;
-           
-           rdfs:range xsd:boolean ;
-           
-           rdfs:domain :TESTdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild
-
-:isWild rdf:type owl:DatatypeProperty ,
-                 owl:FunctionalProperty ;
-        
-        rdfs:range xsd:boolean ;
-        
-        rdfs:domain :ANIMALsource .
-
-
-
-
-
-#################################################################
-#
-#    Classes
-#
-#################################################################
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ALLELIC
-
-:ALLELIC rdf:type owl:Class ;
-         
-         rdfs:subClassOf :TYPINGdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdata
-
-:AMRdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :TESTdata ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasDrug ;
-                           owl:allValuesFrom :AMRdrug
-                         ] ;
-         
-         owl:disjointWith :TYPINGdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug
-
-:AMRdrug rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Object ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasMIC ;
-                           owl:allValuesFrom xsd:integer
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasSusceptibilityLevel ;
-                           owl:allValuesFrom [ rdf:type rdfs:Datatype ;
-                                               owl:oneOf [ rdf:type rdf:List ;
-                                                           rdf:first "Intermediate" ;
-                                                           rdf:rest [ rdf:type rdf:List ;
-                                                                      rdf:first "Resistant" ;
-                                                                      rdf:rest [ rdf:type rdf:List ;
-                                                                                 rdf:first "Sensitive" ;
-                                                                                 rdf:rest [ rdf:type rdf:List ;
-                                                                                            rdf:first "i" ;
-                                                                                            rdf:rest [ rdf:type rdf:List ;
-                                                                                                       rdf:first "intermediate" ;
-                                                                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                                                                  rdf:first "r" ;
-                                                                                                                  rdf:rest [ rdf:type rdf:List ;
-                                                                                                                             rdf:first "resistant" ;
-                                                                                                                             rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                        rdf:first "s" ;
-                                                                                                                                        rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                   rdf:first "sensitive" ;
-                                                                                                                                                   rdf:rest rdf:nil
-                                                                                                                                                 ]
-                                                                                                                                      ]
-                                                                                                                           ]
-                                                                                                                ]
-                                                                                                     ]
-                                                                                          ]
-                                                                               ]
-                                                                    ]
-                                                         ]
-                                             ]
-                         ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource
-
-:ANIMALsource rdf:type owl:Class ;
-              
-              rdfs:subClassOf :SOURCEdata ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :hasAnimal ;
-                                owl:allValuesFrom :Animal
-                              ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AllelicTypingGene
-
-:AllelicTypingGene rdf:type owl:Class ;
-                   
-                   rdfs:subClassOf :TypingGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal
-
-:Animal rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Object ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoFamily ;
-                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoSpecies ;
-                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoClass ;
-                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoOrder ;
-                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasTaxoGenus ;
-                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty :hasScientificName ;
-                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:string
-                        ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AnimalSampleType
-
-:AnimalSampleType rdf:type owl:Class ;
-                  
-                  rdfs:subClassOf :SampleType ;
-                  
-                  owl:disjointWith :HumanSampleType ;
-                  
-                  rdfs:comment "Column \"Sample Type 2\" (AW). Faecal, Retail, Abbatoir"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian
-
-:Avian rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BINARY
-
-:BINARY rdf:type owl:Class ;
-        
-        rdfs:subClassOf :TYPINGdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata
-
-:BIOdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :DataNode .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata
-
-:CGFdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :BINARY ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)> ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                             owl:onDatatype xsd:string ;
-                                             owl:withRestrictions ( [ xsd:pattern "[0-9]"
-                                                                    ]
-                                                                  )
-                                           ]
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)> ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                             owl:onDatatype xsd:string ;
-                                             owl:withRestrictions ( [ xsd:pattern "[0-9]+.[0-9]+.[0-9]+"
-                                                                    ]
-                                                                  )
-                                           ]
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                             owl:onDatatype xsd:string ;
-                                             owl:withRestrictions ( [ xsd:pattern "[0-9]+.[0-9]+"
-                                                                    ]
-                                                                  )
-                                           ]
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasFingerprint ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                             owl:onDatatype xsd:string ;
-                                             owl:withRestrictions ( [ xsd:pattern "[01]{40}"
-                                                                    ]
-                                                                  )
-                                           ]
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasHexNum ;
-                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                           owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                             owl:onDatatype xsd:string ;
-                                             owl:withRestrictions ( [ xsd:pattern "[0-9a-fA-F]+"
-                                                                    ]
-                                                                  )
-                                           ]
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :hasCGFgene ;
-                           owl:allValuesFrom :CGFgene
-                         ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFgene
-
-:CGFgene rdf:type owl:Class ;
-         
-         rdfs:subClassOf :TypingGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Camelid
-
-:Camelid rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City
-
-:City rdf:type owl:Class ;
-      
-      rdfs:subClassOf :Place .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ClinicalSampleType
-
-:ClinicalSampleType rdf:type owl:Class ;
-                    
-                    rdfs:subClassOf :HumanSampleType ;
-                    
-                    rdfs:comment "Stool, blood. Note that the columns \"Clinical Sample Type\" and \"Source_Specific_2\" have the same info, but some fields are empty in one column but not the other. So the values for this property will be the combination of these 2 columns."^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country
-
-:Country rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Place .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#DATE
-
-:DATE rdf:type owl:Class ;
-      
-      rdfs:subClassOf :DataNode ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty :hasMonth ;
-                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                        owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                          owl:onDatatype xsd:int ;
-                                          owl:withRestrictions ( [ xsd:maxInclusive 12
-                                                                 ]
-                                                                 [ xsd:minInclusive 1
-                                                                 ]
-                                                               )
-                                        ]
-                      ] ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty :hasYear ;
-                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                        owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                          owl:onDatatype xsd:int ;
-                                          owl:withRestrictions ( [ xsd:maxInclusive 9999
-                                                                 ]
-                                                                 [ xsd:minInclusive 0
-                                                                 ]
-                                                               )
-                                        ]
-                      ] ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty :hasDay ;
-                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                        owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                          owl:onDatatype xsd:int ;
-                                          owl:withRestrictions ( [ xsd:maxInclusive 31
-                                                                 ]
-                                                                 [ xsd:minInclusive 1
-                                                                 ]
-                                                               )
-                                        ]
-                      ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#DataNode
-
-:DataNode rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Thing ;
-          
-          rdfs:comment "Nodes for pointing to related data. I think it's called a \"blank node\" in rdf lingo"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource
-
-:ENVIROsource rdf:type owl:Class ;
-              
-              rdfs:subClassOf :SOURCEdata ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :hasEnvironment ;
-                                owl:allValuesFrom :Environment
-                              ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata
-
-:EPIdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :DataNode .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment
-
-:Environment rdf:type owl:Class ;
-             
-             rdfs:subClassOf :Object .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine
-
-:Equine rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata
-
-:GEOdata rdf:type owl:Class ;
-         
-         rdfs:subClassOf :DataNode .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate
-
-:GPScoordinate rdf:type owl:Class ;
-               
-               rdfs:subClassOf :DataNode ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :hasLongitude ;
-                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                 owl:onDataRange xsd:decimal
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :hasLatitude ;
-                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                 owl:onDataRange xsd:decimal
-                               ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource
-
-:HUMANsource rdf:type owl:Class ;
-             
-             rdfs:subClassOf :SOURCEdata ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasPostalCode ;
-                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange xsd:string
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasGender ;
-                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                               owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                                 owl:oneOf [ rdf:type rdf:List ;
-                                                             rdf:first "Female" ;
-                                                             rdf:rest [ rdf:type rdf:List ;
-                                                                        rdf:first "Male" ;
-                                                                        rdf:rest rdf:nil
-                                                                      ]
-                                                           ]
-                                               ]
-                             ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human
-
-:Human rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Object .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HumanSampleType
-
-:HumanSampleType rdf:type owl:Class ;
-                 
-                 rdfs:subClassOf :SampleType .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ISOLATIONdata
-
-:ISOLATIONdata rdf:type owl:Class ;
-               
-               rdfs:subClassOf :DataNode ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :hasGlycStock ;
-                                 owl:allValuesFrom xsd:boolean
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :hasHip0 ;
-                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                 owl:onDataRange [ rdf:type rdfs:Datatype ;
-                                                   owl:onDatatype xsd:string ;
-                                                   owl:withRestrictions ( [ xsd:pattern "[01?]"
-                                                                          ]
-                                                                        )
-                                                 ]
-                               ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate
-
-:Isolate rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Object .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMSdata
-
-:LIMSdata rdf:type owl:Class ;
-          
-          rdfs:subClassOf :DataNode .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lagoon
-
-:Lagoon rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Water .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLST
-
-:MLST rdf:type owl:Class ;
-      
-      rdfs:subClassOf :ALLELIC ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty :usesTypingGene ;
-                        owl:allValuesFrom :MLSTtyping_gene
-                      ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLSTtyping_gene
-
-:MLSTtyping_gene rdf:type owl:Class ;
-                 
-                 rdfs:subClassOf :AllelicTypingGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Misc
-
-:Misc rdf:type owl:Class ;
-      
-      rdfs:subClassOf :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object
-
-:Object rdf:type owl:Class ;
-        
-        owl:disjointWith :Thing .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Outbreak
-
-:Outbreak rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Thing .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#PFGE
-
-:PFGE rdf:type owl:Class ;
-      
-      rdfs:subClassOf :TYPINGdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place
-
-:Place rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Object .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine
-
-:Porcine rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Project
-
-:Project rdf:type owl:Class ;
-         
-         rdfs:subClassOf :Object .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province
-
-:Province rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Place .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region
-
-:Region rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Place ;
-        
-        rdfs:comment "Corresponds with column \"Region_L1\" (BE)"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#River
-
-:River rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Water .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant
-
-:Ruminant rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Animal .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SEROTYPE
-
-:SEROTYPE rdf:type owl:Class ;
-          
-          rdfs:subClassOf :TYPINGdata ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty :hasSerotype ;
-                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onDataRange xsd:string
-                          ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SMA_1
-
-:SMA_1 rdf:type owl:Class ;
-       
-       rdfs:subClassOf :PFGE ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty :hasPulsovar ;
-                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                         owl:onDataRange xsd:string
-                       ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata
-
-:SOURCEdata rdf:type owl:Class ;
-            
-            rdfs:subClassOf :DataNode .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SampleType
-
-:SampleType rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Thing .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sewage
-
-:Sewage rdf:type owl:Class ;
-        
-        rdfs:subClassOf :Water .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Soil
-
-:Soil rdf:type owl:Class ;
-      
-      rdfs:subClassOf :Environment ;
-      
-      owl:disjointWith :Water .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SubProject
-
-:SubProject rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Project .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TESTdata
-
-:TESTdata rdf:type owl:Class ;
-          
-          rdfs:subClassOf :DataNode .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TYPINGdata
-
-:TYPINGdata rdf:type owl:Class ;
-            
-            rdfs:subClassOf :TESTdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing
-
-:Thing rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TypingGene
-
-:TypingGene rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Object .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Typing_Lab
-
-:Typing_Lab rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Place .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water
-
-:Water rdf:type owl:Class ;
-       
-       rdfs:subClassOf :Environment .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaAPeptide
-
-:flaAPeptide rdf:type owl:Class ;
-             
-             rdfs:subClassOf :ALLELIC ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :usesTypingGene ;
-                               owl:allValuesFrom :flaAPeptideTyping_gene
-                             ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaAPeptideTyping_gene
-
-:flaAPeptideTyping_gene rdf:type owl:Class ;
-                        
-                        rdfs:subClassOf :AllelicTypingGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaASVR
-
-:flaASVR rdf:type owl:Class ;
-         
-         rdfs:subClassOf :ALLELIC ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :usesTypingGene ;
-                           owl:allValuesFrom :flaASVRtyping_gene
-                         ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaASVRtyping_gene
-
-:flaASVRtyping_gene rdf:type owl:Class ;
-                    
-                    rdfs:subClassOf :AllelicTypingGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#porAMOMPtyping_gene
-
-:porAMOMPtyping_gene rdf:type owl:Class ;
-                     
-                     rdfs:subClassOf :AllelicTypingGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#porA_MOMP
-
-:porA_MOMP rdf:type owl:Class ;
-           
-           rdfs:subClassOf :ALLELIC ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty :usesTypingGene ;
-                             owl:allValuesFrom :porAMOMPtyping_gene
-                           ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#subRegion
-
-:subRegion rdf:type owl:Class ;
-           
-           rdfs:subClassOf :Region ;
-           
-           rdfs:comment "Column \"Region_L2\" (BF). Places like \"superstoe\", \"petting zoo\" (note column \"Source Specific 2\" (AZ) has some of this information. I think I'll just manually put those values into Region_L2). CFIA-Dart Research is also found in this column, not sure why. It's redundant info so I'll just manually remove it when the time comes."^^xsd:string .
-
-
-
-
-
-#################################################################
-#
-#    Individuals
-#
-#################################################################
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AB_south
-
-:AB_south rdf:type owl:NamedIndividual ,
-                   :Region ;
-          
-          :hasName "AB South"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Alberta
-
-:Alberta rdf:type owl:NamedIndividual ,
-                  :Province ;
-         
-         :hasName "Alberta"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AsourceTestISO
-
-:AsourceTestISO rdf:type owl:NamedIndividual ,
-                         :ANIMALsource ;
-                
-                :isWild "true"^^xsd:boolean ;
-                
-                :hasAnimal :chicken .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Canada
-
-:Canada rdf:type owl:NamedIndividual ,
-                 :Country ;
-        
-        :hasName "Canada"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CgfTestISO
-
-:CgfTestISO rdf:type owl:NamedIndividual ,
-                     :CGFdata ;
-            
-            :hasCGFgene :a-gene ,
-                        :b-gene ,
-                        :d-gene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GeoTestISO
-
-:GeoTestISO rdf:type owl:NamedIndividual ,
-                     :GEOdata ;
-            
-            :hasRegion :AB_south ;
-            
-            :hasProvince :Alberta ;
-            
-            :hasCountry :Canada ;
-            
-            :hasCoordinates :GpsTestISO ;
-            
-            :hasCity :Lethbridge .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GpsTestISO
-
-:GpsTestISO rdf:type owl:NamedIndividual ,
-                     :GPScoordinate ;
-            
-            :hasLatitude -1.99 ;
-            
-            :hasLongitude 1.01 .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LFZ_Guelph
-
-:LFZ_Guelph rdf:type owl:NamedIndividual ,
-                     :Typing_Lab ;
-            
-            :hasName "LFZ Guelph"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lethbridge
-
-:Lethbridge rdf:type owl:NamedIndividual ,
-                     :City ;
-            
-            :hasName "Lethbridge"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LimTestISO
-
-:LimTestISO rdf:type owl:NamedIndividual ,
-                     :LIMSdata ;
-            
-            :hasTypingLab :LFZ_Guelph ;
-            
-            :hasProject :OMAFRA_34 .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#OMAFRA_34
-
-:OMAFRA_34 rdf:type owl:NamedIndividual ;
-           
-           :hasName "OMAFRA_34"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TimeTestISO
-
-:TimeTestISO rdf:type owl:NamedIndividual .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#a-gene
-
-:a-gene rdf:type owl:NamedIndividual ,
-                 :CGFgene ;
-        
-        :hasName "a-gene"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#b-gene
-
-:b-gene rdf:type owl:NamedIndividual ,
-                 :CGFgene ;
-        
-        :hasName "b-gene"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#bioTestISO
-
-:bioTestISO rdf:type owl:NamedIndividual ,
-                     :BIOdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#biotessssst2
-
-:biotessssst2 rdf:type owl:NamedIndividual ,
-                       :BIOdata .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#c-gene
-
-:c-gene rdf:type owl:NamedIndividual ,
-                 :CGFgene ;
-        
-        :hasName "c-gene"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#chicken
-
-:chicken rdf:type owl:NamedIndividual ,
-                  :Avian ;
-         
-         :hasName "chicken"^^xsd:string ;
-         
-         :hasScientificName "chickenas chickanus"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#d-gene
-
-:d-gene rdf:type owl:NamedIndividual ,
-                 :CGFgene ;
-        
-        :hasName "d-gene"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#date001
-
-:date001 rdf:type owl:NamedIndividual ,
-                  :DATE ;
-         
-         :hasMonth "12"^^xsd:int .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#epiTestISO
-
-:epiTestISO rdf:type owl:NamedIndividual ,
-                     :EPIdata ;
-            
-            :hasSource :AsourceTestISO ;
-            
-            :hasGEO :GeoTestISO .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#meza
-
-:meza rdf:type owl:NamedIndividual ;
-      
-      :hasSusceptibilityLevel "i"^^xsd:string .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#test1
-
-:test1 rdf:type owl:NamedIndividual .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#testISO
-
-:testISO rdf:type owl:NamedIndividual ,
-                  :Isolate ;
-         
-         :hasBIOdata :bioTestISO ,
-                     :biotessssst2 .
-
-
-
-
-
-#################################################################
-#
-#    General axioms
-#
-#################################################################
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :Lagoon
-                :River
-                :Sewage
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :Avian
-                :Camelid
-                :Equine
-                :Misc
-                :Porcine
-                :Ruminant
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :ALLELIC
-                :BINARY
-                :PFGE
-                :SEROTYPE
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :DataNode
-                :Outbreak
-                :SampleType
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :BIOdata
-                :DATE
-                :EPIdata
-                :GEOdata
-                :GPScoordinate
-                :ISOLATIONdata
-                :LIMSdata
-                :SOURCEdata
-                :TESTdata
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :ANIMALsource
-                :ENVIROsource
-                :HUMANsource
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :AMRdrug
-                :Animal
-                :Environment
-                :Human
-                :Isolate
-                :Place
-                :Project
-                :TypingGene
-              )
-] .
-
-
-
-
-###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
-
+# 
+# 
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
+# 
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimal
+
+:hasAnimal a owl:ObjectProperty ;
+	rdfs:domain :ANIMALsource ;
+	rdfs:range :Animal ;
+	rdfs:comment "Should be functional; an isolate can only have one animal source. But there were some that had goat/sheep as animal source"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSampleType
+
+:hasAnimalSampleType a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :ANIMALsource ;
+	rdfs:range :AnimalSampleType .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOdata
+
+:hasBIOdata a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range :BIOdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBodyOfWater
+
+:hasBodyOfWater a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :GEOdata ;
+	rdfs:range :BodyOfWater .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFgene
+
+:hasCGFgene a owl:ObjectProperty ;
+	rdfs:domain :CGFdata ;
+	rdfs:range :CGFgene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCity
+
+:hasCity a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :GEOdata ;
+	rdfs:range :City .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCoordinates
+
+:hasCoordinates a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:domain :GEOdata ;
+	rdfs:range :GPScoordinate .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCountry
+
+:hasCountry a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :GEOdata ;
+	rdfs:range :Country .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateAdded
+
+:hasDateAdded a owl:ObjectProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range :DATE ;
+	rdfs:comment "The date the isolate was added to the database. Column \"Date added to Database\" (CY)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateCompleted
+
+:hasDateCompleted a owl:ObjectProperty ;
+	rdfs:domain :CGFdata ;
+	rdfs:range :DATE ;
+	rdfs:comment "The day that the CGF typing was completed. Column \"Date CGF completed\" (CX)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateOfBirth
+
+:hasDateOfBirth a owl:ObjectProperty ;
+	rdfs:domain :HUMANsource ;
+	rdfs:range :DATE ;
+	rdfs:comment "Column \"Patient D.O.B/Age\" (CJ)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDateSampleTaken
+
+:hasDateSampleTaken a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :EPIdata ;
+	rdfs:range :DATE ;
+	rdfs:comment "Columns \"Day\" (BG), \"Month\" (BH), and \"Year\" (BI)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDrug
+
+:hasDrug a owl:ObjectProperty ;
+	rdfs:domain :AMRdata ;
+	rdfs:range :AMRdrug .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIdata
+
+:hasEPIdata a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range :EPIdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEnviroSampleType
+
+:hasEnviroSampleType a owl:ObjectProperty ;
+	rdfs:domain :ENVIROsource ;
+	rdfs:range :EnviroSampleType .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGEO
+
+:hasGEO a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:domain :EPIdata ;
+	rdfs:range :GEOdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHuman
+
+:hasHuman a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :HUMANsource ;
+	rdfs:range :Human .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSampleType
+
+:hasHumanSampleType a owl:ObjectProperty ;
+	rdfs:domain :HUMANsource ;
+	rdfs:range :HumanSampleType .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasISOLATIONdata
+
+:hasISOLATIONdata a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range :ISOLATIONdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLIMSdata
+
+:hasLIMSdata a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range :LIMSdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProject
+
+:hasProject a owl:ObjectProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range :Project .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProvince
+
+:hasProvince a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :GEOdata ;
+	rdfs:range :Province .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegion
+
+:hasRegion a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :GEOdata ;
+	rdfs:range :Region .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSource
+
+:hasSource a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:domain :EPIdata ;
+	rdfs:range :SOURCEdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSubProject
+
+:hasSubProject a owl:ObjectProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range :SubProject .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSubRegion
+
+:hasSubRegion a owl:ObjectProperty ;
+	rdfs:domain :EPIdata ;
+	rdfs:range :subRegion .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTESTdata
+
+:hasTESTdata a owl:ObjectProperty ;
+	rdfs:domain :BIOdata ;
+	rdfs:range :TESTdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingLab
+
+:hasTypingLab a owl:ObjectProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range :Typing_Lab .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#partOfOutbreak
+
+:partOfOutbreak a owl:ObjectProperty ;
+	rdfs:domain :EPIdata ;
+	rdfs:range :Outbreak .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#usesTypingGene
+
+:usesTypingGene a owl:ObjectProperty ;
+	rdfs:domain :MLST , :flaAPeptide , :flaASVR , :porA_MOMP ;
+	rdfs:range :AllelicTypingGene .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+# 
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAlleleIndex
+
+:hasAlleleIndex a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :AllelicTypingGene ;
+	rdfs:range xsd:integer .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAltCollectionSampleID
+
+:hasAltCollectionSampleID a owl:DatatypeProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Original collection sample ID and alt collection sample ID are found in the same cells of column \"Sample Collection ID\" (FG)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAlternateSampleID
+
+:hasAlternateSampleID a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "A combination of the columns \"Alternate Sample ID\" (BM) and \"Alt. Sample ID\" (ES)."^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSourceSpecific
+
+:hasAnimalSourceSpecific a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ANIMALsource ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column \"Source Specific 2\" (AZ) for value \"Animal\" in column \"Sample Type\" (AV). Things like \"chicken breast\" and so forth. Also has \"Petting Zoo\". Probably just manually put that into column \"Region L2\""^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasC_EnterNetNum
+
+:hasC_EnterNetNum a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasC_EnterNetSite
+
+:hasC_EnterNetSite a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasClonalComplex
+
+:hasClonalComplex a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :MLST ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Derived from allele indices for MLST typing"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComments
+
+:hasComments a owl:DatatypeProperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDay
+
+:hasDay a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :DATE ;
+	rdfs:range xsd:int .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDilution
+
+:hasDilution a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ISOLATIONdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column \"Dilution\" (CO)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEnviroSourceSpecific
+
+:hasEnviroSourceSpecific a owl:DatatypeProperty ;
+	rdfs:domain :ENVIROsource ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column \"Source Specific 2\" (AZ) for value \"Environmental\" in column \"Sample Type\" (AV)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasFingerprint
+
+:hasFingerprint a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :CGFdata ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender
+
+:hasGender a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :HUMANsource ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Male or female" .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGlycStock
+
+:hasGlycStock a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ISOLATIONdata ;
+	rdfs:range xsd:boolean ;
+	rdfs:comment "Column \"No glycerol stock\" (CQ). The col will be changed to Glycerol stock, because as of right now, the values in the column are 1 or just empty. So 1 means true; no glyc stock. While empty cells can be interpreted as false; yes glyc stock. Not very intuitive. So we'll change it so the empty ones are changed into 1s and the 1s are changed into 0. "^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHexNum
+
+:hasHexNum a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :CGFdata ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHip0
+
+:hasHip0 a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ISOLATIONdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column \"HipO\" (CS). Has values 1, 0, (for true and false), and \"?\". Empty cells are not to be interpreted as false or true. They just mean the test wan't done I guess."^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolateSpecies
+
+:hasIsolateSpecies a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range xsd:string ;
+	rdfs:comment "In reference to the CSV containing Campy information, the species is the combination of columns \"Campy Species\" (BJ) and \"Alt. Speciation\" (BK). If the corresponding column values are not equal, column BJ is to be taken as the correct species"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLDMSid
+
+:hasLDMSid a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude
+
+:hasLatitude a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :GPScoordinate ;
+	rdfs:range xsd:decimal ;
+	rdfs:comment "To be in signed degree format. Column \"Latitude\" (EQ)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude
+
+:hasLongitude a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :GPScoordinate ;
+	rdfs:range xsd:decimal ;
+	rdfs:comment "To be in signed degree format. Column \"Longitude\" (ER)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMIC
+
+:hasMIC a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :AMRdrug ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column DT to EC"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMedia
+
+:hasMedia a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ISOLATIONdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column \"Media\" (CM)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonth
+
+:hasMonth a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :DATE ;
+	rdfs:range xsd:int .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasNMLid
+
+:hasNMLid a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName
+
+:hasName a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Object ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Note that when naming an isolate, it is to have it's original name, ie it's strain name found in the csv with colons, spaces, parantheses etc. The uri for an isolate is the strain name from the csv without colons, spaces, parentheses etc."^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOriginalSampleName
+
+:hasOriginalSampleName a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Corresponds with column \"Mostly Original Sample Names ...\" (CU)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPatientID
+
+:hasPatientID a owl:DatatypeProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "If something already in \"alt. sample ID\", the values in column \"ON PHL#\" (DL)."^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode
+
+:hasPostalCode a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :HUMANsource ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPulsovar
+
+:hasPulsovar a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :PFGE ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRegionSpecific
+
+:hasRegionSpecific a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Region ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Corresponds with column \"Region_L2\" (BF)"^^xsd:string , "Note the region field (\"Region_L1\" (BE)) is sometimes empty while the specific region (\"Region_L2\" (BF)) is not. In such a case, Region is set as the value found in \"Region_L2\" "^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasST
+
+:hasST a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :MLST ;
+	rdfs:range xsd:integer ;
+	rdfs:comment "Derived from allele indices for MLST typing. Column \"ST\" (BS)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSampleCollectionID
+
+:hasSampleCollectionID a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :LIMSdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column \"Sample Collection ID\" (ET)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName
+
+:hasScientificName a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Animal ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSerotype
+
+:hasSerotype a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :SEROTYPE ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSusceptibilityLevel
+
+:hasSusceptibilityLevel a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :AMRdrug ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column EE to EO. Note column EE is the \"r_pattern\" and is derivable from the MIC of the drugs tested. We choose not to store the \"r_pattern\" as we can just use a sparl query to get it"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoClass
+
+:hasTaxoClass a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Animal ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoFamily
+
+:hasTaxoFamily a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Animal ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoGenus
+
+:hasTaxoGenus a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Animal ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoOrder
+
+:hasTaxoOrder a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Animal ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoSpecies
+
+:hasTaxoSpecies a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :Animal ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTechnique
+
+:hasTechnique a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ISOLATIONdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column \"technique\" (CN)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTreatment
+
+:hasTreatment a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ISOLATIONdata ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Column \"Treatment\" (CP)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYear
+
+:hasYear a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :DATE ;
+	rdfs:range xsd:int .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isDomestic
+
+:isDomestic a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ANIMALsource ;
+	rdfs:range xsd:boolean .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isInSilico
+
+:isInSilico a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :TESTdata ;
+	rdfs:range xsd:boolean .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isInVitro
+
+:isInVitro a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :TESTdata ;
+	rdfs:range xsd:boolean .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isWild
+
+:isWild a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ANIMALsource ;
+	rdfs:range xsd:boolean .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)> a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :CGFdata ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :CGFdata ;
+	rdfs:range xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)> a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :CGFdata ;
+	rdfs:range xsd:string .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ALLELIC
+
+:ALLELIC a owl:Class ;
+	rdfs:subClassOf :TYPINGdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdata
+
+:AMRdata a owl:Class ;
+	rdfs:subClassOf :TESTdata , _:genid1 .
+
+_:genid1 a owl:Restriction ;
+	owl:onProperty :hasDrug ;
+	owl:allValuesFrom :AMRdrug .
+
+:AMRdata owl:disjointWith :TYPINGdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug
+
+:AMRdrug a owl:Class ;
+	rdfs:subClassOf :Object , _:genid2 .
+
+_:genid2 a owl:Restriction ;
+	owl:onProperty :hasMIC ;
+	owl:allValuesFrom xsd:integer .
+
+:AMRdrug rdfs:subClassOf _:genid3 .
+
+_:genid3 a owl:Restriction ;
+	owl:onProperty :hasSusceptibilityLevel ;
+	owl:allValuesFrom _:genid4 .
+
+_:genid4 a rdfs:Datatype ;
+	owl:oneOf _:genid13 .
+
+_:genid13 a rdf:List ;
+	rdf:first "Intermediate" ;
+	rdf:rest _:genid12 .
+
+_:genid12 a rdf:List ;
+	rdf:first "Resistant" ;
+	rdf:rest _:genid11 .
+
+_:genid11 a rdf:List ;
+	rdf:first "Sensitive" ;
+	rdf:rest _:genid10 .
+
+_:genid10 a rdf:List ;
+	rdf:first "i" ;
+	rdf:rest _:genid9 .
+
+_:genid9 a rdf:List ;
+	rdf:first "intermediate" ;
+	rdf:rest _:genid8 .
+
+_:genid8 a rdf:List ;
+	rdf:first "r" ;
+	rdf:rest _:genid7 .
+
+_:genid7 a rdf:List ;
+	rdf:first "resistant" ;
+	rdf:rest _:genid6 .
+
+_:genid6 a rdf:List ;
+	rdf:first "s" ;
+	rdf:rest _:genid5 .
+
+_:genid5 a rdf:List ;
+	rdf:first "sensitive" ;
+	rdf:rest rdf:nil .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ANIMALsource
+
+:ANIMALsource a owl:Class ;
+	rdfs:subClassOf :SOURCEdata , _:genid14 .
+
+_:genid14 a owl:Restriction ;
+	owl:onProperty :hasAnimal ;
+	owl:allValuesFrom :Animal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AllelicTypingGene
+
+:AllelicTypingGene a owl:Class ;
+	rdfs:subClassOf :TypingGene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal
+
+:Animal a owl:Class ;
+	rdfs:subClassOf :Object , _:genid15 .
+
+_:genid15 a owl:Restriction ;
+	owl:onProperty :hasScientificName ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+
+:Animal rdfs:subClassOf _:genid16 .
+
+_:genid16 a owl:Restriction ;
+	owl:onProperty :hasTaxoClass ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+
+:Animal rdfs:subClassOf _:genid17 .
+
+_:genid17 a owl:Restriction ;
+	owl:onProperty :hasTaxoFamily ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+
+:Animal rdfs:subClassOf _:genid18 .
+
+_:genid18 a owl:Restriction ;
+	owl:onProperty :hasTaxoGenus ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+
+:Animal rdfs:subClassOf _:genid19 .
+
+_:genid19 a owl:Restriction ;
+	owl:onProperty :hasTaxoOrder ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+
+:Animal rdfs:subClassOf _:genid20 .
+
+_:genid20 a owl:Restriction ;
+	owl:onProperty :hasTaxoSpecies ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AnimalSampleType
+
+:AnimalSampleType a owl:Class ;
+	rdfs:subClassOf :SampleType ;
+	rdfs:comment "Column \"Sample Type 2\" (AW). Faecal, Retail, Abbatoir"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian
+
+:Avian a owl:Class ;
+	rdfs:subClassOf :Animal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BINARY
+
+:BINARY a owl:Class ;
+	rdfs:subClassOf :TYPINGdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIOdata
+
+:BIOdata a owl:Class ;
+	rdfs:subClassOf :DataNode .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BodyOfWater
+
+:BodyOfWater a owl:Class ;
+	rdfs:subClassOf :Place ;
+	rdfs:comment "Column \"Sample Source\" (BA). Values like \"Oldman River Watershed\", \"Salmon River\" etc."^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFdata
+
+:CGFdata a owl:Class ;
+	rdfs:subClassOf :BINARY , _:genid21 .
+
+_:genid21 a owl:Restriction ;
+	owl:onProperty :hasCGFgene ;
+	owl:allValuesFrom :CGFgene .
+
+:CGFdata rdfs:subClassOf _:genid22 .
+
+_:genid22 a owl:Restriction ;
+	owl:onProperty :hasFingerprint ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid23 .
+
+_:genid23 a rdfs:Datatype ;
+	owl:onDatatype xsd:string ;
+	owl:withRestrictions _:genid24 .
+
+_:genid24 a rdf:List ;
+	rdf:first _:genid25 .
+
+_:genid25 xsd:pattern "[01]{40}" .
+
+_:genid24 rdf:rest rdf:nil .
+
+:CGFdata rdfs:subClassOf _:genid26 .
+
+_:genid26 a owl:Restriction ;
+	owl:onProperty :hasHexNum ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid27 .
+
+_:genid27 a rdfs:Datatype ;
+	owl:onDatatype xsd:string ;
+	owl:withRestrictions _:genid28 .
+
+_:genid28 a rdf:List ;
+	rdf:first _:genid29 .
+
+_:genid29 xsd:pattern "[0-9a-fA-F]+" .
+
+_:genid28 rdf:rest rdf:nil .
+
+:CGFdata rdfs:subClassOf _:genid30 .
+
+_:genid30 a owl:Restriction ;
+	owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90)> ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid31 .
+
+_:genid31 a rdfs:Datatype ;
+	owl:onDatatype xsd:string ;
+	owl:withRestrictions _:genid32 .
+
+_:genid32 a rdf:List ;
+	rdf:first _:genid33 .
+
+_:genid33 xsd:pattern "[0-9]" .
+
+_:genid32 rdf:rest rdf:nil .
+
+:CGFdata rdfs:subClassOf _:genid34 .
+
+_:genid34 a owl:Restriction ;
+	owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95)> ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid35 .
+
+_:genid35 a rdfs:Datatype ;
+	owl:onDatatype xsd:string ;
+	owl:withRestrictions _:genid36 .
+
+_:genid36 a rdf:List ;
+	rdf:first _:genid37 .
+
+_:genid37 xsd:pattern "[0-9]+.[0-9]+" .
+
+_:genid36 rdf:rest rdf:nil .
+
+:CGFdata rdfs:subClassOf _:genid38 .
+
+_:genid38 a owl:Restriction ;
+	owl:onProperty <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasRefCluster(90_95_100)> ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid39 .
+
+_:genid39 a rdfs:Datatype ;
+	owl:onDatatype xsd:string ;
+	owl:withRestrictions _:genid40 .
+
+_:genid40 a rdf:List ;
+	rdf:first _:genid41 .
+
+_:genid41 xsd:pattern "[0-9]+.[0-9]+.[0-9]+" .
+
+_:genid40 rdf:rest rdf:nil .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFgene
+
+:CGFgene a owl:Class ;
+	rdfs:subClassOf :TypingGene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Camelid
+
+:Camelid a owl:Class ;
+	rdfs:subClassOf :Animal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City
+
+:City a owl:Class ;
+	rdfs:subClassOf :Place .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ClinicalSampleType
+
+:ClinicalSampleType a owl:Class ;
+	rdfs:subClassOf :HumanSampleType ;
+	rdfs:comment "Stool, blood. Note that the columns \"Clinical Sample Type\" and \"Source_Specific_2\" have the same info, but some fields are empty in one column but not the other. So the values for this property will be the combination of these 2 columns."^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Companion
+
+:Companion a owl:Class ;
+	rdfs:subClassOf :Animal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country
+
+:Country a owl:Class ;
+	rdfs:subClassOf :Place .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#DATE
+
+:DATE a owl:Class ;
+	rdfs:subClassOf :DataNode , _:genid42 .
+
+_:genid42 a owl:Restriction ;
+	owl:onProperty :hasDay ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid43 .
+
+_:genid43 a rdfs:Datatype ;
+	owl:onDatatype xsd:int ;
+	owl:withRestrictions _:genid46 .
+
+_:genid46 a rdf:List ;
+	rdf:first _:genid1 .
+
+_:genid1 xsd:minInclusive "1"^^xsd:integer .
+
+_:genid46 rdf:rest _:genid44 .
+
+_:genid44 a rdf:List ;
+	rdf:first _:genid45 .
+
+_:genid45 xsd:maxInclusive "31"^^xsd:integer .
+
+_:genid44 rdf:rest rdf:nil .
+
+:DATE rdfs:subClassOf _:genid48 .
+
+_:genid48 a owl:Restriction ;
+	owl:onProperty :hasMonth ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid49 .
+
+_:genid49 a rdfs:Datatype ;
+	owl:onDatatype xsd:int ;
+	owl:withRestrictions _:genid52 .
+
+_:genid52 a rdf:List ;
+	rdf:first _:genid2 .
+
+_:genid2 xsd:minInclusive "1"^^xsd:integer .
+
+_:genid52 rdf:rest _:genid50 .
+
+_:genid50 a rdf:List ;
+	rdf:first _:genid51 .
+
+_:genid51 xsd:maxInclusive "12"^^xsd:integer .
+
+_:genid50 rdf:rest rdf:nil .
+
+:DATE rdfs:subClassOf _:genid53 .
+
+_:genid53 a owl:Restriction ;
+	owl:onProperty :hasYear ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid54 .
+
+_:genid54 a rdfs:Datatype ;
+	owl:onDatatype xsd:int ;
+	owl:withRestrictions _:genid57 .
+
+_:genid57 a rdf:List ;
+	rdf:first _:genid58 .
+
+_:genid58 xsd:minInclusive "0"^^xsd:integer .
+
+_:genid57 rdf:rest _:genid55 .
+
+_:genid55 a rdf:List ;
+	rdf:first _:genid56 .
+
+_:genid56 xsd:maxInclusive "9999"^^xsd:integer .
+
+_:genid55 rdf:rest rdf:nil .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#DataNode
+
+:DataNode a owl:Class ;
+	rdfs:subClassOf :Thing ;
+	rdfs:comment "Nodes for pointing to related data. I think it's called a \"blank node\" in rdf lingo"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ENVIROsource
+
+:ENVIROsource a owl:Class ;
+	rdfs:subClassOf :SOURCEdata , _:genid59 .
+
+_:genid59 a owl:Restriction ;
+	owl:onProperty :hasEnviroSampleType ;
+	owl:allValuesFrom :EnviroSampleType .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPIdata
+
+:EPIdata a owl:Class ;
+	rdfs:subClassOf :DataNode .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EnviroSampleType
+
+:EnviroSampleType a owl:Class ;
+	rdfs:subClassOf :SampleType ;
+	rdfs:comment "Things like water, lagoon, sand, soil etc. Columns \"Sample type 2\" (AW), \"Source General\" (AX), and \"Source Specific 1\" (AY)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine
+
+:Equine a owl:Class ;
+	rdfs:subClassOf :Animal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GEOdata
+
+:GEOdata a owl:Class ;
+	rdfs:subClassOf :DataNode .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GPScoordinate
+
+:GPScoordinate a owl:Class ;
+	rdfs:subClassOf :DataNode , _:genid60 .
+
+_:genid60 a owl:Restriction ;
+	owl:onProperty :hasLatitude ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:decimal .
+
+:GPScoordinate rdfs:subClassOf _:genid61 .
+
+_:genid61 a owl:Restriction ;
+	owl:onProperty :hasLongitude ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:decimal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HUMANsource
+
+:HUMANsource a owl:Class ;
+	rdfs:subClassOf :SOURCEdata , _:genid62 .
+
+_:genid62 a owl:Restriction ;
+	owl:onProperty :hasGender ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid63 .
+
+_:genid63 a rdfs:Datatype ;
+	owl:oneOf _:genid65 .
+
+_:genid65 a rdf:List ;
+	rdf:first "Female" ;
+	rdf:rest _:genid64 .
+
+_:genid64 a rdf:List ;
+	rdf:first "Male" ;
+	rdf:rest rdf:nil .
+
+:HUMANsource rdfs:subClassOf _:genid66 .
+
+_:genid66 a owl:Restriction ;
+	owl:onProperty :hasPostalCode ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human
+
+:Human a owl:Class ;
+	rdfs:subClassOf :Object .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#HumanSampleType
+
+:HumanSampleType a owl:Class ;
+	rdfs:subClassOf :SampleType .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#ISOLATIONdata
+
+:ISOLATIONdata a owl:Class ;
+	rdfs:subClassOf :DataNode , _:genid67 .
+
+_:genid67 a owl:Restriction ;
+	owl:onProperty :hasGlycStock ;
+	owl:allValuesFrom xsd:boolean .
+
+:ISOLATIONdata rdfs:subClassOf _:genid68 .
+
+_:genid68 a owl:Restriction ;
+	owl:onProperty :hasHip0 ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange _:genid69 .
+
+_:genid69 a rdfs:Datatype ;
+	owl:onDatatype xsd:string ;
+	owl:withRestrictions _:genid70 .
+
+_:genid70 a rdf:List ;
+	rdf:first _:genid71 .
+
+_:genid71 xsd:pattern "[01?]" .
+
+_:genid70 rdf:rest rdf:nil .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate
+
+:Isolate a owl:Class ;
+	rdfs:subClassOf :Object .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMSdata
+
+:LIMSdata a owl:Class ;
+	rdfs:subClassOf :DataNode .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLST
+
+:MLST a owl:Class ;
+	rdfs:subClassOf :ALLELIC , _:genid72 .
+
+_:genid72 a owl:Restriction ;
+	owl:onProperty :usesTypingGene ;
+	owl:allValuesFrom :MLSTtyping_gene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLSTtyping_gene
+
+:MLSTtyping_gene a owl:Class ;
+	rdfs:subClassOf :AllelicTypingGene ;
+	rdfs:comment "Dogs and cats and such"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Misc
+
+:Misc a owl:Class ;
+	rdfs:subClassOf :Animal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object
+
+:Object a owl:Class ;
+	owl:disjointWith :Thing .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Outbreak
+
+:Outbreak a owl:Class ;
+	rdfs:subClassOf :Thing .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#PFGE
+
+:PFGE a owl:Class ;
+	rdfs:subClassOf :TYPINGdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Place
+
+:Place a owl:Class ;
+	rdfs:subClassOf :Object .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine
+
+:Porcine a owl:Class ;
+	rdfs:subClassOf :Animal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Project
+
+:Project a owl:Class ;
+	rdfs:subClassOf :Object .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Province
+
+:Province a owl:Class ;
+	rdfs:subClassOf :Place .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Region
+
+:Region a owl:Class ;
+	rdfs:subClassOf :Place ;
+	rdfs:comment "Corresponds with column \"Region_L1\" (BE)"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant
+
+:Ruminant a owl:Class ;
+	rdfs:subClassOf :Animal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SEROTYPE
+
+:SEROTYPE a owl:Class ;
+	rdfs:subClassOf :TYPINGdata , _:genid73 .
+
+_:genid73 a owl:Restriction ;
+	owl:onProperty :hasSerotype ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SMA_1
+
+:SMA_1 a owl:Class ;
+	rdfs:subClassOf :PFGE , _:genid74 .
+
+_:genid74 a owl:Restriction ;
+	owl:onProperty :hasPulsovar ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SOURCEdata
+
+:SOURCEdata a owl:Class ;
+	rdfs:subClassOf :DataNode .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SampleType
+
+:SampleType a owl:Class ;
+	rdfs:subClassOf :Thing .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SubProject
+
+:SubProject a owl:Class ;
+	rdfs:subClassOf :Project .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TESTdata
+
+:TESTdata a owl:Class ;
+	rdfs:subClassOf :DataNode .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TYPINGdata
+
+:TYPINGdata a owl:Class ;
+	rdfs:subClassOf :TESTdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thing
+
+:Thing a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TypingGene
+
+:TypingGene a owl:Class ;
+	rdfs:subClassOf :Object .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Typing_Lab
+
+:Typing_Lab a owl:Class ;
+	rdfs:subClassOf :Place .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaAPeptide
+
+:flaAPeptide a owl:Class ;
+	rdfs:subClassOf :ALLELIC , _:genid75 .
+
+_:genid75 a owl:Restriction ;
+	owl:onProperty :usesTypingGene ;
+	owl:allValuesFrom :flaAPeptideTyping_gene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaAPeptideTyping_gene
+
+:flaAPeptideTyping_gene a owl:Class ;
+	rdfs:subClassOf :AllelicTypingGene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaASVR
+
+:flaASVR a owl:Class ;
+	rdfs:subClassOf :ALLELIC , _:genid76 .
+
+_:genid76 a owl:Restriction ;
+	owl:onProperty :usesTypingGene ;
+	owl:allValuesFrom :flaASVRtyping_gene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaASVRtyping_gene
+
+:flaASVRtyping_gene a owl:Class ;
+	rdfs:subClassOf :AllelicTypingGene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#porAMOMPtyping_gene
+
+:porAMOMPtyping_gene a owl:Class ;
+	rdfs:subClassOf :AllelicTypingGene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#porA_MOMP
+
+:porA_MOMP a owl:Class ;
+	rdfs:subClassOf :ALLELIC , _:genid77 .
+
+_:genid77 a owl:Restriction ;
+	owl:onProperty :usesTypingGene ;
+	owl:allValuesFrom :porAMOMPtyping_gene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#subRegion
+
+:subRegion a owl:Class ;
+	rdfs:subClassOf :Region ;
+	rdfs:comment "Column \"Region_L2\" (BF). Places like \"superstoe\", \"petting zoo\" (note column \"Source Specific 2\" (AZ) has some of this information. I think I'll just manually put those values into Region_L2). CFIA-Dart Research is also found in this column, not sure why. It's redundant info so I'll just manually remove it when the time comes."^^xsd:string .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Individuals
+# #
+# #################################################################
+# 
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AB_south
+
+:AB_south a owl:NamedIndividual , :Region ;
+	:hasName "AB South"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Alberta
+
+:Alberta a owl:NamedIndividual , :Province ;
+	:hasName "Alberta"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AsourceTestISO
+
+:AsourceTestISO a owl:NamedIndividual , :ANIMALsource ;
+	:hasAnimal :chicken ;
+	:isWild "true"^^xsd:boolean .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Canada
+
+:Canada a owl:NamedIndividual , :Country ;
+	:hasName "Canada"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CgfTestISO
+
+:CgfTestISO a owl:NamedIndividual , :CGFdata ;
+	:hasCGFgene :a-gene , :b-gene , :d-gene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GeoTestISO
+
+:GeoTestISO a owl:NamedIndividual , :GEOdata ;
+	:hasCity :Lethbridge ;
+	:hasCoordinates :GpsTestISO ;
+	:hasCountry :Canada ;
+	:hasProvince :Alberta ;
+	:hasRegion :AB_south .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#GpsTestISO
+
+:GpsTestISO a owl:NamedIndividual , :GPScoordinate ;
+	:hasLatitude "-1.99"^^xsd:decimal ;
+	:hasLongitude "1.01"^^xsd:decimal .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LFZ_Guelph
+
+:LFZ_Guelph a owl:NamedIndividual , :Typing_Lab ;
+	:hasName "LFZ Guelph"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lethbridge
+
+:Lethbridge a owl:NamedIndividual , :City ;
+	:hasName "Lethbridge"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LimTestISO
+
+:LimTestISO a owl:NamedIndividual , :LIMSdata ;
+	:hasProject :OMAFRA_34 ;
+	:hasTypingLab :LFZ_Guelph .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#OMAFRA_34
+
+:OMAFRA_34 a owl:NamedIndividual ;
+	:hasName "OMAFRA_34"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TimeTestISO
+
+:TimeTestISO a owl:NamedIndividual .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#a-gene
+
+:a-gene a owl:NamedIndividual , :CGFgene ;
+	:hasName "a-gene"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#b-gene
+
+:b-gene a owl:NamedIndividual , :CGFgene ;
+	:hasName "b-gene"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#bioTestISO
+
+:bioTestISO a owl:NamedIndividual , :BIOdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#biotessssst2
+
+:biotessssst2 a owl:NamedIndividual , :BIOdata .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#c-gene
+
+:c-gene a owl:NamedIndividual , :CGFgene ;
+	:hasName "c-gene"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#chicken
+
+:chicken a owl:NamedIndividual , :Avian ;
+	:hasName "chicken"^^xsd:string ;
+	:hasScientificName "chickenas chickanus"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#d-gene
+
+:d-gene a owl:NamedIndividual , :CGFgene ;
+	:hasName "d-gene"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#date001
+
+:date001 a owl:NamedIndividual , :DATE ;
+	:hasMonth "12"^^xsd:int .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#epiTestISO
+
+:epiTestISO a owl:NamedIndividual , :EPIdata ;
+	:hasGEO :GeoTestISO ;
+	:hasSource :AsourceTestISO .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#meza
+
+:meza a owl:NamedIndividual ;
+	:hasSusceptibilityLevel "i"^^xsd:string .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#test1
+
+:test1 a owl:NamedIndividual .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#testISO
+
+:testISO a owl:NamedIndividual , :Isolate ;
+	:hasBIOdata :bioTestISO , :biotessssst2 .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    General axioms
+# #
+# #################################################################
+# 
+# 
+
+_:genid78 a owl:AllDisjointClasses ;
+	owl:members _:genid82 .
+
+_:genid82 a rdf:List ;
+	rdf:first :ALLELIC ;
+	rdf:rest _:genid81 .
+
+_:genid81 a rdf:List ;
+	rdf:first :BINARY ;
+	rdf:rest _:genid80 .
+
+_:genid80 a rdf:List ;
+	rdf:first :PFGE ;
+	rdf:rest _:genid79 .
+
+_:genid79 a rdf:List ;
+	rdf:first :SEROTYPE ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid83 a owl:AllDisjointClasses ;
+	owl:members _:genid86 .
+
+_:genid86 a rdf:List ;
+	rdf:first :ANIMALsource ;
+	rdf:rest _:genid85 .
+
+_:genid85 a rdf:List ;
+	rdf:first :ENVIROsource ;
+	rdf:rest _:genid84 .
+
+_:genid84 a rdf:List ;
+	rdf:first :HUMANsource ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid87 a owl:AllDisjointClasses ;
+	owl:members _:genid90 .
+
+_:genid90 a rdf:List ;
+	rdf:first :AnimalSampleType ;
+	rdf:rest _:genid89 .
+
+_:genid89 a rdf:List ;
+	rdf:first :EnviroSampleType ;
+	rdf:rest _:genid88 .
+
+_:genid88 a rdf:List ;
+	rdf:first :HumanSampleType ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid91 a owl:AllDisjointClasses ;
+	owl:members _:genid97 .
+
+_:genid97 a rdf:List ;
+	rdf:first :Avian ;
+	rdf:rest _:genid96 .
+
+_:genid96 a rdf:List ;
+	rdf:first :Camelid ;
+	rdf:rest _:genid95 .
+
+_:genid95 a rdf:List ;
+	rdf:first :Equine ;
+	rdf:rest _:genid94 .
+
+_:genid94 a rdf:List ;
+	rdf:first :Misc ;
+	rdf:rest _:genid93 .
+
+_:genid93 a rdf:List ;
+	rdf:first :Porcine ;
+	rdf:rest _:genid92 .
+
+_:genid92 a rdf:List ;
+	rdf:first :Ruminant ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid98 a owl:AllDisjointClasses ;
+	owl:members _:genid107 .
+
+_:genid107 a rdf:List ;
+	rdf:first :BIOdata ;
+	rdf:rest _:genid106 .
+
+_:genid106 a rdf:List ;
+	rdf:first :DATE ;
+	rdf:rest _:genid105 .
+
+_:genid105 a rdf:List ;
+	rdf:first :EPIdata ;
+	rdf:rest _:genid104 .
+
+_:genid104 a rdf:List ;
+	rdf:first :GEOdata ;
+	rdf:rest _:genid103 .
+
+_:genid103 a rdf:List ;
+	rdf:first :GPScoordinate ;
+	rdf:rest _:genid102 .
+
+_:genid102 a rdf:List ;
+	rdf:first :ISOLATIONdata ;
+	rdf:rest _:genid101 .
+
+_:genid101 a rdf:List ;
+	rdf:first :LIMSdata ;
+	rdf:rest _:genid100 .
+
+_:genid100 a rdf:List ;
+	rdf:first :SOURCEdata ;
+	rdf:rest _:genid99 .
+
+_:genid99 a rdf:List ;
+	rdf:first :TESTdata ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid108 a owl:AllDisjointClasses ;
+	owl:members _:genid111 .
+
+_:genid111 a rdf:List ;
+	rdf:first :DataNode ;
+	rdf:rest _:genid110 .
+
+_:genid110 a rdf:List ;
+	rdf:first :Outbreak ;
+	rdf:rest _:genid109 .
+
+_:genid109 a rdf:List ;
+	rdf:first :SampleType ;
+	rdf:rest rdf:nil .
+# 
+# Generated by the OWL API (version 4.1.3.20151118-2017) https://github.com/owlcs/owlapi
