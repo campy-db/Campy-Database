@@ -24,17 +24,7 @@
                                                                                            
                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFproperty> ;
                                                                                            
-                                                                                           rdfs:range :CGFgene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAMRdrugProperty
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAMRdrugProperty> rdf:type owl:ObjectProperty ;
-                                                                                                 
-                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug> ;
-                                                                                                 
-                                                                                                 rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrugProperty> .
+                                                                                           rdfs:range :CGFtypingGene .
 
 
 
@@ -92,7 +82,7 @@
                                                                                                
                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLSTtest> ;
                                                                                                
-                                                                                               rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTProperty> ;
+                                                                                               rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTproperty> ;
                                                                                                
                                                                                                rdfs:range :Literal ;
                                                                                                
@@ -107,8 +97,11 @@
                                                                                              
                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFtest> ;
                                                                                              
-                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFproperty> ,
-                                                                                                                :hasLiteral .
+                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFproperty> ;
+                                                                                             
+                                                                                             rdfs:range :Literal ;
+                                                                                             
+                                                                                             rdfs:subPropertyOf :hasLiteral .
 
 
 
@@ -119,8 +112,11 @@
                                                                                         
                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFtest> ;
                                                                                         
-                                                                                        rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFproperty> ,
-                                                                                                           :hasLiteral .
+                                                                                        rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFproperty> ;
+                                                                                        
+                                                                                        rdfs:range :Literal ;
+                                                                                        
+                                                                                        rdfs:subPropertyOf :hasLiteral .
 
 
 
@@ -141,25 +137,17 @@
                                                                                               
                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFtest> ;
                                                                                               
-                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFproperty> ,
-                                                                                                                 :hasLiteral .
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCGFproperty> ;
+                                                                                              
+                                                                                              rdfs:range :Literal ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf :hasLiteral .
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMIC
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTproperty
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMIC> rdf:type owl:ObjectProperty ;
-                                                                                     
-                                                                                     rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug> ;
-                                                                                     
-                                                                                     rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAMRdrugProperty> ,
-                                                                                                        :hasLiteral .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTProperty
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTProperty> rdf:type owl:ObjectProperty ;
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTproperty> rdf:type owl:ObjectProperty ;
                                                                                               
                                                                                               rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLSTproperty> ;
                                                                                               
@@ -187,7 +175,11 @@
                                                                                           
                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#PFGE> ;
                                                                                           
-                                                                                          rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPFGEproperty> .
+                                                                                          rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPFGEproperty> ;
+                                                                                          
+                                                                                          rdfs:range :Literal ;
+                                                                                          
+                                                                                          rdfs:subPropertyOf :hasLiteral .
 
 
 
@@ -199,7 +191,8 @@
                                                                                                 
                                                                                                 rdfs:range :Literal ;
                                                                                                 
-                                                                                                rdfs:subPropertyOf :hasRefCluster .
+                                                                                                rdfs:subPropertyOf :hasLiteral ,
+                                                                                                                   :hasRefCluster .
 
 
 
@@ -211,7 +204,8 @@
                                                                                                    
                                                                                                    rdfs:range :Literal ;
                                                                                                    
-                                                                                                   rdfs:subPropertyOf :hasRefCluster .
+                                                                                                   rdfs:subPropertyOf :hasLiteral ,
+                                                                                                                      :hasRefCluster .
 
 
 
@@ -223,7 +217,8 @@
                                                                                                        
                                                                                                        rdfs:range :Literal ;
                                                                                                        
-                                                                                                       rdfs:subPropertyOf :hasRefCluster .
+                                                                                                       rdfs:subPropertyOf :hasLiteral ,
+                                                                                                                          :hasRefCluster .
 
 
 
@@ -233,7 +228,7 @@
                                                                                     
                                                                                     rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLSTtest> ;
                                                                                     
-                                                                                    rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTProperty> ;
+                                                                                    rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMLSTproperty> ;
                                                                                     
                                                                                     rdfs:range :Literal ;
                                                                                     
@@ -249,7 +244,9 @@
                                                                                           
                                                                                           rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSerotypeProperty> ;
                                                                                           
-                                                                                          rdfs:range :Literal .
+                                                                                          rdfs:range :Literal ;
+                                                                                          
+                                                                                          rdfs:subPropertyOf :hasLiteral .
 
 
 
@@ -262,18 +259,6 @@
                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SerotypeTest> ;
                                                                                                   
                                                                                                   rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTypingTestProperty> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSusceptibility
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSusceptibility> rdf:type owl:ObjectProperty ;
-                                                                                                
-                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug> ;
-                                                                                                
-                                                                                                rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Susceptibility> ;
-                                                                                                
-                                                                                                rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAMRdrugProperty> .
 
 
 
@@ -301,13 +286,37 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#usesTypingGene
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#usesAllelicGene
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#usesTypingGene> rdf:type owl:ObjectProperty ;
-                                                                                             
-                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AllelicTest> ;
-                                                                                             
-                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAllelicProperty> .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#usesAllelicGene> rdf:type owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AllelicTest> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAllelicProperty> ;
+                                                                                              
+                                                                                              rdfs:range :AllelicTypingGene .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#doneAtLab
+
+:doneAtLab rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LabTest> ;
+           
+           rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLabTestProperty> ;
+           
+           rdfs:range :TypingLab .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAMRdrugProperty
+
+:hasAMRdrugProperty rdf:type owl:ObjectProperty ;
+                    
+                    rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug> ;
+                    
+                    rdfs:range :AMRdrugProperty .
 
 
 
@@ -317,8 +326,11 @@
                   
                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LabTest> ;
                   
-                  rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLabTestProperty> ,
-                                     :hasLiteral .
+                  rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLabTestProperty> ;
+                  
+                  rdfs:range :Literal ;
+                  
+                  rdfs:subPropertyOf :hasLiteral .
 
 
 
@@ -327,6 +339,19 @@
 :hasLiteral rdf:type owl:ObjectProperty ;
             
             rdfs:range :Literal .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasMIC
+
+:hasMIC rdf:type owl:ObjectProperty ;
+        
+        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug> ;
+        
+        rdfs:range :Literal ;
+        
+        rdfs:subPropertyOf :hasAMRdrugProperty ,
+                           :hasLiteral .
 
 
 
@@ -341,6 +366,20 @@
                rdfs:range :Literal ;
                
                rdfs:subPropertyOf :hasLiteral .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#isInVitro
+
+:isInVitro rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LabTest> ;
+           
+           rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLabTestProperty> ;
+           
+           rdfs:range :Literal ;
+           
+           rdfs:subPropertyOf :hasLiteral .
 
 
 
@@ -375,12 +414,6 @@
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug> rdf:type owl:Class ;
                                                                                       
                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRproperty> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrugProperty
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrugProperty> rdf:type owl:Class .
 
 
 
@@ -530,14 +563,6 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Susceptibility
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Susceptibility> rdf:type owl:Class ;
-                                                                                             
-                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrugProperty> .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TypingTest
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#TypingTest> rdf:type owl:Class ;
@@ -578,17 +603,25 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrug
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrugProperty
 
-:AMRdrug rdf:type owl:Class .
+:AMRdrugProperty rdf:type owl:Class .
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGFgene
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AllelicTypingGene
 
-:CGFgene rdf:type owl:Class ;
-         
-         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFproperty> .
+:AllelicTypingGene rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AllelicProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGFtypingGene
+
+:CGFtypingGene rdf:type owl:Class ;
+               
+               rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#CGFproperty> .
 
 
 
@@ -603,6 +636,14 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingLab
+
+:TypingLab rdf:type owl:Class ;
+           
+           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LabTestProperty> .
+
+
+
 
 
 #################################################################
@@ -613,18 +654,18 @@
 
 
 [ rdf:type owl:AllDisjointClasses ;
+  owl:members ( <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AllelicTest>
+                <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BinaryTest>
+                <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#PFGE>
+                <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SerotypeTest>
+              )
+] .
+[ rdf:type owl:AllDisjointClasses ;
   owl:members ( <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MLSTtest>
                 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#MOMPtest>
                 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaAPeptideTest>
                 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#flaASVRtest>
                 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#porAtest>
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AllelicTest>
-                <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BinaryTest>
-                <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#PFGE>
-                <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#SerotypeTest>
               )
 ] .
 
