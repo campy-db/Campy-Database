@@ -469,11 +469,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLabTest> rdf:type owl:ObjectProperty ;
                                                                                             
-                                                                                            rdfs:range :LabTest ;
-                                                                                            
                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
                                                                                             
-                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasBIOproperty> .
+                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasBIOproperty> ;
+                                                                                            
+                                                                                            rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTest> .
 
 
 
@@ -904,15 +904,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 #################################################################
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAlleleIndex
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAlleleIndex> rdf:type owl:DatatypeProperty ,
-                                                                                                         owl:FunctionalProperty ;
-                                                                                                
-                                                                                                rdfs:range xsd:integer .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasComments
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasComments> rdf:type owl:DatatypeProperty ;
@@ -920,6 +911,16 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                              rdfs:range xsd:string ;
                                                                                              
                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasName
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasName> rdf:type owl:DatatypeProperty ;
+                                                                                         
+                                                                                         rdfs:range xsd:string ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
 
 
 
@@ -934,20 +935,9 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#AMRdrug
 
-:AMRdrug rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LabTest
-
-:LabTest rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BIOproperty> ,
-                         <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LabTestProperty
-
-:LabTestProperty rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+:AMRdrug rdf:type owl:Class ;
+         
+         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
 
 
 
@@ -1441,6 +1431,53 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrugProperty
 
 <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrugProperty> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#ClusterProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#ClusterProperty> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTest
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTest> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BIOproperty> ,
+                                                                                                 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTestProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTestProperty> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingGene
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingGene> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingLab
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingLab> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
 
 
 
