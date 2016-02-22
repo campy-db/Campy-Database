@@ -1,10 +1,11 @@
 from dateutil.parser import parse as dateParse
-
+import datetime
 ######################################################################################################
 # Removes characters that screw things up
 ######################################################################################################
 def cleanString(s):
-	for c in ": -.()+#":
+	s=s.strip().lower()
+	for c in ";: -.()+#":
 		s=s.replace(c,'_')
 	return s
 
@@ -37,7 +38,7 @@ def remPrefix(val,l):
 # Main. Just for testing purposes.
 ###################################################################################################
 def main():
-	print convertDate("")
+	print type(datetime.datetime.today())
 
 
 if __name__=="__main__":

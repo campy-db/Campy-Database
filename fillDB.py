@@ -1,6 +1,7 @@
 import TripleMaker as t
 import cleanCSV as c
-import endpoint
+import csv
+import pycountry
 ######################################################################################################
 # Takes all the info from the excel campy database (2015-06-11 CGF_DB_20080.csv) 
 # and turns it into triples to insert into the triple store running on blazegraph
@@ -45,57 +46,175 @@ def getGenes(fingerprint,cgfGenes):
 		i+=1
 	return result
 
+######################################################################################################
+#
+######################################################################################################
+def createHumanTriples(cvals,isoName):
+	hum="human"+isoName
+	# Just create a generic human individual
+	humTriple=campy.indTriple(hum,"Human")
+	humTriple+=campy.propTriple(hum,{"hasName":"\""+hum+"\""},True)
+	gender=cvals[95]
+	age=cvals[96] # This column has age and birthday in it. We'll convert the birthday to an age
+	              # by taking the year the sample was taken minus the birth year (so we'll have
+	              # the age of the patient when the sample was taken). But if the bday is present
+				  # and the year the sample was taken is not, we'll do the current year minus the
+				  # birth year. Age ranges are also in this column
+	travel=cvals[108]
+	country=""
+	subNational=""
+	# ohio__usa, ukraine, new_brunswick, alberta, cuba, and italy are the only travel
+	# destinations in the csv
+	if "travel" in travel:
+		if "ukraine" in travel:
+			country="Ukraine"
+		elif "usa" in travel:
+			country="United States"
+			subNational="Ohio"
+		elif "cuba" in travel:
+			country="Cuba"
+		elif "alberta" in travel:
+			subNational="Alberta"
+		elif "new_brunswick" in travel:
+			subNational="New Brunswick"
+		else:
+			country="Italy"
+		
+		if country!="":
+			ccountry=c.cleanString(country)
+			coTriple=campy.indTriple(ccountry,"Country")+\
+					 campy.propTriple(ccountry,{"hasName":"\""+country+"\""},True)
+			# Insert coTriple
+			print coTriple
+			humTriple+=campy.propTriple(hum,{"traveledTo":ccountry},False)
+		if subNational!="":
+			cSubNational=c.cleanString(subNational)
+			subTriple=campy.indTriple(cSubNational,"SubNational")+\
+				      campy.propTriple(cSubNational,{"hasName":"\""+subNational+"\""},True)
+			print subTriple
+		 	# Insert subTriple
+			humTriple+=campy.propTriple(hum,{"traveledTo":cSubNational},False)
+		
+	if age!="missing" and age!="not_given" and age!="": 
+		if len(age)<=2: # if not a birthday or range
+			pass
+		else:
+			if "years" in age: # Every range contains the word 'years'.
+				# Most ranges are of the form age-age, but some are age++
+				pass
+			else: # The value is a birth day
+				bday=c.convertDate(age)
+				yearTaken=cvals[60]
+
+				if yearTaken!="":
+					age=int(yearTaken)-int(bday[:4])
+					if age<0: # One of the patients was born in 2011,but the sample was taken in 2010
+						age=0
+				else:
+					age=2016-int(bday[:4]) # Use todays year for the age
+
+		humTriple+=campy.propTriple(hum,{"hasAge":str(age)},True,rLiteral=True)
+
+	# The values m, f, and 'not given' are in the csv. We won't add the prop if it's 'not given'
+	if gender!="" and gender!="not_given":
+		humTriple+=campy.propTriple(hum,{"hasGender":gender},True,rLiteral=True)
+
+	print humTriple
+	# Insert humTriple
+
+
+######################################################################################################
+#
+######################################################################################################
+def createEnviroTriples(cvals,isoName):
+	enviroTriple=""
+	isoTriple=""
+	#sourceSpec=cvals[51]
+	enviro=c.remPrefix(cvals[49],2)+isoName
+
+	if enviro!="":
+		enviroTriple=campy.indTriple(enviro,"Environment")
+		enviroTriple+=campy.propTriple(enviro,{"hasName":"\""+enviro+"\""},True)
+		isoTriple=campy.propTriple(isoName,{"hasEnvironment":enviro},False)
+		# Insert enviroTriple
+		# Insert isoTriple
+		print enviroTriple
+		print isoTriple
+		
 
 ######################################################################################################
 #
 ######################################################################################################
 def createAnimalTriples(cvals,isoName):
 	animalTriple=""
+	domestic=""
 	family=c.remPrefix(cvals[49],2)
 	sourceSpec=cvals[51]
-	if family!="":
-		animal=c.remPrefix(cvals[50],2)
+	sampleType=cvals[48]
+
+	if family=="":
+		family="Unknown"
+		animal="unknown"
+	else:
+		animal=c.remPrefix(cvals[50],2)+isoName
 		if animal!="":
 			# Handle the miscDomestic, and miscWild family cases
-			if family not in ("avian","companion","equine","insect","misc","porcine","rodent","ruminant"):
+			if "misc" in family:
 				if "wild" in family:
-					domestic="false"
+					domestic="false" # Can't just pass in booleans. We could and then convert it 
+					                 # to a string, but rdf or whatever's booleans are of the 
+					                 # form false instead of False 
 				if "domestic" in family:
 					domestic="true"
 
-				animalTriple+=campy.propTriple(animal,{"isDomestic":domestic},True,rLiteral=True)
 				family="Misc"
 
-			# Handle the domestic type of animal cases
-			if animal in ("cow","chicken","dog","sheep"):
-				animalTriple+=campy.propTriple(animal,{"isDomestic":"true"},True,rLiteral=True)
+			else:
+				# Handle the domestic type of animal cases and Domestic/Wild source_specific_2
+				if animal in ("cow","chicken","dog","sheep") or sourceSpec=="domestic":
+					domestic="true"
+				if sourceSpec=="wild":
+					domestic="false"
+					
+			if domestic!="":
+				animalTriple+=campy.propTriple(animal,{"isDomestic":domestic},True,rLiteral=True)
 
 			# There are the values goat/sheep, alpaca/llama, wild bird, small mammal, and peromyscus
 			# What should we do about these????
 		else:
 			animal="unknown"
 
-	else:
-		family="Unknown"
-		animal="unknown"
+	# animal is an instance of the class family
+	animalTriple+=campy.indTriple(animal,family.title())+\
+				  campy.propTriple(animal,{"hasName":"\""+animal+"\""},True)
+	# Insert animalTriple
+	print animalTriple
 
-	animalTriple+=campy.indTriple(animal,family.title()) # animal is an instance of the class family
-	animalTriple+=campy.propTriple(animal,{"hasName":"\""+animal+"\""},True,rLiteral=False)
+	isoTriple=campy.propTriple(isoName,{"hasAnimal":animal},False)
+
+	if sampleType!="":
+		isoTriple+=campy.propTriple(isoName,{"hasAnimalSampleType":sampleType},False)
+		typeTriple=campy.propTriple(sampleType,{"hasName":"\""+sampleType+"\""},True)
+		# Insert typeTriple
+		print typeTriple
+
+	# Insert isoTriple
+	print isoTriple
 
 
 ######################################################################################################
 #
 ######################################################################################################
 def createSourceTriples(cvals,dvals,isoName):
-	sample=cvals[47] # Animal, human or environmental (Reference strain is also found in this column)
+	sample=cvals[47] # animal, human or environmental (Reference strain is also found in this column)
 
 	if sample=="animal":
 		createAnimalTriples(cvals,isoName)
 	elif sample=="environmental":
-		pass
+		createEnviroTriples(cvals,isoName)
 	elif sample=="human":
-		pass
-	else:
+		createHumanTriples(cvals,isoName)
+	else: # ReferenceStrain
 		pass
 
 ######################################################################################################
@@ -124,6 +243,7 @@ def createProjTriples(cvals,dvals,isoName):
    	if isoTriple!="":
    		pass
    		# Insert the isoTriple
+   		print isoTriple
 
 
 ######################################################################################################
@@ -144,13 +264,13 @@ def createClustTriples(cvals,cgfTest):
 		c100name="CGF_100."+c90+"."+c95+"."+c100
 
 		c90Triple=lab.indTriple(c90name,"CGFcluster")+\
-				  lab.propTriple(c90name,{"hasThreshold":"90","hasClustNum":c90},True)+\
+				  lab.propTriple(c90name,{"hasThreshold":"90","hasClustNum":c90},True,rLiteral=True)+\
 				  lab.propTriple(c90name,{"hasSubCluster":c95name},False)
 		c95Triple=lab.indTriple(c95name,"CGFcluster")+\
-		          lab.propTriple(c95name,{"hasThreshold":"95","hasClustNum":c95},True)+\
+		          lab.propTriple(c95name,{"hasThreshold":"95","hasClustNum":c95},True,rLiteral=True)+\
 		          lab.propTriple(c95name,{"hasSubCluster":c100name},False)
 		c100Triple=lab.indTriple(c100name,"CGFcluster")+\
-				   lab.propTriple(c100name,{"hasThreshold":"100","hasClustNum":c100},True)
+				   lab.propTriple(c100name,{"hasThreshold":"100","hasClustNum":c100},True,rLiteral=True)
 
 		cgfRefTriple=lab.propTriple(cgfTest,{"hasCluster":[c90name,c95name,c100name]},False)
 		clustTriple=c90Triple+c95Triple+c100Triple+cgfRefTriple
@@ -170,7 +290,7 @@ def createCgfTriples(cvals,isoName):
 
 	# Note that hex numbers need to be passed in as strings because there doesn't seem to be a hex number 
 	# data type in rdf or whatever. It breaks the ontology if we insert it as is
-	cgfTriple=""
+	cgfTriple=lab.indTriple(cgfTest1,"CGFtest")
 	if fingerprint!="":
 		cgfTriple+=lab.propTriple(cgfTest1,{"hasFingerprint":fingerprint},True,rLiteral=True)
 	if legacyHexNum!="":
@@ -179,6 +299,7 @@ def createCgfTriples(cvals,isoName):
 		cgfTriple+=lab.propTriple(cgfTest1,{"hasDateCompleted":"\""+cgfDate+"\""},True,rLiteral=True)
 	if typingLab!="":
 		cgfTriple+=lab.propTriple(cgfTest1,{"doneAtLab":typingLab},False)
+		cgfTriple+=lab.addUri(typingLab)+" "+campy.addUri("hasName")+" \""+typingLab+"\" .\n"
 
 	clustTriple=createClustTriples(cvals,cgfTest1)
 	if clustTriple!="":
@@ -186,10 +307,12 @@ def createCgfTriples(cvals,isoName):
 
 	if cgfTriple!="":
 		# Insert cgfTriple
+		print cgfTriple
 		# Some triples have more than one URI, so we make our own using TripleMaker's 
 		# helper function addUri
 		isoTriple=campy.addUri(isoName)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(cgfTest1)+" .\n"
 		# Insert isoTriple
+		print isoTriple
 	
 
 ######################################################################################################
@@ -220,7 +343,7 @@ def writeData():
 		j=0
 		for line in r:
 				#We'll write only the first isolate for now 
-			if j!=-1:
+			if j<10:
 				dirtyVals=line.strip().split(",") 
 				#excel read some stuff as \n and screwed things up a bit. so just skip over garbage
 				if dirtyVals[0]=='' or dirtyVals[0]=='\n' or dirtyVals[0]=='"': 
@@ -234,7 +357,7 @@ def writeData():
 				for s in dirtyVals:
 					# All clean values are to lower case and have all chars that screw things up 
 					# changed to the _ character
-					cleanVals.append(c.cleanString(dirtyVals[i]).strip().lower())
+					cleanVals.append(c.cleanString(dirtyVals[i]))
 					i+=1
 
 				if j!=0:
@@ -246,8 +369,8 @@ def writeData():
 ######################################################################################################
 def main():
 	writeData()
-	
 
+	
 if __name__=="__main__":
 	main()
 	
