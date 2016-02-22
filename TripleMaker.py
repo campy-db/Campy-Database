@@ -117,6 +117,12 @@ class TripleMaker:
 		else:
 			raise self.errMsg_str()
 
+	######################################################################################################
+	#
+	######################################################################################################
+	def hasName(self,title,name):
+		return self.propTriple(title,{"hasName":"\""+name+"\""},True)
+		
 	###################################################################################################
 	# indTriple
 	# 	Returns a triple creating an individual that belongs to some class, or no class.
@@ -198,6 +204,7 @@ class TripleMaker:
 		else:
 			raise self.errMsg_dict()
 		return r
+
 
 ###################################################################################################
 # Main. Just for testing purposes.

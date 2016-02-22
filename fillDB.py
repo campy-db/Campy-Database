@@ -46,14 +46,16 @@ def getGenes(fingerprint,cgfGenes):
 		i+=1
 	return result
 
+
 ######################################################################################################
 #
 ######################################################################################################
 def createHumanTriples(cvals,isoName):
 	hum="human"+isoName
+	hClass="Human"
 	# Just create a generic human individual
-	humTriple=campy.indTriple(hum,"Human")
-	humTriple+=campy.propTriple(hum,{"hasName":"\""+hum+"\""},True)
+	humTriple=campy.indTriple(hum,hClass)
+	humTriple+=campy.hasName(hum,hum)
 	gender=cvals[95]
 	age=cvals[96] # This column has age and birthday in it. We'll convert the birthday to an age
 	              # by taking the year the sample was taken minus the birth year (so we'll have
@@ -83,15 +85,15 @@ def createHumanTriples(cvals,isoName):
 		if country!="":
 			ccountry=c.cleanString(country)
 			coTriple=campy.indTriple(ccountry,"Country")+\
-					 campy.propTriple(ccountry,{"hasName":"\""+country+"\""},True)
+					 campy.hasName(ccountry,country)
 			# Insert coTriple
-			print coTriple
+			# print coTriple
 			humTriple+=campy.propTriple(hum,{"traveledTo":ccountry},False)
 		if subNational!="":
 			cSubNational=c.cleanString(subNational)
 			subTriple=campy.indTriple(cSubNational,"SubNational")+\
-				      campy.propTriple(cSubNational,{"hasName":"\""+subNational+"\""},True)
-			print subTriple
+				      campy.hasName(cSubNational,subNational)
+			# print subTriple
 		 	# Insert subTriple
 			humTriple+=campy.propTriple(hum,{"traveledTo":cSubNational},False)
 		
@@ -119,7 +121,7 @@ def createHumanTriples(cvals,isoName):
 	if gender!="" and gender!="not_given":
 		humTriple+=campy.propTriple(hum,{"hasGender":gender},True,rLiteral=True)
 
-	print humTriple
+	# print humTriple
 	# Insert humTriple
 
 
@@ -129,17 +131,31 @@ def createHumanTriples(cvals,isoName):
 def createEnviroTriples(cvals,isoName):
 	enviroTriple=""
 	isoTriple=""
-	#sourceSpec=cvals[51]
-	enviro=c.remPrefix(cvals[49],2)+isoName
+	enviro=c.remPrefix(cvals[49],2) # Source general
+	enviroSpec=cvals[51] # Source Specific 2
 
 	if enviro!="":
-		enviroTriple=campy.indTriple(enviro,"Environment")
-		enviroTriple+=campy.propTriple(enviro,{"hasName":"\""+enviro+"\""},True)
-		isoTriple=campy.propTriple(isoName,{"hasEnvironment":enviro},False)
+		if enviro in ("lagoon","water","sewage"):
+			eClass=enviro.title()
+			if enviroSpec!="": 
+				# Source general is the class and source specific 2 is the instance
+				# Have to clean enviroSpec strings a bit
+				title=enviroSpec+isoName
+			else:
+				title=enviro+isoName
+		else:
+			eClass="Environment"
+			title=enviro+isoName
+
+
+		enviroTriple=campy.indTriple(title,eClass)
+		enviroTriple+=campy.hasName(title,title)
+		isoTriple=campy.propTriple(isoName,{"hasEnvironment":enviroSpec},False)
+
 		# Insert enviroTriple
 		# Insert isoTriple
-		print enviroTriple
-		print isoTriple
+		# print enviroTriple
+		# print isoTriple
 		
 
 ######################################################################################################
@@ -148,22 +164,22 @@ def createEnviroTriples(cvals,isoName):
 def createAnimalTriples(cvals,isoName):
 	animalTriple=""
 	domestic=""
-	family=c.remPrefix(cvals[49],2)
-	sourceSpec=cvals[51]
-	sampleType=cvals[48]
+	family=c.remPrefix(cvals[49],2) # Source General
+	sourceSpec=cvals[51] # Source specific 2
+	sampleType=cvals[48] # Sample Type 2
 
 	if family=="":
 		family="Unknown"
 		animal="unknown"
 	else:
-		animal=c.remPrefix(cvals[50],2)+isoName
+		animal=c.remPrefix(cvals[50],2) # Source Specific 1
 		if animal!="":
 			# Handle the miscDomestic, and miscWild family cases
 			if "misc" in family:
 				if "wild" in family:
 					domestic="false" # Can't just pass in booleans. We could and then convert it 
 					                 # to a string, but rdf or whatever's booleans are of the 
-					                 # form false instead of False 
+					                 # form 'false' instead of 'False' 
 				if "domestic" in family:
 					domestic="true"
 
@@ -179,27 +195,52 @@ def createAnimalTriples(cvals,isoName):
 			if domestic!="":
 				animalTriple+=campy.propTriple(animal,{"isDomestic":domestic},True,rLiteral=True)
 
-			# There are the values goat/sheep, alpaca/llama, wild bird, small mammal, and peromyscus
-			# What should we do about these????
+			# There are the values goat/sheep, alpaca/llama, wild bird, small mammal, and peromyscus 
+			# in Source Specific 1. What should we do about these????
 		else:
 			animal="unknown"
 
-	# animal is an instance of the class family
-	animalTriple+=campy.indTriple(animal,family.title())+\
-				  campy.propTriple(animal,{"hasName":"\""+animal+"\""},True)
-	# Insert animalTriple
-	print animalTriple
+	# 'animal' is an instance of the class 'family'
+	title=animal+isoName
+	aClass=family.title()
 
-	isoTriple=campy.propTriple(isoName,{"hasAnimal":animal},False)
+	animalTriple+=campy.indTriple(title,aClass)+campy.hasName(title,animal)
+	# Insert animalTriple
+	# print animalTriple
+
+	isoTriple=campy.propTriple(isoName,{"hasAnimal":title},False)
 
 	if sampleType!="":
-		isoTriple+=campy.propTriple(isoName,{"hasAnimalSampleType":sampleType},False)
-		typeTriple=campy.propTriple(sampleType,{"hasName":"\""+sampleType+"\""},True)
+		stTriple=""
+		stClass=sampleType.title() # Retail, Abbatoir, or Faecel
+		stTitle=sourceSpec # chickenBreast, carcass, rectal swab etc.
+
+		if stTitle in ("","dairy_cow","petting_zoo","unknown","other","wild","domestic","shore_bird","long_legged","meat"):
+			stTitle="unknown"+stClass 
+
+		if "non_seasoned" in stTitle: # 'seasoned' alone isn't found in the csv
+			stTriple+=campy.propTriple(stTitle,{"isSeasoned":"false"},True,rLiteral=True)
+		if "skin" in stTitle:
+			if "skinless" in stTitle:
+				stTitle=stTitle.replace("_skinless","")
+				stTriple+=campy.propTriple(stTitle,{"isSkinless":"true"},True,rLiteral=True)
+			else:
+				stTitle=stTitle.replace("_with_skin","")
+				stTriple+=campy.propTriple(stTitle,{"isSkinless":"false"},True,rLiteral=True)
+		if "rinse" in stTitle:
+			stTitle=stTitle.replace("_rinse","")
+			stTriple+=campy.propTriple(stTitle,{"isRinse":"true"},True,rLiteral=True)
+		if "chicken" in stTitle:
+			if "ground" not in stTitle:
+				stTitle=stTitle.replace("chicken_","")
+
+		stTriple+=campy.indTriple(stTitle,stClass)+campy.hasName(stTitle,stTitle)
+		isoTriple+=campy.propTriple(isoName,{"hasAnimalSampleType":stTitle},False)
 		# Insert typeTriple
-		print typeTriple
+		print stTriple
 
 	# Insert isoTriple
-	print isoTriple
+	# print isoTriple
 
 
 ######################################################################################################
@@ -222,20 +263,21 @@ def createSourceTriples(cvals,dvals,isoName):
 ######################################################################################################
 def createProjTriples(cvals,dvals,isoName):
 	proj=cvals[45]
+	projName=dvals[45]
 	subproj=cvals[46]
 	projTriple=""
 	isoTriple=""
+
 	if proj!="":
-		projTriple+=campy.indTriple(proj,"Project")+\
-					campy.propTriple(proj,{"hasName":"\""+dvals[45]+"\""},True)
+		projTriple+=campy.indTriple(proj,"Project")+campy.hasName(proj,dvals[45])
 
 		isoTriple+=campy.propTriple(isoName,{"partOfProject":proj},False)
 
 		if subproj!="" and subproj!=proj:
 			for c in " _":
 				subproj=subproj.replace(proj+c,"")
-				subprojName=dvals[46].replace(proj+c,"")
-   			projTriple+=campy.propTriple(subproj,{"hasName":"\""+subprojName+"\""},True)
+				subprojName=dvals[46].replace(projName+c,"")
+   			projTriple+=campy.hasName(subproj,subprojName)
    			projTriple+=campy.propTriple(proj,{"hasSubproject":subproj},False)
 
    			isoTriple+=campy.propTriple(isoName,{"partOfSubProject":subproj},False)
@@ -243,7 +285,7 @@ def createProjTriples(cvals,dvals,isoName):
    	if isoTriple!="":
    		pass
    		# Insert the isoTriple
-   		print isoTriple
+   		# print isoTriple
 
 
 ######################################################################################################
@@ -307,12 +349,12 @@ def createCgfTriples(cvals,isoName):
 
 	if cgfTriple!="":
 		# Insert cgfTriple
-		print cgfTriple
+		# print cgfTriple
 		# Some triples have more than one URI, so we make our own using TripleMaker's 
 		# helper function addUri
 		isoTriple=campy.addUri(isoName)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(cgfTest1)+" .\n"
 		# Insert isoTriple
-		print isoTriple
+		# print isoTriple
 	
 
 ######################################################################################################
@@ -343,7 +385,7 @@ def writeData():
 		j=0
 		for line in r:
 				#We'll write only the first isolate for now 
-			if j<10:
+			if j!=-1:
 				dirtyVals=line.strip().split(",") 
 				#excel read some stuff as \n and screwed things up a bit. so just skip over garbage
 				if dirtyVals[0]=='' or dirtyVals[0]=='\n' or dirtyVals[0]=='"': 
