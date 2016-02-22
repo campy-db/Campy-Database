@@ -128,34 +128,52 @@ def createHumanTriples(cvals,isoName):
 ######################################################################################################
 #
 ######################################################################################################
-def createEnviroTriples(cvals,isoName):
+def createEnviroTriples(cvals,dvals,isoName):
 	enviroTriple=""
 	isoTriple=""
-	enviro=c.remPrefix(cvals[49],2) # Source general
-	enviroSpec=cvals[51] # Source Specific 2
+	enviro=c.remPrefix(cvals[49],2) # Source general. Water, lagoon, sewage, sand
+	enviroSpec=cvals[51] # Source Specific 2. Lagoon:Dairy, Sewage (treated) etc.
+	name=dvals[51]
 
 	if enviro!="":
 		if enviro in ("lagoon","water","sewage"):
-			eClass=enviro.title()
 			if enviroSpec!="": 
-				# Source general is the class and source specific 2 is the instance
+				# Source general is the class and source specific 2 is the instance.
 				# Have to clean enviroSpec strings a bit
-				title=enviroSpec+isoName
+				if "treated" in enviroSpec:
+					enviroSpec="treated"
+					name="Treated"
+				if "other" in enviroSpec:
+					enviroSpec=enviro
+					name=enviro.title()
+				if "water" in enviroSpec:
+					if enviroSpec!="water": # EnviroSpec=="drinking water source water", "recreational water" or "core water site"
+						enviroSpec=enviroSpec.replace("_water","")
+						name=name.replace(" water","")
+				if "lagoon" in enviroSpec: # EnviroSpec=="lagoon__swine" or "lagoon_dairy"
+					enviroSpec=enviroSpec.replace("lagoon__","")
+					enviroSpec=enviroSpec.replace("lagoon_","")
+					name=name.replace("Lagoon:","").strip()
+
+				title=enviroSpec
 			else:
-				title=enviro+isoName
+				title=enviro
+
+			eClass=enviro.title()
 		else:
 			eClass="Environment"
 			title=enviro+isoName
 
+		if name=="":
+			name=enviro.title()
 
-		enviroTriple=campy.indTriple(title,eClass)
-		enviroTriple+=campy.hasName(title,title)
-		isoTriple=campy.propTriple(isoName,{"hasEnvironment":enviroSpec},False)
+		enviroTriple=campy.indTriple(title,eClass)+campy.hasName(title,name)
+		isoTriple=campy.propTriple(isoName,{"hasEnvironment":title},False)
 
 		# Insert enviroTriple
 		# Insert isoTriple
-		# print enviroTriple
-		# print isoTriple
+		print enviroTriple
+		print isoTriple
 		
 
 ######################################################################################################
@@ -237,7 +255,7 @@ def createAnimalTriples(cvals,isoName):
 		stTriple+=campy.indTriple(stTitle,stClass)+campy.hasName(stTitle,stTitle)
 		isoTriple+=campy.propTriple(isoName,{"hasAnimalSampleType":stTitle},False)
 		# Insert typeTriple
-		print stTriple
+		# print stTriple
 
 	# Insert isoTriple
 	# print isoTriple
@@ -252,7 +270,7 @@ def createSourceTriples(cvals,dvals,isoName):
 	if sample=="animal":
 		createAnimalTriples(cvals,isoName)
 	elif sample=="environmental":
-		createEnviroTriples(cvals,isoName)
+		createEnviroTriples(cvals,dvals,isoName)
 	elif sample=="human":
 		createHumanTriples(cvals,isoName)
 	else: # ReferenceStrain
