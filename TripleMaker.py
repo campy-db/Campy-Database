@@ -55,16 +55,29 @@ class TripleMaker:
 	###################################################################################################
 
 	def createRliteral(self,props):
-		r=""
+		result=""
+
 		for p in props:
-			if type(props[p])!=list:
-				r+=self.addUri("tag_"+props[p])+" "
-				r+=self.addrLitUri("hasLiteralValue")+" "+props[p]+" .\n"
-			else:
-				for v in props[p]:
-					r+=self.addUri("tag_"+v)+" "
-					r+=self.addrLitUri("hasLiteralValue")+" "+v+" .\n"
-		return r
+			length=1
+			# If the value for the property is a list, we must add the URI to each value
+			isList=type(props[p])==list
+			if isList: 
+				length=len(props[p])
+
+			for j in range(length):
+				if isList:
+					val=props[p][j]
+				else:
+					val=props[p]
+
+				result+=self.addUri("tag_"+val)+" "
+
+				if not (val.isdigit() or val in ("true","false")):
+					val="\""+val+"\""
+
+				result+=self.addrLitUri("hasLiteralValue")+" "+val+" .\n"
+
+		return result
 
 	###################################################################################################
 	# objProp 
@@ -116,12 +129,6 @@ class TripleMaker:
 			return self.addUri(sup)+" rdf:type owl:Class ; rdfs:subClassOf "+self.addUri(sub)+" ."
 		else:
 			raise self.errMsg_str()
-
-	######################################################################################################
-	#
-	######################################################################################################
-	def hasName(self,title,name):
-		return self.propTriple(title,{"hasName":"\""+name+"\""},True)
 		
 	###################################################################################################
 	# indTriple
@@ -150,60 +157,65 @@ class TripleMaker:
 	###################################################################################################	
 	# propTriple
 	# 	Create a triple for defining the properties of an individual
-	# 	NOTE - The individual should be defined already, but it doesn't always have to be due to all 
-	#		   the domains and ranges we've defined.
-	# 		   Literal string values have to be passed in with quotation marks. 
-	#	       EG {"hasName":"\"billy\""}
 	# 
 	# 	title - A string. The title of the individual, like its uri I mean, just without the whole www 
-	#			part.
+	#			part, we add that here.
 	# 	props - A dictionary with the property name as the key and the property value as the value. The
 	#           property value can be a list or just a single value. Even if the property value is a 
-	#			literal number value, still pass it in as a string.
+	#			literal number value, still pass it in as a string. If it's not a number and not a 
+	#			an rdf boolean (true, false, NOT True, False), we have to add quotations to the value.
 	# 	isLiteral - True if ALL properties are literal properties, false otherwise.
+	#   rLiteral - True if the ALL property values are reified literals, false otherwise
 	###################################################################################################
 	def propTriple(self,title,props,isLiteral,rLiteral=None):
 		if type(title)==str:
-			r=self.addUri(title)+" "
+			result=self.addUri(title)+" "
 		else:
 			raise self.errMsg_str()
 
 		if type(props)==dict:
 			i=1
 			# Add all the properties to the individual's definition
-			for p in props:
-				r+=self.addUri(p)+" "
-				if type(props[p])!=list:
+			for p in props: # p=The name of the property
+				result+=self.addUri(p)+" " # Add the URI to the property name
+				
+				length=1
+				# If the value for the property is a list, we must add the URI to each value
+				isList=type(props[p])==list
+				if isList: 
+					length=len(props[p])
+
+				for j in range(length):
+					if isList:
+						val=props[p][j]
+					else:
+						val=props[p]
+
 					if isLiteral:
 						if rLiteral:
-							r+=self.addUri("tag_"+props[p])+" "
+							result+=self.addUri("tag_"+val)+" "
 						else:
-							r+=props[p]+" "
+							# Check if the value is a string
+							if not (val.isdigit() or val in ("true","false")):
+								val="\""+val+"\""
+							result+=val+" "
 					else:
-						r+=self.addUri(props[p])+" "
-				else:
-					j=1
-					for v in props[p]:
-						if isLiteral:
-							if rLiteral:
-								r+=self.addUri("tag_"+v)+" "
-							else:
-								r+=v+" "
-						else:
-							r+=self.addUri(v)+" "
-						if j!=len(props[p]):
-							r+=","
-						j+=1
-				
+						result+=self.addUri(val)+" "
+
+					if j!=len(props[p])-1 and isList:
+						result+=","
+		
 				if i!=len(props):
-					r+="; "
+					result+="; " # There's more than one property name
 				i+=1
-			r+=".\n"
+			result+=".\n"
+
 			if rLiteral and isLiteral:
-				r+=self.createRliteral(props)
-		else:
+				result+=self.createRliteral(props)
+
+		else: # Props has to be a dictionary
 			raise self.errMsg_dict()
-		return r
+		return result
 
 
 ###################################################################################################
@@ -212,7 +224,8 @@ class TripleMaker:
 import TripleMaker as t
 def main():
 	trip=t.TripleMaker("https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#")
-	print trip.propTriple("sam",{"hasName":"\"sam\""},True,True)
+	print trip.propTriple("sam",{"hasName":["sam","01110001"],"isColl":"5557e","hasJoy":["true","barely","hardly","57"]},True,True)
+	#print "0717F03".isdigit()
 
 
 if __name__=="__main__":
