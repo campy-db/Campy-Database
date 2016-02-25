@@ -1,6 +1,7 @@
 #######################################################################################################
 # Triple Maker
 #######################################################################################################
+import cleanCSV as cn
 
 class TripleMaker:
 
@@ -17,16 +18,20 @@ class TripleMaker:
 			self.uri=uri
 			self.rLitUri="http://www.essepuntato.it/2010/06/literalreification/" 
 		else:
-			raise "Uri must be a string. <> are not to be in uri. uri must end in # or /"
+			raise Exception("Uri must be a string. <> are not to be in uri. uri must end in # or /")
 	
 	###################################################################################################
     # Utility methods
 	###################################################################################################
-	def errMsg_str():
-		return "Must be string"
+	def errMsg_str(self,s=None):
+		if s:
+			result=Exception(s+" must be a string")
+		else:
+			result=Exception("Arguments must be strings")
+		return result
 
-	def errMsg_dict():
-		return "Must be dictionary"
+	def errMsg_dict(self):
+		return Exception("Argument must be dictionary")
 
 	# Appends title to the user's uri
 	def addUri(self,title):
@@ -70,7 +75,7 @@ class TripleMaker:
 				else:
 					val=props[p]
 
-				result+=self.addUri("tag_"+val)+" "
+				result+=self.addUri("tag_"+cn.cleanString(val))+" "
 
 				if not (val.isdigit() or val in ("true","false")):
 					val="\""+val+"\""
@@ -124,9 +129,9 @@ class TripleMaker:
 	#	sub - The name of the new class
 	#	sup - The name of the super class of sub
 	###################################################################################################
-	def subClass(self,sup,sub):
+	def subClass(self,sub,sup):
 		if type(sup)==str and type(sub)==str:
-			return self.addUri(sup)+" rdf:type owl:Class ; rdfs:subClassOf "+self.addUri(sub)+" ."
+			return self.addUri(cn.cleanString(sub).title())+" rdf:type owl:Class ; rdfs:subClassOf "+self.addUri(cn.cleanString(sup).title())+" ."
 		else:
 			raise self.errMsg_str()
 		
@@ -143,15 +148,15 @@ class TripleMaker:
 	###################################################################################################
 	def indTriple(self,title,class_=None):
 		if type(title)==str:
-			r=self.addUri(title)+" rdf:type owl:NamedIndividual " 
+			r=self.addUri(cn.cleanString(title))+" rdf:type owl:NamedIndividual " 
 		else:
-			raise self.errMsg_str()
+			raise self.errMsg_str("title")
 
 		if class_:
 			if type(class_)==str:
-				r+=", "+self.addUri(class_)+" "
+				r+=", "+self.addUri(cn.cleanString(class_).title())+" "
 			else:
-				raise self.errMsg_str()
+				raise self.errMsg_str("class_")
 		return r+".\n"
 
 	###################################################################################################	
@@ -169,9 +174,9 @@ class TripleMaker:
 	###################################################################################################
 	def propTriple(self,title,props,isLiteral,rLiteral=None):
 		if type(title)==str:
-			result=self.addUri(title)+" "
+			result=self.addUri(cn.cleanString(title))+" "
 		else:
-			raise self.errMsg_str()
+			raise self.errMsg_str("title")
 
 		if type(props)==dict:
 			i=1
@@ -193,14 +198,14 @@ class TripleMaker:
 
 					if isLiteral:
 						if rLiteral:
-							result+=self.addUri("tag_"+val)+" "
+							result+=self.addUri("tag_"+cn.cleanString(val))+" "
 						else:
 							# Check if the value is a string
 							if not (val.isdigit() or val in ("true","false")):
 								val="\""+val+"\""
 							result+=val+" "
 					else:
-						result+=self.addUri(val)+" "
+						result+=self.addUri(cn.cleanString(val))+" "
 
 					if j!=len(props[p])-1 and isList:
 						result+=","
@@ -210,6 +215,8 @@ class TripleMaker:
 				i+=1
 			result+=".\n"
 
+			# If the property values are literals, and we're using reified literals,
+			# create literal object and attach literal value to it
 			if rLiteral and isLiteral:
 				result+=self.createRliteral(props)
 
@@ -224,8 +231,8 @@ class TripleMaker:
 import TripleMaker as t
 def main():
 	trip=t.TripleMaker("https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#")
-	print trip.propTriple("sam",{"hasName":["sam","01110001"],"isColl":"5557e","hasJoy":["true","barely","hardly","57"]},True,True)
-	#print "0717F03".isdigit()
+	print trip.indTriple(45,"Sam")
+
 
 
 if __name__=="__main__":

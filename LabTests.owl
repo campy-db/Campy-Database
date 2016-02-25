@@ -158,6 +158,20 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasFileLocation
+
+:hasFileLocation rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                 
+                 rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                 
+                 rdfs:domain :LabTest ;
+                 
+                 rdfs:subPropertyOf :hasLabTestProperty .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasFingerprint
 
 :hasFingerprint rdf:type owl:FunctionalProperty ,
@@ -680,18 +694,18 @@
 
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :AllelicTest
-                :BinaryTest
-                :PFGE
-                :SerotypeTest
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
   owl:members ( :MLSTtest
                 :MOMPtest
                 :flaAPeptideTest
                 :flaASVRtest
                 :porAtest
+              )
+] .
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AllelicTest
+                :BinaryTest
+                :PFGE
+                :SerotypeTest
               )
 ] .
 
