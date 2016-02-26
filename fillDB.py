@@ -207,7 +207,7 @@ def createEnviroTriples(df,row,isoTitle):
 		enviroSpec="unknown"
 	
 	title=enviroSpec # Should be unique. If there were an id for enviro sites we'd use it
-	enviroTriple=campy.indTriple(title,enviro)+campy.propTriple(title,{"hasName":enviroSpec},True)
+	enviroTriple=campy.indTriple(title,enviro.title())+campy.propTriple(title,{"hasName":enviroSpec},True)
 	isoTriple=campy.propTriple(isoTitle,{"hasEnvironment":title},False)
 
 	# Insert enviroTriple
@@ -219,42 +219,87 @@ def createEnviroTriples(df,row,isoTitle):
 ######################################################################################################
 #
 ######################################################################################################
-def createTypeTriples(df,row,isoTitle):
+def createTypeTriples(df,row,aniTitle,isoTitle):
 	isoTriple=""
 	stTriple=""
-	sampleType=df["Sample Type 2"][row]
-	sourceSpec=df["Source_Specific_2"][row]
+	title=""
+	sampleType=df["Sample Type 2"][row] # Faecel, Abbatoir, Retail
+	sourceSpec=df["Source_Specific_2"][row] # chickenBreast, carcass, rectal swab etc.
 
-	if not pd.isnull(sampleType):
-		stClass=sampleType # Retail, Abbatoir, or Faecel
-		stTitle=sourceSpec # chickenBreast, carcass, rectal swab etc.
+	if not pd.isnull(sampleType) and sampleType!="Insect": # Insects don't have sample types
+		sampleType=sampleType.lower()
 
-		# The column source specific 2 has a bunch of rando crap in it so we have to weed some values out
-		if stTitle in ("Dairy cow","Petting Zoo","Unknown","Other","Wild","Domestic","Shore Bird","Long Legged","Meat"):
-			stTitle="unknown"+stClass 
+		if "egg" in sampleType:
+			title="Egg"
 
-		if "non_seasoned" in stTitle: # 'seasoned' alone isn't found in the csv
-			stTriple+=campy.propTriple(stTitle,{"isSeasoned":"false"},True,rLiteral=True)
-		if "skin" in stTitle:
-			if "skinless" in stTitle:
-				stTitle=stTitle.replace("_skinless","")
-				stTriple+=campy.propTriple(stTitle,{"isSkinless":"true"},True,rLiteral=True)
-			else:
-				stTitle=stTitle.replace("_with_skin","")
-				stTriple+=campy.propTriple(stTitle,{"isSkinless":"false"},True,rLiteral=True)
-		if "rinse" in stTitle:
-			stTitle=stTitle.replace("_rinse","")
-			stTriple+=campy.propTriple(stTitle,{"isRinse":"true"},True,rLiteral=True)
-		if "chicken" in stTitle:
-			if "ground" not in stTitle:
-				stTitle=stTitle.replace("chicken_","")
+		elif "retail" in sampleType:
+			if not pd.isnull(sourceSpec):
+				sourceSpec=sourceSpec.lower()
 
-		stTriple+=campy.indTriple(stTitle,stClass)+campy.propTriple(stTitle,{"hasName":stTitle},True)
-		# Insert stTriple
-		# print stTriple
-		isoTriple+=campy.propTriple(isoName,{"hasAnimalSampleType":stTitle},False)
+				title="RetailType"
+				title="RetailBreast" if "breast" in sourceSpec else title
+				title="RetailThigh" if "thigh" in sourceSpec else title
+				title="RetailCaecum" if "caecum" in sourceSpec else title
+				title="RetailCarcass" if "carcass" in sourceSpec else title
+				title="RetailGround" if "ground" in sourceSpec else title
+				title="RetailLoin" if "loin" in sourceSpec else title
+
+			else: # sourceSpec is nan
+				title="RetailType"
+
+		elif "faecal" in sampleType:
+			if not pd.isnull(sourceSpec):				
+				sourceSpec=sourceSpec.lower()
+
+				title="FaecalType"
+				title="Dropping" if "field sample" in sourceSpec else title
+				title="Pit" if "pit" in sourceSpec else title
+				title="Swab" if "swab" in sourceSpec else title
+
+			else: # sourceSpec is nan
+				title="FaecalType"
+
+		elif "abattoir" in sampleType:
+			if not pd.isnull(sourceSpec):
+				sourceSpec=sourceSpec.lower()
+
+				title="AbattoirType"
+				title="AbattoirBreast" if "breast" in sourceSpec else title
+				title="AbattoirThigh" if "thigh" in sourceSpec else title
+				title="AbattoirCaecum" if "caecum" in sourceSpec else title
+				title="AbattoirCarcass" if "carcass" in sourceSpec else title
+				title="AbattoirWeep" if "weep" in sourceSpec else title
+
+			else: # sourceSpec is nan
+				title="AbattoirType"
+
+		else: # There are no unknown sample types but just in case
+			title="AnimalType"
+		
+		stClass=title
+		title=title+"_"+isoTitle
+		stTriple=campy.indTriple(title,stClass)
+
+		if not pd.isnull(sourceSpec):
+			if "seasoned" in sourceSpec: 
+				stTriple+=campy.propTriple(title,{"isSeasoned":"false"},True,rLiteral=True)
+
+			if "skin" in sourceSpec:
+				if "skinless" in sourceSpec:
+					stTriple+=campy.propTriple(title,{"isSkinless":"true"},True,rLiteral=True)
+				else:
+					stTriple+=campy.propTriple(title,{"isSkinless":"false"},True,rLiteral=True)
+
+			if "rinse" in sourceSpec:
+				stTriple+=campy.propTriple(title,{"isRinse":"true"},True,rLiteral=True)
+		
+
+		stTriple+=campy.propTriple(title,{"cameFrom":aniTitle},False)
+		isoTriple+=campy.propTriple(isoTitle,{"hasAnimalType":title},False)
 		# Insert isoTriple
 		# print isoTriple
+
+	return stTriple
 
 
 ######################################################################################################
@@ -264,22 +309,24 @@ def createAnimalTriples(df,row,isoTitle):
 	isoTriple=""
 	animalTriple=""
 	domestic=""
+	taxoGenus="" # Some of the animals have taxo info (eg peromyscus)
 	sourceSpec=df["Source_Specific_2"][row] # That pesky source specific 2 column
 	family=cn.remPrefix(df["Source General"][row],2) # Avian, Ruminant etc.
 	sex=df["Gender"][row]
 	age=df["Patient D.O.B / Age"][row] # 0, , juvenile, and adult
 	id=df["Animal ID"][row] # If the animal has an id, this will be its URI
 	animal=cn.remPrefix(df["Source_Specific_1"][row],2) # The actual animal, eg chicken, racoon etc.
+	ageRank=df["Patient D.O.B / Age"][row] # Juvenile, Adult
 
-	# An animal, say chicken, will become an instance of family, and chicken. Its URI will be 
-	# animal+isoTitle, unless the id is present, then this will be its URI. The names of animals
-	# will be their URI
+	# An animal, say chicken, will become an instance of Family, and Chicken, for example. Then
+	# Chicken will become a subclass of Family. The individuals URI will be animal+isoTitle, unless 
+	# the id is present, then this will be its URI. 
 
 	if pd.isnull(family): # We know the source is an Animal but we don't know the family or type
 						  # of animal. So it just becomes an instance of the animal class and is
 						  # named 'unknown' (unless it has an id)
-		family="Animal"
 		animal="unknown"
+		family="Misc"
 	else:
 		# We know the family
 		if not pd.isnull(animal):
@@ -292,36 +339,71 @@ def createAnimalTriples(df,row,isoTitle):
 				if "Domestic" in family:
 					domestic="true"
 
-				if animal=="Canada Goose" or animal=="Trumpeter Swan" or animal=="Mute Swan" or animal=="Bufflehead":
+				# Give families do all the MiscWild and MiscDomestic animals
+				if "Canada Goose" in animal or "Trumpeter Swan" in animal or \
+				   "Mute" in animal or "Bufflehead" in animal or "Scaup" in animal or\
+				   "Merganser" in animal:
 					family="Avian"
-				else:
-					family="Animal"
-			else:
-				# Handle the domestic type of animal cases and Domestic/Wild source_specific_2
-				if animal in ("Cow","Chicken","Dog","Sheep") or sourceSpec=="Domestic":
-					domestic="true"
-				if animal in ("Bear","Canada Goose") or sourceSpec=="Wild":
-					domestic="false"
+				elif "Small Mammal" in animal:
+					animal="unknown"
+					family="Misc"
+				elif "Peromyscus" in animal:
+					animal="Deer Mouse"
+					family="Rodent"
+					taxoGenus="peromyscus"
+				elif "Rattus" in animal:
+					animal="Rat"
+					family="Rodent"
+					taxoGenus="Rattus"
+				elif "Marmot" in animal:
+					family="Rodent"
+				elif "Unknown" in animal:
+					family="Misc"
+					animal="unknown"
+				else: # racoons, skunks, and llama/alpaca
+					family="Misc"
+			
+			# Handle the domestic type of animal cases
+			if animal in ("Cow","Chicken","Dog","Sheep"):
+				domestic="true"
+			if animal in ("Bear","Canada Goose"): 
+				domestic="false"
 
-			# There are the values goat/sheep, alpaca/llama, wild bird, small mammal, and peromyscus 
-			# in Source Specific 1.
+			# There are the values Wild Bird, goat/sheep, alpaca/llama in source specific 1
 			if "Wild Bird" in animal:
-				animal="unknown"
+				animal="unknown" # Wild bird has the family avian
 				domestic="false"
 			if "/" in animal:
 				animal=animal.split("/")[0]
-			if "Small Mammal" in animal:
-				animal="unknown"
-			if "Peromyscus" in animal:
-				animal="Deer Mouse"
-				family="Rodent"
-			if "Rattus" in animal:
-				animal="Rat"
-				family="Rodent"
 
-		else:
+			# Source Specific 2 has more specific animals sometimes and also domestic/wild info
+			if not pd.isnull(sourceSpec):
+				sourceSpec=sourceSpec.lower()
+
+				if "domestic" in sourceSpec:
+					domestic="true"
+				if "wild" in sourceSpec:
+					domestic="false"
+
+				# The value Heifer is in source specific 2 for values of cow in source specific 1.
+				# This is more specific than cow so Heifer will become a subclass of Cow
+				if "heifer" in sourceSpec:
+					animal="heifer"
+					family="Cow"
+					animalTriple+=campy.subClass(family,"Ruminant") # Cow is subclass of Ruminant
+
+				# Dairy cow is more specific than just a cow so Dairy Cow becomes a subclass
+				# of cow. DAIRY, Dairy Cow, and Dairy Manure are found in source specific 2
+				if "dairy" in sourceSpec:
+					animal="dairy cow"
+					family="Cow"
+					animalTriple+=campy.subClass(family,"Ruminant") # Cow is subclass of Ruminant
+
+				if "shore bird" in sourceSpec:
+					animal="shore bird"
+
+		else: # We know the family but not the animal
 			animal="unknown"
-
 
 	# If the animal has an id, this becomes its URI
 	if not pd.isnull(id):
@@ -329,18 +411,28 @@ def createAnimalTriples(df,row,isoTitle):
 	else:
 		title=animal+"_"+isoTitle
 
-	if domestic!="":
-		animalTriple+=campy.propTriple(title,{"isDomestic":domestic},True,rLiteral=True)
-
 	if not pd.isnull(sex) and (sex[0]=="M" or sex[0]=="F"):
 		animalTriple+=campy.propTriple(title,{"hasSex":sex[0]},True,rLiteral=True)
 
-	if animal.lower()!="unknown":
-		animalTriple+=campy.indTriple(title,animal)+campy.subClass(animal,family)
+	# The values 0 and unknown were in the csv for this column
+	if not pd.isnull(ageRank) and ("juvenile" in ageRank or "adult" in ageRank):
+		animalTriple+=campy.propTriple(title,{"hasAgeRank":ageRank},True,rLiteral=True)		
 		
-	# Handle animal age
+	if domestic!="":
+		animalTriple+=campy.propTriple(title,{"isDomestic":domestic},True,rLiteral=True)
 
-	animalTriple+=campy.indTriple(title,family)+campy.propTriple(title,{"hasName":title},True)
+	if animal!="unknown":
+		# animal becomes an instance of animal, and animal becomes a subclass of family
+		animalTriple+=campy.indTriple(title,animal.title())+campy.subClass(animal.title(),family.title())
+
+	if taxoGenus!="":
+		animalTriple+=campy.propTriple(title,{"hasTaxoGenus":taxoGenus},True,rLiteral=True)
+
+
+	animalTriple+=campy.indTriple(title,family.title())+campy.propTriple(title,{"hasName":title},True)
+
+	animalTriple+=createTypeTriples(df,row,title,isoTitle)
+
 	isoTriple+=campy.propTriple(isoTitle,{"hasAnimal":title},False)
 
 	# Insert animalTriple
@@ -523,7 +615,7 @@ def createTriples(df,row):
 ######################################################################################################
 def writeData():
 	df=pd.read_csv(r"/home/student/CampyDB/2016-02-10 CGF_DB_22011_2.csv")
-	#createTriples(df,117)
+	#createTriples(df,525)
 	
 	for row in range(df["Strain Name"].count()):
 		createTriples(df,row)
