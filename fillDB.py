@@ -88,7 +88,6 @@ def createAgeTriples(df,row,hum):
 					age=date.today().year-int(bday[:yearLen]) # Use todays year for the age
 
 		humTriple+=campy.propTriple(hum,{"hasAge":str(age)},True,rLiteral=True)	
-		#print humTriple
 
 	return humTriple
 
@@ -119,7 +118,7 @@ def createTravelTriples(df,row,hum):
 
 		trTriple+=campy.propTriple(travel,{"hasName":travel},True)
 		humTriple=campy.propTriple(hum,{"traveledTo":travel},False)
-		#print trTriple+humTriple
+
 	return trTriple+humTriple
 
 
@@ -151,11 +150,10 @@ def createHumanTriples(df,row,isoTitle):
 	if not pd.isnull(postalCode):
 		humTriple+=campy.propTriple(hum,{"hasPostalCode":postalCode},True,rLiteral=True)
 
-	isoTriple=campy.propTriple(isoTitle,{"hasHumanSource":hum},False)
-	#print cvals[0]
-	#print humTriple
-	# Insert humTriple
-	# Insert isoTriple
+	isoTriple=campy.propTriple(isoTitle,{"hasSampleSource":hum},False)
+
+
+	return humTriple+isoTriple
 
 
 ######################################################################################################
@@ -202,85 +200,55 @@ def createEnviroTriples(df,row,isoTitle):
 			enviroSpec="sand"
 
 	else: # We know it's an environmental source, we don't know the environment type (enviro) or the specific
-		  # environment source though (enviroSpec). Note that source specific 2 is empty if source general is too.
+		  # environment source (enviroSpec). Note that source specific 2 is empty if source general is too.
 		enviro="Environment"
 		enviroSpec="unknown"
 	
 	title=enviroSpec # Should be unique. If there were an id for enviro sites we'd use it
-	enviroTriple=campy.indTriple(title,enviro.title())+campy.propTriple(title,{"hasName":enviroSpec},True)
-	isoTriple=campy.propTriple(isoTitle,{"hasEnvironment":title},False)
+	enviroTriple=campy.indTriple(title,enviro)+campy.propTriple(title,{"hasName":enviroSpec},True)
+	isoTriple=campy.propTriple(isoTitle,{"hasSampleSource":title},False)
 
-	# Insert enviroTriple
-	# Insert isoTriple
-	# putInOnt(enviroTriple)
-	# print isoTriple
+	return enviroTriple+isoTriple
 		
 
 ######################################################################################################
 #
 ######################################################################################################
-def createTypeTriples(df,row,aniTitle,isoTitle):
+def createTypeTriples(df,row,isoTitle):
 	isoTriple=""
 	stTriple=""
 	title=""
-	sampleType=df["Sample Type 2"][row] # Faecel, Abbatoir, Retail
+	sampleType=df["Sample Type 2"][row] # Faecel, Abbatoir, Retail, Egg
 	sourceSpec=df["Source_Specific_2"][row] # chickenBreast, carcass, rectal swab etc.
 
 	if not pd.isnull(sampleType) and sampleType!="Insect": # Insects don't have sample types
 		sampleType=sampleType.lower()
 
-		if "egg" in sampleType:
-			title="Egg"
-
-		elif "retail" in sampleType:
-			if not pd.isnull(sourceSpec):
-				sourceSpec=sourceSpec.lower()
-
-				title="RetailType"
-				title="RetailBreast" if "breast" in sourceSpec else title
-				title="RetailThigh" if "thigh" in sourceSpec else title
-				title="RetailCaecum" if "caecum" in sourceSpec else title
-				title="RetailCarcass" if "carcass" in sourceSpec else title
-				title="RetailGround" if "ground" in sourceSpec else title
-				title="RetailLoin" if "loin" in sourceSpec else title
-
-			else: # sourceSpec is nan
-				title="RetailType"
-
-		elif "faecal" in sampleType:
-			if not pd.isnull(sourceSpec):				
-				sourceSpec=sourceSpec.lower()
-
-				title="FaecalType"
-				title="Dropping" if "field sample" in sourceSpec else title
-				title="Pit" if "pit" in sourceSpec else title
-				title="Swab" if "swab" in sourceSpec else title
-
-			else: # sourceSpec is nan
-				title="FaecalType"
-
-		elif "abattoir" in sampleType:
-			if not pd.isnull(sourceSpec):
-				sourceSpec=sourceSpec.lower()
-
-				title="AbattoirType"
-				title="AbattoirBreast" if "breast" in sourceSpec else title
-				title="AbattoirThigh" if "thigh" in sourceSpec else title
-				title="AbattoirCaecum" if "caecum" in sourceSpec else title
-				title="AbattoirCarcass" if "carcass" in sourceSpec else title
-				title="AbattoirWeep" if "weep" in sourceSpec else title
-
-			else: # sourceSpec is nan
-				title="AbattoirType"
-
-		else: # There are no unknown sample types but just in case
-			title="AnimalType"
-		
-		stClass=title
-		title=title+"_"+isoTitle
-		stTriple=campy.indTriple(title,stClass)
-
 		if not pd.isnull(sourceSpec):
+			sourceSpec=sourceSpec.lower()
+
+			title=sampleType # The name of the sample type is just the sample type name
+						     # unless there is something more specific in source specific 2
+
+			title="breast" if "breast" in sourceSpec else title
+			title="thigh" if "thigh" in sourceSpec else title
+			title="caecum" if "caecum" in sourceSpec else title
+			title="carcass" if "carcass" in sourceSpec else title
+			title="ground" if "ground" in sourceSpec else title
+			title="loin" if "loin" in sourceSpec else title
+			title="dropping" if "field sample" in sourceSpec else title
+			title="pit" if "pit" in sourceSpec else title
+			title="swab" if "swab" in sourceSpec else title
+			title="weep" if "weep" in sourceSpec else title
+
+			if title=="breast" or title=="thigh" or title=="ground" or title=="loin":
+				stTriple+=campy.indTriple(title+"_"+isoTitle,"Meat")
+
+			title+="_"+isoTitle
+			name=title
+			stTriple+=campy.propTriple(title,{"hasName":name},True)
+	
+			# sourceSpec has info related to the properties of meat.
 			if "seasoned" in sourceSpec: 
 				stTriple+=campy.propTriple(title,{"isSeasoned":"false"},True,rLiteral=True)
 
@@ -289,17 +257,20 @@ def createTypeTriples(df,row,aniTitle,isoTitle):
 					stTriple+=campy.propTriple(title,{"isSkinless":"true"},True,rLiteral=True)
 				else:
 					stTriple+=campy.propTriple(title,{"isSkinless":"false"},True,rLiteral=True)
-
 			if "rinse" in sourceSpec:
 				stTriple+=campy.propTriple(title,{"isRinse":"true"},True,rLiteral=True)
-		
 
-		stTriple+=campy.propTriple(title,{"cameFrom":aniTitle},False)
-		isoTriple+=campy.propTriple(isoTitle,{"hasAnimalType":title},False)
-		# Insert isoTriple
-		# print isoTriple
+		else: # sourceSpec is nan
+			name=sampleType
+			title=sampleType+"_"+isoTitle # faecal, abattoir, retail, egg
 
-	return stTriple
+
+		stClass=sampleType+"Type"
+		stTriple+=campy.indTriple(title,stClass)
+
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleType":title},False)
+
+	return stTriple+isoTriple
 
 
 ######################################################################################################
@@ -366,6 +337,7 @@ def createAnimalTriples(df,row,isoTitle):
 			# Handle the domestic type of animal cases
 			if animal in ("Cow","Chicken","Dog","Sheep"):
 				domestic="true"
+			# Handle the wild type of animal cases
 			if animal in ("Bear","Canada Goose"): 
 				domestic="false"
 
@@ -423,40 +395,139 @@ def createAnimalTriples(df,row,isoTitle):
 
 	if animal!="unknown":
 		# animal becomes an instance of animal, and animal becomes a subclass of family
-		animalTriple+=campy.indTriple(title,animal.title())+campy.subClass(animal.title(),family.title())
+		animalTriple+=campy.indTriple(title,animal)+campy.subClass(animal,family)
 
 	if taxoGenus!="":
 		animalTriple+=campy.propTriple(title,{"hasTaxoGenus":taxoGenus},True,rLiteral=True)
 
 
-	animalTriple+=campy.indTriple(title,family.title())+campy.propTriple(title,{"hasName":title},True)
+	animalTriple+=campy.indTriple(title,family)
 
-	animalTriple+=createTypeTriples(df,row,title,isoTitle)
+	isoTriple+=campy.propTriple(isoTitle,{"hasSampleSource":title},False)
 
-	isoTriple+=campy.propTriple(isoTitle,{"hasAnimal":title},False)
 
-	# Insert animalTriple
-	# print animalTriple
-	putInOnt(animalTriple)
-	# Insert isoTriple
-	# print isoTriple
+	return animalTriple+isoTriple
+
+######################################################################################################
+#
+######################################################################################################
+def createLocationTriples(df,row,isoTitle):
+	locationTriple=""
+	country=df["Country"][row]
+	subNat=df["Province/State"][row]
+	city=df["City"][row]
+	hAuthority=df["Region_L1"][row]
+	samplingSite=df["Region_L2"][row]
+	samplingSite2=df["Source_Specific_2"][row] # Petting zoo is in this col, and we consider it to be
+										       # a sampling site
+	c_netSite=df["C-EnterNet Site"][row]
+	fncSite=df["FNC Sentinel Site"][row]
+	long=df["Longitude"][row]
+	lat=df["Latitude"][row]
+
+	# Need this for the body of water location.
+	water=df["Sample Type 2"][row]
+	if not pd.isnull(water) and "Water" in water:
+		bodyOfWater=df["Sample Source"][row]
+		if not pd.isnull(bodyOfWater):
+			bodyOfWater=cn.remPrefix(bodyOfWater,2)
+
+			if "Oldman River Watershed" in bodyOfWater: # A watershed is a region
+				locationTriple+=campy.indTriple(bodyOfWater,"Region")
+				locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater},False)
+				locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},True)
+
+			# For whatever bloody reason the names of health authorities and cities
+			# are in this column for values of water in column sample type 2. The
+			# sumas and salmon rivers are the only bodies of water not repeated.
+			if "Sumas" in bodyOfWater or "Salmon" in bodyOfWater:
+				locationTriple+=campy.indTriple(bodyOfWater,"BodyOfWater")
+				locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater},False)
+				locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},True)
+
+
+
+	# SamplingSite is a real mess. Has a lot of redundant information. Also, some of them
+	# have city info (Fort Mcleod)
+	if not pd.isnull(samplingSite):
+		if "Mcleod" in samplingSite or "Macleod" in samplingSite:
+			city="Fort Mcleod"
+		locationTriple+=campy.indTriple(samplingSite,"SamplingSite")
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite},False)
+		locationTriple+=campy.propTriple(samplingSite,{"hasName":samplingSite},True)
+
+	if not pd.isnull(country):
+		locationTriple+=campy.indTriple(country,"Country")
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":country},False)
+		locationTriple+=campy.propTriple(country,{"hasName":country},True)
+
+	if not pd.isnull(subNat):
+		locationTriple+=campy.indTriple(subNat,"SubNational")
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":subNat},False)
+		locationTriple+=campy.propTriple(subNat,{"hasName":subNat},True)
+
+	if not pd.isnull(city):
+		locationTriple+=campy.indTriple(city,"City")
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":city},False)
+		locationTriple+=campy.propTriple(city,{"hasName":city},True)
+
+	if not pd.isnull(hAuthority):
+		hAuthority=cn.remPrefix(hAuthority,3)
+		locationTriple+=campy.indTriple(hAuthority,"HealthAuthority")
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":hAuthority},False)
+		locationTriple+=campy.propTriple(hAuthority,{"hasName":hAuthority},True)
+
+	if not pd.isnull(samplingSite2) and ("Petting Zoo" in samplingSite2):
+		locationTriple+=campy.indTriple(samplingSite2,"SamplingSite")
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite2},False)
+		locationTriple+=campy.propTriple(samplingSite2,{"hasName":samplingSite2},True)
+
+	if not pd.isnull(c_netSite):
+		c_netSite=str(c_netSite) # Some are numbers in the csv
+		locationTriple+=campy.indTriple(c_netSite,"C_EnterNetSite")
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":c_netSite},False)
+		locationTriple+=campy.propTriple(c_netSite,{"hasName":c_netSite},True)
+
+	if not pd.isnull(fncSite):
+		locationTriple+=campy.indTriple(fncSite,"FNCSentinelSite")
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":fncSite},False)
+		locationTriple+=campy.propTriple(fncSite,{"hasName":fncSite},True)
+
+
+	# Have to convert lat and long to signed decimal format
+	if not pd.isnull(long) and not pd.isnull(lat): # lat is never nan when long is and vice versa
+		 # For some reason the lat and long values in the csv have some newline chars in them
+		lat=lat.strip()
+		long=long.strip()
+		lat=cn.convertGPS(lat)
+		long=cn.convertGPS(long)
+
+		locationTriple+=campy.propTriple(isoTitle,{"hasLatitude":lat},True,rLiteral=True)
+		locationTriple+=campy.propTriple(isoTitle,{"hasLong":long},True,rLiteral=True)
+
+	putInOnt(locationTriple)
+	return locationTriple
 
 
 ######################################################################################################
 #
 ######################################################################################################
 def createSourceTriples(df,row,isoTitle):
+	result=createLocationTriples(df,row,isoTitle)
+
 	sample=df["Sample Type"][row] # animal, human or environmental (and Reference Strain)
 
 	if sample=="Animal":
-		createAnimalTriples(df,row,isoTitle)
-		#createTypeTriples(df,row,isoTitle)
+		result=createAnimalTriples(df,row,isoTitle)
+		result+=createTypeTriples(df,row,isoTitle)
 	elif sample=="Environmental":
-		createEnviroTriples(df,row,isoTitle)
+		result=createEnviroTriples(df,row,isoTitle)
 	elif sample=="Human":
-		createHumanTriples(df,row,isoTitle)
+		result=createHumanTriples(df,row,isoTitle)
 	else: # ReferenceStrain
 		pass
+
+	return result
 
 ######################################################################################################
 #
@@ -482,13 +553,8 @@ def createProjTriples(df,row,isoTitle):
    			projTriple+=campy.propTriple(proj,{"hasSubproject":subproj},False)
 
    			isoTriple+=campy.propTriple(isoTitle,{"partOfSubProject":subproj},False)
-   		# print projTriple
-   		# Insert projTriple
 
-   	if isoTriple!="":
-   		pass
-   		# Insert the isoTriple
-   		# print isoTriple
+   	return isoTriple+projTriple
 
 
 ######################################################################################################
@@ -529,6 +595,7 @@ def createClustTriples(df,row,cgfTest):
 ######################################################################################################
 def createCgfTriples(df,row,isoTitle):
 	# A CGF test will follow the naming convention "CGFisolateName".
+	labTriple=""
 	cgfTest1="cgf_"+isoTitle
 	fingerprint=cn.remPrefix(df["Fingerprint"][row],2)
 	legacyHexNum=cn.remPrefix(df["BIN"][row],3)
@@ -547,7 +614,7 @@ def createCgfTriples(df,row,isoTitle):
 		if index!=-1:
 			fileLoc=date_fileLoc[index+1:]
 
-	
+	# Every isolate has a cgf test
 	cgfTriple=lab.indTriple(cgfTest1,"CGFtest")
 
 	if fileLoc!="":
@@ -577,14 +644,11 @@ def createCgfTriples(df,row,isoTitle):
 	if clustTriple!="":
 		cgfTriple+=clustTriple
 	
-	# Insert labTriple
-	# Insert cgfTriple
-	# print cgfTriple
 	# Some triples have more than one URI, so we make our own using TripleMaker's 
 	# helper function addUri. WE MUST FIX THIS
 	isoTriple=campy.addUri(cn.cleanString(isoTitle))+" "+campy.addUri("hasLabTest")+" "+lab.addUri(cn.cleanString(cgfTest1))+" .\n"
-	# Insert isoTriple
-	# print isoTriple
+
+	return labTriple+cgfTriple+isoTriple
 
 
 ######################################################################################################
@@ -596,18 +660,15 @@ def createTriples(df,row):
 	isoTitle=df["Strain Name"][row]
 
 	isoTriple=campy.indTriple(isoTitle,"Isolate")+\
-		      campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},True,rLiteral=True)	
-	
-	# print isoTriple      
-	# Insert isoTriple
-	
-	createCgfTriples(df,row,isoTitle)
+		      campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},True,rLiteral=True)		     
 
-	createProjTriples(df,row,isoTitle)
+	isoTriple+=createCgfTriples(df,row,isoTitle)
 
-	createSourceTriples(df,row,isoTitle)
+	isoTriple+=createProjTriples(df,row,isoTitle)
 
+	isoTriple+=createSourceTriples(df,row,isoTitle)
 
+	#insert isoTriple
 
 
 ######################################################################################################
@@ -615,8 +676,8 @@ def createTriples(df,row):
 ######################################################################################################
 def writeData():
 	df=pd.read_csv(r"/home/student/CampyDB/2016-02-10 CGF_DB_22011_2.csv")
-	#createTriples(df,525)
-	
+	#createTriples(df,16598)
+	#range(df["Strain Name"].count())
 	for row in range(df["Strain Name"].count()):
 		createTriples(df,row)
 	"""

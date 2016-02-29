@@ -131,7 +131,11 @@ class TripleMaker:
 	###################################################################################################
 	def subClass(self,sub,sup):
 		if type(sup)==str and type(sub)==str:
-			return self.addUri(cn.cleanString(sub).title())+" rdf:type owl:Class ; rdfs:subClassOf "+self.addUri(cn.cleanString(sup).title())+" ."
+			sub=sub[0].upper()+sub[1:]
+			sup=sup[0].upper()+sup[1:]
+
+			return self.addUri(cn.cleanString(sub))+" rdf:type owl:Class ; rdfs:subClassOf "+\
+				   self.addUri(cn.cleanString(sup))+" ."
 		else:
 			raise self.errMsg_str()
 		
@@ -154,7 +158,10 @@ class TripleMaker:
 
 		if class_:
 			if type(class_)==str:
-				r+=", "+self.addUri(cn.cleanString(class_).title())+" "
+				class_=class_[0].upper()+class_[1:] # title() can't be used as sometimes the class
+													# is camelCase, and title() will put everything
+													# to lower case except the first letter
+				r+=", "+self.addUri(cn.cleanString(class_))+" "
 			else:
 				raise self.errMsg_str("class_")
 		return r+".\n"
@@ -202,6 +209,7 @@ class TripleMaker:
 						else:
 							# Check if the value is a string
 							if not (val.isdigit() or val in ("true","false")):
+								val=val.replace("\"","") # Quotations screw things up
 								val="\""+val+"\""
 							result+=val+" "
 					else:

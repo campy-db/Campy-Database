@@ -1,7 +1,29 @@
 from dateutil.parser import parse as dateParse
 import pandas as pd
 import datetime
+import re
 
+######################################################################################################
+# Converts DDD MM SS format lat and long to signed degree format.
+# Note that the lat and longs in the csv are not really in DDD MM SS form as they have the strings
+# 'lat'/'long', 'deg', and 'in' in them.
+######################################################################################################
+def convertGPS(coord):
+	newCoord=coord
+	# Only convert them if they are'nt already in signed deg form.
+	if not isNumber(coord):
+		nums=re.split("[A-Za-z]+",coord)
+		
+		deg=float(nums[1].strip())
+		min=float(nums[2].strip())
+		sec=float(nums[3].strip())
+		
+		newCoord=str(deg+(min+sec/60)/60)
+	return newCoord
+
+######################################################################################################
+# Returns true if s is a number
+######################################################################################################
 def isNumber(s):
 	try:
 		float(s)
@@ -14,9 +36,10 @@ def isNumber(s):
 ######################################################################################################
 def cleanString(s):
 	if not isNumber(s) and not pd.isnull(s):
-		s=s.strip().lower()
-		for c in ";: -.()+#":
+		s=s.strip()
+		for c in ";: -.()+#\"<>":
 			s=s.replace(c,'_')
+		s=re.sub("__+","_",s)
 	return s
 
 ######################################################################################################
@@ -29,7 +52,7 @@ def cleanNum(s):
 
 ######################################################################################################
 # Converts date to a specified format. We'll be using ISO. 
-##############################################################################################
+######################################################################################################
 def convertDate(d):
 	result=d
 	# Sometimes dates are just the year or day.
@@ -58,7 +81,7 @@ def remPrefix(val,l):
 # Main. Just for testing purposes.
 ###################################################################################################
 def main():
-	print type(convertDate("1993-01-09"))
+	print cleanString("s   s")
 
 
 if __name__=="__main__":
