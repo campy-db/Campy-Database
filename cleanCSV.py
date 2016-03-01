@@ -1,3 +1,4 @@
+# -*- coding: latin-1 -*-
 from dateutil.parser import parse as dateParse
 import pandas as pd
 import datetime
@@ -32,7 +33,7 @@ def isNumber(s):
 		return False
 
 ######################################################################################################
-# Removes characters from non-numberic values that screw things up 
+# Removes characters that screw things up when the string is being used as a URI 
 ######################################################################################################
 def cleanString(s):
 	if not isNumber(s) and not pd.isnull(s):
@@ -40,6 +41,15 @@ def cleanString(s):
 		for c in ";: -.()+#\"<>":
 			s=s.replace(c,'_')
 		s=re.sub("__+","_",s)
+
+	return s
+
+######################################################################################################
+# Removes characters from strings that are to be used as names in an ontology
+######################################################################################################
+def cleanName(s):
+	if not isNumber(s) and not pd.isnull(s):
+		s=s.replace("\"","")
 	return s
 
 ######################################################################################################

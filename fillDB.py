@@ -1,3 +1,4 @@
+# -*- coding: latin-1 -*-
 import TripleMaker as tm
 import cleanCSV as cn
 import pandas as pd
@@ -177,7 +178,7 @@ def createEnviroTriples(df,row,isoTitle):
 
 		if not pd.isnull(enviroSpec) and "Other" not in enviroSpec: 
 			# Have to clean enviroSpec strings a bit
-			if "treated" in enviroSpec.lower(): # For the value 'Sewage (Treated)'
+			if re.search("[Tt]reated",enviroSpec) is not None: # For the value 'Sewage (Treated)'
 				enviroSpec="treated" # Don't need redundant info
 			if "water" in enviroSpec.lower():
 				if enviroSpec!="Water": # EnviroSpec is "drinking water source water", 
@@ -186,7 +187,7 @@ def createEnviroTriples(df,row,isoTitle):
 				else:
 					enviroSpec=enviro # We don't really need this as enviroSpec already
 								      # equals water. But whatever ya know
-			if "lagoon" in enviroSpec.lower(): # EnviroSpec is "Lagoon: Swine" or "Lagoon:Dairy"
+			if re.search("[Ll]agoon",enviroSpec) is not None: # EnviroSpec is "Lagoon: Swine" or "Lagoon:Dairy"
 				# Get rid of redundant info
 				enviroSpec=enviroSpec.replace("Lagoon: ","") # Note the space in 'Lagoon: Swine'
 				enviroSpec=enviroSpec.replace("Lagoon:","")
@@ -195,7 +196,7 @@ def createEnviroTriples(df,row,isoTitle):
 			enviroSpec=enviro
 
 		# Sand is a special case for enviro as sand is not a class but an instance of Substrate
-		if "sand" in enviro.lower():
+		if re.search("[Ss]and",enviro) is not None:
 			enviro="Substrate"
 			enviroSpec="sand"
 
@@ -405,7 +406,6 @@ def createAnimalTriples(df,row,isoTitle):
 
 	isoTriple+=campy.propTriple(isoTitle,{"hasSampleSource":title},False)
 
-
 	return animalTriple+isoTriple
 
 ######################################################################################################
@@ -425,15 +425,15 @@ def createLocationTriples(df,row,isoTitle):
 	long=df["Longitude"][row]
 	lat=df["Latitude"][row]
 
-	# Need this for the body of water location.
+	# Need this for the body of water location and watersheds
 	water=df["Sample Type 2"][row]
 	if not pd.isnull(water) and "Water" in water:
 		bodyOfWater=df["Sample Source"][row]
 		if not pd.isnull(bodyOfWater):
 			bodyOfWater=cn.remPrefix(bodyOfWater,2)
 
-			if "Oldman River Watershed" in bodyOfWater: # A watershed is a region
-				locationTriple+=campy.indTriple(bodyOfWater,"Region")
+			if "Watershed" in bodyOfWater: # A watershed is a region
+				locationTriple+=campy.indTriple(bodyOfWater,"Watershed")
 				locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater},False)
 				locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},True)
 
@@ -445,13 +445,14 @@ def createLocationTriples(df,row,isoTitle):
 				locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater},False)
 				locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},True)
 
-
-
 	# SamplingSite is a real mess. Has a lot of redundant information. Also, some of them
-	# have city info (Fort Mcleod)
+	# have city info (Fort Macleod). Note Fort Macleod is also the name of the health authority 
 	if not pd.isnull(samplingSite):
 		if "Mcleod" in samplingSite or "Macleod" in samplingSite:
-			city="Fort Mcleod"
+			city="Fort Macleod"
+			samplingSite=samplingSite.replace("Mcleod","Macleod") # It's spelt wrong in the csv
+			samplingSite=samplingSite.replace("Ft.","Fort") # It's also abbreviated sometimes
+
 		locationTriple+=campy.indTriple(samplingSite,"SamplingSite")
 		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite},False)
 		locationTriple+=campy.propTriple(samplingSite,{"hasName":samplingSite},True)
@@ -473,9 +474,16 @@ def createLocationTriples(df,row,isoTitle):
 
 	if not pd.isnull(hAuthority):
 		hAuthority=cn.remPrefix(hAuthority,3)
-		locationTriple+=campy.indTriple(hAuthority,"HealthAuthority")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":hAuthority},False)
-		locationTriple+=campy.propTriple(hAuthority,{"hasName":hAuthority},True)
+		# Sometimes watersheds are here. If they are, they are also in the Sample Source
+		# column, and we've already handled that
+		if "Watershed" not in hAuthority: 
+			# Montérégie is in the csv and the é is all screwed up
+			if re.search("Mont.r.gie",hAuthority) is not None:
+				hAuthority=re.sub("Mont.r.gie","Montérégie",hAuthority)
+
+			locationTriple+=campy.indTriple(hAuthority,"HealthAuthority")
+			locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":hAuthority},False)
+			locationTriple+=campy.propTriple(hAuthority,{"hasName":hAuthority},True)
 
 	if not pd.isnull(samplingSite2) and ("Petting Zoo" in samplingSite2):
 		locationTriple+=campy.indTriple(samplingSite2,"SamplingSite")
@@ -483,7 +491,7 @@ def createLocationTriples(df,row,isoTitle):
 		locationTriple+=campy.propTriple(samplingSite2,{"hasName":samplingSite2},True)
 
 	if not pd.isnull(c_netSite):
-		c_netSite=str(c_netSite) # Some are numbers in the csv
+		c_netSite=cn.cleanNum(c_netSite)
 		locationTriple+=campy.indTriple(c_netSite,"C_EnterNetSite")
 		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":c_netSite},False)
 		locationTriple+=campy.propTriple(c_netSite,{"hasName":c_netSite},True)
@@ -496,7 +504,7 @@ def createLocationTriples(df,row,isoTitle):
 
 	# Have to convert lat and long to signed decimal format
 	if not pd.isnull(long) and not pd.isnull(lat): # lat is never nan when long is and vice versa
-		 # For some reason the lat and long values in the csv have some newline chars in them
+		# For some reason the lat and long values in the csv have some newline chars in them
 		lat=lat.strip()
 		long=long.strip()
 		lat=cn.convertGPS(lat)
@@ -505,7 +513,6 @@ def createLocationTriples(df,row,isoTitle):
 		locationTriple+=campy.propTriple(isoTitle,{"hasLatitude":lat},True,rLiteral=True)
 		locationTriple+=campy.propTriple(isoTitle,{"hasLong":long},True,rLiteral=True)
 
-	putInOnt(locationTriple)
 	return locationTriple
 
 
@@ -518,12 +525,12 @@ def createSourceTriples(df,row,isoTitle):
 	sample=df["Sample Type"][row] # animal, human or environmental (and Reference Strain)
 
 	if sample=="Animal":
-		result=createAnimalTriples(df,row,isoTitle)
+		result+=createAnimalTriples(df,row,isoTitle)
 		result+=createTypeTriples(df,row,isoTitle)
 	elif sample=="Environmental":
-		result=createEnviroTriples(df,row,isoTitle)
+		result+=createEnviroTriples(df,row,isoTitle)
 	elif sample=="Human":
-		result=createHumanTriples(df,row,isoTitle)
+		result+=createHumanTriples(df,row,isoTitle)
 	else: # ReferenceStrain
 		pass
 
@@ -597,8 +604,8 @@ def createCgfTriples(df,row,isoTitle):
 	# A CGF test will follow the naming convention "CGFisolateName".
 	labTriple=""
 	cgfTest1="cgf_"+isoTitle
-	fingerprint=cn.remPrefix(df["Fingerprint"][row],2)
-	legacyHexNum=cn.remPrefix(df["BIN"][row],3)
+	fingerprint=df["Fingerprint"][row]
+	legacyHexNum=df["BIN"][row]
 	typingLab=df["TYPING LAB"][row]
 
 	# The file location of the cgf info and the date it was completed are stored in the same cells.
@@ -622,12 +629,14 @@ def createCgfTriples(df,row,isoTitle):
 	if date!="":
 		cgfTriple+=lab.propTriple(cgfTest1,{"hasDateCompleted":date},True,rLiteral=True)
 	if not pd.isnull(fingerprint):
+		fingerprint=fingerprint.replace("fp","")
 		cgfTriple+=lab.propTriple(cgfTest1,{"hasFingerprint":fingerprint},True,rLiteral=True)
 
 	# Note that we have hex numbers converted to strings in TripleMaker (just because the isDigit function
 	# returns false on hex's (that's what we want)) because there doesn't seem to be a hex number data type 
 	# in rdf or whatever. It breaks the ontology if we insert it as is
 	if not pd.isnull(legacyHexNum):
+		legacyHexNum=legacyHexNum.replace("BIN","")
 		cgfTriple+=lab.propTriple(cgfTest1,{"hasLegacyHexNum":legacyHexNum},True,rLiteral=True)
 
 	if not pd.isnull(typingLab):
@@ -654,6 +663,149 @@ def createCgfTriples(df,row,isoTitle):
 ######################################################################################################
 #
 ######################################################################################################
+def createSpeciesTriples(df,row,isoTitle):
+	isoTriple=""
+	lSpec=""
+	aSpec=""
+	specA=""
+	specB=""
+	lethSpec=df["Campy Species (Leth - 16S, mapA, ceuE)"][row]
+	altSpec=df["Alt. Speciation"][row]
+
+	# If lethSpec isn't null it's the species. If altSpec is not null, it then becomes the species.
+	# This is fine as long as they are the same values, or one is empty and the other is not. If 
+	# they are not the same values, lethSpec becomes the species, unless lethSpec is unknown or any 
+	# of that other crazy crap. Sometimes the species are mixed (of the form 'Mixed (coli and jejuni)') 
+	# in which case specA="coli" and specB="jejuni". But sometimes it will just say 'Mixed' in 
+	# lethSpec but 'Coli' in altSpec. In such a case specA="coli".
+
+	if not pd.isnull(lethSpec):
+		lSpec=lethSpec.strip().lower() # Just for comparison.
+		if "other" in lSpec or "n/a" in lSpec or "unknown" in lSpec:
+			specA="other"
+		else:
+			specA=lethSpec
+
+	if not pd.isnull(altSpec):
+		aSpec=altSpec.strip().lower() # Just for comparison.
+		if "other" in aSpec or "n/a" in aSpec or "unknown" in aSpec:
+			specA="other"
+		else:
+			specA=altSpec
+
+
+	# If both are non empty and don't equal eachother, specA becomes lethSpec, unless lethSpec is other
+	if not pd.isnull(lethSpec) and not pd.isnull(altSpec):
+		if lSpec!=aSpec:
+			if "other" in lSpec or "n/a" in lSpec or "unknown" in lSpec:
+				if "other" in aSpec or "n/a" in aSpec or "unknown" in aSpec:
+					specA="other"
+				else:
+					specA=altSpec
+			else:
+				specA=lethSpec
+
+		if "mixed"==lSpec and "coli"==aSpec:
+			specA="coli"
+
+
+	if "mixed"!=lSpec and (not pd.isnull(lethSpec) or not pd.isnull(altSpec)):
+		if "mixed" in lSpec or "mixed" in aSpec: 
+			specA="coli"
+			specB="jejuni"
+
+	if specA!="":
+		isoTriple+=campy.indTriple(specA,"CampySpecies")+campy.propTriple(specA,{"hasName":specA},True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasSpecies":specA},False)
+	if specB!="":
+		isoTriple+=campy.indTriple(specB,"CampySpecies")+campy.propTriple(specB,{"hasName":specB},True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasSpecies":specB},False)
+
+	return isoTriple
+
+
+######################################################################################################
+#
+######################################################################################################
+def createDateTriples(df,row,isoTitle):
+	dateTaken=""
+	isoTriple=""
+	year=df["YEAR"][row]
+	month=df["MONTH"][row]
+	day=df["DAY"][row]
+
+	# Sometimes year is empty, but the other fields aren't
+	if not pd.isnull(day) and not pd.isnull(month) and not pd.isnull(year):
+		dateTaken=cn.cleanNum(year)+"-"+cn.cleanNum(month)+"-"+cn.cleanNum(day)
+	
+	if not pd.isnull(year) and pd.isnull(month) and pd.isnull(day):
+		dateTaken=cn.cleanNum(year)
+
+	if dateTaken!="":
+		isoTriple+=campy.propTriple(isoTitle,{"hasDateSampleTaken":dateTaken},True,rLiteral=True)
+
+	return isoTriple
+
+
+######################################################################################################
+#
+######################################################################################################
+def createLIMStriples(df,row,isoTitle):
+	isoTriple=""
+	nmlid=df["NML ID#"][row]
+	ldmsid=df["LDMS ID"][row]
+	origName=df["Mostly Original Sample Names (might have project prefixes!)"][row] # lol
+	isoLocA=df["Isolate Location 1"][row]
+	isoLocB=df["Isolate Location 2"][row]
+	isoLoc=""
+	sidA=df["Alternate Sample ID"][row]  # Sample id
+	sidB=df["Alt. Sample ID"][row]
+	sidC=df["C-EnterNet Number"][row]
+	cidA=df["Sample Collection ID"][row] # Collection id
+	cidB=""
+
+	if not pd.isnull(nmlid):
+		isoTriple+=campy.propTriple(isoTitle,{"hasNMLid":nmlid},True,rLiteral=True)
+	if not pd.isnull(ldmsid):
+		isoTriple+=campy.propTriple(isoTitle,{"hasLDMSid":ldmsid},True,rLiteral=True)
+	if not pd.isnull(origName):
+		isoTriple+=campy.propTriple(isoTitle,{"hasOriginalName":origName},True,rLiteral=True)
+
+	if not pd.isnull(isoLocA):
+		isoLoc=isoLocA
+	if not pd.isnull(isoLocB):
+		isoLoc=isoLocB
+	if isoLoc!="":
+		isoTriple+=campy.indTriple(isoLoc,"IsolateLocation")
+		isoTriple+=campy.propTriple(isoLoc,{"hasName":isoLoc},True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasIsolateLocation":isoLoc},False)
+
+	if not pd.isnull(sidA):
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidA},True,rLiteral=True)
+	if not pd.isnull(sidB):
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidB},True,rLiteral=True)
+	if not pd.isnull(sidC):
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidC},True,rLiteral=True)
+
+	# Alternate collection id is stored alongside original collection id.
+	if not pd.isnull(cidA):
+		cidA=cn.cleanNum(cidA)
+		if re.search("[aA]lt",cidA) is not None:
+			cids=cidA.split(" ")
+			cidA=cids[0]
+			cidA=cidA[:len(cidA)-1]
+			cidB=cids[len(cids)-1]
+
+			isoTriple+=campy.propTriple(isoTitle,{"hasCollectionID":cidB},True,rLiteral=True)			
+
+		isoTriple+=campy.propTriple(isoTitle,{"hasCollectionID":cidA},True,rLiteral=True)
+
+
+	return isoTriple
+
+######################################################################################################
+#
+######################################################################################################
 def createTriples(df,row):
 	# Get the isolate name. Note the URI for an isolate needs to be a clean string, but we want the 
 	# original csv name aswell. Same goes for everything else with a name
@@ -662,12 +814,19 @@ def createTriples(df,row):
 	isoTriple=campy.indTriple(isoTitle,"Isolate")+\
 		      campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},True,rLiteral=True)		     
 
+	isoTriple+=createLIMStriples(df,row,isoTitle) # All the different ids, eg collection ids
+	putInOnt(isoTriple)
+	isoTriple+=createDateTriples(df,row,isoTitle)
+
+	isoTriple+=createSpeciesTriples(df,row,isoTitle)	      
+
 	isoTriple+=createCgfTriples(df,row,isoTitle)
 
 	isoTriple+=createProjTriples(df,row,isoTitle)
 
 	isoTriple+=createSourceTriples(df,row,isoTitle)
 
+	putInOnt(isoTriple)
 	#insert isoTriple
 
 
@@ -676,7 +835,7 @@ def createTriples(df,row):
 ######################################################################################################
 def writeData():
 	df=pd.read_csv(r"/home/student/CampyDB/2016-02-10 CGF_DB_22011_2.csv")
-	#createTriples(df,16598)
+	#createTriples(df,4734)
 	#range(df["Strain Name"].count())
 	for row in range(df["Strain Name"].count()):
 		createTriples(df,row)

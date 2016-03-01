@@ -209,7 +209,7 @@ class TripleMaker:
 						else:
 							# Check if the value is a string
 							if not (val.isdigit() or val in ("true","false")):
-								val=val.replace("\"","") # Quotations screw things up
+								val=cn.cleanName(val)
 								val="\""+val+"\""
 							result+=val+" "
 					else:

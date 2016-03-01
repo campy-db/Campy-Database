@@ -538,7 +538,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                                    
                                                                                                    rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
                                                                                                    
-                                                                                                   rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> ;
+                                                                                                   rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> ;
                                                                                                    
                                                                                                    rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceProperty> .
 
@@ -776,7 +776,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                             
                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> ;
                                                                                             
-                                                                                            rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#TravelDestination> ;
+                                                                                            rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> ;
                                                                                             
                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty> .
 
@@ -883,7 +883,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BodyOfWater> rdf:type owl:Class ;
                                                                                              
-                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> .
+                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
 
 
 
@@ -907,8 +907,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#City> rdf:type owl:Class ;
                                                                                       
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> ,
-                                                                                                      <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#TravelDestination> .
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
 
 
 
@@ -932,8 +931,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Country> rdf:type owl:Class ;
                                                                                          
-                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> ,
-                                                                                                         <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#TravelDestination> .
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
 
 
 
@@ -989,7 +987,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HealthAuthority> rdf:type owl:Class ;
                                                                                                  
-                                                                                                 rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> .
+                                                                                                 rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
 
 
 
@@ -1123,7 +1121,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Municipality> rdf:type owl:Class ;
                                                                                               
-                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> .
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
 
 
 
@@ -1189,14 +1187,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Region
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Region> rdf:type owl:Class ;
-                                                                                        
-                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#RetailType
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#RetailType> rdf:type owl:Class ;
@@ -1241,7 +1231,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SamplingSite> rdf:type owl:Class ;
                                                                                               
-                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> ;
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> ;
                                                                                               
                                                                                               rdfs:comment "Column \"Region_L2\" (BF)"^^xsd:string .
 
@@ -1252,15 +1242,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Sewage> rdf:type owl:Class ;
                                                                                         
                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> rdf:type owl:Class ;
-                                                                                                
-                                                                                                rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> ,
-                                                                                                                <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceProperty> .
 
 
 
@@ -1276,8 +1257,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SubNational> rdf:type owl:Class ;
                                                                                              
-                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> ,
-                                                                                                             <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#TravelDestination> ;
+                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> ;
                                                                                              
                                                                                              rdfs:comment "Column \"Province/State\" (BC)"^^xsd:string .
 
@@ -1295,16 +1275,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SurveillanceSite> rdf:type owl:Class ;
                                                                                                   
-                                                                                                  rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceLocation> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#TravelDestination
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#TravelDestination> rdf:type owl:Class ;
-                                                                                                   
-                                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanProperty> ,
-                                                                                                                   <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+                                                                                                  rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
 
 
 
@@ -1313,6 +1284,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Water> rdf:type owl:Class ;
                                                                                        
                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Watershed
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Watershed> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
 
 
 
