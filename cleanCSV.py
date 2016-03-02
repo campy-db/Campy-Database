@@ -38,7 +38,7 @@ def isNumber(s):
 def cleanString(s):
 	if not isNumber(s) and not pd.isnull(s):
 		s=s.strip()
-		for c in ";: -.()+#\"<>":
+		for c in ";: .()\/#\"<>":
 			s=s.replace(c,'_')
 		s=re.sub("__+","_",s)
 

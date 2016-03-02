@@ -62,7 +62,10 @@ def getGenes(fingerprint,cgfGenes):
 	return result
 
 ######################################################################################################
-#
+# Some patients in the csv have ages. The values are found in the 'Patient D.O.B / Age' column. 
+# The column has birthdates, ages, and age ranges of the form 'a/X-Y years' where X and Y are ages
+# and a is some random character. As of right now, we ignore ranges in hopes that Steven can get the
+# actual ages
 ######################################################################################################
 def createAgeTriples(df,row,hum):
 	humTriple=""
@@ -75,20 +78,20 @@ def createAgeTriples(df,row,hum):
 		if len(age)>ageLen: # if a birthday or range
 			if "years" in age: # Every range contains the word 'years'.
 				# Most ranges are of the form age-age, but some are age+
-				pass
+				age="" # Ignore ranges for now
 			else: # The value is a birth day
 				bday=cn.convertDate(age)
 				humTriple+=campy.propTriple(hum,{"hasBirthDate":bday},True,rLiteral=True)
 				
 				if not pd.isnull(yearTaken):
 					age=int(yearTaken)-int(bday[:yearLen]) # bday is in ISO format, so the first 4 chars
-													 # is the year of the bday
+													       # is the year of the bday
 					if age<0: # One of the patients was born in 2011,but the sample was taken in 2010
 						age=0
 				else:
 					age=date.today().year-int(bday[:yearLen]) # Use todays year for the age
 
-		humTriple+=campy.propTriple(hum,{"hasAge":str(age)},True,rLiteral=True)	
+		humTriple+=campy.propTriple(hum,{"hasAge":str(age)},True,rLiteral=True) if age!="" else ""	
 
 	return humTriple
 
@@ -763,6 +766,7 @@ def createLIMStriples(df,row,isoTitle):
 	sidC=df["C-EnterNet Number"][row]
 	cidA=df["Sample Collection ID"][row] # Collection id
 	cidB=""
+	dateAdded=df["Date Added to Database"][row]
 
 	if not pd.isnull(nmlid):
 		isoTriple+=campy.propTriple(isoTitle,{"hasNMLid":nmlid},True,rLiteral=True)
@@ -793,15 +797,90 @@ def createLIMStriples(df,row,isoTitle):
 		if re.search("[aA]lt",cidA) is not None:
 			cids=cidA.split(" ")
 			cidA=cids[0]
-			cidA=cidA[:len(cidA)-1]
-			cidB=cids[len(cids)-1]
+			cidA=cidA[:len(cidA)-1] # Get rid of the semi colon at the end
+			cidB=cids[len(cids)-1] # Get the last item in the cids list
 
 			isoTriple+=campy.propTriple(isoTitle,{"hasCollectionID":cidB},True,rLiteral=True)			
 
 		isoTriple+=campy.propTriple(isoTitle,{"hasCollectionID":cidA},True,rLiteral=True)
 
+	if not pd.isnull(dateAdded):
+		dateAdded=cn.convertDate(dateAdded)
+		isoTriple+=campy.propTriple(isoTitle,{"hasDateAdded":dateAdded},True,rLiteral=True)
 
 	return isoTriple
+
+
+######################################################################################################
+#
+######################################################################################################
+def createIsolationTriples(df,row,isoTitle):
+	isoTriple=""
+	media=df["Media"][row]
+	# Don't include colony morph for now.
+	# colonyMorph=df["colony morph"][row]
+	dilution=df["Dilution"][row]
+	glycStock=df["No glycerol stock"][row]
+	hipO=df["HipO"][row]
+	treatment=df["Treatment"][row]
+	technique=df["technique"][row]
+	sourceSpec=df["Source_Specific_2"][row] # For whatever reason source specific 2 has media info in
+											# it. Just one though: K and Cefex
+
+	# For whatever reason there's just a dash as one of the media values. We'll ignore it for now.
+	if not pd.isnull(media) and media!="-" and "#N/A" not in media:
+		# We'll standardize all media to be uppercase and some have spaces but others don't. eg
+		# there's the value '10% B' and '10%B'. That's no good.
+		media=media.upper().replace(" ","")
+		
+		# Grab k and cefex from source specific 2
+		if not pd.isnull(sourceSpec) and re.search("[Cc]efex",sourceSpec) is not None:
+			media="K and CEFEX" # SUBJECT TO CHANGE
+
+		isoTriple+=campy.propTriple(isoTitle,{"grownOn":media},True,rLiteral=True)
+
+	if not pd.isnull(dilution):
+		# Again there are some values that have spaces and others that don't. 
+		# We'll get rid of the spaces 
+		dilution=dilution.replace(" ","")
+		isoTriple+=campy.propTriple(isoTitle,{"hasDilution":dilution},True,rLiteral=True)
+
+	# The values in the csv are 1 or 0. 1 meaning it is true there is no glyc stock. This
+	# is confusing. So in the ontology we have 'hasGlycStock' and we interpret 1 as false
+	if not pd.isnull(glycStock) and "NA" not in cn.cleanNum(glycStock):
+		glycStock=cn.cleanNum(glycStock) # Sometimes numbers are converted to floats
+		glycStock="false" if "1" in glycStock else "true"
+		isoTriple+=campy.propTriple(isoTitle,{"hasGlycStock":glycStock},True,rLiteral=True)
+
+	if not pd.isnull(hipO) and "#N/A" not in cn.cleanNum(hipO):
+		hipO=cn.cleanNum(hipO)
+
+		if "1" in hipO:
+			hipO="true"
+		else:
+			hipO="unknown" if "?" in hipO else "false"
+		isoTriple+=campy.propTriple(isoTitle,{"hasHipO":hipO},True,rLiteral=True)
+
+	# For whatever reason the value 'Treatment' is in the column 'Treatment'. We'll ignore it 
+	# for now. 
+	if not pd.isnull(treatment) and "Treatment" not in treatment and "#N/A" not in treatment:
+		isoTriple+=campy.propTriple(isoTitle,{"hasTreatment":treatment},True,rLiteral=True)
+
+	# The - also showed up in technique. We'll ignore it.
+	if not pd.isnull(technique) and technique!="-":
+		# Values enrichment and enrich are found in this col. We'll standardize it to 'enrich'
+		if re.search("[Ee]nrich",technique) is not None:
+			technique="enrich"
+
+		# Some values have spaces and others don't. eg '24AE' and '24 AE'. We'll get rid of
+		# spaces.
+		technique=technique.replace(" ","")
+
+		isoTriple+=campy.propTriple(isoTitle,{"hasTechnique":technique},True,rLiteral=True)
+			
+	return isoTriple
+		
+
 
 ######################################################################################################
 #
@@ -814,9 +893,11 @@ def createTriples(df,row):
 	isoTriple=campy.indTriple(isoTitle,"Isolate")+\
 		      campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},True,rLiteral=True)		     
 
-	isoTriple+=createLIMStriples(df,row,isoTitle) # All the different ids, eg collection ids
+	isoTriple+=createIsolationTriples(df,row,isoTitle)
 	putInOnt(isoTriple)
 	isoTriple+=createDateTriples(df,row,isoTitle)
+
+	isoTriple+=createLIMStriples(df,row,isoTitle)
 
 	isoTriple+=createSpeciesTriples(df,row,isoTitle)	      
 
@@ -826,7 +907,7 @@ def createTriples(df,row):
 
 	isoTriple+=createSourceTriples(df,row,isoTitle)
 
-	putInOnt(isoTriple)
+	#putInOnt(isoTriple)
 	#insert isoTriple
 
 
