@@ -627,6 +627,9 @@ def createCgfTriples(df,row,isoTitle):
 	# Every isolate has a cgf test
 	cgfTriple=lab.indTriple(cgfTest1,"CGFtest")
 
+	# Every cgf test in the csv is inVitro
+	cgfTriple+=lab.propTriple(cgfTest1,{"isInVitro":"true"},True,rLiteral=True)
+
 	if fileLoc!="":
 		cgfTriple+=lab.propTriple(cgfTest1,{"hasFileLocation":fileLoc},True,rLiteral=True)
 	if date!="":
@@ -647,7 +650,8 @@ def createCgfTriples(df,row,isoTitle):
 		labTriple=lab.indTriple(typingLab,"TypingLab") # labTitle is an instance of the class TypingLab
 		# Right now the URI for hasName is the campy ont. URI. Gonna have to change it to a URI seperate
 		# from both campy and labTest URI. WE MUST FIX THIS
-		labTriple+=lab.addUri(cn.cleanString(typingLab))+" "+campy.addUri("hasName")+" \""+typingLab+"\""+" .\n"
+		labTriple+=lab.addUri(cn.cleanString(typingLab))+" "+campy.addUri("hasName")+\
+			       " \""+typingLab+"\""+" .\n"
 		# Attach the lab to the cgf test
 		cgfTriple+=lab.propTriple(cgfTest1,{"doneAtLab":typingLab},False)
 		
@@ -658,7 +662,8 @@ def createCgfTriples(df,row,isoTitle):
 	
 	# Some triples have more than one URI, so we make our own using TripleMaker's 
 	# helper function addUri. WE MUST FIX THIS
-	isoTriple=campy.addUri(cn.cleanString(isoTitle))+" "+campy.addUri("hasLabTest")+" "+lab.addUri(cn.cleanString(cgfTest1))+" .\n"
+	isoTriple=campy.addUri(cn.cleanString(isoTitle))+" "+campy.addUri("hasLabTest")+" "+\
+		      lab.addUri(cn.cleanString(cgfTest1))+" .\n"
 
 	return labTriple+cgfTriple+isoTriple
 
@@ -695,7 +700,6 @@ def createSpeciesTriples(df,row,isoTitle):
 			specA="other"
 		else:
 			specA=altSpec
-
 
 	# If both are non empty and don't equal eachother, specA becomes lethSpec, unless lethSpec is other
 	if not pd.isnull(lethSpec) and not pd.isnull(altSpec):
@@ -879,7 +883,46 @@ def createIsolationTriples(df,row,isoTitle):
 		isoTriple+=campy.propTriple(isoTitle,{"hasTechnique":technique},True,rLiteral=True)
 			
 	return isoTriple
-		
+
+######################################################################################################
+#
+######################################################################################################
+def createMLSTtriples(df,row,isoTitle):
+	mTriple=""
+	hasTest=False # Not every isolate has an MLST test. If any of the below values are in the csv,
+				  # we say the isolate does have an MLST test
+	cloComp=df["Clonal Complex"][row]
+	st=df["ST"][row]
+	genes=list(df.columns.values) # Get all the column names
+	genes=genes[genes.index("Asp"):genes.index("Unc (atpA)")+1] # Extract mlst gene names
+	mTitle="mlst_"+isoTitle
+
+	# The value 'none' is in cloComp right now. Ignore it...for now
+	if not pd.isnull(cloComp) and "none" not in cloComp:
+		mTriple+=lab.propTriple(mTitle,{"foundClonalComplex":cloComp},True,rLiteral=True)
+
+	if not pd.isnull(st):
+		st=cn.cleanNum(st)
+		mTriple+=lab.propTriple(mTitle,{"foundST":st},True,rLiteral=True)
+
+	# Go through all the mlst genes and attach the test to the gene, and then attach allele
+	# index to gene
+	for g in genes:
+		alIndex=df[g][row]
+		if not pd.isnull(alIndex):
+			alIndex=cn.cleanNum(alIndex)
+			alTitle=g+"_"+isoTitle
+			mTriple+=lab.indTriple(alTitle,"TypingAllele")
+			mTriple+=lab.propTriple(alTitle,{"isOfGene":g},False)
+			mTriple+=lab.propTriple(alTitle,{"hasAlleleIndex":alIndex},True,rLiteral=True)
+			mTriple+=lab.propTriple(mTitle,{"foundAllele":alTitle},False)
+
+
+	if mTriple!="":
+		mTriple+=lab.indTriple(mTitle,"MLSTtest")	
+		mTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(mTitle)+" ."
+
+	return mTriple
 
 
 ######################################################################################################
@@ -893,8 +936,11 @@ def createTriples(df,row):
 	isoTriple=campy.indTriple(isoTitle,"Isolate")+\
 		      campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},True,rLiteral=True)		     
 
-	isoTriple+=createIsolationTriples(df,row,isoTitle)
+	isoTriple+=createMLSTtriples(df,row,isoTitle)
 	putInOnt(isoTriple)
+	"""	      
+	isoTriple+=createIsolationTriples(df,row,isoTitle)
+	
 	isoTriple+=createDateTriples(df,row,isoTitle)
 
 	isoTriple+=createLIMStriples(df,row,isoTitle)
@@ -906,7 +952,7 @@ def createTriples(df,row):
 	isoTriple+=createProjTriples(df,row,isoTitle)
 
 	isoTriple+=createSourceTriples(df,row,isoTitle)
-
+	"""
 	#putInOnt(isoTriple)
 	#insert isoTriple
 

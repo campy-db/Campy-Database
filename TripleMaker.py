@@ -35,7 +35,7 @@ class TripleMaker:
 
 	# Appends title to the user's uri
 	def addUri(self,title):
-		return "<"+self.uri+title+">"
+		return "<"+self.uri+cn.cleanString(title)+">"
 
 	# Appends title to the reifiedLiteral URI
 	def addrLitUri(self,title):
@@ -75,7 +75,7 @@ class TripleMaker:
 				else:
 					val=props[p]
 
-				result+=self.addUri("tag_"+cn.cleanString(val))+" "
+				result+=self.addUri("tag_"+val)+" "
 
 				if not (val.isdigit() or val in ("true","false")):
 					val="\""+val+"\""
@@ -134,8 +134,8 @@ class TripleMaker:
 			sub=sub[0].upper()+sub[1:]
 			sup=sup[0].upper()+sup[1:]
 
-			return self.addUri(cn.cleanString(sub))+" rdf:type owl:Class ; rdfs:subClassOf "+\
-				   self.addUri(cn.cleanString(sup))+" ."
+			return self.addUri(sub)+" rdf:type owl:Class ; rdfs:subClassOf "+\
+				   self.addUri(sup)+" ."
 		else:
 			raise self.errMsg_str()
 		
@@ -152,7 +152,7 @@ class TripleMaker:
 	###################################################################################################
 	def indTriple(self,title,class_=None):
 		if type(title)==str:
-			r=self.addUri(cn.cleanString(title))+" rdf:type owl:NamedIndividual " 
+			r=self.addUri(title)+" rdf:type owl:NamedIndividual " 
 		else:
 			raise self.errMsg_str("title")
 
@@ -161,7 +161,7 @@ class TripleMaker:
 				class_=class_[0].upper()+class_[1:] # title() can't be used as sometimes the class
 													# is camelCase, and title() will put everything
 													# to lower case except the first letter
-				r+=", "+self.addUri(cn.cleanString(class_))+" "
+				r+=", "+self.addUri(class_)+" "
 			else:
 				raise self.errMsg_str("class_")
 		return r+".\n"
@@ -181,7 +181,7 @@ class TripleMaker:
 	###################################################################################################
 	def propTriple(self,title,props,isLiteral,rLiteral=None):
 		if type(title)==str:
-			result=self.addUri(cn.cleanString(title))+" "
+			result=self.addUri(title)+" "
 		else:
 			raise self.errMsg_str("title")
 
@@ -205,7 +205,7 @@ class TripleMaker:
 
 					if isLiteral:
 						if rLiteral:
-							result+=self.addUri("tag_"+cn.cleanString(val))+" "
+							result+=self.addUri("tag_"+val)+" "
 						else:
 							# Check if the value is a string
 							if not (val.isdigit() or val in ("true","false")):
@@ -213,7 +213,7 @@ class TripleMaker:
 								val="\""+val+"\""
 							result+=val+" "
 					else:
-						result+=self.addUri(cn.cleanString(val))+" "
+						result+=self.addUri(val)+" "
 
 					if j!=len(props[p])-1 and isList:
 						result+=","
