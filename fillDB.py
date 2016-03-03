@@ -72,7 +72,7 @@ def createAgeTriples(df,row,hum):
 	yearLen=4
 	ageLen=2
 	age=df["Patient D.O.B / Age"][row]
-	yearTaken=cn.cleanNum(df["YEAR"][row]) # The year values are converted to floats for some reason
+	yearTaken=cn.cleanInt(df["YEAR"][row]) # The year values are converted to floats for some reason
 										   # in the csv. We convert it to a string
 	if not pd.isnull(age) and age!="Missing" and "Given" not in age: 
 		if len(age)>ageLen: # if a birthday or range
@@ -130,10 +130,14 @@ def createTravelTriples(df,row,hum):
 #
 ######################################################################################################
 def createHumanTriples(df,row,isoTitle):
+	type=""
+	isoTriple=""
 	hum="patient_"+isoTitle # Need a unique identifier for humans as they have different 
 						    # ages, genders, and postal codes I'm told
 	gender=df["Gender"][row]
 	postalCode=df["Postal code"][row]
+	sTypeA=df["Source_Specific_2"][row] # The clinical sample type
+	sTypeB=df["Clinical Sample Type"][row] # Also has clinical sample typ
 
 	# Just create a generic human individual
 	humTriple=campy.indTriple(hum,"Patient") # All human samples in the csv are patients
@@ -147,16 +151,32 @@ def createHumanTriples(df,row,isoTitle):
 	# handle it separately
 	humTriple+=createAgeTriples(df,row,hum)
 
-	# The values 0, m, f, male, female and 'not given' are in the csv. We won't add the prop if it's 'not given'
+	# The values 0, m, f, male, female and 'not given' are in the csv. We won't add the prop if 
+	# it's 'not given'
 	if not pd.isnull(gender) and gender!="Not Given" and gender!=0:
 		humTriple+=campy.propTriple(hum,{"hasGender":gender[0]},True,rLiteral=True)
 
 	if not pd.isnull(postalCode):
 		humTriple+=campy.propTriple(hum,{"hasPostalCode":postalCode},True,rLiteral=True)
 
-	isoTriple=campy.propTriple(isoTitle,{"hasSampleSource":hum},False)
+	# If sTypeA is nan, try sTypeB
+	typeCol=sTypeA if not pd.isnull(sTypeA) else sTypeB
 
+	if not pd.isnull(typeCol):
+		if re.search("[Ss]tool",typeCol) is not None:
+			type="stool"
+		if re.search("[Bl]ood",typeCol) is not None:
+			type="blood"
 
+	 # type could still be "" as not all the values for sTypeA (Source_Specific_2) are 
+	 # clinical sample types, i.e. 'blood' or 'stool'
+	if type!="":
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleType":type},False)
+
+		
+	isoTriple+=campy.propTriple(isoTitle,{"hasSampleSource":hum},False)
+
+	#putInOnt(humTriple+isoTriple)
 	return humTriple+isoTriple
 
 
@@ -383,7 +403,7 @@ def createAnimalTriples(df,row,isoTitle):
 
 	# If the animal has an id, this becomes its URI
 	if not pd.isnull(id):
-		title=cn.cleanNum(id)
+		title=cn.cleanInt(id)
 	else:
 		title=animal+"_"+isoTitle
 
@@ -494,7 +514,7 @@ def createLocationTriples(df,row,isoTitle):
 		locationTriple+=campy.propTriple(samplingSite2,{"hasName":samplingSite2},True)
 
 	if not pd.isnull(c_netSite):
-		c_netSite=cn.cleanNum(c_netSite)
+		c_netSite=cn.cleanInt(c_netSite)
 		locationTriple+=campy.indTriple(c_netSite,"C_EnterNetSite")
 		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":c_netSite},False)
 		locationTriple+=campy.propTriple(c_netSite,{"hasName":c_netSite},True)
@@ -553,7 +573,7 @@ def createProjTriples(df,row,isoTitle):
 
 		isoTriple+=campy.propTriple(isoTitle,{"partOfProject":proj},False)
 
-		if not pd.isnull(subproj) and subproj!=proj:
+		if not pd.isnull(subproj) and subproj.strip()!=proj.strip():
 			for c in " _":
 				subproj=subproj.replace(proj+c,"") # We want to get rid of the redundant name info, eg
 				                                   # we don't need CIPARS_Deckert when we already have
@@ -743,10 +763,10 @@ def createDateTriples(df,row,isoTitle):
 
 	# Sometimes year is empty, but the other fields aren't
 	if not pd.isnull(day) and not pd.isnull(month) and not pd.isnull(year):
-		dateTaken=cn.cleanNum(year)+"-"+cn.cleanNum(month)+"-"+cn.cleanNum(day)
+		dateTaken=cn.cleanInt(year)+"-"+cn.cleanInt(month)+"-"+cn.cleanInt(day)
 	
 	if not pd.isnull(year) and pd.isnull(month) and pd.isnull(day):
-		dateTaken=cn.cleanNum(year)
+		dateTaken=cn.cleanInt(year)
 
 	if dateTaken!="":
 		isoTriple+=campy.propTriple(isoTitle,{"hasDateSampleTaken":dateTaken},True,rLiteral=True)
@@ -797,7 +817,7 @@ def createLIMStriples(df,row,isoTitle):
 
 	# Alternate collection id is stored alongside original collection id.
 	if not pd.isnull(cidA):
-		cidA=cn.cleanNum(cidA)
+		cidA=cn.cleanInt(cidA)
 		if re.search("[aA]lt",cidA) is not None:
 			cids=cidA.split(" ")
 			cidA=cids[0]
@@ -851,13 +871,13 @@ def createIsolationTriples(df,row,isoTitle):
 
 	# The values in the csv are 1 or 0. 1 meaning it is true there is no glyc stock. This
 	# is confusing. So in the ontology we have 'hasGlycStock' and we interpret 1 as false
-	if not pd.isnull(glycStock) and "NA" not in cn.cleanNum(glycStock):
-		glycStock=cn.cleanNum(glycStock) # Sometimes numbers are converted to floats
+	if not pd.isnull(glycStock) and "NA" not in cn.cleanInt(glycStock):
+		glycStock=cn.cleanInt(glycStock) # Sometimes numbers are converted to floats
 		glycStock="false" if "1" in glycStock else "true"
 		isoTriple+=campy.propTriple(isoTitle,{"hasGlycStock":glycStock},True,rLiteral=True)
 
-	if not pd.isnull(hipO) and "#N/A" not in cn.cleanNum(hipO):
-		hipO=cn.cleanNum(hipO)
+	if not pd.isnull(hipO) and "#N/A" not in cn.cleanInt(hipO):
+		hipO=cn.cleanInt(hipO)
 
 		if "1" in hipO:
 			hipO="true"
@@ -884,17 +904,22 @@ def createIsolationTriples(df,row,isoTitle):
 			
 	return isoTriple
 
+
+
 ######################################################################################################
 #
 ######################################################################################################
-def createMLSTtriples(df,row,isoTitle):
+def createTypingTriples(df,row,isoTitle):
+	testTriple=""
 	mTriple=""
-	hasTest=False # Not every isolate has an MLST test. If any of the below values are in the csv,
-				  # we say the isolate does have an MLST test
-	cloComp=df["Clonal Complex"][row]
-	st=df["ST"][row]
-	genes=list(df.columns.values) # Get all the column names
-	genes=genes[genes.index("Asp"):genes.index("Unc (atpA)")+1] # Extract mlst gene names
+	cols=list(df.columns.values) # Get all the column names
+
+	genes=cols[cols.index("Asp"):cols.index("Oxford MOMP peptide")+1] # Extract gene names
+	# The names of the tests are just the name of the gene they test plus isoTitle, but MLST tests
+	# 7 genes, so mlst test name will be 'mlst'+isoTitle
+	mlstGenes=genes[genes.index("Asp"):genes.index("Unc (atpA)")+1] 
+	cloComp=df["Clonal Complex"][row] # For mlst only
+	st=df["ST"][row] # For mlst only
 	mTitle="mlst_"+isoTitle
 
 	# The value 'none' is in cloComp right now. Ignore it...for now
@@ -902,27 +927,161 @@ def createMLSTtriples(df,row,isoTitle):
 		mTriple+=lab.propTriple(mTitle,{"foundClonalComplex":cloComp},True,rLiteral=True)
 
 	if not pd.isnull(st):
-		st=cn.cleanNum(st)
+		st=cn.cleanInt(st)
 		mTriple+=lab.propTriple(mTitle,{"foundST":st},True,rLiteral=True)
 
-	# Go through all the mlst genes and attach the test to the gene, and then attach allele
-	# index to gene
+	# Go through all the genes, get the allele index, create allele, attach allele to gene,
+	# add the allele index to the allele, attach the test to the allele.
 	for g in genes:
 		alIndex=df[g][row]
-		if not pd.isnull(alIndex):
-			alIndex=cn.cleanNum(alIndex)
-			alTitle=g+"_"+isoTitle
-			mTriple+=lab.indTriple(alTitle,"TypingAllele")
-			mTriple+=lab.propTriple(alTitle,{"isOfGene":g},False)
-			mTriple+=lab.propTriple(alTitle,{"hasAlleleIndex":alIndex},True,rLiteral=True)
-			mTriple+=lab.propTriple(mTitle,{"foundAllele":alTitle},False)
+		if not pd.isnull(alIndex) and cn.isNumber(alIndex):
+			alIndex=cn.cleanInt(alIndex)
+			alTitle=g+"_"+alIndex
+			testTriple+=lab.indTriple(alTitle,"TypingAllele")
+			testTriple+=lab.propTriple(alTitle,{"isOfGene":g},False)
+			testTriple+=lab.propTriple(alTitle,{"hasAlleleIndex":alIndex},True,rLiteral=True)
 
+			if g in mlstGenes:
+				mTriple+=lab.propTriple(mTitle,{"foundAllele":alTitle},False)
+			else:
+				# Have to clean up some of the gene names. Don't need 'Oxford' or 'peptide'
+				# in 'Oxford MOMP peptide'
+				testClass=g.replace("Oxford","")
+				testClass=testClass.replace("MOMP peptide","MOMP")
+				testClass=testClass.replace("fla peptide","flaPeptide")
+				testClass=testClass.replace(" ","")+"test"
+				testTitle=testClass+"_"+isoTitle
+				testTriple+=lab.indTriple(testTitle,testClass)
+				testTriple+=lab.propTriple(testTitle,{"foundAllele":alTitle},False)
+				testTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "\
+						    +lab.addUri(testTitle)+" ."
 
 	if mTriple!="":
 		mTriple+=lab.indTriple(mTitle,"MLSTtest")	
 		mTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(mTitle)+" ."
 
-	return mTriple
+	return mTriple+testTriple
+
+
+######################################################################################################
+#
+######################################################################################################
+def createAMRtriples(df,row,isoTitle):
+	aTriple=""
+	cols=list(df.columns.values) # Get all the column names
+	mic_drugs=cols[cols.index("mic_azm"):cols.index("mic_tet")+1] # Get all the drugs with 'mic_'
+	r_drugs=cols[cols.index("razm"):cols.index("rtet")+1] # Get all the drugs with 'r' prefix
+	drugs=[d.replace("mic_","") for d in mic_drugs] # Remove the prefix to get drug names
+	testTitle="amr_"+isoTitle
+	amr=df["AMR"][row] # The column 'AMR' also has some info related to drug resistance for w/e reason
+
+	# Get the mics first
+	for m in mic_drugs:
+		mic=df[m][row]
+		drug=m.replace("mic_","") # Remove the 'mic_' prefix
+		if not pd.isnull(mic):
+			# Not all of them are floats, and they should be.
+			mic=str(float(mic)) if cn.isNumber(mic) else str(mic) 
+			dmTitle=mic+"_"+drug
+			aTriple+=lab.indTriple(dmTitle,"DrugMIC")
+			aTriple+=lab.propTriple(dmTitle,{"hasMIC":mic},True,rLiteral=True)
+			aTriple+=lab.propTriple(dmTitle,{"hasDrug":drug},False)
+			aTriple+=lab.propTriple(testTitle,{"foundMIC":dmTitle},False)
+
+
+	# Handle the random drug resistance in column 'AMR'. The only value 
+	# in this column is 'Nal R'
+	if not pd.isnull(amr):
+		drug=amr.split(" ")[0].lower() # All the other drugs are lower case
+		aTriple+=lab.propTriple(testTitle,{"foundResistanceTo":drug},False)
+
+
+	for r in r_drugs:
+		res=df[r][row]
+		drug=re.sub("^r","",r) # Remove the 'r' prefix
+		if not pd.isnull(res):
+			res=int(res) # It's stored as a double, we need an int
+			if res==1: # The strain is resistant
+				aTriple+=lab.propTriple(testTitle,{"foundResistanceTo":drug},False)
+			else: # The strain is sensitive
+				aTriple+=lab.propTriple(testTitle,{"foundSusceptibilityTo":drug},False)
+	
+
+	if aTriple!="":
+		aTriple+=lab.indTriple(testTitle,"AMRtest")
+		aTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(testTitle)+" ."
+
+	return aTriple
+
+
+######################################################################################################
+#
+######################################################################################################
+def createSeroTriples(df,row,isoTitle):
+	sTriple=""
+	sero=df["Serotype"][row]
+
+	if not pd.isnull(sero):
+		sTitle="sero_"+isoTitle
+		sTriple+=lab.indTriple(sTitle,"SerotypeTest")
+		sTriple+=lab.propTriple(sTitle,{"foundSerotype":sero},True,True)
+		sTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(sTitle)+" ."
+
+	return sTriple
+
+
+######################################################################################################
+#
+######################################################################################################
+def createSMAtriples(df,row,isoTitle):
+	sTriple=""
+	pulsovar=df["Pfge Sma I  / Pulsovar"][row]
+
+	if not pd.isnull(pulsovar):
+		sTitle="sma1_"+isoTitle
+		sTriple+=lab.indTriple(sTitle,"SMA1")
+		sTriple+=lab.propTriple(sTitle,{"foundPulsovar":pulsovar},True,True)
+		sTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(sTitle)+" ."
+
+	return sTriple
+
+
+
+######################################################################################################
+#
+######################################################################################################
+def createDrugTriples(df):
+	dTriple=""
+	cols=list(df.columns.values) # Get all the column names
+	drugs=cols[cols.index("mic_azm"):cols.index("mic_tet")+1]
+	drugs=[d.replace("mic_","") for d in drugs]
+
+	for d in drugs:
+		dTriple+=lab.indTriple(d,"AMRdrug")
+
+	return dTriple
+	
+
+######################################################################################################
+#
+######################################################################################################
+def createGeneTriples(df):
+	triple=""
+	cols=list(df.columns.values) # Get all the column names
+	aGenes=cols[cols.index("Asp"):cols.index("Oxford MOMP peptide")+1] # Extract allelic typing genes
+	cgfGenes=cols[cols.index("cj0008 (486bp)"):cols.index("cj1727c (369bp)")+1] # Extract cgf genes
+
+	for a in aGenes:
+		triple+=lab.indTriple(a,"AllelicTypingGene")
+		# HOW SHOULD WE HANDLE MULTI URI TRIPLES?
+		triple+=lab.addUri(a)+" "+campy.addUri("hasName")+" \""+a+"\" ."
+
+	for c in cgfGenes:
+		triple+=lab.indTriple(c,"CGFtypingGene")
+		# ???????????
+		triple+=lab.addUri(c)+" "+campy.addUri("hasName")+" \""+c+"\" ."
+		
+	return triple
 
 
 ######################################################################################################
@@ -933,28 +1092,35 @@ def createTriples(df,row):
 	# original csv name aswell. Same goes for everything else with a name
 	isoTitle=df["Strain Name"][row]
 
-	isoTriple=campy.indTriple(isoTitle,"Isolate")+\
-		      campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},True,rLiteral=True)		     
+	triple=campy.indTriple(isoTitle,"Isolate")+\
+		   campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},True,rLiteral=True)
 
-	isoTriple+=createMLSTtriples(df,row,isoTitle)
-	putInOnt(isoTriple)
-	"""	      
-	isoTriple+=createIsolationTriples(df,row,isoTitle)
-	
-	isoTriple+=createDateTriples(df,row,isoTitle)
-
-	isoTriple+=createLIMStriples(df,row,isoTitle)
-
-	isoTriple+=createSpeciesTriples(df,row,isoTitle)	      
-
-	isoTriple+=createCgfTriples(df,row,isoTitle)
-
-	isoTriple+=createProjTriples(df,row,isoTitle)
-
-	isoTriple+=createSourceTriples(df,row,isoTitle)
+	triple+=createProjTriples(df,row,isoTitle)
 	"""
-	#putInOnt(isoTriple)
-	#insert isoTriple
+	triple+=createSMAtriples(df,row,isoTitle)
+
+	triple+=createSeroTriples(df,row,isoTitle)
+	
+	triple+=createAMRtriples(df,row,isoTitle)
+
+	triple+=createTypingTriples(df,row,isoTitle)
+
+	triple+=createIsolationTriples(df,row,isoTitle)
+	
+	triple+=createDateTriples(df,row,isoTitle)
+
+	triple+=createLIMStriples(df,row,isoTitle)
+
+	triple+=createSpeciesTriples(df,row,isoTitle)	      
+
+	triple+=createCgfTriples(df,row,isoTitle)
+
+	
+
+	triple+=createSourceTriples(df,row,isoTitle)
+	"""
+	#putInOnt(triple)
+	#insert triple
 
 
 ######################################################################################################
@@ -962,6 +1128,16 @@ def createTriples(df,row):
 ######################################################################################################
 def writeData():
 	df=pd.read_csv(r"/home/student/CampyDB/2016-02-10 CGF_DB_22011_2.csv")
+
+	# The column names contain a bunch of genes that need to be in the triplestore,
+	# so we'll add those first
+	triple=createGeneTriples(df)
+	# The column names contain the names of the AMR drugs aswll
+	triple=createDrugTriples(df)
+
+	#putInOnt(triple)
+	# insert Triple
+
 	#createTriples(df,4734)
 	#range(df["Strain Name"].count())
 	for row in range(df["Strain Name"].count()):

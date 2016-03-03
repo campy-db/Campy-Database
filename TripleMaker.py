@@ -77,7 +77,7 @@ class TripleMaker:
 
 				result+=self.addUri("tag_"+val)+" "
 
-				if not (val.isdigit() or val in ("true","false")):
+				if not (cn.isNumber(val) or val in ("true","false")):
 					val="\""+val+"\""
 
 				result+=self.addrLitUri("hasLiteralValue")+" "+val+" .\n"
@@ -208,7 +208,7 @@ class TripleMaker:
 							result+=self.addUri("tag_"+val)+" "
 						else:
 							# Check if the value is a string
-							if not (val.isdigit() or val in ("true","false")):
+							if not (cn.isNumber(val) or val in ("true","false")):
 								val=cn.cleanName(val)
 								val="\""+val+"\""
 							result+=val+" "

@@ -62,6 +62,18 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundMIC
+
+:foundMIC rdf:type owl:ObjectProperty ;
+          
+          rdfs:domain :AMRtest ;
+          
+          rdfs:range :DrugMIC ;
+          
+          rdfs:subPropertyOf :hasAMRproperty .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundPulsovar
 
 :foundPulsovar rdf:type owl:ObjectProperty ;
@@ -73,6 +85,18 @@
                rdfs:domain :PFGE ;
                
                rdfs:subPropertyOf :hasPFGEproperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundResistanceTo
+
+:foundResistanceTo rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:range :AMRdrug ;
+                   
+                   rdfs:domain :AMRtest ;
+                   
+                   rdfs:subPropertyOf :hasAMRproperty .
 
 
 
@@ -104,13 +128,11 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAMRdrugProperty
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundSusceptibilityTo
 
-:hasAMRdrugProperty rdf:type owl:ObjectProperty ;
-                    
-                    rdfs:domain :AMRdrug ;
-                    
-                    rdfs:range :AMRdrugProperty .
+:foundSusceptibilityTo rdf:type owl:ObjectProperty ;
+                       
+                       rdfs:subPropertyOf :hasAMRproperty .
 
 
 
@@ -142,8 +164,11 @@
                 
                 rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
                 
-                rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ,
-                                   :hasTypingAlleleProperty .
+                rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                
+                rdfs:domain :TypingAllele ;
+                
+                rdfs:subPropertyOf :hasTypingAlleleProperty .
 
 
 
@@ -233,6 +258,24 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDrug
+
+:hasDrug rdf:type owl:ObjectProperty ;
+         
+         rdfs:range :AMRdrug ;
+         
+         rdfs:domain :DrugMIC ;
+         
+         rdfs:subPropertyOf :hasDrugMICproperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDrugMICproperty
+
+:hasDrugMICproperty rdf:type owl:ObjectProperty .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasFileLocation
 
 :hasFileLocation rdf:type owl:ObjectProperty ;
@@ -310,9 +353,9 @@
         
         rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
         
-        rdfs:domain :AMRdrug ;
+        rdfs:domain :DrugMIC ;
         
-        rdfs:subPropertyOf :hasAMRdrugProperty .
+        rdfs:subPropertyOf :hasDrugMICproperty .
 
 
 
@@ -424,19 +467,11 @@
 
 :isOfGene rdf:type owl:ObjectProperty ;
           
+          rdfs:range :AllelicTypingGene ;
+          
+          rdfs:domain :TypingAllele ;
+          
           rdfs:subPropertyOf :hasTypingAlleleProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#testedDrug
-
-:testedDrug rdf:type owl:ObjectProperty ;
-            
-            rdfs:range :AMRdrug ;
-            
-            rdfs:domain :AMRtest ;
-            
-            rdfs:subPropertyOf :hasAMRproperty .
 
 
 
@@ -485,12 +520,6 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrugProperty
-
-:AMRdrugProperty rdf:type owl:Class .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRproperty
 
 :AMRproperty rdf:type owl:Class ;
@@ -503,11 +532,7 @@
 
 :AMRtest rdf:type owl:Class ;
          
-         rdfs:subClassOf :LabTest ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :testedDrug ;
-                           owl:allValuesFrom :AMRdrug
-                         ] ;
+         rdfs:subClassOf :LabTest ;
          
          owl:disjointWith :TypingTest .
 
@@ -526,6 +551,14 @@
 :AllelicTest rdf:type owl:Class ;
              
              rdfs:subClassOf :TypingTest .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AllelicTypingGene
+
+:AllelicTypingGene rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :TypingGene .
 
 
 
@@ -569,6 +602,14 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGFtypingGene
+
+:CGFtypingGene rdf:type owl:Class ;
+               
+               rdfs:subClassOf :TypingGene .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster
 
 :Cluster rdf:type owl:Class .
@@ -578,6 +619,28 @@
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#ClusterProperty
 
 :ClusterProperty rdf:type owl:Class .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#DrugMIC
+
+:DrugMIC rdf:type owl:Class .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaAPeptidetest
+
+:FlaAPeptidetest rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :AllelicTest .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaASVRtest
+
+:FlaASVRtest rdf:type owl:Class ;
+             
+             rdfs:subClassOf :AllelicTest .
 
 
 
@@ -633,11 +696,19 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#SMA_1
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PorAtest
 
-:SMA_1 rdf:type owl:Class ;
-       
-       rdfs:subClassOf :PFGE .
+:PorAtest rdf:type owl:Class ;
+          
+          rdfs:subClassOf :AllelicTest .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#SMA1
+
+:SMA1 rdf:type owl:Class ;
+      
+      rdfs:subClassOf :PFGE .
 
 
 
@@ -705,30 +776,6 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#flaAPeptideTest
-
-:flaAPeptideTest rdf:type owl:Class ;
-                 
-                 rdfs:subClassOf :AllelicTest .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#flaASVRtest
-
-:flaASVRtest rdf:type owl:Class ;
-             
-             rdfs:subClassOf :AllelicTest .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#porAtest
-
-:porAtest rdf:type owl:Class ;
-          
-          rdfs:subClassOf :AllelicTest .
-
-
-
 
 
 #################################################################
@@ -739,18 +786,18 @@
 
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :MLSTtest
-                :MOMPtest
-                :flaAPeptideTest
-                :flaASVRtest
-                :porAtest
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
   owl:members ( :AllelicTest
                 :BinaryTest
                 :PFGE
                 :SerotypeTest
+              )
+] .
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :FlaAPeptidetest
+                :FlaASVRtest
+                :MLSTtest
+                :MOMPtest
+                :PorAtest
               )
 ] .
 

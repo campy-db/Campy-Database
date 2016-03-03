@@ -38,10 +38,16 @@ def isNumber(s):
 def cleanString(s):
 	if not isNumber(s) and not pd.isnull(s):
 		s=s.strip()
-		for c in ";: .()\/#\"<>":
+		for c in ";: .()\/#\"":
 			s=s.replace(c,'_')
 		s=re.sub("__+","_",s)
-
+		s=s[:len(s)-1] if s[len(s)-1]=="_" else s
+		# For numbers, sometimes we get the value <30. This becomes the same as 30. This is no good
+		# as we end up with tag_30 hasLiteralValue 30 and hasLiteralValue <30. So we replace < with
+		# 'l' and > with 'g'. So now we end up with tag_30 hasLiteralvalue 30 and tag_g30 hasLiteral
+		# Value >30.
+		s=s.replace("<","l") # We have to retain greater than info
+		s=s.replace(">","g") # ditto
 	return s
 
 ######################################################################################################
@@ -55,7 +61,7 @@ def cleanName(s):
 ######################################################################################################
 # Some of the years and ids were converted to doubles for some reason
 ######################################################################################################
-def cleanNum(s):
+def cleanInt(s):
 	if s!="" and not pd.isnull(s) and isNumber(s):
 		s=str(int(float(s)))
 	return s
@@ -91,7 +97,7 @@ def remPrefix(val,l):
 # Main. Just for testing purposes.
 ###################################################################################################
 def main():
-	print cleanString("s   s")
+	print isNumber("1.22")
 
 
 if __name__=="__main__":
