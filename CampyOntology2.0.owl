@@ -663,6 +663,32 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isPartOfOutbreak
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isPartOfOutbreak> rdf:type owl:ObjectProperty ;
+                                                                                                  
+                                                                                                  rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                  
+                                                                                                  rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                  
+                                                                                                  rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                  
+                                                                                                  rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasEPIproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isReferenceStrain
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isReferenceStrain> rdf:type owl:ObjectProperty ;
+                                                                                                   
+                                                                                                   rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                   
+                                                                                                   rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                   
+                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isRinse
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isRinse> rdf:type owl:ObjectProperty ;
@@ -1225,6 +1251,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SubProject> rdf:type owl:Class ;
                                                                                             
                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Project> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Substrate
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Substrate> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment> .
 
 
 

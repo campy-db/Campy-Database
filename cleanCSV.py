@@ -38,16 +38,21 @@ def isNumber(s):
 def cleanString(s):
 	if not isNumber(s) and not pd.isnull(s):
 		s=s.strip()
-		for c in ";: .()\/#\"":
-			s=s.replace(c,'_')
-		s=re.sub("__+","_",s)
-		s=s[:len(s)-1] if s[len(s)-1]=="_" else s
-		# For numbers, sometimes we get the value <30. This becomes the same as 30. This is no good
-		# as we end up with tag_30 hasLiteralValue 30 and hasLiteralValue <30. So we replace < with
+
+		# For numbers, sometimes we get the value <30. This becomes the same as 30 if we replace the
+		# <, similarily >, (both are illegal uri characters) with _. This is no good as we end 
+		# up with tag_30 hasLiteralValue 30 and hasLiteralValue <30. So we replace < with
 		# 'l' and > with 'g'. So now we end up with tag_30 hasLiteralvalue 30 and tag_g30 hasLiteral
 		# Value >30.
-		s=s.replace("<","l") # We have to retain greater than info
-		s=s.replace(">","g") # ditto
+		s=re.sub(">(?=(\d|=\d))","g",s) # Replaces '>' with 'g' if '>' is followed by a digit or '='
+		re.sub("<(?=(\d|=\d))","l",s)   # , and '=' is followed by a digit 
+
+		for c in ";: .,-()\/#\"<>":
+			s=s.replace(c,'_')
+		s=re.sub("__+","_",s)
+		s=s[:len(s)-1] if s[len(s)-1]=="_" else s # Get rid of trailing underscores
+		s=s[1:] if s[0]=="_" else s # Also get rid of leading underscores
+
 	return s
 
 ######################################################################################################
@@ -97,7 +102,7 @@ def remPrefix(val,l):
 # Main. Just for testing purposes.
 ###################################################################################################
 def main():
-	print isNumber("1.22")
+	print cleanString("(s)")
 
 
 if __name__=="__main__":
