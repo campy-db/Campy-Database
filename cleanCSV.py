@@ -4,6 +4,14 @@ import pandas as pd
 import datetime
 import re
 
+def isGoodVal(v):
+	result=True
+	v=v.strip().lower() if not isNumber(v) else v
+	if v in ("unknown","n/a","n\\a","#n/a","#n\\a","missing","not given","other"):
+		result=False
+
+	return result
+
 ######################################################################################################
 # Converts DDD MM SS format lat and long to signed degree format.
 # Note that the lat and longs in the csv are not really in DDD MM SS form as they have the strings
@@ -102,8 +110,7 @@ def remPrefix(val,l):
 # Main. Just for testing purposes.
 ###################################################################################################
 def main():
-	print cleanString("(s)")
-
+	print isGoodVal(15)
 
 if __name__=="__main__":
 	main()
