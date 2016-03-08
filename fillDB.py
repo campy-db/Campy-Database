@@ -24,11 +24,11 @@ tm.TripleMaker("https://github.com/samuel-peers/campyOntology/blob/master/CampyO
 lab=tm.TripleMaker("https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#")
 
 ######################################################################################################
-# putInOnt
+# writeToOnt
 # Just throws the triples into the owl file. Just for testing purposes. Later the triples will be 
 # insterted into blazegraph.
 ######################################################################################################
-def putInOnt(t):
+def writeToOnt(t):
 	with open('/home/student/CampyDB/CampyOnt/CampyOntology2.0.owl','a') as w:
 		w.write(t)
 
@@ -82,7 +82,7 @@ def createAgeTriples(df,row,hum):
 				age="" # Ignore ranges for now
 			else: # The value is a birth day
 				bday=cn.convertDate(age)
-				humTriple+=campy.propTriple(hum,{"hasBirthDate":bday},True,rLiteral=True)
+				humTriple+=campy.propTriple(hum,{"hasBirthDate":bday},"string",True)
 				
 				if not pd.isnull(yearTaken):
 					age=int(yearTaken)-int(bday[:yearLen]) # bday is in ISO format, so the first 4
@@ -92,7 +92,7 @@ def createAgeTriples(df,row,hum):
 				else:
 					age=date.today().year-int(bday[:yearLen]) # Use todays year for the age
 
-		humTriple+=campy.propTriple(hum,{"hasAge":str(age)},True,rLiteral=True) if age!="" else ""	
+		humTriple+=campy.propTriple(hum,{"hasAge":str(age)},"int",True) if age!="" else ""	
 
 	return humTriple
 
@@ -123,8 +123,8 @@ def createTravelTriples(df,row,hum):
 		if travel in countries:
 			trTriple=campy.indTriple(travel,"Country")
 
-		trTriple+=campy.propTriple(travel,{"hasName":travel},True)
-		humTriple=campy.propTriple(hum,{"traveledTo":travel},False)
+		trTriple+=campy.propTriple(travel,{"hasName":travel},"string")
+		humTriple=campy.propTriple(hum,{"traveledTo":travel})
 
 	return trTriple+humTriple
 
@@ -147,7 +147,7 @@ def createHumanTriples(df,row,isoTitle):
 
 	# Just create a generic human individual
 	humTriple=campy.indTriple(hum,"Patient") # All human samples in the csv are patients
-	humTriple+=campy.propTriple(hum,{"hasName":hum},True)
+	humTriple+=campy.propTriple(hum,{"hasName":hum},"string")
 
 	# Travel info is in the column 'comments' and it's quite messy so we'll
 	# handle it separately 
@@ -160,10 +160,10 @@ def createHumanTriples(df,row,isoTitle):
 	# The values 0, m, f, male, female and 'not given' are in the csv. We won't add the prop if 
 	# it's 'not given'
 	if not pd.isnull(gender) and cn.isGoodVal(gender) and gender!=0:
-		humTriple+=campy.propTriple(hum,{"hasGender":gender[0]},True,rLiteral=True)
+		humTriple+=campy.propTriple(hum,{"hasGender":gender[0]},"string",True)
 
 	if not pd.isnull(postalCode):
-		humTriple+=campy.propTriple(hum,{"hasPostalCode":postalCode},True,rLiteral=True)
+		humTriple+=campy.propTriple(hum,{"hasPostalCode":postalCode},"string",True)
 
 	# If sTypeA is nan, try sTypeB
 	typeCol=sTypeA if not pd.isnull(sTypeA) else sTypeB
@@ -178,10 +178,10 @@ def createHumanTriples(df,row,isoTitle):
 	 # clinical sample types, i.e. 'blood' or 'stool'
 	if type!="":
 		isoTriple+=campy.indTriple(type,"ClinicalType")
-		isoTriple+=campy.propTriple(type,{"hasName":type},True)
-		isoTriple+=campy.propTriple(isoTitle,{"hasSampleType":type},False)
+		isoTriple+=campy.propTriple(type,{"hasName":type},"string")
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleType":type})
 		
-	isoTriple+=campy.propTriple(isoTitle,{"hasSampleSource":hum},False)
+	isoTriple+=campy.propTriple(isoTitle,{"hasSampleSource":hum})
 
 	return humTriple+isoTriple
 
@@ -236,11 +236,12 @@ def createEnviroTriples(df,row,isoTitle):
 	else: # We know it's an environmental source, we don't know the environment type (enviro) or the specific
 		  # environment source (enviroSpec). Note that source specific 2 is empty if source general is too.
 		enviro="Environment"
-		enviroSpec="unknown"
+		enviroSpec="unknown_enviro" # No unique identifier is needed here, but some other things may be
+									# named unknown in the future.
 	
-	title=enviroSpec # Doesn't need to be unique; there are no props attached to evironments. 
-	enviroTriple=campy.indTriple(title,enviro)+campy.propTriple(title,{"hasName":enviroSpec},True)
-	isoTriple=campy.propTriple(isoTitle,{"hasSampleSource":title},False)
+	title=enviroSpec.lower() # Doesn't need to be unique; there are no props attached to evironments. 
+	enviroTriple=campy.indTriple(title,enviro)+campy.propTriple(title,{"hasName":enviroSpec},"string")
+	isoTriple=campy.propTriple(isoTitle,{"hasSampleSource":title})
 
 	return enviroTriple+isoTriple
 		
@@ -290,24 +291,24 @@ def createTypeTriples(df,row,isoTitle):
 			# sourceSpec has info related to the properties of meat.
 			if "seasoned" in sourceSpec:
 				title=sampleType+"_seasoned_"+name
-				stTriple+=campy.propTriple(title,{"isSeasoned":"false"},True,rLiteral=True)
+				stTriple+=campy.propTriple(title,{"isSeasoned":"false"},"bool",True)
 
 			if "skin" in sourceSpec:
 				if "skinless" in sourceSpec:
 					title=sampleType+"_skinless_"+name
-					stTriple+=campy.propTriple(title,{"isSkinless":"true"},True,rLiteral=True)
+					stTriple+=campy.propTriple(title,{"isSkinless":"true"},"bool",True)
 				else:
 					title=sampleType+"_"+name+"_withskin"
-					stTriple+=campy.propTriple(title,{"isSkinless":"false"},True,rLiteral=True)
+					stTriple+=campy.propTriple(title,{"isSkinless":"false"},"bool",True)
 			if "rinse" in sourceSpec:
 				title=sampleType+"_"+name+"_rinse"
-				stTriple+=campy.propTriple(title,{"isRinse":"true"},True,rLiteral=True)
+				stTriple+=campy.propTriple(title,{"isRinse":"true"},"bool",True)
 
 
 			if "breast" in title or "thigh" in title or "ground" in title or "loin" in title:
 				stTriple+=campy.indTriple(title,"Meat")
 
-			stTriple+=campy.propTriple(title,{"hasName":name},True)
+			stTriple+=campy.propTriple(title,{"hasName":name},"string")
 
 		else: # sourceSpec is nan
 			name=sampleType
@@ -316,7 +317,7 @@ def createTypeTriples(df,row,isoTitle):
 		stClass=sampleType+"Type"
 		stTriple+=campy.indTriple(title,stClass)
 
-		isoTriple+=campy.propTriple(isoTitle,{"hasSampleType":title},False)
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleType":title})
 
 	return stTriple+isoTriple
 
@@ -357,7 +358,7 @@ def createAnimalTriples(df,row,isoTitle):
 		family="Misc"
 	else:
 		# We know the family
-		if not pd.isnull(animal) and cn.isGoodVal(animal):
+		if not pd.isnull(animal):
 			# Handle the MiscDomestic, and MiscWild family cases
 			if "Misc" in family:
 				if "Wild" in family:
@@ -367,7 +368,8 @@ def createAnimalTriples(df,row,isoTitle):
 				if "Domestic" in family:
 					domestic="true"
 
-				# Give families do all the MiscWild and MiscDomestic animals
+				# Give families do all the MiscWild and MiscDomestic animals. A lot of 
+				# random cases here we need to handle.
 				if "Canada Goose" in animal or "Trumpeter Swan" in animal or \
 				   "Mute" in animal or "Bufflehead" in animal or "Scaup" in animal or\
 				   "Merganser" in animal:
@@ -392,7 +394,7 @@ def createAnimalTriples(df,row,isoTitle):
 					family="Misc"
 			
 			# Handle the domestic type of animal cases
-			if animal in ("Cow","Chicken","Dog","Sheep"):
+			if animal in ("Cow","Chicken","Dog","Sheep","Cat"):
 				domestic="true"
 			# Handle the wild type of animal cases
 			if animal in ("Bear","Canada Goose"): 
@@ -434,32 +436,35 @@ def createAnimalTriples(df,row,isoTitle):
 		else: # We know the family but not the animal
 			animal="unknown"
 
+	# Note that even unknown animals need a unique identifier as they have properties attached to them
+	# and can be part of different families
+
 	# If the animal has an id, this becomes its URI
 	if not pd.isnull(id) and cn.isGoodVal(id):
 		title=cn.cleanInt(id)
 	else:
-		title=animal+"_"+isoTitle
+		title=animal.lower()+"_"+isoTitle
 
 	if not pd.isnull(sex) and cn.isGoodVal(sex) and (sex[0]=="M" or sex[0]=="F"):
-		animalTriple+=campy.propTriple(title,{"hasSex":sex[0]},True,rLiteral=True)
+		animalTriple+=campy.propTriple(title,{"hasSex":sex[0]},"string",True)
 
 	if not pd.isnull(ageRank) and ("juvenile" in ageRank or "adult" in ageRank):
-		animalTriple+=campy.propTriple(title,{"hasAgeRank":ageRank},True,rLiteral=True)		
+		animalTriple+=campy.propTriple(title,{"hasAgeRank":ageRank},"string",True)		
 		
 	if domestic!="":
-		animalTriple+=campy.propTriple(title,{"isDomestic":domestic},True,rLiteral=True)
+		animalTriple+=campy.propTriple(title,{"isDomestic":domestic},"bool",True)
 
 	if animal!="unknown":
 		# animal becomes an instance of animal, and animal becomes a subclass of family
 		animalTriple+=campy.indTriple(title,animal)+campy.subClass(animal,family)
 
 	if taxoGenus!="":
-		animalTriple+=campy.propTriple(title,{"hasTaxoGenus":taxoGenus},True,rLiteral=True)
+		animalTriple+=campy.propTriple(title,{"hasTaxoGenus":taxoGenus},"string",True)
 
 
 	animalTriple+=campy.indTriple(title,family)
 
-	isoTriple+=campy.propTriple(isoTitle,{"hasSampleSource":title},False)
+	isoTriple+=campy.propTriple(isoTitle,{"hasSampleSource":title})
 
 	return animalTriple+isoTriple
 
@@ -494,8 +499,8 @@ def createLocationTriples(df,row,isoTitle):
 
 			if "Watershed" in bodyOfWater:
 				locationTriple+=campy.indTriple(bodyOfWater,"Watershed")
-				locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater},False)
-				locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},True)
+				locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater})
+				locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},"string")
 			else:
 				# The word river is also in the watershed values, eg oldman river watershed. So 
 				# if the value does not contain watershed but does contain river, it is considered a 
@@ -503,8 +508,8 @@ def createLocationTriples(df,row,isoTitle):
 				#The sumas and salmon rivers are the only bodies of water.
 				if re.search("[Rr]iver",bodyOfWater) is not None:
 					locationTriple+=campy.indTriple(bodyOfWater,"BodyOfWater")
-					locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater},False)
-					locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},True)
+					locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater})
+					locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},"string")
 
 	# SamplingSite is a real mess. Has a lot of redundant information. Also, some of them
 	# have city info (Fort Macleod). Note Fort Macleod is also the name of the health authority 
@@ -515,23 +520,23 @@ def createLocationTriples(df,row,isoTitle):
 			samplingSite=samplingSite.replace("Ft.","Fort") # It's also abbreviated sometimes
 
 		locationTriple+=campy.indTriple(samplingSite,"SamplingSite")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite},False)
-		locationTriple+=campy.propTriple(samplingSite,{"hasName":samplingSite},True)
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite})
+		locationTriple+=campy.propTriple(samplingSite,{"hasName":samplingSite},"string")
 
 	if not pd.isnull(country) and cn.isGoodVal(country):
 		locationTriple+=campy.indTriple(country,"Country")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":country},False)
-		locationTriple+=campy.propTriple(country,{"hasName":country},True)
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":country})
+		locationTriple+=campy.propTriple(country,{"hasName":country},"string")
 
 	if not pd.isnull(subNat) and cn.isGoodVal(subNat):
 		locationTriple+=campy.indTriple(subNat,"SubNational")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":subNat},False)
-		locationTriple+=campy.propTriple(subNat,{"hasName":subNat},True)
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":subNat})
+		locationTriple+=campy.propTriple(subNat,{"hasName":subNat},"string")
 
 	if not pd.isnull(city) and cn.isGoodVal(city):
 		locationTriple+=campy.indTriple(city,"City")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":city},False)
-		locationTriple+=campy.propTriple(city,{"hasName":city},True)
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":city})
+		locationTriple+=campy.propTriple(city,{"hasName":city},"string")
 
 	if not pd.isnull(hAuthority) and cn.isGoodVal(hAuthority):
 		hAuthority=cn.remPrefix(hAuthority,3)
@@ -544,24 +549,24 @@ def createLocationTriples(df,row,isoTitle):
 				hAuthority=re.sub("Mont.r.gie","Montérégie",hAuthority)
 
 			locationTriple+=campy.indTriple(hAuthority,"HealthAuthority")
-			locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":hAuthority},False)
-			locationTriple+=campy.propTriple(hAuthority,{"hasName":hAuthority},True)
+			locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":hAuthority})
+			locationTriple+=campy.propTriple(hAuthority,{"hasName":hAuthority},"string")
 
 	if not pd.isnull(samplingSite2) and ("Petting Zoo" in samplingSite2):
 		locationTriple+=campy.indTriple(samplingSite2,"SamplingSite")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite2},False)
-		locationTriple+=campy.propTriple(samplingSite2,{"hasName":samplingSite2},True)
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite2})
+		locationTriple+=campy.propTriple(samplingSite2,{"hasName":samplingSite2},"string")
 
 	if not pd.isnull(c_netSite) and cn.isGoodVal(c_netSite):
 		c_netSite=cn.cleanInt(c_netSite)
 		locationTriple+=campy.indTriple(c_netSite,"C_EnterNetSite")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":c_netSite},False)
-		locationTriple+=campy.propTriple(c_netSite,{"hasName":c_netSite},True)
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":c_netSite})
+		locationTriple+=campy.propTriple(c_netSite,{"hasName":c_netSite},"string")
 
 	if not pd.isnull(fncSite) and cn.isGoodVal(fncSite):
 		locationTriple+=campy.indTriple(fncSite,"FNCSentinelSite")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":fncSite},False)
-		locationTriple+=campy.propTriple(fncSite,{"hasName":fncSite},True)
+		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":fncSite})
+		locationTriple+=campy.propTriple(fncSite,{"hasName":fncSite},"string")
 
 
 	# Have to convert lat and long to signed decimal format
@@ -573,8 +578,8 @@ def createLocationTriples(df,row,isoTitle):
 			lat=cn.convertGPS(lat)
 			lng=cn.convertGPS(lng)
 
-			locationTriple+=campy.propTriple(isoTitle,{"hasLatitude":lat},True,rLiteral=True)
-			locationTriple+=campy.propTriple(isoTitle,{"hasLongitude":lng},True,rLiteral=True)
+			locationTriple+=campy.propTriple(isoTitle,{"hasLatitude":lat},"digit",True)
+			locationTriple+=campy.propTriple(isoTitle,{"hasLongitude":lng},"digit",True)
 
 	return locationTriple
 
@@ -612,7 +617,7 @@ def createRefTriples(df,row,isoTitle):
 	source=df["Source_Specific_2"][row]
 	animalID=df["Animal ID"][row]
 
-	rTriple=campy.propTriple(isoTitle,{"isReferenceStrain":"true"},True,rLiteral=True)
+	rTriple=campy.propTriple(isoTitle,{"isReferenceStrain":"true"},"bool",True)
 
 	if not pd.isnull(source) and cn.isGoodVal(source):
 		if re.search("[Hh]uman",source) is not None:
@@ -633,7 +638,7 @@ def createRefTriples(df,row,isoTitle):
 		# earlier when we handled the animal source triples. If it's a human its just an instance 
 		# of Patient.
 		rTriple+=campy.indTriple(title,sClass)
-		rTriple+=campy.propTriple(isoTitle,{"hasSampleSource":title},False)
+		rTriple+=campy.propTriple(isoTitle,{"hasSampleSource":title})
 
 	return rTriple
 
@@ -654,9 +659,9 @@ def createProjTriples(df,row,isoTitle):
 		resultTriple=createRefTriples(df,row,isoTitle)
 	else:
 		if not pd.isnull(proj) and cn.isGoodVal(proj): 
-			projTriple+=campy.indTriple(proj,"Project")+campy.propTriple(proj,{"hasName":proj},True)
+			projTriple+=campy.indTriple(proj,"Project")+campy.propTriple(proj,{"hasName":proj},"string")
 
-			isoTriple+=campy.propTriple(isoTitle,{"partOfProject":proj},False)
+			isoTriple+=campy.propTriple(isoTitle,{"partOfProject":proj})
 
 			if not pd.isnull(subproj) and cn.isGoodVal(proj):
 				for c in " _":
@@ -673,10 +678,10 @@ def createProjTriples(df,row,isoTitle):
 				if subproj!="":
 					subproj=cn.cleanInt(subproj) # Some of the subprojects are years
 					projTriple+=campy.indTriple(subproj,"SubProject")
-		   			projTriple+=campy.propTriple(subproj,{"hasName":subproj},True)
-		   			projTriple+=campy.propTriple(proj,{"hasSubproject":subproj},False)
+		   			projTriple+=campy.propTriple(subproj,{"hasName":subproj},"string")
+		   			projTriple+=campy.propTriple(proj,{"hasSubproject":subproj})
 
-	   				isoTriple+=campy.propTriple(isoTitle,{"partOfSubProject":subproj},False)
+	   				isoTriple+=campy.propTriple(isoTitle,{"partOfSubProject":subproj})
 
 	resultTriple+=isoTriple+projTriple
    	return resultTriple
@@ -701,15 +706,15 @@ def createClustTriples(df,row,cgfTest):
 		c100name="CGF_100_"+c90+"_"+c95+"_"+c100
 
 		c90Triple=lab.indTriple(c90name,"CGFcluster")+\
-				  lab.propTriple(c90name,{"hasThreshold":"90","hasClustNum":c90},True,rLiteral=True)+\
+				  lab.propTriple(c90name,{"hasThreshold":"90","hasClustNum":c90},"int",True)+\
 				  lab.propTriple(c90name,{"hasSubCluster":c95name},False)
 		c95Triple=lab.indTriple(c95name,"CGFcluster")+\
-		          lab.propTriple(c95name,{"hasThreshold":"95","hasClustNum":c95},True,rLiteral=True)+\
+		          lab.propTriple(c95name,{"hasThreshold":"95","hasClustNum":c95},"int",True)+\
 		          lab.propTriple(c95name,{"hasSubCluster":c100name},False)
 		c100Triple=lab.indTriple(c100name,"CGFcluster")+\
-				   lab.propTriple(c100name,{"hasThreshold":"100","hasClustNum":c100},True,rLiteral=True)
+				   lab.propTriple(c100name,{"hasThreshold":"100","hasClustNum":c100},"int",True)
 
-		cgfRefTriple=lab.propTriple(cgfTest,{"hasCluster":[c90name,c95name,c100name]},False)
+		cgfRefTriple=lab.propTriple(cgfTest,{"hasCluster":[c90name,c95name,c100name]})
 		clustTriple=c90Triple+c95Triple+c100Triple+cgfRefTriple
 	return clustTriple
 
@@ -742,33 +747,32 @@ def createCgfTriples(df,row,isoTitle):
 	cgfTriple=lab.indTriple(cgfTest1,"CGFtest")
 
 	# Every cgf test in the csv is inVitro
-	cgfTriple+=lab.propTriple(cgfTest1,{"isInVitro":"true"},True,rLiteral=True)
+	cgfTriple+=lab.propTriple(cgfTest1,{"isInVitro":"true"},"bool",True)
 
 	if fileLoc!="":
-		cgfTriple+=lab.propTriple(cgfTest1,{"hasFileLocation":fileLoc},True,rLiteral=True)
+		cgfTriple+=lab.propTriple(cgfTest1,{"hasFileLocation":fileLoc},"string",True)
 	if date!="":
-		cgfTriple+=lab.propTriple(cgfTest1,{"hasDateCompleted":date},True,rLiteral=True)
+		cgfTriple+=lab.propTriple(cgfTest1,{"hasDateCompleted":date},"string",True)
 
 	if not pd.isnull(fingerprint) and cn.isGoodVal(fingerprint):
 		fingerprint=fingerprint.replace("fp","")
-		cgfTriple+=lab.propTriple(cgfTest1,{"hasFingerprint":fingerprint},True,rLiteral=True)
+		cgfTriple+=lab.propTriple(cgfTest1,{"hasFingerprint":fingerprint},"string",True)
 
-	# Note that we have hex numbers converted to strings in TripleMaker (just because the isDigit function
-	# returns false on hex's (that's what we want)) because there doesn't seem to be a hex number data type 
-	# in rdf or whatever. It breaks the ontology if we insert it as is
 	if not pd.isnull(legacyHexNum) and cn.isGoodVal(legacyHexNum):
 		legacyHexNum=legacyHexNum.replace("BIN","")
-		cgfTriple+=lab.propTriple(cgfTest1,{"hasLegacyHexNum":legacyHexNum},True,rLiteral=True)
+		cgfTriple+=lab.propTriple(cgfTest1,{"hasLegacyHexNum":legacyHexNum},"string",True)
 
 	if not pd.isnull(typingLab) and cn.isGoodVal(typingLab):
 		# Have to create a typing lab triple and then attach the cgf test to it
 		labTriple=lab.indTriple(typingLab,"TypingLab") # labTitle is an instance of the class TypingLab
+
 		# Right now the URI for hasName is the campy ont. URI. Gonna have to change it to a URI seperate
 		# from both campy and labTest URI. WE MUST FIX THIS
-		labTriple+=lab.addUri(cn.cleanString(typingLab))+" "+campy.addUri("hasName")+\
-			       " \""+typingLab+"\""+" .\n"
+		labTriple+=lab.addUri(cn.cleanString(typingLab))+" "+\
+				   campy.addUri("hasName")+" \"%s\" .\n" % (typingLab)
+
 		# Attach the lab to the cgf test
-		cgfTriple+=lab.propTriple(cgfTest1,{"doneAtLab":typingLab},False)
+		cgfTriple+=lab.propTriple(cgfTest1,{"doneAtLab":typingLab})
 		
 
 	clustTriple=createClustTriples(df,row,cgfTest1)
@@ -827,13 +831,14 @@ def createSpeciesTriples(df,row,isoTitle):
 
 
 	if specA!="":
-		isoTriple+=campy.indTriple(specA,"CampySpecies")+campy.propTriple(specA,{"hasName":specA},True)
-		isoTriple+=campy.propTriple(isoTitle,{"hasSpecies":specA},False)
+		isoTriple+=campy.indTriple(specA,"CampySpecies")+\
+				   campy.propTriple(specA,{"hasName":specA},"string")
+		isoTriple+=campy.propTriple(isoTitle,{"hasSpecies":specA})
 	if specB!="":
-		isoTriple+=campy.indTriple(specB,"CampySpecies")+campy.propTriple(specB,{"hasName":specB},True)
-		isoTriple+=campy.propTriple(isoTitle,{"hasSpecies":specB},False)
+		isoTriple+=campy.indTriple(specB,"CampySpecies")+\
+			       campy.propTriple(specB,{"hasName":specB},"string")
+		isoTriple+=campy.propTriple(isoTitle,{"hasSpecies":specB})
 
-	putInOnt(isoTriple)
 	return isoTriple
 
 ######################################################################################################
@@ -854,7 +859,7 @@ def createDateTriples(df,row,isoTitle):
 		dateTaken=cn.cleanInt(year)
 
 	if dateTaken!="":
-		isoTriple+=campy.propTriple(isoTitle,{"hasDateSampleTaken":dateTaken},True,rLiteral=True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasDateSampleTaken":dateTaken},"string",True)
 
 	return isoTriple
 
@@ -876,28 +881,50 @@ def createLIMStriples(df,row,isoTitle):
 	cidB=""
 	dateAdded=df["Date Added to Database"][row]
 
-	if not pd.isnull(nmlid):
-		isoTriple+=campy.propTriple(isoTitle,{"hasNMLid":nmlid},True,rLiteral=True)
-	if not pd.isnull(ldmsid):
-		isoTriple+=campy.propTriple(isoTitle,{"hasLDMSid":ldmsid},True,rLiteral=True)
-	if not pd.isnull(origName):
-		isoTriple+=campy.propTriple(isoTitle,{"hasOriginalName":origName},True,rLiteral=True)
+	# Add the nmlID, ldmsID and original sample name
+	if not pd.isnull(nmlid) and cn.isGoodVal(nmlid):
+		isoTriple+=campy.propTriple(isoTitle,{"hasNMLid":nmlid},"string",True)
+	if not pd.isnull(ldmsid) and cn.isGoodVal(ldmsid):
+		isoTriple+=campy.propTriple(isoTitle,{"hasLDMSid":ldmsid},"string",True)
+	if not pd.isnull(origName) and cn.isGoodVal(origName):
+		isoTriple+=campy.propTriple(isoTitle,{"hasOriginalName":origName},"string",True)
 
-	if not pd.isnull(isoLocA):
+	# As the isolate's physical location
+	if not pd.isnull(isoLocA) and cn.isGoodVal(isoLocA):
 		isoLoc=isoLocA
-	if not pd.isnull(isoLocB):
+	if not pd.isnull(isoLocB) and cn.isGoodVal(isoLocB):
 		isoLoc=isoLocB
 	if isoLoc!="":
 		isoTriple+=campy.indTriple(isoLoc,"IsolateLocation")
-		isoTriple+=campy.propTriple(isoLoc,{"hasName":isoLoc},True)
-		isoTriple+=campy.propTriple(isoTitle,{"hasIsolateLocation":isoLoc},False)
+		isoTriple+=campy.propTriple(isoLoc,{"hasName":isoLoc},"string")
+		isoTriple+=campy.propTriple(isoTitle,{"hasIsolateLocation":isoLoc})
 
+	# Add the isolate's many sample ID's. Don't add the ID if it is the same as the isoTitle
+	# or other the other IDs before it
 	if not pd.isnull(sidA) and cn.isGoodVal(sidA):
-		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidA},True,rLiteral=True)
+		# Sometimes the Alternate ID is the strain name but with an - instead of _. This causes
+		# problems with the reified literals. Note even if it is the same as the strain name as
+		# some other strains may have the same sample id
+		if cn.compare([isoTitle,sidA]):
+			sidA=isoTitle
+
+		litType="int" if cn.isNumber(sidA) else "string" # Some ids are ints
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidA},litType,True)
+
 	if not pd.isnull(sidB) and cn.isGoodVal(sidB):
-		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidB},True,rLiteral=True)
+		if cn.compare([isoTitle,sidB]):
+			sidB=isoTitle
+		
+		litType="int" if cn.isNumber(sidB) else "string" # Some ids are ints
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidB},litType,True)
+
 	if not pd.isnull(sidC) and cn.isGoodVal(sidC):
-		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidC},True,rLiteral=True)
+		if cn.compare([isoTitle,sidC]):
+			sidC=isoTitle
+
+		litType="int" if cn.isNumber(sidC) else "string" # Some ids are ints
+		isoTriple+=campy.propTriple(isoTitle,{"hasSampleID":sidC},litType,True)
+
 
 	# Alternate collection id is stored alongside original collection id.
 	if not pd.isnull(cidA):
@@ -908,13 +935,13 @@ def createLIMStriples(df,row,isoTitle):
 			cidA=cidA[:len(cidA)-1] # Get rid of the semi colon at the end
 			cidB=cids[len(cids)-1] # Get the last item in the cids list
 
-			isoTriple+=campy.propTriple(isoTitle,{"hasCollectionID":cidB},True,rLiteral=True)			
+			isoTriple+=campy.propTriple(isoTitle,{"hasCollectionID":cidB},"string",True)			
 
-		isoTriple+=campy.propTriple(isoTitle,{"hasCollectionID":cidA},True,rLiteral=True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasCollectionID":cidA},"string",True)
 
 	if not pd.isnull(dateAdded):
 		dateAdded=cn.convertDate(dateAdded)
-		isoTriple+=campy.propTriple(isoTitle,{"hasDateAdded":dateAdded},True,rLiteral=True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasDateAdded":dateAdded},"string",True)
 
 	return isoTriple
 
@@ -944,46 +971,50 @@ def createIsolationTriples(df,row,isoTitle):
 		if not pd.isnull(sourceSpec) and re.search("[Cc]efex",sourceSpec) is not None:
 			media="K and CEFEX" # SUBJECT TO CHANGE
 
-		isoTriple+=campy.propTriple(isoTitle,{"grownOn":media},True,rLiteral=True)
+		isoTriple+=campy.propTriple(isoTitle,{"grownOn":media},"string",True)
 
 	if not pd.isnull(dilution):
 		# Again there are some values that have spaces and others that don't. 
 		# We'll get rid of the spaces 
 		dilution=dilution.replace(" ","")
-		isoTriple+=campy.propTriple(isoTitle,{"hasDilution":dilution},True,rLiteral=True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasDilution":dilution},"string",True)
 
 	# The values in the csv are 1 or 0. 1 meaning it is true there is no glyc stock. This
-	# is confusing. So in the ontology we have 'hasGlycStock' and we interpret 1 as false
-	if not pd.isnull(glycStock) and "NA" not in cn.cleanInt(glycStock):
-		glycStock=cn.cleanInt(glycStock) # Sometimes numbers are converted to floats
+	# is confusing. So in the ontology we have 'hasGlycStock' and we interpret 1 in the csv as false
+	if not pd.isnull(glycStock) and cn.isGoodVal(glycStock):
+		glycStock=cn.cleanInt(glycStock) # Sometimes ints are converted to floats in the csv
 		glycStock="false" if "1" in glycStock else "true"
-		isoTriple+=campy.propTriple(isoTitle,{"hasGlycStock":glycStock},True,rLiteral=True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasGlycStock":glycStock},"bool",True)
 
-	if not pd.isnull(hipO) and "#N/A" not in cn.cleanInt(hipO):
+	if not pd.isnull(hipO) and cn.isGoodVal(hipO):
 		hipO=cn.cleanInt(hipO)
 
 		if "1" in hipO:
-			hipO="true"
+			hipO="true"; litType="bool"
 		else:
-			hipO="unknown" if "?" in hipO else "false"
-		isoTriple+=campy.propTriple(isoTitle,{"hasHipO":hipO},True,rLiteral=True)
+			if "?" in hipO: 
+				hipO="unknown"; litType="string"
+			else:
+				hipO="false"; litType="bool"
+
+		isoTriple+=campy.propTriple(isoTitle,{"hasHipO":hipO},litType,True)
 
 	# For whatever reason the value 'Treatment' is in the column 'Treatment'. We'll ignore it 
 	# for now. 
-	if not pd.isnull(treatment) and "Treatment" not in treatment and "#N/A" not in treatment:
-		isoTriple+=campy.propTriple(isoTitle,{"hasTreatment":treatment},True,rLiteral=True)
+	if not pd.isnull(treatment) and "Treatment" not in treatment and cn.isGoodVal(treatment):
+		isoTriple+=campy.propTriple(isoTitle,{"hasTreatment":treatment},"string",True)
 
 	# The - also showed up in technique. We'll ignore it.
 	if not pd.isnull(technique) and technique!="-":
-		# Values enrichment and enrich are found in this col. We'll standardize it to 'enrich'
-		if re.search("[Ee]nrich",technique) is not None:
+		# Values enrichment, ENRICH and enrich are found in this col. We'll standardize it to enrich
+		if "enrich" in technique.lower():
 			technique="enrich"
 
 		# Some values have spaces and others don't. eg '24AE' and '24 AE'. We'll get rid of
 		# spaces.
 		technique=technique.replace(" ","")
 
-		isoTriple+=campy.propTriple(isoTitle,{"hasTechnique":technique},True,rLiteral=True)
+		isoTriple+=campy.propTriple(isoTitle,{"hasTechnique":technique},"string",True)
 			
 	return isoTriple
 
@@ -1005,11 +1036,12 @@ def createTypingTriples(df,row,isoTitle):
 
 	# The value 'none' is in cloComp right now. Ignore it...for now
 	if not pd.isnull(cloComp) and "none" not in cloComp:
-		mTriple+=lab.propTriple(mTitle,{"foundClonalComplex":cloComp},True,rLiteral=True)
+		mTriple+=lab.propTriple(mTitle,{"foundClonalComplex":cloComp},"string",True)
 
-	if not pd.isnull(st):
+	# The value 'new' is in ST. We'll ignore it as well...for....now....
+	if not pd.isnull(st) and "new" not in st:
 		st=cn.cleanInt(st)
-		mTriple+=lab.propTriple(mTitle,{"foundST":st},True,rLiteral=True)
+		mTriple+=lab.propTriple(mTitle,{"foundST":st},"int",True)
 
 	# Go through all the genes, get the allele index, create allele, attach allele to gene,
 	# add the allele index to the allele, attach the test to the allele.
@@ -1017,23 +1049,18 @@ def createTypingTriples(df,row,isoTitle):
 		alIndex=df[g][row]
 		if not pd.isnull(alIndex) and cn.isNumber(alIndex):
 			alIndex=cn.cleanInt(alIndex)
-			alTitle=g+"_"+alIndex
+			alTitle=cleanGene(g)+"_"+alIndex
 			testTriple+=lab.indTriple(alTitle,"TypingAllele")
-			testTriple+=lab.propTriple(alTitle,{"isOfGene":g},False)
-			testTriple+=lab.propTriple(alTitle,{"hasAlleleIndex":alIndex},True,rLiteral=True)
+			testTriple+=lab.propTriple(alTitle,{"isOfGene":cleanGene(g)})
+			testTriple+=lab.propTriple(alTitle,{"hasAlleleIndex":alIndex},"int",True)
 
 			if g in mlstGenes:
-				mTriple+=lab.propTriple(mTitle,{"foundAllele":alTitle},False)
+				mTriple+=lab.propTriple(mTitle,{"foundAllele":alTitle})
 			else:
-				# Have to clean up some of the gene names. Don't need 'Oxford' or 'peptide'
-				# in 'Oxford MOMP peptide'
-				testClass=g.replace("Oxford","")
-				testClass=testClass.replace("MOMP peptide","MOMP")
-				testClass=testClass.replace("fla peptide","flaPeptide")
-				testClass=testClass.replace(" ","")+"test"
+				testClass=cleanGene(g)+"test"
 				testTitle=testClass+"_"+isoTitle
 				testTriple+=lab.indTriple(testTitle,testClass)
-				testTriple+=lab.propTriple(testTitle,{"foundAllele":alTitle},False)
+				testTriple+=lab.propTriple(testTitle,{"foundAllele":alTitle})
 				testTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "\
 						    +lab.addUri(testTitle)+" ."
 
@@ -1064,16 +1091,19 @@ def createAMRtriples(df,row,isoTitle):
 			mic=str(float(mic)) if cn.isNumber(mic) else str(mic) 
 			dmTitle=mic+"_"+drug
 			aTriple+=lab.indTriple(dmTitle,"DrugMIC")
-			aTriple+=lab.propTriple(dmTitle,{"hasMIC":mic},True,rLiteral=True)
-			aTriple+=lab.propTriple(dmTitle,{"hasDrug":drug},False)
-			aTriple+=lab.propTriple(testTitle,{"foundMIC":dmTitle},False)
+
+			# NOTE: All mics are being stored as strings in the ontology as some of the mics have
+			# < or > in them. We don't like this.
+			aTriple+=lab.propTriple(dmTitle,{"hasMIC":mic},"string",True)
+			aTriple+=lab.propTriple(dmTitle,{"hasDrug":drug})
+			aTriple+=lab.propTriple(testTitle,{"foundMIC":dmTitle})
 
 
 	# Handle the random drug resistance in column 'AMR'. The only value 
 	# in this column is 'Nal R'
 	if not pd.isnull(amr):
 		drug=amr.split(" ")[0].lower() # All the other drugs are lower case
-		aTriple+=lab.propTriple(testTitle,{"foundResistanceTo":drug},False)
+		aTriple+=lab.propTriple(testTitle,{"foundResistanceTo":drug})
 
 
 	for r in r_drugs:
@@ -1082,9 +1112,9 @@ def createAMRtriples(df,row,isoTitle):
 		if not pd.isnull(res):
 			res=int(res) # It's stored as a double, we need an int
 			if res==1: # The strain is resistant
-				aTriple+=lab.propTriple(testTitle,{"foundResistanceTo":drug},False)
+				aTriple+=lab.propTriple(testTitle,{"foundResistanceTo":drug})
 			else: # The strain is sensitive
-				aTriple+=lab.propTriple(testTitle,{"foundSusceptibilityTo":drug},False)
+				aTriple+=lab.propTriple(testTitle,{"foundSusceptibilityTo":drug})
 	
 
 	if aTriple!="":
@@ -1104,7 +1134,7 @@ def createSeroTriples(df,row,isoTitle):
 	if not pd.isnull(sero):
 		sTitle="sero_"+isoTitle
 		sTriple+=lab.indTriple(sTitle,"SerotypeTest")
-		sTriple+=lab.propTriple(sTitle,{"foundSerotype":sero},True,True)
+		sTriple+=lab.propTriple(sTitle,{"foundSerotype":sero},"string",True)
 		sTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(sTitle)+" ."
 
 	return sTriple
@@ -1120,7 +1150,7 @@ def createSMAtriples(df,row,isoTitle):
 	if not pd.isnull(pulsovar):
 		sTitle="sma1_"+isoTitle
 		sTriple+=lab.indTriple(sTitle,"SMA1")
-		sTriple+=lab.propTriple(sTitle,{"foundPulsovar":pulsovar},True,True)
+		sTriple+=lab.propTriple(sTitle,{"foundPulsovar":pulsovar},"string",True)
 		sTriple+=campy.addUri(isoTitle)+" "+campy.addUri("hasLabTest")+" "+lab.addUri(sTitle)+" ."
 
 	return sTriple
@@ -1138,16 +1168,16 @@ def createOutbreakTriples(df,row,isoTitle):
 	# isolate is part of an outbreak, we just don't know the outbreak name
 	if not pd.isnull(obA) and re.search("[Oo]utbreak",obA) is not None:
 		if obA.strip().lower()=="outbreak":
-			obTriple=campy.propTriple(isoTitle,{"isPartOfOutbreak":"true"},True,rLiteral=True)
+			obTriple=campy.propTriple(isoTitle,{"isPartOfOutbreak":"true"},"bool",True)
 		else:
-			obTriple=campy.propTriple(isoTitle,{"partOfOutbreak":obA},False)
-			obTriple+=campy.propTriple(isoTitle,{"isPartOfOutbreak":"true"},True,rLiteral=True)
+			obTriple=campy.propTriple(isoTitle,{"partOfOutbreak":obA})
+			obTriple+=campy.propTriple(isoTitle,{"isPartOfOutbreak":"true"},"bool",True)
 
 	# Source_specific_2 (obB) actually contains the name of the outbreak, maybe
 	else:
 		if not pd.isnull(obB) and re.search("[Oo]utbreak",obB) is not None:
-			obTriple=campy.propTriple(isoTitle,{"isPartOfOutbreak":"true"},True,rLiteral=True)
-			obTriple+=campy.propTriple(isoTitle,{"partOfOutbreak":obB},False)
+			obTriple=campy.propTriple(isoTitle,{"isPartOfOutbreak":"true"},"bool",True)
+			obTriple+=campy.propTriple(isoTitle,{"partOfOutbreak":obB})
 
 	return obTriple
 
@@ -1165,7 +1195,17 @@ def createDrugTriples(df):
 		dTriple+=lab.indTriple(d,"AMRdrug")
 
 	return dTriple
-	
+
+######################################################################################################
+#
+######################################################################################################
+def cleanGene(g):
+	g=g.replace("Oxford","")
+	g=g.replace("MOMP peptide","MOMP")
+	g=g.replace("fla peptide","flaPeptide")
+	g=g.replace(" ","")
+
+	return g	
 
 ######################################################################################################
 #
@@ -1177,17 +1217,18 @@ def createGeneTriples(df):
 	cgfGenes=cols[cols.index("cj0008 (486bp)"):cols.index("cj1727c (369bp)")+1] # Extract cgf genes
 
 	for a in aGenes:
+		a=cleanGene(a)
+
 		triple+=lab.indTriple(a,"AllelicTypingGene")
 		# HOW SHOULD WE HANDLE MULTI URI TRIPLES?
-		triple+=lab.addUri(a)+" "+campy.addUri("hasName")+" \""+a+"\" ."
+		triple+=lab.addUri(a)+" "+campy.addUri("hasName")+" \"%s\" ." % (a)
 
 	for c in cgfGenes:
 		triple+=lab.indTriple(c,"CGFtypingGene")
 		# ???????????
-		triple+=lab.addUri(c)+" "+campy.addUri("hasName")+" \""+c+"\" ."
+		triple+=lab.addUri(c)+" "+campy.addUri("hasName")+" \"%s\" ." % (c)
 		
 	return triple
-
 
 ######################################################################################################
 #
@@ -1198,10 +1239,10 @@ def createTriples(df,row):
 	isoTitle=df["Strain Name"][row]
 
 	triple=campy.indTriple(isoTitle,"Isolate")+\
-		   campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},True,rLiteral=True)
+		   campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},"string",True)
 
 	triple+=createSpeciesTriples(df,row,isoTitle)	
-	"""
+	
 	triple+=createProjTriples(df,row,isoTitle)
 
 	triple+=createSourceTriples(df,row,isoTitle)
@@ -1223,8 +1264,8 @@ def createTriples(df,row):
 	triple+=createLIMStriples(df,row,isoTitle)
 
 	triple+=createCgfTriples(df,row,isoTitle)
-	"""
 
+	writeToOnt(triple)
 	#writeToBG(triple)
 
 ######################################################################################################
@@ -1236,16 +1277,16 @@ def writeData():
 	# The column names contain a bunch of genes that need to be in the triplestore,
 	# so we'll add those first
 	triple=createGeneTriples(df)
-	# The column names contain the names of the AMR drugs aswll
-	triple=createDrugTriples(df)
+	# The column names contain the names of the AMR drugs aswell
+	triple+=createDrugTriples(df)
 
-	#putInOnt(triple)
-	# insert Triple
+	writeToOnt(triple)
 
 	#createTriples(df,16316)
 	#range(df["Strain Name"].count())
-	for row in range(df["Strain Name"].count()):
-		createTriples(df,row)
+	for row in range(10000):
+		if row>5000:
+			createTriples(df,row)
 
 ######################################################################################################
 # Main

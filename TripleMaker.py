@@ -5,7 +5,6 @@ import cleanCSV as cn
 
 class TripleMaker:
 
-
 	###################################################################################################
 	# Constructor
 	# uri - The uri that the user has defined for their database. Must have # or / at the end. And < > 
@@ -39,7 +38,7 @@ class TripleMaker:
 
 	# Appends title to the reifiedLiteral URI
 	def addrLitUri(self,title):
-		return "<"+self.rLitUri+title+">"
+		return "<"+self.rLitUri+cn.cleanString(title)+">"
 
 	# Returns a domain declaration.
 	# Note that only classes can be the domain of a property	
@@ -59,7 +58,7 @@ class TripleMaker:
     # Methods
 	###################################################################################################
 
-	def createRliteral(self,props):
+	def createRliteral(self,litType,props):
 		result=""
 
 		for p in props:
@@ -77,8 +76,10 @@ class TripleMaker:
 
 				result+=self.addUri("tag_"+val)+" "
 
-				if not (cn.isNumber(val) or val in ("true","false")):
-					val="\""+val+"\""
+				val=cn.cleanName(val)
+
+				if litType=="string":
+					val="\"%s\"" %(val)
 
 				result+=self.addrLitUri("hasLiteralValue")+" "+val+" .\n"
 
@@ -176,10 +177,17 @@ class TripleMaker:
 	#           property value can be a list or just a single value. Even if the property value is a 
 	#			literal number value, still pass it in as a string. If it's not a number and not a 
 	#			an rdf boolean (true, false, NOT True, False), we have to add quotations to the value.
-	# 	isLiteral - True if ALL properties are literal properties, false otherwise.
+	# 	litType - The type of literal the prop vals are. Since all literal prop values have to be 
+	#			  passed in as strings, we explicity say what type they are. If its 'string', we add
+	#			  quotations to the value. Note that we originally had it so we just check if the value 
+	#			  is a number or a boolean and add quoatations if they aren't, but some of the numbers
+	#			  in the ontology this was writtern for have to be a string, specifically hex numbers.
+	#			  Also, in the future we may need to append literal types, eg "Sam"^^xsd:string. Maybe.
+	#			  We have to look into this.
+	#			  
 	#   rLiteral - True if the ALL property values are reified literals, false otherwise
 	###################################################################################################
-	def propTriple(self,title,props,isLiteral,rLiteral=None):
+	def propTriple(self,title,props,litType=None,rLiteral=None):
 		if type(title)==str:
 			result=self.addUri(title)+" "
 		else:
@@ -189,34 +197,8 @@ class TripleMaker:
 			i=1
 			# Add all the properties to the individual's definition
 			for p in props: # p=The name of the property
-				result+=self.addUri(p)+" " # Add the URI to the property name
-				
-				length=1
-				# If the value for the property is a list, we must add the URI to each value
-				isList=type(props[p])==list
-				if isList: 
-					length=len(props[p])
 
-				for j in range(length):
-					if isList:
-						val=props[p][j]
-					else:
-						val=props[p]
-
-					if isLiteral:
-						if rLiteral:
-							result+=self.addUri("tag_"+val)+" "
-						else:
-							# Check if the value is a string
-							if not (cn.isNumber(val) or val in ("true","false")):
-								val=cn.cleanName(val)
-								val="\""+val+"\""
-							result+=val+" "
-					else:
-						result+=self.addUri(val)+" "
-
-					if j!=len(props[p])-1 and isList:
-						result+=","
+				result+=self.addProp(p,props,litType,rLiteral)
 		
 				if i!=len(props):
 					result+="; " # There's more than one property name
@@ -225,21 +207,63 @@ class TripleMaker:
 
 			# If the property values are literals, and we're using reified literals,
 			# create literal object and attach literal value to it
-			if rLiteral and isLiteral:
-				result+=self.createRliteral(props)
+			if rLiteral and litType: # The literal type must be defined if your making reified literals
+				result+=self.createRliteral(litType,props)
 
 		else: # Props has to be a dictionary
 			raise self.errMsg_dict()
 		return result
 
 
+	###################################################################################################
+	# addProp
+	# 	Just to make propTriple more readable.
+	###################################################################################################
+	def addProp(self,p,props,litType=None,rLiteral=None):
+		result=""
+		result+=self.addUri(p)+" " # Add the URI to the property name
+				
+		length=1
+		# If the value for the property is a list, we must add the URI to each value
+		isList=type(props[p])==list
+		if isList: 
+			length=len(props[p])
+
+		for j in range(length):
+			if isList:
+				val=props[p][j]
+			else:
+				val=props[p]
+
+			if litType:
+				if rLiteral:
+					result+=self.addUri("tag_"+val)+" "
+				else:
+					# Most weird characters that we remove when we add the URI are allowed
+					# to be in literal values, but some are not.
+					val=cn.cleanName(val)
+
+					# Check if the value is a string literal
+					if litType=="string":
+						val="\"%s\"" %(val)
+
+					result+=val+" "
+			else:
+				result+=self.addUri(val)+" "
+
+			if j!=len(props[p])-1 and isList:
+				result+=","
+
+		return result
+
+
 ###################################################################################################
-# Main. Just for testing purposes.
+# Main. Just for testing.
 ###################################################################################################
 import TripleMaker as t
 def main():
 	trip=t.TripleMaker("https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#")
-	print trip.indTriple(45,"Sam")
+	print trip.propTriple("Sam",{"hasName":["bill","jone"],"iscool":"444466"},"string",True)
 
 
 

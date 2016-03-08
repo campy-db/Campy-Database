@@ -4,10 +4,35 @@ import pandas as pd
 import datetime
 import re
 
+
+######################################################################################################
+# 
+######################################################################################################
+def compare(vals):
+	result=False
+	d={}
+
+	for v in vals:
+		if not pd.isnull(v):
+			cv=cleanString(v).lower()
+			d[cv]=d[cv]+1 if cv in d.keys() else 1
+
+	for v in vals:
+		if not pd.isnull(v):
+			cv=cleanString(v).lower()
+			if d[cv]>1:
+				result=True
+		
+	return result
+
+
+######################################################################################################
+# 
+######################################################################################################
 def isGoodVal(v):
 	result=True
 	v=v.strip().lower() if not isNumber(v) else v
-	if v in ("unknown","n/a","n\\a","#n/a","#n\\a","missing","not given","other"):
+	if v in ("-","unknown","n/a","n\\a","#n/a","#n\\a","missing","not given","other","na"):
 		result=False
 
 	return result
@@ -31,7 +56,7 @@ def convertGPS(coord):
 	return newCoord
 
 ######################################################################################################
-# Returns true if s is a number
+# Returns true if s is a number, eg hex, int, double etc
 ######################################################################################################
 def isNumber(s):
 	try:
@@ -39,6 +64,7 @@ def isNumber(s):
 		return True
 	except ValueError:
 		return False
+
 
 ######################################################################################################
 # Removes characters that screw things up when the string is being used as a URI 
@@ -52,14 +78,15 @@ def cleanString(s):
 		# up with tag_30 hasLiteralValue 30 and hasLiteralValue <30. So we replace < with
 		# 'l' and > with 'g'. So now we end up with tag_30 hasLiteralvalue 30 and tag_g30 hasLiteral
 		# Value >30.
-		s=re.sub(">(?=(\d|=\d))","g",s) # Replaces '>' with 'g' if '>' is followed by a digit or '='
-		re.sub("<(?=(\d|=\d))","l",s)   # , and '=' is followed by a digit 
+		s=re.sub(">(?=(\d|=\d))","g",s) # Replaces '>' with 'g' if '>' is followed by a digit, or '='
+		re.sub("<(?=(\d|=\d))","l",s)   # and '=' is followed by a digit 
 
 		for c in ";: .,-()\/#\"<>":
 			s=s.replace(c,'_')
-		s=re.sub("__+","_",s)
+
+		s=re.sub("__+","_",s) # Change 2 or more consecutive underscores into one underscore
 		s=s[:len(s)-1] if s[len(s)-1]=="_" else s # Get rid of trailing underscores
-		s=s[1:] if s[0]=="_" else s # Also get rid of leading underscores
+		s=s[1:] if s[0]=="_" and len(s)>1 else s # Also get rid of leading underscores
 
 	return s
 
@@ -69,6 +96,7 @@ def cleanString(s):
 def cleanName(s):
 	if not isNumber(s) and not pd.isnull(s):
 		s=s.replace("\"","")
+		s=s.strip()
 	return s
 
 ######################################################################################################
@@ -110,7 +138,11 @@ def remPrefix(val,l):
 # Main. Just for testing purposes.
 ###################################################################################################
 def main():
-	print isGoodVal(15)
+	sidA="CE_R_09_0515"
+	sidB="CE-R-09-0515"
+	sidC="--sd6w:-_"
+
+	print compare([sidA,sidB,sidC])
 
 if __name__=="__main__":
 	main()

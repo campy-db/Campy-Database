@@ -628,19 +628,19 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaAPeptidetest
-
-:FlaAPeptidetest rdf:type owl:Class ;
-                 
-                 rdfs:subClassOf :AllelicTest .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaASVRtest
 
 :FlaASVRtest rdf:type owl:Class ;
              
              rdfs:subClassOf :AllelicTest .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaPeptidetest
+
+:FlaPeptidetest rdf:type owl:Class ;
+                
+                rdfs:subClassOf :AllelicTest .
 
 
 
@@ -793,8 +793,8 @@
               )
 ] .
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :FlaAPeptidetest
-                :FlaASVRtest
+  owl:members ( :FlaASVRtest
+                :FlaPeptidetest
                 :MLSTtest
                 :MOMPtest
                 :PorAtest
