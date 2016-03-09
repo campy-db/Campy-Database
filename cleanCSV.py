@@ -43,7 +43,7 @@ def isGoodVal(v):
 # 'lat'/'long', 'deg', and 'in' in them.
 ######################################################################################################
 def convertGPS(coord):
-	newCoord=coord
+	coord=coord.strip()
 	# Only convert them if they are'nt already in signed deg form.
 	if not isNumber(coord):
 		nums=re.split("[A-Za-z]+",coord)
@@ -52,8 +52,8 @@ def convertGPS(coord):
 		min=float(nums[2].strip())
 		sec=float(nums[3].strip())
 		
-		newCoord=str(deg+(min+sec/60)/60)
-	return newCoord
+		coord=str(deg+(min+sec/60)/60)
+	return coord
 
 ######################################################################################################
 # Returns true if s is a number, eg hex, int, double etc

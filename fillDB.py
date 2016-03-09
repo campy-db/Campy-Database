@@ -322,17 +322,55 @@ def createTypeTriples(df,row,isoTitle):
 	return stTriple+isoTriple
 
 ######################################################################################################
+#
+######################################################################################################
+def isDomestic(farm,sourceSpec,animal,family):
+	domestic=""
+
+	if not pd.isnull(sourceSpec):
+		sourceSpec=sourceSpec.lower()
+
+		# If the substring Domestic or domestic is in sourceSpec
+		if "domestic" in sourceSpec:
+			domestic="true"
+		if "wild" in sourceSpec:
+			domestic="false"
+
+	# The values miscWild and miscDomestic are in the Source General column
+	if "wild" in family:
+		domestic="false"
+	if "domestic" in family:
+		domestic="true"
+
+	# Handle the domestic type of animal cases
+	if animal in ("cow","chicken","dog","sheep","cat"):
+		domestic="true"
+	# Handle the wild type of animal cases
+	if animal in ("bear","canada goose"): 
+		domestic="false"
+
+	if not pd.isnull(farm):
+		farm=farm.lower()
+		if "farm" in farm:
+			domestic="true"
+
+	if "wild bird" in animal:
+		domestic="false"
+
+	return domestic
+
+######################################################################################################
 # createAnimalTriples
 # Creates instances of the Animal class for every isolate that has an animal as a source. Here we do
 # uniquely identify animals as there is an animal id provided in the good 'ole csv. Not all animals
 # have an id though so we name those ones [animel]_[isoTitle] where animal is the kind of animal, eg
 # chicken. Note we create new classes here for every type of animal and the new class becomes a
-# subclass of its respective family. eg chicken_C1007 is an instance of Chicken, and Chicken is set as 
+# subclass of its respective family. eg chicken_C1007 is an instance of Chicken, and Chicken is  
 # a sublass of Avian. Sometimes we know the source is an animal but we don't the family or animal. In
-# this case we say the animal type is unknown and it just becomes an instance of the Misc class. 
-# Sometimes we the family but not the animal type in which case unknown is an instance of family. When
-# we do knoe the animal type, there are properties attached to animals found all over the csv and many
-# , nice to work with, totally random cases we have to handle.
+# this case we say the animal type is 'unknown' and it just becomes an instance of the Misc class. 
+# Sometimes we know the family but not the animal type in which case unknown is an instance of family. 
+# When we do know the animal type, there are properties attached to animals found all over the csv and 
+# many nice to work with, totally random cases, we have to handle.
 ######################################################################################################
 def createAnimalTriples(df,row,isoTitle):
 	isoTriple=""
@@ -346,75 +384,63 @@ def createAnimalTriples(df,row,isoTitle):
 	id=df["Animal ID"][row] # If the animal has an id, this will be its URI
 	animal=cn.remPrefix(df["Source_Specific_1"][row],2) # The actual animal, eg chicken, racoon etc.
 	ageRank=df["Patient D.O.B / Age"][row] # Juvenile, Adult
+	farm=df["Region_L2"][row] # Sometimes region_L2 (the sampling site) is a farm, 
+							  # in which case the animal is domestic
 
-	# An animal, say chicken, will become an instance of Family, and Chicken, for example. Then
-	# Chicken will become a subclass of Family. The individuals URI will be animal+isoTitle, unless 
-	# the id is present, then this will be its URI. 
+	# An animal, say chicken, will become an instance of family (Avian in this case), and Chicken, 
+	# for example. Then Chicken will become a subclass of Avian. The individuals URI will be 
+	# animal+isoTitle, unless the id is present, then this will be its URI. 
 
 	if pd.isnull(family): # We know the source is an Animal but we don't know the family or type
 						  # of animal. So it just becomes an instance of the animal class and is
 						  # named 'unknown' (unless it has an id)
 		animal="unknown"
 		family="Misc"
-	else:
-		# We know the family
+	else: # We know the family
 		if not pd.isnull(animal):
-			# Handle the MiscDomestic, and MiscWild family cases
-			if "Misc" in family:
-				if "Wild" in family:
-					domestic="false" # Can't just pass in booleans. We could and then convert it 
-					                 # to a string, but rdf or whatever's booleans are of the 
-					                 # form 'false' instead of 'False' 
-				if "Domestic" in family:
-					domestic="true"
+			animal=animal.lower()
+			family=family.lower()
 
+			domestic=isDomestic(farm,sourceSpec,animal,family)
+
+			# Handle the MiscDomestic, and MiscWild family cases
+			if "misc" in family:
 				# Give families do all the MiscWild and MiscDomestic animals. A lot of 
 				# random cases here we need to handle.
-				if "Canada Goose" in animal or "Trumpeter Swan" in animal or \
-				   "Mute" in animal or "Bufflehead" in animal or "Scaup" in animal or\
-				   "Merganser" in animal:
+				if "canada goose" in animal or "trumpeter swan" in animal or \
+				   "mute" in animal or "bufflehead" in animal or "scaup" in animal or\
+				   "merganser" in animal:
+
 					family="Avian"
-				elif "Small Mammal" in animal:
+
+				elif "small mammal" in animal:
 					animal="unknown"
 					family="Misc"
-				elif "Peromyscus" in animal:
-					animal="Deer Mouse"
+				elif "peromyscus" in animal:
+					animal="deer mouse"
 					family="Rodent"
 					taxoGenus="peromyscus"
-				elif "Rattus" in animal:
-					animal="Rat"
+				elif "rattus" in animal:
+					animal="rat"
 					family="Rodent"
 					taxoGenus="Rattus"
-				elif "Marmot" in animal:
+				elif "marmot" in animal:
 					family="Rodent"
-				elif "Unknown" in animal:
+				elif "unknown" in animal:
 					family="Misc"
 					animal="unknown"
 				else: # racoons, skunks, and llama/alpaca
 					family="Misc"
-			
-			# Handle the domestic type of animal cases
-			if animal in ("Cow","Chicken","Dog","Sheep","Cat"):
-				domestic="true"
-			# Handle the wild type of animal cases
-			if animal in ("Bear","Canada Goose"): 
-				domestic="false"
 
 			# There are the values Wild Bird, goat/sheep, alpaca/llama in source specific 1
-			if "Wild Bird" in animal:
+			if "wild bird" in animal:
 				animal="unknown" # Wild bird has the family avian
-				domestic="false"
 			if "/" in animal:
 				animal=animal.split("/")[0]
 
 			# Source Specific 2 has more specific animals sometimes and also domestic/wild info
 			if not pd.isnull(sourceSpec):
 				sourceSpec=sourceSpec.lower()
-
-				if "domestic" in sourceSpec:
-					domestic="true"
-				if "wild" in sourceSpec:
-					domestic="false"
 
 				# The value Heifer is in source specific 2 for values of cow in source specific 1.
 				# This is more specific than cow so Heifer will become a subclass of Cow
@@ -443,7 +469,7 @@ def createAnimalTriples(df,row,isoTitle):
 	if not pd.isnull(id) and cn.isGoodVal(id):
 		title=cn.cleanInt(id)
 	else:
-		title=animal.lower()+"_"+isoTitle
+		title=animal+"_"+isoTitle
 
 	if not pd.isnull(sex) and cn.isGoodVal(sex) and (sex[0]=="M" or sex[0]=="F"):
 		animalTriple+=campy.propTriple(title,{"hasSex":sex[0]},"string",True)
@@ -466,77 +492,84 @@ def createAnimalTriples(df,row,isoTitle):
 
 	isoTriple+=campy.propTriple(isoTitle,{"hasSampleSource":title})
 
+
 	return animalTriple+isoTriple
 
 ######################################################################################################
-# createLocationTriples
+#
+######################################################################################################
+def addLoc(isoTitle,title,locClass):
+	locTriple=campy.indTriple(title,locClass)
+	locTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":title})
+	locTriple+=campy.propTriple(title,{"hasName":title},"string")
+
+	return locTriple
+
+######################################################################################################
+# createLocTriples
 # Gets all the info of where we got the isolate sample. 
 # NOTE - Right now all values in the column Region_L1 are assumed to be health authorities. This is
 #	     incorrect. Some are municipalities. This must be fixed!!!!
 # We can find the watershed and the body of water the isolate came from in column Sample Source. The
 # only bodies of water are the Sumas and Salmon river.
 ######################################################################################################
-def createLocationTriples(df,row,isoTitle):
-	locationTriple=""
+def createLocTriples(df,row,isoTitle):
+	locTriple=""
 	country=df["Country"][row]
 	subNat=df["Province/State"][row]
 	city=df["City"][row]
 	hAuthority=df["Region_L1"][row]
 	samplingSite=df["Region_L2"][row]
 	samplingSite2=df["Source_Specific_2"][row] # Petting zoo is in this col, and we consider it to be
-										       # a sampling site
+										       # a sampling site.
 	c_netSite=df["C-EnterNet Site"][row]
 	fncSite=df["FNC Sentinel Site"][row]
 	lng=df["Longitude"][row]
 	lat=df["Latitude"][row]
 
-	# Need this for the body of water location and watersheds
+	# Need this for the body of water location and watersheds.
 	water=df["Sample Type 2"][row]
+
+	# If water is the sample source, there could be a body of water name, or watershed name in 
+	# the Sample Source column.
 	if not pd.isnull(water) and "Water" in water:
 		bodyOfWater=df["Sample Source"][row]
 		if not pd.isnull(bodyOfWater):
 			bodyOfWater=cn.remPrefix(bodyOfWater,2)
 
 			if "Watershed" in bodyOfWater:
-				locationTriple+=campy.indTriple(bodyOfWater,"Watershed")
-				locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater})
-				locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},"string")
+				locTriple+=addLoc(isoTitle,bodyOfWater,"Watershed")
 			else:
 				# The word river is also in the watershed values, eg oldman river watershed. So 
 				# if the value does not contain watershed but does contain river, it is considered a 
 				# body of water.
-				#The sumas and salmon rivers are the only bodies of water.
+				# The sumas and salmon rivers are the only bodies of water..right now
 				if re.search("[Rr]iver",bodyOfWater) is not None:
-					locationTriple+=campy.indTriple(bodyOfWater,"BodyOfWater")
-					locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":bodyOfWater})
-					locationTriple+=campy.propTriple(bodyOfWater,{"hasName":bodyOfWater},"string")
+					locTriple+=addLoc(isoTitle,bodyOfWater,"BodyOfWater")
 
 	# SamplingSite is a real mess. Has a lot of redundant information. Also, some of them
-	# have city info (Fort Macleod). Note Fort Macleod is also the name of the health authority 
+	# have city info (Fort Macleod) that isn't repeated in the City column. Note Fort Macleod 
+	# is also the name of the health authority 
 	if not pd.isnull(samplingSite) and cn.isGoodVal(samplingSite):
 		if "Mcleod" in samplingSite or "Macleod" in samplingSite:
 			city="Fort Macleod"
 			samplingSite=samplingSite.replace("Mcleod","Macleod") # It's spelt wrong in the csv
 			samplingSite=samplingSite.replace("Ft.","Fort") # It's also abbreviated sometimes
 
-		locationTriple+=campy.indTriple(samplingSite,"SamplingSite")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite})
-		locationTriple+=campy.propTriple(samplingSite,{"hasName":samplingSite},"string")
+		# The é and ô is � in the csv, and for whatever reason � counts as 3 characters
+		samplingSite=re.sub("Mont...r...gie","Montérégie",samplingSite)
+		samplingSite=re.sub("H...pital","Hôpital",samplingSite)
+
+		locTriple+=addLoc(isoTitle,samplingSite,"SamplingSite")
 
 	if not pd.isnull(country) and cn.isGoodVal(country):
-		locationTriple+=campy.indTriple(country,"Country")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":country})
-		locationTriple+=campy.propTriple(country,{"hasName":country},"string")
+		locTriple+=addLoc(isoTitle,country,"Country")
 
 	if not pd.isnull(subNat) and cn.isGoodVal(subNat):
-		locationTriple+=campy.indTriple(subNat,"SubNational")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":subNat})
-		locationTriple+=campy.propTriple(subNat,{"hasName":subNat},"string")
+		locTriple+=addLoc(isoTitle,country,"SubNational")
 
 	if not pd.isnull(city) and cn.isGoodVal(city):
-		locationTriple+=campy.indTriple(city,"City")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":city})
-		locationTriple+=campy.propTriple(city,{"hasName":city},"string")
+		locTriple+=addLoc(isoTitle,city,"City")
 
 	if not pd.isnull(hAuthority) and cn.isGoodVal(hAuthority):
 		hAuthority=cn.remPrefix(hAuthority,3)
@@ -544,44 +577,34 @@ def createLocationTriples(df,row,isoTitle):
 		# column, and we've already handled that. Note that a watershed is not a 
 		# health authority
 		if re.search("[Ww]atershed",hAuthority) is None: 
-			# Montérégie is in the csv and the é is all screwed up
-			if re.search("Mont.r.gie",hAuthority) is not None:
-				hAuthority=re.sub("Mont.r.gie","Montérégie",hAuthority)
 
-			locationTriple+=campy.indTriple(hAuthority,"HealthAuthority")
-			locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":hAuthority})
-			locationTriple+=campy.propTriple(hAuthority,{"hasName":hAuthority},"string")
+			# Montérégie is in the csv and the é is all screwed up its � in the csv, and
+			# for whatever reason � counts as 3 characters
+			hAuthority=re.sub("Mont...r...gie","Montérégie",hAuthority)
+
+			locTriple+=addLoc(isoTitle,hAuthority,"HealthAuthority")
 
 	if not pd.isnull(samplingSite2) and ("Petting Zoo" in samplingSite2):
-		locationTriple+=campy.indTriple(samplingSite2,"SamplingSite")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":samplingSite2})
-		locationTriple+=campy.propTriple(samplingSite2,{"hasName":samplingSite2},"string")
+		locTriple+=addLoc(isoTitle,samplingSite2,"SamplingSite")
 
 	if not pd.isnull(c_netSite) and cn.isGoodVal(c_netSite):
-		c_netSite=cn.cleanInt(c_netSite)
-		locationTriple+=campy.indTriple(c_netSite,"C_EnterNetSite")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":c_netSite})
-		locationTriple+=campy.propTriple(c_netSite,{"hasName":c_netSite},"string")
+		c_netSite=cn.cleanInt(c_netSite) # Some of there are numbers
+		locTriple+=addLoc(isoTitle,c_netSite,"C_EnterNetSite")
 
 	if not pd.isnull(fncSite) and cn.isGoodVal(fncSite):
-		locationTriple+=campy.indTriple(fncSite,"FNCSentinelSite")
-		locationTriple+=campy.propTriple(isoTitle,{"hasSourceLocation":fncSite})
-		locationTriple+=campy.propTriple(fncSite,{"hasName":fncSite},"string")
-
+		locTriple+=addLoc(isoTitle,fncSite,"FNCSentinelSite")
 
 	# Have to convert lat and long to signed decimal format
 	if not pd.isnull(lng) and cn.isGoodVal(lng):
 		if not pd.isnull(lat) and cn.isGoodVal(lat): # lat is never nan when long is and vice versa
-			# For some reason the lat and long values in the csv have some newline chars in them
-			lat=lat.strip()
-			lng=lng.strip()
 			lat=cn.convertGPS(lat)
 			lng=cn.convertGPS(lng)
 
-			locationTriple+=campy.propTriple(isoTitle,{"hasLatitude":lat},"digit",True)
-			locationTriple+=campy.propTriple(isoTitle,{"hasLongitude":lng},"digit",True)
+			locTriple+=campy.propTriple(isoTitle,{"hasLatitude":lat},"digit",True)
+			locTriple+=campy.propTriple(isoTitle,{"hasLongitude":lng},"digit",True)
 
-	return locationTriple
+
+	return locTriple
 
 
 ######################################################################################################
@@ -590,7 +613,7 @@ def createLocationTriples(df,row,isoTitle):
 ######################################################################################################
 def createSourceTriples(df,row,isoTitle):
 
-	resultTriple=createLocationTriples(df,row,isoTitle)
+	resultTriple=createLocTriples(df,row,isoTitle)
 
 	sample=df["Sample Type"][row] # animal, human or environmental (and Reference Strain but that's
 								  # handled when we to the project triples as every reference strain
@@ -675,6 +698,9 @@ def createProjTriples(df,row,isoTitle):
 					# Remove all the '-',' ', and '_' if they are NOT preceded by a character
 					subproj=re.sub("(?<!.)[- _]","",subproj)
 
+					subproj=re.sub("H...pital","Hôpital",subproj)
+					subproj=re.sub("^...t... ","Été ",subproj)
+
 				if subproj!="":
 					subproj=cn.cleanInt(subproj) # Some of the subprojects are years
 					projTriple+=campy.indTriple(subproj,"SubProject")
@@ -684,6 +710,8 @@ def createProjTriples(df,row,isoTitle):
 	   				isoTriple+=campy.propTriple(isoTitle,{"partOfSubProject":subproj})
 
 	resultTriple+=isoTriple+projTriple
+
+	writeToOnt(resultTriple)
    	return resultTriple
 
 ######################################################################################################
@@ -791,50 +819,58 @@ def createCgfTriples(df,row,isoTitle):
 ######################################################################################################
 def createSpeciesTriples(df,row,isoTitle):
 	isoTriple=""
-	lSpec=""
-	aSpec=""
 	specA=""
 	specB=""
 	lethSpec=df["Campy Species (Leth - 16S, mapA, ceuE)"][row]
 	altSpec=df["Alt. Speciation"][row]
 
-	# If lethSpec isn't null it's the species. If altSpec is not null, it then becomes the species.
-	# This is fine as long as they are the same values, or one is empty and the other is not. If 
-	# they are not the same values, lethSpec becomes the species, unless lethSpec is unknown or any 
-	# of that other crazy crap. Sometimes the species are mixed (of the form 'Mixed (coli and jejuni)') 
-	# in which case specA="coli" and specB="jejuni". But sometimes it will just say 'Mixed' in 
-	# lethSpec but 'Coli' in altSpec. In such a case specA="coli".
+	# lethSpec is the default species unless it is empty, equal to 'other campylobacter', or just some
+	# invalid value. In this case alt spec becomes the species, granted it has a valid value. 
+	# Sometimes the species are mixed (of the form 'Mixed (coli and jejuni)') in which case 
+	# specA="coli" and specB="jejuni". But sometimes it will just say 'Mixed' in lethSpec but 'Coli' 
+	# in altSpec. In such a case specA="coli" and specB remains empty
 
-	if not pd.isnull(lethSpec) and cn.isGoodVal(lethSpec):
-		lethSpec=lethSpec.lower().strip() # for comparison
-		specA=lethSpec if lethSpec!="other campylobacter" else ""
+	lethIsValid=not pd.isnull(lethSpec) and cn.isGoodVal(lethSpec) and\
+			    not cn.compare([lethSpec,"dead"])
+	altIsValid=not pd.isnull(altSpec) and cn.isGoodVal(altSpec) and not cn.compare([altSpec,"dead"])
 
-	if not pd.isnull(altSpec) and cn.isGoodVal(altSpec):
-		altSpec=altSpec.lower().strip() # ditto
-		specA=altSpec if altSpec!="other campylobacter" else ""
+	lethIsOther=cn.compare([lethSpec,"other campylobacter"])
+	altIsOther=cn.compare([altSpec,"other campylobacter"])
 
-	# If both are non empty and don't equal eachother, specA becomes lethSpec, unless lethSpec is 
-	# equal to 'other_campylobacter' and altSpec is something more specific
-	if not pd.isnull(lethSpec) and not pd.isnull(altSpec):
-		if lethSpec!=altSpec and cn.isGoodVal(lethSpec):
-			specA=lethSpec if lethSpec!="other campylobacter" else "" 
+	isMixed=cn.compare(["mixed (coli and jejuni)",lethSpec]) or\
+		    cn.compare(["mixed (coli and jejuni)",altSpec])
 
-		# Sometimes lethspec will equal mixed and altspec will equal coli.
-		# In this case we take coli to be the correct species
-		if "mixed"==lethSpec and "coli"==altSpec:
-			specA="coli"
 
-	
-	if "mixed (coli and jejuni)"==lethSpec or "mixed (coli and jejuni)"==altSpec:
+	if lethIsValid and not lethIsOther:
+		if cn.compare(["no 16s/lari",lethSpec]):
+			specs=lethSpec.split("/")
+			specA=specs[0]
+			specB=specs[1]
+		else:
+			specA=lethSpec
+
+		# If both are non-empty, we have to check if one is mixed and the other is coli
+		if altIsValid and not altIsOther:
+
+			if cn.compare(["mixed",lethSpec]) and cn.compare(["coli",altSpec]):
+				specA="coli"
+		
+	else:
+		if altIsValid and not altIsOther:
+			specA=altSpec
+
+	if isMixed:
 		specA="coli"
 		specB="jejuni"
 
-
 	if specA!="":
+		specA=specA.lower() # Some are no_16 and others are No_16
 		isoTriple+=campy.indTriple(specA,"CampySpecies")+\
 				   campy.propTriple(specA,{"hasName":specA},"string")
 		isoTriple+=campy.propTriple(isoTitle,{"hasSpecies":specA})
+
 	if specB!="":
+		specB=specB.lower() # Ditto
 		isoTriple+=campy.indTriple(specB,"CampySpecies")+\
 			       campy.propTriple(specB,{"hasName":specB},"string")
 		isoTriple+=campy.propTriple(isoTitle,{"hasSpecies":specB})
@@ -1241,11 +1277,11 @@ def createTriples(df,row):
 	triple=campy.indTriple(isoTitle,"Isolate")+\
 		   campy.propTriple(isoTitle,{"hasIsolateName":isoTitle},"string",True)
 
-	triple+=createSpeciesTriples(df,row,isoTitle)	
-	
 	triple+=createProjTriples(df,row,isoTitle)
-
+	"""
 	triple+=createSourceTriples(df,row,isoTitle)
+	
+	triple+=createSpeciesTriples(df,row,isoTitle)	
 
 	triple+=createOutbreakTriples(df,row,isoTitle)
 	
@@ -1264,10 +1300,9 @@ def createTriples(df,row):
 	triple+=createLIMStriples(df,row,isoTitle)
 
 	triple+=createCgfTriples(df,row,isoTitle)
-
-	writeToOnt(triple)
+	"""
 	#writeToBG(triple)
-
+	
 ######################################################################################################
 # Reads in data from the spreadsheet and writes triples
 ######################################################################################################
@@ -1280,13 +1315,12 @@ def writeData():
 	# The column names contain the names of the AMR drugs aswell
 	triple+=createDrugTriples(df)
 
-	writeToOnt(triple)
+	#writeToOnt(triple)
 
-	#createTriples(df,16316)
+	#createTriples(df,4974)
 	#range(df["Strain Name"].count())
-	for row in range(10000):
-		if row>5000:
-			createTriples(df,row)
+	for row in range(df["Strain Name"].count()):
+		createTriples(df,row)
 
 ######################################################################################################
 # Main
