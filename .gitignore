@@ -1,4 +1,5 @@
 *.odt 
 *.xml
 *.pyc
+*.pdf
 test.py
