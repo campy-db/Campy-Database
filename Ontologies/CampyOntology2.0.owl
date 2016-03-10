@@ -1,0 +1,1365 @@
+@prefix : <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl> .
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl> rdf:type owl:Ontology ;
+                                                                                 
+                                                                                 rdfs:comment """An ontology for storing information related to Campylobacter Jejuni. The main categories of info are: EPI data (source type, source location, isolation date etc.), BIO data (typing results, AMR info etc.), and LIMS data (typing lab, project etc.). 
+Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. """^^xsd:string ;
+                                                                                 
+                                                                                 owl:imports <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#grownOn
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#grownOn> rdf:type owl:ObjectProperty ;
+                                                                                         
+                                                                                         rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                         
+                                                                                         rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                         
+                                                                                         rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMethodologyProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAge
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAge> rdf:type owl:ObjectProperty ;
+                                                                                        
+                                                                                        rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAgeRank
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAgeRank> rdf:type owl:ObjectProperty ;
+                                                                                            
+                                                                                            rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                            
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalID
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalID> rdf:type owl:ObjectProperty ;
+                                                                                             
+                                                                                             rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                             
+                                                                                             rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                             
+                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                             
+                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> rdf:type owl:ObjectProperty ;
+                                                                                                   
+                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                                   
+                                                                                                   rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasBIOproperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasBIOproperty> rdf:type owl:ObjectProperty ;
+                                                                                                
+                                                                                                rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BIOproperty> ;
+                                                                                                
+                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasBirthDate
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasBirthDate> rdf:type owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasCollectionID
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasCollectionID> rdf:type owl:ObjectProperty ;
+                                                                                                 
+                                                                                                 rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                 
+                                                                                                 rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                 
+                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                 
+                                                                                                 rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasColonyMorph
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasColonyMorph> rdf:type owl:ObjectProperty ;
+                                                                                                
+                                                                                                rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                
+                                                                                                rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                
+                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                
+                                                                                                rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolationProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasDateAdded
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasDateAdded> rdf:type owl:FunctionalProperty ,
+                                                                                                       owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasDateSampleTaken
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasDateSampleTaken> rdf:type owl:ObjectProperty ;
+                                                                                                    
+                                                                                                    rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                    
+                                                                                                    rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasEPIproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasDilution
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasDilution> rdf:type owl:ObjectProperty ;
+                                                                                             
+                                                                                             rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                             
+                                                                                             rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                             
+                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                             
+                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolationProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasEPIproperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasEPIproperty> rdf:type owl:ObjectProperty ;
+                                                                                                
+                                                                                                rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BIOproperty> ;
+                                                                                                
+                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasGender
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasGender> rdf:type owl:ObjectProperty ;
+                                                                                           
+                                                                                           rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                           
+                                                                                           rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                           
+                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> ;
+                                                                                           
+                                                                                           rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasGlycStock
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasGlycStock> rdf:type owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolationProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHip0
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHip0> rdf:type owl:ObjectProperty ;
+                                                                                         
+                                                                                         rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                         
+                                                                                         rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                         
+                                                                                         rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolationProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty> rdf:type owl:ObjectProperty ;
+                                                                                                  
+                                                                                                  rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> ;
+                                                                                                  
+                                                                                                  rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolateLocation
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolateLocation> rdf:type owl:FunctionalProperty ,
+                                                                                                             owl:ObjectProperty ;
+                                                                                                    
+                                                                                                    rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                    
+                                                                                                    rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#IsolateLocation> ;
+                                                                                                    
+                                                                                                    rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolateName
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolateName> rdf:type owl:FunctionalProperty ,
+                                                                                                         owl:ObjectProperty ;
+                                                                                                
+                                                                                                rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                
+                                                                                                rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                
+                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                
+                                                                                                rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolationProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolationProperty> rdf:type owl:ObjectProperty ;
+                                                                                                      
+                                                                                                      rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                      
+                                                                                                      rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#IsolationProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLDMSid
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLDMSid> rdf:type owl:FunctionalProperty ,
+                                                                                                    owl:ObjectProperty ;
+                                                                                           
+                                                                                           rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                           
+                                                                                           rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                           
+                                                                                           rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                           
+                                                                                           rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> rdf:type owl:ObjectProperty ;
+                                                                                                 
+                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                 
+                                                                                                 rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#LIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLabTest
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLabTest> rdf:type owl:ObjectProperty ;
+                                                                                            
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasBIOproperty> ;
+                                                                                            
+                                                                                            rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTest> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLatitude
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLatitude> rdf:type owl:FunctionalProperty ,
+                                                                                                      owl:ObjectProperty ;
+                                                                                             
+                                                                                             rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                             
+                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                             
+                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceLocation> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLongitude
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLongitude> rdf:type owl:FunctionalProperty ,
+                                                                                                       owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceLocation> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> rdf:type owl:ObjectProperty ;
+                                                                                                 
+                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
+                                                                                                 
+                                                                                                 rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMethodologyProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMethodologyProperty> rdf:type owl:ObjectProperty ;
+                                                                                                        
+                                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                        
+                                                                                                        rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MethodologyProperty> ;
+                                                                                                        
+                                                                                                        rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolationProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasNMLid
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasNMLid> rdf:type owl:FunctionalProperty ,
+                                                                                                   owl:ObjectProperty ;
+                                                                                          
+                                                                                          rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                          
+                                                                                          rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                          
+                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                          
+                                                                                          rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasOriginalName
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasOriginalName> rdf:type owl:ObjectProperty ;
+                                                                                                 
+                                                                                                 rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                 
+                                                                                                 rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                 
+                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                 
+                                                                                                 rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasPatientID
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasPatientID> rdf:type owl:FunctionalProperty ,
+                                                                                                       owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Patient> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasPatientProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasPatientProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasPatientProperty> rdf:type owl:ObjectProperty ;
+                                                                                                    
+                                                                                                    rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Patient> ;
+                                                                                                    
+                                                                                                    rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#PatientProperty> ;
+                                                                                                    
+                                                                                                    rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasPostalCode
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasPostalCode> rdf:type owl:ObjectProperty ;
+                                                                                               
+                                                                                               rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                               
+                                                                                               rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                               
+                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> ;
+                                                                                               
+                                                                                               rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasProjectProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasProjectProperty> rdf:type owl:ObjectProperty ;
+                                                                                                    
+                                                                                                    rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Project> ;
+                                                                                                    
+                                                                                                    rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#ProjectProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleID
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleID> rdf:type owl:ObjectProperty ;
+                                                                                             
+                                                                                             rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                             
+                                                                                             rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                             
+                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                             
+                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleSource
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleSource> rdf:type owl:ObjectProperty ;
+                                                                                                 
+                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                 
+                                                                                                 rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource> ;
+                                                                                                 
+                                                                                                 rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleType> rdf:type owl:ObjectProperty ;
+                                                                                               
+                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                               
+                                                                                               rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleType> ;
+                                                                                               
+                                                                                               rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasScientificName
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasScientificName> rdf:type owl:ObjectProperty ;
+                                                                                                   
+                                                                                                   rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                   
+                                                                                                   rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                   
+                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                                   
+                                                                                                   rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSex
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSex> rdf:type owl:ObjectProperty ;
+                                                                                        
+                                                                                        rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                        
+                                                                                        rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                        
+                                                                                        rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                        
+                                                                                        rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceLocation
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceLocation> rdf:type owl:ObjectProperty ;
+                                                                                                   
+                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                   
+                                                                                                   rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> ;
+                                                                                                   
+                                                                                                   rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceProperty> rdf:type owl:ObjectProperty ;
+                                                                                                   
+                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                   
+                                                                                                   rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceProperty> ;
+                                                                                                   
+                                                                                                   rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasEPIproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSpecies
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSpecies> rdf:type owl:ObjectProperty ;
+                                                                                            
+                                                                                            rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#CampySpecies> ;
+                                                                                            
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasBIOproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSubproject
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSubproject> rdf:type owl:ObjectProperty ;
+                                                                                               
+                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Project> ;
+                                                                                               
+                                                                                               rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SubProject> ;
+                                                                                               
+                                                                                               rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasProjectProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoClass
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoClass> rdf:type owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoFamily
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoFamily> rdf:type owl:ObjectProperty ;
+                                                                                               
+                                                                                               rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                               
+                                                                                               rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                               
+                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                               
+                                                                                               rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoGenus
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoGenus> rdf:type owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoOrder
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoOrder> rdf:type owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoSpecies
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoSpecies> rdf:type owl:ObjectProperty ;
+                                                                                                
+                                                                                                rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                
+                                                                                                rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                
+                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                                
+                                                                                                rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTechnique
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTechnique> rdf:type owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMethodologyProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTreatment
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTreatment> rdf:type owl:ObjectProperty ;
+                                                                                              
+                                                                                              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                              
+                                                                                              rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                              
+                                                                                              rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasIsolationProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isDomestic
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isDomestic> rdf:type owl:ObjectProperty ;
+                                                                                            
+                                                                                            rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                            
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isPartOfOutbreak
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isPartOfOutbreak> rdf:type owl:ObjectProperty ;
+                                                                                                  
+                                                                                                  rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                  
+                                                                                                  rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                  
+                                                                                                  rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                  
+                                                                                                  rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasEPIproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isReferenceStrain
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isReferenceStrain> rdf:type owl:ObjectProperty ;
+                                                                                                   
+                                                                                                   rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                                   
+                                                                                                   rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                                   
+                                                                                                   rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isRinse
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isRinse> rdf:type owl:ObjectProperty ;
+                                                                                         
+                                                                                         rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                         
+                                                                                         rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
+                                                                                         
+                                                                                         rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isSeasoned
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isSeasoned> rdf:type owl:ObjectProperty ;
+                                                                                            
+                                                                                            rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                            
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isSkinless
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isSkinless> rdf:type owl:ObjectProperty ;
+                                                                                            
+                                                                                            rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                            
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#partOfOutbreak
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#partOfOutbreak> rdf:type owl:ObjectProperty ;
+                                                                                                
+                                                                                                rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                
+                                                                                                rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Outbreak> ;
+                                                                                                
+                                                                                                rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasEPIproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#partOfProject
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#partOfProject> rdf:type owl:ObjectProperty ;
+                                                                                               
+                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                               
+                                                                                               rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Project> ;
+                                                                                               
+                                                                                               rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#partOfSubProject
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#partOfSubProject> rdf:type owl:ObjectProperty ;
+                                                                                                  
+                                                                                                  rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
+                                                                                                  
+                                                                                                  rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SubProject> ;
+                                                                                                  
+                                                                                                  rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLIMSproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#traveledTo
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#traveledTo> rdf:type owl:ObjectProperty ;
+                                                                                            
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> ;
+                                                                                            
+                                                                                            rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> ;
+                                                                                            
+                                                                                            rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasHumanProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingGeneProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingGeneProperty> rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingGene> ;
+                                                                                               
+                                                                                               rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingGeneProperty> .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasComments
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasComments> rdf:type owl:DatatypeProperty ;
+                                                                                             
+                                                                                             rdfs:range xsd:string ;
+                                                                                             
+                                                                                             rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasName
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasName> rdf:type owl:DatatypeProperty ;
+                                                                                         
+                                                                                         rdfs:range xsd:string ;
+                                                                                         
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AbattoirType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AbattoirType> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> rdf:type owl:Class ;
+                                                                                        
+                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> ,
+                                                                                                        <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalProperty> rdf:type owl:Class ;
+                                                                                                
+                                                                                                rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> rdf:type owl:Class ;
+                                                                                            
+                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleType> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Avian
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Avian> rdf:type owl:Class ;
+                                                                                       
+                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> ;
+                                                                                       
+                                                                                       owl:disjointWith <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Rodent> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BIOproperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BIOproperty> rdf:type owl:Class ;
+                                                                                             
+                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BodyOfWater
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BodyOfWater> rdf:type owl:Class ;
+                                                                                             
+                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#C_EnterNetSite
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#C_EnterNetSite> rdf:type owl:Class ;
+                                                                                                
+                                                                                                rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SurveillanceSite> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#CampySpecies
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#CampySpecies> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BIOproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#City
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#City> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#ClinicalType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#ClinicalType> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanType> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Companion
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Companion> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Country
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Country> rdf:type owl:Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#EPIproperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#EPIproperty> rdf:type owl:Class ;
+                                                                                             
+                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#EggType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#EggType> rdf:type owl:Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment> rdf:type owl:Class ;
+                                                                                             
+                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Equine
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Equine> rdf:type owl:Class ;
+                                                                                        
+                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FNCSentinelSite
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FNCSentinelSite> rdf:type owl:Class ;
+                                                                                                 
+                                                                                                 rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SurveillanceSite> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType> rdf:type owl:Class ;
+                                                                                            
+                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HealthAuthority
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HealthAuthority> rdf:type owl:Class ;
+                                                                                                 
+                                                                                                 rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> rdf:type owl:Class ;
+                                                                                       
+                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> ,
+                                                                                                       <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource> ;
+                                                                                       
+                                                                                       owl:disjointWith <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanProperty> rdf:type owl:Class ;
+                                                                                               
+                                                                                               rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanType> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleType> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Insect
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Insect> rdf:type owl:Class ;
+                                                                                        
+                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> rdf:type owl:Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#IsolateLocation
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#IsolateLocation> rdf:type owl:Class ;
+                                                                                                 
+                                                                                                 rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#LIMSproperty> ,
+                                                                                                                 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#IsolationProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#IsolationProperty> rdf:type owl:Class ;
+                                                                                                   
+                                                                                                   rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#LIMSproperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#LIMSproperty> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Lagoon
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Lagoon> rdf:type owl:Class ;
+                                                                                        
+                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatProperty> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MethodologyProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MethodologyProperty> rdf:type owl:Class ;
+                                                                                                     
+                                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#IsolationProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Misc
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Misc> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Municipality
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Municipality> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> rdf:type owl:Class .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Outbreak
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Outbreak> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#EPIproperty> ,
+                                                                                                          <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Patient
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Patient> rdf:type owl:Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#PatientProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#PatientProperty> rdf:type owl:Class ;
+                                                                                                 
+                                                                                                 rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Porcine
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Porcine> rdf:type owl:Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Project
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Project> rdf:type owl:Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#LIMSproperty> ,
+                                                                                                         <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#ProjectProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#ProjectProperty> rdf:type owl:Class ;
+                                                                                                 
+                                                                                                 rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> rdf:type owl:Class .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#RetailType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#RetailType> rdf:type owl:Class ;
+                                                                                            
+                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Rodent
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Rodent> rdf:type owl:Class ;
+                                                                                        
+                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Ruminant
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Ruminant> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleType> rdf:type owl:Class ;
+                                                                                            
+                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceProperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SamplingSite
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SamplingSite> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Sewage
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Sewage> rdf:type owl:Class ;
+                                                                                        
+                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SourceProperty> rdf:type owl:Class ;
+                                                                                                
+                                                                                                rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#EPIproperty> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SubNational
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SubNational> rdf:type owl:Class ;
+                                                                                             
+                                                                                             rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SubProject
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SubProject> rdf:type owl:Class ;
+                                                                                            
+                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Project> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Substrate
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Substrate> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SurveillanceSite
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SurveillanceSite> rdf:type owl:Class ;
+                                                                                                  
+                                                                                                  rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Water
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Water> rdf:type owl:Class ;
+                                                                                       
+                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Environment> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Watershed
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Watershed> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrug
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrug> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrugProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMRdrugProperty> rdf:type owl:Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#ClusterProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#ClusterProperty> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#DrugMIC
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#DrugMIC> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTest
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTest> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#BIOproperty> ,
+                                                                                                 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTestProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#LabTestProperty> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingAllele
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingAllele> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingAlleleProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingAlleleProperty> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingGene
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingGene> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingGeneProperty
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingGeneProperty> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingLab
+
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#TypingLab> rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
