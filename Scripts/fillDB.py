@@ -53,7 +53,7 @@ def createBIOtriples(df,row,isoTitle):
 # Create triples for all the epi data for an isolate.
 ######################################################################################################
 def createEPItriples(df,row,isoTitle):
-	triple=tw.createDateTriples(df,row,isoTitle) # The date the sample was taken
+	triple=tw.createDTakenTriples(df,row,isoTitle) # The date the sample was taken
 
 	triple+=tw.createLocTriples(df,row,isoTitle) # The location of where the sample was taken
 
@@ -68,7 +68,11 @@ def createEPItriples(df,row,isoTitle):
 # For all the triples related to LIMS data.
 ######################################################################################################
 def createLIMStriples(df,row,isoTitle):
-	triple=tw.createIDtriples(df,row,isoTitle) # For the collection IDs and sample IDs
+	triple=tw.createDAddedTriples(df,row,isoTitle) # The date the isolate was added to the DB
+
+	triple+=tw.createLabLocTriples(df,row,isoTitle) # The lab location of the isolate
+
+	triple+=tw.createIDtriples(df,row,isoTitle) # For the collection IDs and sample IDs
 
 	triple+=tw.createProjTriples(df,row,isoTitle) # Triples for the project info
 
@@ -95,7 +99,7 @@ def createTriples(df,row):
 	triple+=createLIMStriples(df,row,isoTitle)
 
 
-	#writeToBG(triple) # Write the triples to the blazegraph server
+	writeToBG(triple) # Write the triples to the blazegraph server
 	
 ######################################################################################################
 # Reads in data from the spreadsheet and writes triples
@@ -109,9 +113,9 @@ def writeData():
 	# The column names contain the names of the AMR drugs aswell
 	triple+=tw.createDrugTriples(df)
 
-	#writeToBG(triple)
-
-	for row in range(df["Strain Name"].count()):
+	writeToBG(triple)
+	#df["Strain Name"].count()
+	for row in range(30):
 		createTriples(df,row)
 
 ######################################################################################################

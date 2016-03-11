@@ -8,10 +8,12 @@ from createAMRtriples import createAMRtriples
 from createTypingTriples import createTypingTriples
 from createIsolationTriples import createIsolationTriples
 from createIDtriples import createIDtriples
-from createDateTriples import createDateTriples
+from createDTakenTriples import createDTakenTriples
+from createDAddedTriples import createDAddedTriples
 from createSpeciesTriples import createSpeciesTriples
 from createCGFtriples import createCGFtriples
 from createProjTriples import createProjTriples
 from createRefTriples import createRefTriples
 from createSourceTriples import createSourceTriples
 from createLocTriples import createLocTriples
+from createLabLocTriples import createLabLocTriples

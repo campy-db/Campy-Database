@@ -20,14 +20,14 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 
 #Takes a sparql query and a url of your sparql endpoint. 
 #Returns an object containing the information you requested. -- http://rdflib.readthedocs.org/en/latest/gettingstarted.html
-def query(data, url = os.getenv('SUPERPHY_RDF_URL', "http://localhost:9000/blazegraph/namespace/superphy/sparql") ):
+def query(data, url = os.getenv('SUPERPHY_RDF_URL', "http://localhost:9000/blazegraph/namespace/campy/sparql") ):
 	sparql = SPARQLWrapper(url)
 	sparql.setQuery(data)
 	sparql.setReturnFormat(JSON)
 	results = sparql.query().convert()
 	return results
 
-def ask(data, url = os.getenv('SUPERPHY_RDF_URL', "http://localhost:9000/blazegraph/namespace/superphy/sparql")):
+def ask(data, url = os.getenv('SUPERPHY_RDF_URL', "http://localhost:9000/blazegraph/namespace/campy/sparql")):
 	results = query(data)
 	return results['boolean']
 
