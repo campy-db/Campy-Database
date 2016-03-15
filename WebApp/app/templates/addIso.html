@@ -1,0 +1,21 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block contentA %}
+<body>
+  <form action="" method=post class=add name=add>
+    {{ form.hidden_tag() }}
+    <p>
+      Name {{ form.name(size=40) }} 
+      <br><br>
+      Fingerprint {{ form.fp(size=40) }}
+
+      {% for error in form.fp.errors %}
+       <br><span style="color: red;">[{{ error }}]</span>
+      {% endfor %}<br>
+
+    </p>
+    <input type=submit value=Submit>
+  </form>
+</body>
+{% endblock %}

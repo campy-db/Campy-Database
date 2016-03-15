@@ -1,0 +1,48 @@
+<!doctype html>
+<head>
+<style>
+
+body            { font-family: Tahoma, sans-serif; 
+	              background: #eee; 
+				  color: #377BA8;}
+a, h1, h2       { color: #377BA8; }
+h1, h2          { font-family: Arial, sans-serif; margin: 0; }
+h1              { border-bottom: 2px solid #eee; }
+h2              { font-size: 1.4em; }
+
+h3.field         { text-align: center; }
+.page           { margin: 7em auto; width: 50em; border: 5px solid #ccc;
+                  padding: 0.8em; background: white; }
+.entries        { list-style: none; margin: 0; padding: 0; }
+.entries li     { margin: 0.8em 1.2em; }
+.entries li h2  { margin-left: -1em; }
+.add	        { font-size: 1em; }
+.add dl   		{ font-weight: bold; }
+.metanav        { text-align: right; font-size: 0.8em; padding: 0.3em;
+                  margin-bottom: 1em; background: #fafafa; }
+.flash          { background: #CEE5F5; padding: 0.5em;
+                  border: 1px solid #AACBE2; }
+.error          { background: #F0D6D6; padding: 0.5em; }
+</style>
+</head>
+<title>CampyDB</title>
+<div class=page>
+  <h1><a href="/index"><img src="https://i.imgur.com/coVWfWN.png" alt="banner"></a></h1>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class=flash>
+    <ul>
+    {% for message in messages %}
+    <li>{{ message }} </li>
+    {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endwith %}
+  {% if title %}
+  <h2>{{title}}</h2>
+  {% endif %}
+  {% block contentA %}{% endblock %}
+</div>
+
+

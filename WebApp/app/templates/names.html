@@ -1,0 +1,10 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block contentA %}
+  {% for i in isos %}
+  <p>
+    {{ i }}
+  </p>
+  {% endfor %}
+{% endblock %}
