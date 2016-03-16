@@ -2,32 +2,44 @@
 <head>
 <style>
 
-body            { font-family: Tahoma, sans-serif; 
-	              background: #eee; 
-				  color: #377BA8;}
+body            { font-family: Arial, sans-serif; 
+	                background: #eee; 
+				          color: #585858;}
 a, h1, h2       { color: #377BA8; }
 h1, h2          { font-family: Arial, sans-serif; margin: 0; }
 h1              { border-bottom: 2px solid #eee; }
-h2              { font-size: 1.4em; }
+h2              { border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bottom: 0.2em; font-size: 1.5em; }
 
-h3.field         { text-align: center; }
-.page           { margin: 7em auto; width: 50em; border: 5px solid #ccc;
-                  padding: 0.8em; background: white; }
-.entries        { list-style: none; margin: 0; padding: 0; }
-.entries li     { margin: 0.8em 1.2em; }
-.entries li h2  { margin-left: -1em; }
-.add	        { font-size: 1em; }
-.add dl   		{ font-weight: bold; }
-.metanav        { text-align: right; font-size: 0.8em; padding: 0.3em;
-                  margin-bottom: 1em; background: #fafafa; }
+
+.optionButton  { position: absolute; font-weight:bold; font-size: 1.3em; height: 1em; width: 9em; padding: 5px; 
+                 border: 0; margin: 0; color:#377BA8; background: white; 
+                 box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+
+.optionButton:hover { font-size: 1.35em; height: 1.2em; width: 9em; 
+                      box-shadow: 0 0 10px 0 rgba(0,0,0,0.2), 0 0 10px 0 rgba(0,0,0,0.19); }
+
+.optionButton:active { position: absolute; font-weight:bold; font-size: 1.3em; height: 1em; width: 9em; padding: 5px; 
+                       border: 0; margin: 0; color:#377BA8; background: white; 
+                       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);}
+
+a.link          { text-decoration: none; }
+.section        { font-weight: bold; border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bottom: 0.2em; font-size: 1.3em;}
+.fieldAlignA    { position: absolute; left: 655px; }
+.fieldAlignB    { position: absolute; left: 680px; }
+p.field         { font-weight: bold;}
+.page           { border-radius: 5px; margin: 4em auto; width: 46em;
+                  padding: 1em; background: white; box-shadow: 0 0 12px 0 rgba(0,0,0,0.2), 0 0 12px 0 rgba(0,0,0,0.19); }
+.add	          { font-size: 1em; }
+.add dl   		  { font-weight: bold; }
 .flash          { background: #CEE5F5; padding: 0.5em;
                   border: 1px solid #AACBE2; }
 .error          { background: #F0D6D6; padding: 0.5em; }
 </style>
+
 </head>
 <title>CampyDB</title>
 <div class=page>
-  <h1><a href="/index"><img src="https://i.imgur.com/coVWfWN.png" alt="banner"></a></h1>
+  <h1><a href="/index"><img src="{{ url_for('static', filename='images/banner.bmp') }}"></a></h1>
   {% with messages = get_flashed_messages() %}
   {% if messages %}
   <div class=flash>
@@ -40,6 +52,7 @@ h3.field         { text-align: center; }
   {% endif %}
   {% endwith %}
   {% if title %}
+
   <h2>{{title}}</h2>
   {% endif %}
   {% block contentA %}{% endblock %}

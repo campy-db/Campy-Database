@@ -5,16 +5,33 @@
 <body>
   <form action="" method=post class=add name=add>
     {{ form.hidden_tag() }}
-    <p>
-      Name {{ form.name(size=40) }} 
+    <br>
+    <div class=section>Basic Data</div>
+    <p class=field>
+      Name <b class=fieldAlignA>{{ form.name(size=40) }}</b>
+
+      {% for error in form.name.errors %}
+       <br><span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+
       <br><br>
-      Fingerprint {{ form.fp(size=40) }}
+      Species <b class=fieldAlignA>{{ form.spec(size=40) }}</b>
+
+      {% for error in form.spec.errors %}
+       <br><span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <br>
+    <div class=section>CGF Data</div>
+    <p class=field>
+      Fingerprint <b class=fieldAlignB>{{ form.fp(size=40) }}</b>
 
       {% for error in form.fp.errors %}
        <br><span style="color: red;">[{{ error }}]</span>
-      {% endfor %}<br>
+      {% endfor %}
 
     </p>
+
     <input type=submit value=Submit>
   </form>
 </body>

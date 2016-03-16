@@ -8,7 +8,8 @@ from util.validators import fpBinary
 
 class AddForm(Form):
     name=StringField('name',validators=[DataRequired()])
-    fp=StringField('fp',validators=[DataRequired(),length(min=10,max=10),digit(),fpBinary()])
+    spec=StringField('spec')
+    fp=StringField('fp',validators=[length(min=40,max=40),fpBinary()])
 
 
 
