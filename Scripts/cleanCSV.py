@@ -4,6 +4,8 @@ import pandas as pd
 import datetime
 import re
 
+mdyCountries=("USA","")
+
 
 ######################################################################################################
 # 
@@ -106,20 +108,22 @@ def cleanInt(s):
 	return s
 
 ######################################################################################################
-# Converts date to a specified format. We'll be using ISO. 
+# Converts date d to a specified format. We'll be using ISO. df is True if the format has the day 
+# first, eg 14/01/1993. But some are month first, eg 4/18/2015. This is the default.
 ######################################################################################################
-def convertDate(d):
-	result=d
+def convertDate(d,df):
+	result=-1
 	# Sometimes dates are just the year or day.
 	try:
 		if d!="" and not pd.isnull(d):
 			df="%Y-%m-%d"
-			dt = dateParse(d)
+			dt=dateParse(d,dayfirst=df)
 			result=(dt.strftime(df))
 		else:
 			result=d
 	except ValueError:
-		result=d
+		result=-1
+
 	return result
 
 ######################################################################################################
@@ -135,11 +139,7 @@ def remPrefix(val,l):
 # Main. Just for testing purposes.
 ###################################################################################################
 def main():
-	sidA="CE_R_09_0515"
-	sidB="CE-R-09-0515"
-	sidC="--sd6w:-_"
-
-	print compare([sidA,sidB,sidC])
+	print convertDate("4/9/2014",False)
 
 if __name__=="__main__":
 	main()

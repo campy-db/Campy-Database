@@ -22,12 +22,14 @@ h2              { border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bot
                        border: 0; margin: 0; color:#377BA8; background: white; 
                        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);}
 
+h1.center       { text-align: center; }
+.warning        { color: #CCCCCC; }
 a.link          { text-decoration: none; }
 .section        { font-weight: bold; border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bottom: 0.2em; font-size: 1.3em;}
-.fieldAlignA    { position: absolute; left: 655px; }
+.fieldAlignA    { position: absolute; left: 620px; }
 .fieldAlignB    { position: absolute; left: 680px; }
 p.field         { font-weight: bold;}
-.page           { border-radius: 5px; margin: 4em auto; width: 46em;
+.page           { border-radius: 5px; margin: 4em auto; width: 51em;
                   padding: 1em; background: white; box-shadow: 0 0 12px 0 rgba(0,0,0,0.2), 0 0 12px 0 rgba(0,0,0,0.19); }
 .add	          { font-size: 1em; }
 .add dl   		  { font-weight: bold; }
@@ -39,7 +41,7 @@ p.field         { font-weight: bold;}
 </head>
 <title>CampyDB</title>
 <div class=page>
-  <h1><a href="/index"><img src="{{ url_for('static', filename='images/banner.bmp') }}"></a></h1>
+  <h1 class=center><a href="/index"><img src="{{ url_for('static', filename='images/banner.bmp') }}"></a></h1>
   {% with messages = get_flashed_messages() %}
   {% if messages %}
   <div class=flash>

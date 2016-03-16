@@ -260,12 +260,8 @@ class TripleMaker:
 ###################################################################################################
 # Main. Just for testing.
 ###################################################################################################
-import TripleMaker as t
 def main():
-	trip=t.TripleMaker("https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#")
-	print trip.propTriple("Sam",{"hasName":["bill","jone"],"iscool":"444466"},"string",True)
-
-
+	pass
 
 if __name__=="__main__":
 	main()

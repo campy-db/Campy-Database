@@ -3,6 +3,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 from app import app
 from sparql import queries as q
 from forms import AddForm
+import dataHandler as dh
 
 @app.route("/")
 @app.route("/index")
@@ -13,11 +14,8 @@ def index():
 def add():
     form=AddForm()
     if form.validate_on_submit():
-        n=str(form.name.data)
-        fp=str(form.fp.data)
-        spec=str(form.spec.data)
-        q.insertIso(n,{"hasIsolateName":n,"hasFingerprint":fp},"string",True)
-        q.insertIso(n,{"hasSpecies":spec})
+        triple=dh.handleIsoData(form)
+        q.writeToBG(triple)
         flash("Isolate added")
         return redirect("/index")
     return render_template("addIso.html",title="Add Isolate",form=form)
@@ -50,3 +48,6 @@ def logout():
     flash("You were logged out")
     return redirect(url_for("show_entries"))
 """
+
+
+

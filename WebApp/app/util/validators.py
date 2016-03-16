@@ -1,3 +1,6 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+from Scripts import cleanCSV as cn
 from wtforms.validators import ValidationError
 import re
 
@@ -40,4 +43,16 @@ def fpBinary():
 			raise ValidationError(message)
 
 	return _binary
+
+
+def date():
+    message="Value must be a valid date"
+
+    def _date(form,field):
+        v=field.data
+        v=cn.convertDate(v,True) if v!="" else v
+        if v==-1:
+            raise ValidationError(message)
+    return _date
+		
 

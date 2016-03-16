@@ -54,7 +54,7 @@ def createCGFtriples(df,row,isoTitle):
 
 	if not pd.isnull(date_fileLoc) and cn.isGoodVal(date_fileLoc):
 		date=date_fileLoc.split(" ")[0]
-		date=cn.convertDate(date)
+		date=cn.convertDate(date,False)
 
 		index=date_fileLoc.find(" ")
 		if index!=-1:
@@ -68,7 +68,7 @@ def createCGFtriples(df,row,isoTitle):
 
 	if fileLoc!="":
 		cgfTriple+=ltm.lab.propTriple(cgfTest1,{"hasFileLocation":fileLoc},"string",True)
-	if date!="":
+	if date!="" and date!=-1:
 		cgfTriple+=ltm.lab.propTriple(cgfTest1,{"hasDateCompleted":date},"string",True)
 
 	if not pd.isnull(fingerprint) and cn.isGoodVal(fingerprint):

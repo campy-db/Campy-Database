@@ -8,7 +8,10 @@
     <br>
     <div class=section>Basic Data</div>
     <p class=field>
-      Name <b class=fieldAlignA>{{ form.name(size=40) }}</b>
+      Name <b class=fieldAlignA>
+      {{ form.name(size=40) }}
+      <b class=warning>[Required]</b>
+      </b>
 
       {% for error in form.name.errors %}
        <br><span style="color: red;">[{{ error }}]</span>
@@ -29,7 +32,18 @@
       {% for error in form.fp.errors %}
        <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
+    </p>
+    <p class=field>
+      Date Completed 
+      <b class=fieldAlignB>
+      {{ form.dc(size=40) }}
+      <b class=warning>[First number is assumed to be the day]</b>
+      </b>
 
+      {% for error in form.dc.errors %}
+       <br><span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    <br>
     </p>
 
     <input type=submit value=Submit>

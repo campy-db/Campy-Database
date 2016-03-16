@@ -27,9 +27,11 @@ def createAgeTriples(df,row,hum):
 				# Most ranges are of the form age-age, but some are age+
 				age="" # Ignore ranges for now
 			else: # The value is a birth day
-				bday=cn.convertDate(age)
-				humTriple+=ctm.campy.propTriple(hum,{"hasBirthDate":bday},"string",True)
-				
+				bday=cn.convertDate(age,False)
+				if bday!=-1:
+					humTriple+=ctm.campy.propTriple(hum,{"hasBirthDate":bday},"string",True)
+				# else: date is invalid
+
 				if not pd.isnull(yearTaken):
 					age=int(yearTaken)-int(bday[:yearLen]) # bday is in ISO format, so the first 4
 													       # chars is the year of the bday

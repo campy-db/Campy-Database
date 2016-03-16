@@ -1,5 +1,8 @@
-import endpoint as e
-import TripleMaker as tm
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import endpoint as e
+from Scripts import TripleMaker as tm
 
 c="https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#"
 l="http://www.essepuntato.it/2010/06/literalreification/"
@@ -52,7 +55,7 @@ def insertIso(title,props,litType=None,isRLiteral=None):
 		   ctm.propTriple(title,props,litType,isRLiteral)
 
 	#writeToBG(triple)
-	print triple
+	return triple
 
 
 
