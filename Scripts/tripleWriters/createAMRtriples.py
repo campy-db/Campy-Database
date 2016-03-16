@@ -27,11 +27,11 @@ def createAMRtriples(df,row,isoTitle):
 
     df_row = df.loc[row]
     
-    drug_indices = range(df.columns.get_loc('mic_azm', df.columns.get_loc('mic_tet') + 1)
+    mic_indices = range(df.columns.get_loc('mic_azm', df.columns.get_loc('mic_tet') + 1)
     
     r_indices = range(df.columns.get_loc('razm'), df.columns.get_loc('rtet') + 1)
 
-    drugs = [df.columns.values[d].replace('mic_', '') for d in mic_drugs]
+    drugs = [df.columns.values[d].replace('mic_', '') for d in mic_indices]
 
     amr = df_row['AMR']
 
@@ -41,7 +41,7 @@ def createAMRtriples(df,row,isoTitle):
     # NOTE: All mics are being stored as strings in the ontology as some of the mics have
     # < or > in them. We don't like this.
     mic_triples = [mic_triple(df_row[m], drug, test_title)
-                   for m, drug in zip(drug_indices, drugs) 
+                   for m, drug in zip(mic_indices, drugs) 
                    if not pd.isnull(df_row[m])]
     
     # create resistance pattern triples
@@ -54,7 +54,7 @@ def createAMRtriples(df,row,isoTitle):
     
     triples = mic_triples + res_triples # merge lists
 
-    if triples: # if data were not empty and URIs, etc
+    if triples: # if data were not empty add URIs, etc
         triples += [ltm.lab.indTriple(test_title,"AMRtest"),
 		    ctm.campy.addUri(isoTitle) + " " + ctm.campy.addUri("hasLabTest") + \
 		    " " + ltm.lab.addUri(test_title) + " ."]
