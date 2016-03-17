@@ -51,7 +51,7 @@ def trimResult(r):
 def getIsoNames():
 
 	q = "select ?v where {?i %s ?n . ?n %s ?v .}"\
-	    %(ctm.addUri("hasIsolateName"),(litTM.addUri("hasLiteralValue")))
+	    %(ctm.addURI("hasIsolateName"),(litTM.addURI("hasLiteralValue")))
 
 	result = e.query(q)
 	return trimResult(result)
