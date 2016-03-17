@@ -4,11 +4,10 @@ import pandas as pd
 import datetime
 import re
 
-mdyCountries=("USA","")
-
-
 ######################################################################################################
-# 
+# Returns true if a value in vals is the same as one or more values in vals. Standardizes all values 
+# in vals and puts them in a dictionary. If the dictionary entry for a value is greater than 1,
+# return true.
 ######################################################################################################
 def compare(vals):
 	result=False
@@ -33,7 +32,7 @@ def compare(vals):
 def isGoodVal(v):
 	result=True
 	v=v.strip().lower() if not isNumber(v) else v
-	if v in ("-","unknown","n/a","n\\a","#n/a","#n\\a","missing","not given","other","na"):
+	if v in ("","none","-","unknown","n/a","n\\a","#n/a","#n\\a","missing","not given","other","na"):
 		result=False
 
 	return result
@@ -103,7 +102,7 @@ def cleanName(s):
 # Some of the years and ids were converted to doubles for some reason
 ######################################################################################################
 def cleanInt(s):
-	if s!="" and not pd.isnull(s) and isNumber(s):
+	if not pd.isnull(s) and isNumber(s):
 		s=str(int(float(s)))
 	return s
 
@@ -134,12 +133,24 @@ def remPrefix(val,l):
 	if val!="" and not pd.isnull(val) and "_" in val:
 		val=val[l:]
 	return val
+
+
+###################################################################################################
+# cleanGene
+###################################################################################################
+def cleanGene(g):
+	g=g.replace("Oxford","")
+	g=g.replace("MOMP peptide","MOMP")
+	g=g.replace("fla peptide","flaPeptide")
+	g=g.strip()
+
+	return g	
 	
 ###################################################################################################
 # Main. Just for testing purposes.
 ###################################################################################################
 def main():
-	print convertDate("4/9/2014",False)
+	print isNumber("")
 
 if __name__=="__main__":
 	main()

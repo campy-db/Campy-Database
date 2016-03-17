@@ -1,4 +1,4 @@
-import labTM as ltm
+from labTM import lab as ltm
 
 ######################################################################################################
 #
@@ -10,6 +10,6 @@ def createDrugTriples(df):
 	drugs=[d.replace("mic_","") for d in drugs]
 
 	for d in drugs:
-		dTriple+=ltm.lab.indTriple(d,"AMRdrug")
+		dTriple+=ltm.indTriple(d,"AMRdrug")
 
 	return dTriple

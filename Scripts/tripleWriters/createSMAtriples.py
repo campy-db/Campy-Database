@@ -1,18 +1,29 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import cleanCSV as cn
+from Scripts.TripleMaker import TripleMaker as tm
 import pandas as pd
-import campyTM as ctm
-import labTM as ltm
+from campyTM import campy as ctm
+from labTM import lab as ltm
 
 ######################################################################################################
-#
+# createSMAtriples
 ######################################################################################################
-def createSMAtriples(df,row,isoTitle):
-	sTriple=""
-	pulsovar=df["Pfge Sma I  / Pulsovar"][row]
+def createSMAtriples(df, row, isoTitle):
 
-	if not pd.isnull(pulsovar):
-		sTitle="sma1_"+isoTitle
-		sTriple+=ltm.lab.indTriple(sTitle,"SMA1")
-		sTriple+=ltm.lab.propTriple(sTitle,{"foundPulsovar":pulsovar},"string",True)
-		sTriple+=ctm.campy.addUri(isoTitle)+" "+ctm.campy.addUri("hasLabTest")+" "+ltm.lab.addUri(sTitle)+" ."
+	sTriple = ""
+	pulsovar = df["Pfge Sma I  / Pulsovar"][row]
+
+	if not pd.isnull(pulsovar) and cn.isGoodVal(pulsovar):
+		
+		sTitle = "sma1_"+isoTitle
+
+		sTriple += ltm.indTriple(sTitle,"SMA1_test")
+
+		sTriple += ltm.propTriple(sTitle,{"foundPulsovar":pulsovar},"string",True)
+
+		sTriple += tm.multiURI((isoTitle, "hasLabTest", sTitle), (ctm.uri, ctm.uri, ltm.uri))
+
 
 	return sTriple

@@ -1,61 +1,111 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import cleanCSV as cn
+from Scripts.TripleMaker import TripleMaker as tm
 import pandas as pd
-import campyTM as ctm
-import labTM as ltm
-import cleanCSV as cn
-import cleanGene as cg
+from campyTM import campy as ctm
+from labTM import lab as ltm
+
 
 ######################################################################################################
 #
 ######################################################################################################
-def createTypingTriples(df,row,isoTitle):
-	testTriple=""
-	mTriple=""
-	cols=list(df.columns.values) # Get all the column names
+def createTypingTriples(df, row, isoTitle):
 
-	genes=cols[cols.index("Asp"):cols.index("Oxford MOMP peptide")+1] # Extract gene names
-	# The names of the tests are just the name of the gene they test plus isoTitle, but MLST tests
-	# 7 genes, so mlst test name will be 'mlst'+isoTitle
-	mlstGenes=genes[genes.index("Asp"):genes.index("Unc (atpA)")+1] 
-	cloComp=df["Clonal Complex"][row] # For mlst only
-	st=df["ST"][row] # For mlst only
-	mTitle="mlst_"+isoTitle
+	triple = ""
 
-	# The value 'none' is in cloComp right now. Ignore it...for now
-	if not pd.isnull(cloComp) and "none" not in cloComp:
+	cols = list(df.columns.values) # Get all the column names
+
+	genes = cols[cols.index("Asp"):cols.index("Oxford MOMP peptide")+1] # Extract gene names
+
+	mlstGenes = genes[genes.index("Asp"):genes.index("Unc (atpA)")+1]
+
+	cloComp = df["Clonal Complex"][row]
+
+	st = df["ST"][row]
+
+	mTitle = "mlst_"+isoTitle
+
+
+	if not pd.isnull(cloComp) and cn.isGoodVal(cloComp):
 		# The values ST-403 and ST_403 are in the csv. We'll standardize it to ST_403
-		cloComp=cloComp.replace("-","_")
+		cloComp = cloComp.replace("-","_")
+		triple += ltm.propTriple(mTitle,{"foundClonalComplex":cloComp},"string",True)
 
-		mTriple+=ltm.lab.propTriple(mTitle,{"foundClonalComplex":cloComp},"string",True)
 
 	# The value 'new' is in ST. We'll ignore it as well...for....now....
-	if not pd.isnull(st) and "new" not in st:
-		st=cn.cleanInt(st)
-		mTriple+=ltm.lab.propTriple(mTitle,{"foundST":st},"int",True)
+	if not pd.isnull(st) and cn.isGoodVal(st) and "new" not in st:
+		st = cn.cleanInt(st)
+		triple += ltm.propTriple(mTitle,{"foundST":st},"int",True)
 
+
+	if not pd.isnull(st):
+		triple += ltm.indTriple(mTitle,"MLST_test")	
+		triple += tm.multiURI((isoTitle, "hasLabTest", mTitle), (ctm.uri, ctm.uri, ltm.uri))
+
+
+	def allele_triple(g):
+
+		triple = ""
+		alIndex = cn.cleanInt(df[g][row])
+
+		if not pd.isnull(alIndex) and cn.isNumber(alIndex):
+			alTitle = "{}_{}".format(cn.cleanGene(g), alIndex)
+			
+			triple =  ltm.indTriple(alTitle,"TypingAllele") +\
+			          ltm.propTriple(alTitle,{"isOfGene":cn.cleanGene(g)}) +\
+			          ltm.propTriple(alTitle,{"hasAlleleIndex":alIndex},"int",True) +\
+			          test_triple(g,alTitle)
+
+		return triple
+
+
+	def test_triple(g, alTitle):
+
+		tClass = "{}_test".format(cn.cleanGene(g))
+
+		tTitle = mTitle if g in mlstGenes else "{}_{}".format(tClass, isoTitle)
+		
+		triple = ltm.propTriple(tTitle,{"foundAllele":alTitle})
+
+		if g not in mlstGenes:
+			
+			triple += ltm.indTriple(tTitle, tClass) +\
+				      ltm.propTriple(tTitle, {"foundAllele":alTitle}) +\
+				      tm.multiURI((isoTitle, "hasLabTest", tTitle), (ctm.uri, ctm.uri, ltm.uri))
+
+		return triple
+
+
+
+	triples = [ allele_triple(g) for g in genes ]
+
+	triple += "".join(triples)
+
+	"""
 	# Go through all the genes, get the allele index, create allele, attach allele to gene,
 	# add the allele index to the allele, attach the test to the allele.
 	for g in genes:
-		alIndex=df[g][row]
+		alIndex = df[g][row]
 		if not pd.isnull(alIndex) and cn.isNumber(alIndex):
-			alIndex=cn.cleanInt(alIndex)
-			alTitle=cg.cleanGene(g)+"_"+alIndex
-			testTriple+=ltm.lab.indTriple(alTitle,"TypingAllele")
-			testTriple+=ltm.lab.propTriple(alTitle,{"isOfGene":cg.cleanGene(g)})
-			testTriple+=ltm.lab.propTriple(alTitle,{"hasAlleleIndex":alIndex},"int",True)
+			alIndex = cn.cleanInt(alIndex)
+			alTitle = cg.cleanGene(g)+"_"+alIndex
+			testTriple += ltm.indTriple(alTitle,"TypingAllele")
+			testTriple += ltm.propTriple(alTitle,{"isOfGene":cg.cleanGene(g)})
+			testTriple += ltm.propTriple(alTitle,{"hasAlleleIndex":alIndex},"int",True)
 
 			if g in mlstGenes:
-				mTriple+=ltm.lab.propTriple(mTitle,{"foundAllele":alTitle})
+				mTriple += ltm.propTriple(mTitle,{"foundAllele":alTitle})
 			else:
-				testClass=cg.cleanGene(g)+"test"
-				testTitle=testClass+"_"+isoTitle
-				testTriple+=ltm.lab.indTriple(testTitle,testClass)
-				testTriple+=ltm.lab.propTriple(testTitle,{"foundAllele":alTitle})
-				testTriple+=ctm.campy.addUri(isoTitle)+" "+ctm.campy.addUri("hasLabTest")+" "\
-						    +ltm.lab.addUri(testTitle)+" ."
+				testClass = cg.cleanGene(g)+"test"
+				testTitle = testClass+"_"+isoTitle
+				testTriple += ltm.indTriple(testTitle,testClass)
+				testTriple += ltm.propTriple(testTitle,{"foundAllele":alTitle})
 
-	if mTriple!="":
-		mTriple+=ltm.lab.indTriple(mTitle,"MLSTtest")	
-		mTriple+=ctm.campy.addUri(isoTitle)+" "+ctm.campy.addUri("hasLabTest")+\
-			   " "+ltm.lab.addUri(mTitle)+" ."
+				testTriple += ctm.addUri(isoTitle)+" "+ctm.addUri("hasLabTest")+" "\
+						    +ltm.addUri(testTitle)+" ."
 
-	return mTriple+testTriple
+	"""
+
+	return triple

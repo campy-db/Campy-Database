@@ -1,11 +1,11 @@
-import campyTM as ctm
+from campyTM import campy as ctm
 
 ######################################################################################################
 #
 ######################################################################################################
 def addStandardTrips(isoTitle,prop,title,tClass):
-	triple=ctm.campy.indTriple(title,tClass)
-	triple+=ctm.campy.propTriple(isoTitle,{prop:title})
-	triple+=ctm.campy.propTriple(title,{"hasName":title},"string")
+	triple=ctm.indTriple(title,tClass)
+	triple+=ctm.propTriple(isoTitle,{prop:title})
+	triple+=ctm.propTriple(title,{"hasName":title},"string")
 
 	return triple

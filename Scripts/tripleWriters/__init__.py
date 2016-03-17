@@ -1,4 +1,4 @@
-from cleanGene import cleanGene
+
 from createGeneTriples import createGeneTriples
 from createDrugTriples import createDrugTriples
 from createOutbreakTriples import createOutbreakTriples

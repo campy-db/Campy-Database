@@ -1,26 +1,29 @@
-import labTM as ltm
-import campyTM as ctm
-import cleanGene as cg
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts.TripleMaker import TripleMaker as tm
+from Scripts import cleanCSV as cn
+from labTM import lab as ltm
+from campyTM import campy as ctm
 
 #####################################################################################################
 #
 ######################################################################################################
 def createGeneTriples(df):
-	triple=""
-	cols=list(df.columns.values) # Get all the column names
-	aGenes=cols[cols.index("Asp"):cols.index("Oxford MOMP peptide")+1] # Extract allelic typing genes
-	cgfGenes=cols[cols.index("cj0008 (486bp)"):cols.index("cj1727c (369bp)")+1] # Extract cgf genes
 
-	for a in aGenes:
-		a=cg.cleanGene(a)
+	cols = list(df.columns.values) # Get all the column names
+	aGenes = cols[cols.index("Asp"):cols.index("Oxford MOMP peptide")+1] # Extract allelic typing genes
+	cgfGenes = cols[cols.index("cj0008 (486bp)"):cols.index("cj1727c (369bp)")+1] # Extract cgf genes
 
-		triple+=ltm.lab.indTriple(a,"AllelicTypingGene")
-		# HOW SHOULD WE HANDLE MULTI URI TRIPLES?
-		triple+=ltm.lab.addUri(a)+" "+ctm.campy.addUri("hasName")+" \"%s\" ." % (a)
 
-	for c in cgfGenes:
-		triple+=ltm.lab.indTriple(c,"CGFtypingGene")
-		# ???????????
-		triple+=ltm.lab.addUri(c)+" "+ctm.campy.addUri("hasName")+" \"%s\" ." % (c)
-		
-	return triple
+	def gene_triple(g, gtype):
+		triple = ltm.indTriple(g, gtype) +\
+				 tm.multiURI((g,"hasName","\"{}\"".format(g)), (ltm.uri,ctm.uri), True)
+		return triple
+
+	gene_triples = [gene_triple(cn.cleanGene(g), "AllelicTypingGene") for g in aGenes] +\
+	               [gene_triple((g), "CGFtypingGene") for g in cgfGenes]
+	               # Note that allelic typing genes in the csv need to be cleaned but
+	               # the cgf ones are fine as is
+	               
+	return "".join(gene_triples)

@@ -3,13 +3,20 @@ sys.path.append("/home/student/CampyDB/CampyDatabase")
 
 from Scripts import endpoint as e
 from Scripts import TripleMaker as tm
+from Scripts.tripleWriters.campyTM import campy as ctm
+from Scripts.tripleWriters.labTM import lab as ltm
 
-c="https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#"
-l="http://www.essepuntato.it/2010/06/literalreification/"
-t="https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#"
-ctm=tm.TripleMaker(c)
-ltm=tm.TripleMaker(l)
-ttm=tm.TripleMaker(t)
+
+######################################################################################################
+# Global variables
+######################################################################################################
+lit = "http://www.essepuntato.it/2010/06/literalreification/"
+litTM = tm.TripleMaker(lit)
+
+
+######################################################################################################
+# Functions
+######################################################################################################
 
 ######################################################################################################
 # writeToBG 
@@ -31,7 +38,8 @@ def writeToBG(t):
 # isLiteral - True if the results are literals
 ######################################################################################################
 def trimResult(r):
-	l=[]
+
+	l = []
 	for v in r["results"]["bindings"]:
 		l.append(v["v"]["value"])
 	return l
@@ -41,22 +49,12 @@ def trimResult(r):
 # Returns a list of the isolate names.
 ######################################################################################################
 def getIsoNames():
-	q="select ?v where {?i %s ?n . ?n %s ?v .}"\
-	   %(ctm.addUri("hasIsolateName"),(ltm.addUri("hasLiteralValue")))
 
-	result=e.query(q)
+	q = "select ?v where {?i %s ?n . ?n %s ?v .}"\
+	    %(ctm.addUri("hasIsolateName"),(litTM.addUri("hasLiteralValue")))
+
+	result = e.query(q)
 	return trimResult(result)
-
-######################################################################################################
-# insertIso
-######################################################################################################
-def insertIso(title,props,litType=None,isRLiteral=None):
-	triple=ctm.indTriple(title,"Isolate")+\
-		   ctm.propTriple(title,props,litType,isRLiteral)
-
-	#writeToBG(triple)
-	return triple
-
 
 
 ######################################################################################################
@@ -66,6 +64,6 @@ def insertIso(title,props,litType=None,isRLiteral=None):
 def main():
 	print getIsoNames()
 
-if __name__=="__main__":
+if __name__ == "__main__":
 	main()
 	

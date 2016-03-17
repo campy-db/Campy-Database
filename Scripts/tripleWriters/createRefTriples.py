@@ -1,7 +1,10 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import cleanCSV as cn
 import pandas as pd
-import campyTM as ctm
+from campyTM import campy as ctm
 import re
-import cleanCSV as cn
 
 ######################################################################################################
 # createRefTriples
@@ -19,7 +22,7 @@ def createRefTriples(df,row,isoTitle):
 		# a strain is a reference strain or not
 		if re.search("[Rr]eference[ -_][Ss]train",ref) is not None:
 
-			rTriple=ctm.campy.propTriple(isoTitle,{"isReferenceStrain":"true"},"bool",True)
+			rTriple=ctm.propTriple(isoTitle,{"isReferenceStrain":"true"},"bool",True)
 
 			if not pd.isnull(source) and cn.isGoodVal(source):
 				if re.search("[Hh]uman",source) is not None:
@@ -39,7 +42,7 @@ def createRefTriples(df,row,isoTitle):
 				# that that animal has already been set as an instance of whatever family it belongs to 
 				# earlier when we handled the animal source triples. If it's a human its just an instance 
 				# of Patient.
-				rTriple+=ctm.campy.indTriple(title,sClass)
-				rTriple+=ctm.campy.propTriple(isoTitle,{"hasSampleSource":title})
+				rTriple+=ctm.indTriple(title,sClass)
+				rTriple+=ctm.propTriple(isoTitle,{"hasSampleSource":title})
 
 	return rTriple

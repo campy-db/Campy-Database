@@ -1,9 +1,11 @@
 # -*- coding: latin-1 -*-
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
 
+from Scripts import cleanCSV as cn
 import pandas as pd
-import campyTM as ctm
+from campyTM import campy as ctm
 import re
-import cleanCSV as cn
 
 ######################################################################################################
 #
@@ -20,9 +22,9 @@ def createProjTriples(df,row,isoTitle):
 	if re.search("[Rr]eference[ -_][Ss]train",proj) is None:
 
 		if not pd.isnull(proj) and cn.isGoodVal(proj): 
-			projTriple+=ctm.campy.indTriple(proj,"Project")+ctm.campy.propTriple(proj,{"hasName":proj},"string")
+			projTriple+=ctm.indTriple(proj,"Project")+ctm.propTriple(proj,{"hasName":proj},"string")
 
-			isoTriple+=ctm.campy.propTriple(isoTitle,{"partOfProject":proj})
+			isoTriple+=ctm.propTriple(isoTitle,{"partOfProject":proj})
 
 			if not pd.isnull(subproj) and cn.isGoodVal(proj):
 				for c in " _":
@@ -41,11 +43,11 @@ def createProjTriples(df,row,isoTitle):
 
 				if subproj!="":
 					subproj=cn.cleanInt(subproj) # Some of the subprojects are years
-					projTriple+=ctm.campy.indTriple(subproj,"SubProject")
-		   			projTriple+=ctm.campy.propTriple(subproj,{"hasName":subproj},"string")
-		   			projTriple+=ctm.campy.propTriple(proj,{"hasSubproject":subproj})
+					projTriple+=ctm.indTriple(subproj,"SubProject")
+		   			projTriple+=ctm.propTriple(subproj,{"hasName":subproj},"string")
+		   			projTriple+=ctm.propTriple(proj,{"hasSubproject":subproj})
 
-	   				isoTriple+=ctm.campy.propTriple(isoTitle,{"partOfSubProject":subproj})
+	   				isoTriple+=ctm.propTriple(isoTitle,{"partOfSubProject":subproj})
 
 	resultTriple+=isoTriple+projTriple
 

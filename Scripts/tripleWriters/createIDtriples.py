@@ -1,7 +1,10 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import cleanCSV as cn
 import pandas as pd
-import campyTM as ctm
+from campyTM import campy as ctm
 import re
-import cleanCSV as cn
 
 ######################################################################################################
 #
@@ -20,12 +23,12 @@ def createIDtriples(df,row,isoTitle):
 
 	# Add the nmlID, ldmsID and original sample name
 	if not pd.isnull(nmlid) and cn.isGoodVal(nmlid) and nmlid!="0":
-		idTriple+=ctm.campy.propTriple(isoTitle,{"hasNMLid":nmlid},"string",True)
+		idTriple+=ctm.propTriple(isoTitle,{"hasNMLid":nmlid},"string",True)
 
 	if not pd.isnull(ldmsid) and cn.isGoodVal(ldmsid):
-		idTriple+=ctm.campy.propTriple(isoTitle,{"hasLDMSid":ldmsid},"string",True)
+		idTriple+=ctm.propTriple(isoTitle,{"hasLDMSid":ldmsid},"string",True)
 	if not pd.isnull(origName) and cn.isGoodVal(origName):
-		idTriple+=ctm.campy.propTriple(isoTitle,{"hasOriginalName":origName},"string",True)
+		idTriple+=ctm.propTriple(isoTitle,{"hasOriginalName":origName},"string",True)
 
 	# Add the isolate's many sample ID's. Don't add the ID if it is the same as the isoTitle
 	# or other the other IDs before it
@@ -37,7 +40,7 @@ def createIDtriples(df,row,isoTitle):
 			sidA=isoTitle
 
 		litAType="int" if cn.isNumber(sidA) else "string" # Some ids are ints
-		idTriple+=ctm.campy.propTriple(isoTitle,{"hasSampleID":sidA},litAType,True)
+		idTriple+=ctm.propTriple(isoTitle,{"hasSampleID":sidA},litAType,True)
 
 	if not pd.isnull(sidB) and cn.isGoodVal(sidB):
 		# The values 'wrong label on tube..' is in this column. We put this in the
@@ -49,14 +52,14 @@ def createIDtriples(df,row,isoTitle):
 				sidB=isoTitle
 			
 			litBType="int" if cn.isNumber(sidB) else "string" # Some ids are ints
-			idTriple+=ctm.campy.propTriple(isoTitle,{"hasSampleID":sidB},litBType,True)
+			idTriple+=ctm.propTriple(isoTitle,{"hasSampleID":sidB},litBType,True)
 
 	if not pd.isnull(sidC) and cn.isGoodVal(sidC):
 		if cn.compare([isoTitle,sidC]):
 			sidC=isoTitle
 
 		litCType="int" if cn.isNumber(sidC) else "string" # Some ids are ints
-		idTriple+=ctm.campy.propTriple(isoTitle,{"hasSampleID":sidC},litCType,True)
+		idTriple+=ctm.propTriple(isoTitle,{"hasSampleID":sidC},litCType,True)
 
 	# Alternate collection id is stored alongside original collection id.
 	if not pd.isnull(cidA):
@@ -69,13 +72,13 @@ def createIDtriples(df,row,isoTitle):
 
 			cidB=cn.cleanInt(cidB)
 			litCBType="int" if cn.isNumber(cidB) else "string" # Some ids are ints	
-			idTriple+=ctm.campy.propTriple(isoTitle,{"hasCollectionID":cidB},"string",True)
+			idTriple+=ctm.propTriple(isoTitle,{"hasCollectionID":cidB},"string",True)
 
 		litCAType="int" if cn.isNumber(cidA) else "string" # Some ids are ints			
-		idTriple+=ctm.campy.propTriple(isoTitle,{"hasCollectionID":cidA},litCAType,True)
+		idTriple+=ctm.propTriple(isoTitle,{"hasCollectionID":cidA},litCAType,True)
 
 	if comment!="":
-		idTriple+=ctm.campy.propTriple(isoTitle,{"hasComment":sidB},"string")
+		idTriple+=ctm.propTriple(isoTitle,{"hasComment":sidB},"string")
 
 	return idTriple
 

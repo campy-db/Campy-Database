@@ -1,7 +1,11 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import cleanCSV as cn
 import pandas as pd
-import campyTM as ctm
+from campyTM import campy as ctm
 import re
-import cleanCSV as cn
+
 
 ######################################################################################################
 #
@@ -29,20 +33,20 @@ def createIsolationTriples(df,row,isoTitle):
 		if not pd.isnull(sourceSpec) and re.search("[Cc]efex",sourceSpec) is not None:
 			media="K and CEFEX" # SUBJECT TO CHANGE
 
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"grownOn":media},"string",True)
+		isoTriple+=ctm.propTriple(isoTitle,{"grownOn":media},"string",True)
 
 	if not pd.isnull(dilution):
 		# Again there are some values that have spaces and others that don't. 
 		# We'll get rid of the spaces 
 		dilution=dilution.replace(" ","")
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasDilution":dilution},"string",True)
+		isoTriple+=ctm.propTriple(isoTitle,{"hasDilution":dilution},"string",True)
 
 	# The values in the csv are 1 or 0. 1 meaning it is true there is no glyc stock. This
 	# is confusing. So in the ontology we have 'hasGlycStock' and we interpret 1 in the csv as false
 	if not pd.isnull(glycStock) and cn.isGoodVal(glycStock):
 		glycStock=cn.cleanInt(glycStock) # Sometimes ints are converted to floats in the csv
 		glycStock="false" if "1" in glycStock else "true"
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasGlycStock":glycStock},"bool",True)
+		isoTriple+=ctm.propTriple(isoTitle,{"hasGlycStock":glycStock},"bool",True)
 
 	if not pd.isnull(hipO) and cn.isGoodVal(hipO):
 		hipO=cn.cleanInt(hipO)
@@ -55,12 +59,12 @@ def createIsolationTriples(df,row,isoTitle):
 			else:
 				hipO="false"; litType="bool"
 
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasHipO":hipO},litType,True)
+		isoTriple+=ctm.propTriple(isoTitle,{"hasHipO":hipO},litType,True)
 
 	# For whatever reason the value 'Treatment' is in the column 'Treatment'. We'll ignore it 
 	# for now. 
 	if not pd.isnull(treatment) and "Treatment" not in treatment and cn.isGoodVal(treatment):
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasTreatment":treatment},"string",True)
+		isoTriple+=ctm.propTriple(isoTitle,{"hasTreatment":treatment},"string",True)
 
 	# The - also showed up in technique. We'll ignore it.
 	if not pd.isnull(technique) and technique!="-":
@@ -72,6 +76,6 @@ def createIsolationTriples(df,row,isoTitle):
 		# spaces.
 		technique=technique.replace(" ","")
 
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasTechnique":technique},"string",True)
+		isoTriple+=ctm.propTriple(isoTitle,{"hasTechnique":technique},"string",True)
 			
 	return isoTriple

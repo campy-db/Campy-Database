@@ -1,7 +1,10 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import cleanCSV as cn
 import pandas as pd
-import campyTM as ctm
+from campyTM import campy as ctm
 import re
-import cleanCSV as cn
 import pycountry as pc
 
 subNats=[x.name for x in list(pc.subdivisions)] # A list of names of subnationals
@@ -29,7 +32,7 @@ def createAgeTriples(df,row,hum):
 			else: # The value is a birth day
 				bday=cn.convertDate(age,False)
 				if bday!=-1:
-					humTriple+=ctm.campy.propTriple(hum,{"hasBirthDate":bday},"string",True)
+					humTriple+=ctm.propTriple(hum,{"hasBirthDate":bday},"string",True)
 				# else: date is invalid
 
 				if not pd.isnull(yearTaken):
@@ -40,7 +43,7 @@ def createAgeTriples(df,row,hum):
 				else:
 					age=date.today().year-int(bday[:yearLen]) # Use todays year for the age
 
-		humTriple+=ctm.campy.propTriple(hum,{"hasAge":str(age)},"int",True) if age!="" else ""	
+		humTriple+=ctm.propTriple(hum,{"hasAge":str(age)},"int",True) if age!="" else ""	
 
 	return humTriple
 
@@ -67,12 +70,12 @@ def createTravelTriples(df,row,hum):
 		travel=travel[:end.span()[0]] if end is not None else travel
 
 		if travel in subNats:
-			trTriple=ctm.campy.indTriple(travel,"SubNational")
+			trTriple=ctm.indTriple(travel,"SubNational")
 		if travel in countries:
-			trTriple=ctm.campy.indTriple(travel,"Country")
+			trTriple=ctm.indTriple(travel,"Country")
 
-		trTriple+=ctm.campy.propTriple(travel,{"hasName":travel},"string")
-		humTriple=ctm.campy.propTriple(hum,{"traveledTo":travel})
+		trTriple+=ctm.propTriple(travel,{"hasName":travel},"string")
+		humTriple=ctm.propTriple(hum,{"traveledTo":travel})
 
 	return trTriple+humTriple
 
@@ -94,8 +97,8 @@ def createHumanTriples(df,row,isoTitle):
 	sTypeB=df["Clinical Sample Type"][row] # Also has clinical sample typ
 
 	# Just create a generic human individual
-	humTriple=ctm.campy.indTriple(hum,"Patient") # All human samples in the csv are patients
-	humTriple+=ctm.campy.propTriple(hum,{"hasName":hum},"string")
+	humTriple=ctm.indTriple(hum,"Patient") # All human samples in the csv are patients
+	humTriple+=ctm.propTriple(hum,{"hasName":hum},"string")
 
 	# Travel info is in the column 'comments' and it's quite messy so we'll
 	# handle it separately 
@@ -108,10 +111,10 @@ def createHumanTriples(df,row,isoTitle):
 	# The values 0, m, f, male, female and 'not given' are in the csv. We won't add the prop if 
 	# it's 'not given'
 	if not pd.isnull(gender) and cn.isGoodVal(gender) and gender!=0:
-		humTriple+=ctm.campy.propTriple(hum,{"hasGender":gender[0]},"string",True)
+		humTriple+=ctm.propTriple(hum,{"hasGender":gender[0]},"string",True)
 
 	if not pd.isnull(postalCode):
-		humTriple+=ctm.campy.propTriple(hum,{"hasPostalCode":postalCode},"string",True)
+		humTriple+=ctm.propTriple(hum,{"hasPostalCode":postalCode},"string",True)
 
 	# If sTypeA is nan, try sTypeB
 	typeCol=sTypeA if not pd.isnull(sTypeA) else sTypeB
@@ -125,11 +128,11 @@ def createHumanTriples(df,row,isoTitle):
 	 # type could still be "" as not all the values for sTypeA (Source_Specific_2) are 
 	 # clinical sample types, i.e. 'blood' or 'stool'
 	if type!="":
-		isoTriple+=ctm.campy.indTriple(type,"ClinicalType")
-		isoTriple+=ctm.campy.propTriple(type,{"hasName":type},"string")
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasSampleType":type})
+		isoTriple+=ctm.indTriple(type,"ClinicalType")
+		isoTriple+=ctm.propTriple(type,{"hasName":type},"string")
+		isoTriple+=ctm.propTriple(isoTitle,{"hasSampleType":type})
 		
-	isoTriple+=ctm.campy.propTriple(isoTitle,{"hasSampleSource":hum})
+	isoTriple+=ctm.propTriple(isoTitle,{"hasSampleSource":hum})
 
 	return humTriple+isoTriple
 
@@ -188,8 +191,8 @@ def createEnviroTriples(df,row,isoTitle):
 									# named unknown in the future.
 	
 	title=enviroSpec.lower() # Doesn't need to be unique; there are no props attached to evironments. 
-	enviroTriple=ctm.campy.indTriple(title,enviro)+ctm.campy.propTriple(title,{"hasName":enviroSpec},"string")
-	isoTriple=ctm.campy.propTriple(isoTitle,{"hasSampleSource":title})
+	enviroTriple=ctm.indTriple(title,enviro)+ctm.propTriple(title,{"hasName":enviroSpec},"string")
+	isoTriple=ctm.propTriple(isoTitle,{"hasSampleSource":title})
 
 	return enviroTriple+isoTriple
 		
@@ -239,33 +242,33 @@ def createTypeTriples(df,row,isoTitle):
 			# sourceSpec has info related to the properties of meat.
 			if "seasoned" in sourceSpec:
 				title=sampleType+"_seasoned_"+name
-				stTriple+=ctm.campy.propTriple(title,{"isSeasoned":"false"},"bool",True)
+				stTriple+=ctm.propTriple(title,{"isSeasoned":"false"},"bool",True)
 
 			if "skin" in sourceSpec:
 				if "skinless" in sourceSpec:
 					title=sampleType+"_skinless_"+name
-					stTriple+=ctm.campy.propTriple(title,{"isSkinless":"true"},"bool",True)
+					stTriple+=ctm.propTriple(title,{"isSkinless":"true"},"bool",True)
 				else:
 					title=sampleType+"_"+name+"_withskin"
-					stTriple+=ctm.campy.propTriple(title,{"isSkinless":"false"},"bool",True)
+					stTriple+=ctm.propTriple(title,{"isSkinless":"false"},"bool",True)
 			if "rinse" in sourceSpec:
 				title=sampleType+"_"+name+"_rinse"
-				stTriple+=ctm.campy.propTriple(title,{"isRinse":"true"},"bool",True)
+				stTriple+=ctm.propTriple(title,{"isRinse":"true"},"bool",True)
 
 
 			if "breast" in title or "thigh" in title or "ground" in title or "loin" in title:
-				stTriple+=ctm.campy.indTriple(title,"Meat")
+				stTriple+=ctm.indTriple(title,"Meat")
 
-			stTriple+=ctm.campy.propTriple(title,{"hasName":name},"string")
+			stTriple+=ctm.propTriple(title,{"hasName":name},"string")
 
 		else: # sourceSpec is nan
 			name=sampleType
 			title=sampleType # faecal, abattoir, retail, egg
 
 		stClass=sampleType+"Type"
-		stTriple+=ctm.campy.indTriple(title,stClass)
+		stTriple+=ctm.indTriple(title,stClass)
 
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasSampleType":title})
+		isoTriple+=ctm.propTriple(isoTitle,{"hasSampleType":title})
 
 	return stTriple+isoTriple
 
@@ -395,14 +398,14 @@ def createAnimalTriples(df,row,isoTitle):
 				if "heifer" in sourceSpec:
 					animal="heifer"
 					family="Cow"
-					animalTriple+=ctm.campy.subClass(family,"Ruminant") # Cow is subclass of Ruminant
+					animalTriple+=ctm.subClass(family,"Ruminant") # Cow is subclass of Ruminant
 
 				# Dairy cow is more specific than just a cow so Dairy Cow becomes a subclass
 				# of cow. DAIRY, Dairy Cow, and Dairy Manure are found in source specific 2
 				if "dairy" in sourceSpec:
 					animal="dairy cow"
 					family="Cow"
-					animalTriple+=ctm.campy.subClass(family,"Ruminant") # Cow is subclass of Ruminant
+					animalTriple+=ctm.subClass(family,"Ruminant") # Cow is subclass of Ruminant
 
 				if "shore bird" in sourceSpec:
 					animal="shore bird"
@@ -420,25 +423,25 @@ def createAnimalTriples(df,row,isoTitle):
 		title=animal+"_"+isoTitle
 
 	if not pd.isnull(sex) and cn.isGoodVal(sex) and (sex[0]=="M" or sex[0]=="F"):
-		animalTriple+=ctm.campy.propTriple(title,{"hasSex":sex[0]},"string",True)
+		animalTriple+=ctm.propTriple(title,{"hasSex":sex[0]},"string",True)
 
 	if not pd.isnull(ageRank) and ("juvenile" in ageRank or "adult" in ageRank):
-		animalTriple+=ctm.campy.propTriple(title,{"hasAgeRank":ageRank},"string",True)		
+		animalTriple+=ctm.propTriple(title,{"hasAgeRank":ageRank},"string",True)		
 		
 	if domestic!="":
-		animalTriple+=ctm.campy.propTriple(title,{"isDomestic":domestic},"bool",True)
+		animalTriple+=ctm.propTriple(title,{"isDomestic":domestic},"bool",True)
 
 	if animal!="unknown":
 		# animal becomes an instance of animal, and animal becomes a subclass of family
-		animalTriple+=ctm.campy.indTriple(title,animal)+ctm.campy.subClass(animal,family)
+		animalTriple+=ctm.indTriple(title,animal)+ctm.subClass(animal,family)
 
 	if taxoGenus!="":
-		animalTriple+=ctm.campy.propTriple(title,{"hasTaxoGenus":taxoGenus},"string",True)
+		animalTriple+=ctm.propTriple(title,{"hasTaxoGenus":taxoGenus},"string",True)
 
 
-	animalTriple+=ctm.campy.indTriple(title,family)
+	animalTriple+=ctm.indTriple(title,family)
 
-	isoTriple+=ctm.campy.propTriple(isoTitle,{"hasSampleSource":title})
+	isoTriple+=ctm.propTriple(isoTitle,{"hasSampleSource":title})
 
 
 	return animalTriple+isoTriple

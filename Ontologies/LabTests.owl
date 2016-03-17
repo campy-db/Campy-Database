@@ -56,7 +56,7 @@
                     
                     rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
                     
-                    rdfs:domain :MLSTtest ;
+                    rdfs:domain :MLST_test ;
                     
                     rdfs:subPropertyOf :hasMLSTproperty .
 
@@ -108,7 +108,7 @@
          
          rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
          
-         rdfs:domain :MLSTtest ;
+         rdfs:domain :MLST_test ;
          
          rdfs:subPropertyOf :hasMLSTproperty .
 
@@ -122,7 +122,7 @@
                
                rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
                
-               rdfs:domain :SerotypeTest ;
+               rdfs:domain :Serotype_test ;
                
                rdfs:subPropertyOf :hasSerotypeProperty .
 
@@ -200,9 +200,9 @@
 
 :hasCGFproperty rdf:type owl:ObjectProperty ;
                 
-                rdfs:range :CGFproperty ;
+                rdfs:domain :CGF_test ;
                 
-                rdfs:domain :CGFtest ;
+                rdfs:range :CGFproperty ;
                 
                 rdfs:subPropertyOf :hasBinaryProperty .
 
@@ -299,7 +299,7 @@
                 
                 rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
                 
-                rdfs:domain :CGFtest ;
+                rdfs:domain :CGF_test ;
                 
                 rdfs:subPropertyOf :hasCGFproperty .
 
@@ -314,7 +314,7 @@
            
            rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
            
-           rdfs:domain :CGFtest ;
+           rdfs:domain :CGF_test ;
            
            rdfs:subPropertyOf :hasCGFproperty .
 
@@ -339,7 +339,7 @@
                  
                  rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
                  
-                 rdfs:domain :CGFtest ;
+                 rdfs:domain :CGF_test ;
                  
                  rdfs:subPropertyOf :hasCGFproperty .
 
@@ -363,9 +363,9 @@
 
 :hasMLSTproperty rdf:type owl:ObjectProperty ;
                  
-                 rdfs:range :MLSTproperty ;
+                 rdfs:domain :MLST_test ;
                  
-                 rdfs:domain :MLSTtest ;
+                 rdfs:range :MLSTproperty ;
                  
                  rdfs:subPropertyOf :hasAllelicProperty .
 
@@ -389,7 +389,7 @@
                      
                      rdfs:range :SerotypeProperty ;
                      
-                     rdfs:domain :SerotypeTest ;
+                     rdfs:domain :Serotype_test ;
                      
                      rdfs:subPropertyOf :hasTypingTestProperty .
 
@@ -578,6 +578,14 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_test
+
+:CGF_test rdf:type owl:Class ;
+          
+          rdfs:subClassOf :BinaryTest .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGFcluster
 
 :CGFcluster rdf:type owl:Class ;
@@ -591,14 +599,6 @@
 :CGFproperty rdf:type owl:Class ;
              
              rdfs:subClassOf :BinaryProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGFtest
-
-:CGFtest rdf:type owl:Class ;
-         
-         rdfs:subClassOf :BinaryTest .
 
 
 
@@ -628,19 +628,19 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaASVRtest
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaA_SVR_test
 
-:FlaASVRtest rdf:type owl:Class ;
-             
-             rdfs:subClassOf :AllelicTest .
+:FlaA_SVR_test rdf:type owl:Class ;
+               
+               rdfs:subClassOf :AllelicTest .
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaPeptidetest
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaPeptide_test
 
-:FlaPeptidetest rdf:type owl:Class ;
-                
-                rdfs:subClassOf :AllelicTest .
+:FlaPeptide_test rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :AllelicTest .
 
 
 
@@ -656,6 +656,14 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MLST_test
+
+:MLST_test rdf:type owl:Class ;
+           
+           rdfs:subClassOf :AllelicTest .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MLSTproperty
 
 :MLSTproperty rdf:type owl:Class ;
@@ -664,19 +672,11 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MLSTtest
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MOMP_test
 
-:MLSTtest rdf:type owl:Class ;
-          
-          rdfs:subClassOf :AllelicTest .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MOMPtest
-
-:MOMPtest rdf:type owl:Class ;
-          
-          rdfs:subClassOf :AllelicTest .
+:MOMP_test rdf:type owl:Class ;
+           
+           rdfs:subClassOf :AllelicTest .
 
 
 
@@ -696,19 +696,19 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PorAtest
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PorA_test
 
-:PorAtest rdf:type owl:Class ;
-          
-          rdfs:subClassOf :AllelicTest .
+:PorA_test rdf:type owl:Class ;
+           
+           rdfs:subClassOf :AllelicTest .
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#SMA1
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#SMA1_test
 
-:SMA1 rdf:type owl:Class ;
-      
-      rdfs:subClassOf :PFGE .
+:SMA1_test rdf:type owl:Class ;
+           
+           rdfs:subClassOf :PFGE .
 
 
 
@@ -720,11 +720,11 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#SerotypeTest
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Serotype_test
 
-:SerotypeTest rdf:type owl:Class ;
-              
-              rdfs:subClassOf :TypingTest .
+:Serotype_test rdf:type owl:Class ;
+               
+               rdfs:subClassOf :TypingTest .
 
 
 
@@ -786,18 +786,18 @@
 
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :AllelicTest
-                :BinaryTest
-                :PFGE
-                :SerotypeTest
+  owl:members ( :FlaA_SVR_test
+                :FlaPeptide_test
+                :MLST_test
+                :MOMP_test
+                :PorA_test
               )
 ] .
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :FlaASVRtest
-                :FlaPeptidetest
-                :MLSTtest
-                :MOMPtest
-                :PorAtest
+  owl:members ( :AllelicTest
+                :BinaryTest
+                :PFGE
+                :Serotype_test
               )
 ] .
 

@@ -1,8 +1,11 @@
 # -*- coding: latin-1 -*-
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import cleanCSV as cn
 import pandas as pd
-import campyTM as ctm
+from campyTM import campy as ctm
 import re
-import cleanCSV as cn
 import standardT as st
 
 ######################################################################################################
@@ -100,8 +103,8 @@ def createLocTriples(df,row,isoTitle):
 			lat=cn.convertGPS(lat)
 			lng=cn.convertGPS(lng)
 
-			locTriple+=ctm.campy.propTriple(isoTitle,{"hasLatitude":lat},"digit",True)
-			locTriple+=ctm.campy.propTriple(isoTitle,{"hasLongitude":lng},"digit",True)
+			locTriple+=ctm.propTriple(isoTitle,{"hasLatitude":lat},"digit",True)
+			locTriple+=ctm.propTriple(isoTitle,{"hasLongitude":lng},"digit",True)
 
 
 	return locTriple

@@ -1,6 +1,9 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase")
+
+from Scripts import cleanCSV as cn
 import pandas as pd
-import campyTM as ctm
-import cleanCSV as cn
+from campyTM import campy as ctm
 
 ######################################################################################################
 #
@@ -53,14 +56,14 @@ def createSpeciesTriples(df,row,isoTitle):
 
 	if specA!="":
 		specA=specA.lower() # Some are no_16 and others are No_16
-		isoTriple+=ctm.campy.indTriple(specA,"CampySpecies")+\
-				   ctm.campy.propTriple(specA,{"hasName":specA},"string")
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasSpecies":specA})
+		isoTriple+=ctm.indTriple(specA,"CampySpecies")+\
+				   ctm.propTriple(specA,{"hasName":specA},"string")
+		isoTriple+=ctm.propTriple(isoTitle,{"hasSpecies":specA})
 
 	if specB!="":
 		specB=specB.lower() # Ditto
-		isoTriple+=ctm.campy.indTriple(specB,"CampySpecies")+\
-			       ctm.campy.propTriple(specB,{"hasName":specB},"string")
-		isoTriple+=ctm.campy.propTriple(isoTitle,{"hasSpecies":specB})
+		isoTriple+=ctm.indTriple(specB,"CampySpecies")+\
+			       ctm.propTriple(specB,{"hasName":specB},"string")
+		isoTriple+=ctm.propTriple(isoTitle,{"hasSpecies":specB})
 
 	return isoTriple
