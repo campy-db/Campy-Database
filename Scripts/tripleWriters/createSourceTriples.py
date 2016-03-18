@@ -6,7 +6,9 @@ import pandas as pd
 from campyTM import campy as ctm
 import re
 import pycountry as pc
+import datetime
 
+now = datetime.datetime.now()
 subNats=[x.name for x in list(pc.subdivisions)] # A list of names of subnationals
 countries=[x.name for x in list(pc.countries)] # A list of names of countries
 
@@ -24,26 +26,42 @@ def createAgeTriples(df,row,hum):
 	age=df["Patient D.O.B / Age"][row]
 	yearTaken=cn.cleanInt(df["YEAR"][row]) # The year values are converted to floats for some reason
 										   # in the csv. We convert it to a string
+										   
 	if not pd.isnull(age) and cn.isGoodVal(age): 
-		if len(age)>ageLen: # if a birthday or range
+
+		if len(age) > ageLen: # if a birthday or range
+
 			if "years" in age: # Every range contains the word 'years'.
 				# Most ranges are of the form age-age, but some are age+
-				age="" # Ignore ranges for now
+				age = "" # Ignore ranges for now
+
 			else: # The value is a birth day
-				bday=cn.convertDate(age,False)
-				if bday!=-1:
-					humTriple+=ctm.propTriple(hum,{"hasBirthDate":bday},"string",True)
+
+				bday = cn.convertDate(age,False) # Will standardize the date to iso and check
+											   # if it's a valid date.
+
+				if bday != -1:
+
+					dates = bday.split("-")
+
+					dates = [cn.cleanInt(d) for d in dates]
+
+					humTriple += ctm.propTriple(hum, {"hasBirthDay":dates[2]}, "int", True) +\
+					             ctm.propTriple(hum, {"hasBirthMonth":dates[1]}, "int", True) +\
+					             ctm.propTriple(hum, {"hasBirthYear":dates[0]}, "int", True)
+
 				# else: date is invalid
 
 				if not pd.isnull(yearTaken):
-					age=int(yearTaken)-int(bday[:yearLen]) # bday is in ISO format, so the first 4
-													       # chars is the year of the bday
-					if age<0: # One of the patients was born in 2011,but the sample was taken in 2010
-						age=0
-				else:
-					age=date.today().year-int(bday[:yearLen]) # Use todays year for the age
 
-		humTriple+=ctm.propTriple(hum,{"hasAge":str(age)},"int",True) if age!="" else ""	
+					age = int(yearTaken) - int(dates[0])
+													      
+					if age < 0: # One of the patients was born in 2011,but the sample was taken in 2010
+						age = 0
+				else:
+					age = now.year - int(bday[:yearLen]) # Use todays year for the age
+
+		humTriple += ctm.propTriple(hum, {"hasAge":str(age)}, "int", True) if age else ""	
 
 	return humTriple
 
