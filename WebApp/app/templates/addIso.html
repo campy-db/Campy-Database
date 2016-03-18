@@ -8,42 +8,92 @@
     <br>
     <div class=section>Basic Data</div>
     <p class=field>
-      Name <b class=fieldAlignA>
-      {{ form.name(size=40) }}
-      <b class=warning>[Required]</b>
-      </b>
+
+      Name <b class=fieldAlignA> {{ form.name(size=40) }}
+      <b class=warning>(Required)</b></b>
 
       {% for error in form.name.errors %}
        <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
 
       <br><br>
-      Species <b class=fieldAlignA>{{ form.spec(size=40) }}</b>
+
+      Species <b class=fieldAlignA> {{ form.spec(size=40) }}</b>
 
       {% for error in form.spec.errors %}
        <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
-    </p>
+
     <br>
+    </p>
+
     <div class=section>CGF Data</div>
+
     <p class=field>
-      Fingerprint <b class=fieldAlignB>{{ form.fp(size=40) }}</b>
+
+      InVitro
+      <span class=fieldAlignB>{{ form.vitro() }}</span>
+  
+      <br><br>
+
+      Fingerprint <span class=fieldAlignB>{{ form.fp(size=41) }}</span>
 
       {% for error in form.fp.errors %}
        <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
-    </p>
-    <p class=field>
-      Date Completed 
-      <b class=fieldAlignB>
-      {{ form.dc(size=40) }}
-      <b class=warning>[First number is assumed to be the day]</b>
-      </b>
 
-      {% for error in form.dc.errors %}
-       <br><span style="color: red;">[{{ error }}]</span>
+      <br><br>
+
+      Date Completed 
+      <span class=fieldAlignB>
+      {{ form.dcy(size=11) }} {{ form.dcm(size=11) }} {{ form.dcd(size=11) }}
+      <b class=warning>(Year-Month-Day)</b></span>
+      
+      {% for error in form.dcy.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
+      {% for error in form.dcm.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+      {% for error in form.dcd.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+
+      <br><br>
+
+      Typing Lab
+      <span class=fieldAlignB>{{ form.lab(size=41) }}</span>
     <br>
+    </p>
+
+    <div class=section>Animal Source Data</div>
+
+    <p class=field>
+
+      Animal
+      <span class=fieldAlignC>{{ form.animal(size=41) }}
+      <b class=warning>(eg. chicken, cow, fly, etc.)</b></span>
+
+      <br><br>
+
+      ID
+      <span class=fieldAlignC>{{ form.aID(size=41) }}</span>
+
+      <br><br>
+
+      Gender
+      <span class=fieldAlignC>{{ form.sex() }}</span>
+
+      <br><br>
+
+      Domestic
+      <span class=fieldAlignC>{{ form.domestic() }}</span>
+
+      <br><br>
+
+      Age Rank
+      <span class=fieldAlignC>{{ form.aage() }}</span>
+
     </p>
 
     <input type=submit value=Submit>

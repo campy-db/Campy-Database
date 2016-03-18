@@ -62,6 +62,51 @@
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundFingerprint
+
+:foundFingerprint rdf:type owl:FunctionalProperty ,
+                           owl:ObjectProperty ;
+                  
+                  rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                  
+                  rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                  
+                  rdfs:domain :CGF_test ;
+                  
+                  rdfs:subPropertyOf :hasCGFproperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundHexNum
+
+:foundHexNum rdf:type owl:FunctionalProperty ,
+                      owl:ObjectProperty ;
+             
+             rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+             
+             rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+             
+             rdfs:domain :CGF_test ;
+             
+             rdfs:subPropertyOf :hasCGFproperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundLegacyHexNum
+
+:foundLegacyHexNum rdf:type owl:FunctionalProperty ,
+                            owl:ObjectProperty ;
+                   
+                   rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                   
+                   rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                   
+                   rdfs:domain :CGF_test ;
+                   
+                   rdfs:subPropertyOf :hasCGFproperty .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundMIC
 
 :foundMIC rdf:type owl:ObjectProperty ;
@@ -244,17 +289,17 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDateCompleted
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDayCompleted
 
-:hasDateCompleted rdf:type owl:ObjectProperty ;
-                  
-                  rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                  
-                  rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                  
-                  rdfs:domain :LabTest ;
-                  
-                  rdfs:subPropertyOf :hasLabTestProperty .
+:hasDayCompleted rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                 
+                 rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                 
+                 rdfs:domain :LabTest ;
+                 
+                 rdfs:subPropertyOf :hasLabTestProperty .
 
 
 
@@ -290,36 +335,6 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasFingerprint
-
-:hasFingerprint rdf:type owl:FunctionalProperty ,
-                         owl:ObjectProperty ;
-                
-                rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                
-                rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                
-                rdfs:domain :CGF_test ;
-                
-                rdfs:subPropertyOf :hasCGFproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasHexNum
-
-:hasHexNum rdf:type owl:FunctionalProperty ,
-                    owl:ObjectProperty ;
-           
-           rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-           
-           rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-           
-           rdfs:domain :CGF_test ;
-           
-           rdfs:subPropertyOf :hasCGFproperty .
-
-
-
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasLabTestProperty
 
 :hasLabTestProperty rdf:type owl:ObjectProperty ;
@@ -327,21 +342,6 @@
                     rdfs:domain :LabTest ;
                     
                     rdfs:range :LabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasLegacyHexNum
-
-:hasLegacyHexNum rdf:type owl:FunctionalProperty ,
-                          owl:ObjectProperty ;
-                 
-                 rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                 
-                 rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                 
-                 rdfs:domain :CGF_test ;
-                 
-                 rdfs:subPropertyOf :hasCGFproperty .
 
 
 
@@ -368,6 +368,20 @@
                  rdfs:range :MLSTproperty ;
                  
                  rdfs:subPropertyOf :hasAllelicProperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasMonthCompleted
+
+:hasMonthCompleted rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                   
+                   rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                   
+                   rdfs:domain :LabTest ;
+                   
+                   rdfs:subPropertyOf :hasLabTestProperty .
 
 
 
@@ -446,6 +460,20 @@
                        rdfs:range :TypingTestProperty ;
                        
                        rdfs:subPropertyOf :hasLabTestProperty .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasYearCompleted
+
+:hasYearCompleted rdf:type owl:ObjectProperty ;
+                  
+                  rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                  
+                  rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                  
+                  rdfs:domain :LabTest ;
+                  
+                  rdfs:subPropertyOf :hasLabTestProperty .
 
 
 
@@ -786,18 +814,18 @@
 
 
 [ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AllelicTest
+                :BinaryTest
+                :PFGE
+                :Serotype_test
+              )
+] .
+[ rdf:type owl:AllDisjointClasses ;
   owl:members ( :FlaA_SVR_test
                 :FlaPeptide_test
                 :MLST_test
                 :MOMP_test
                 :PorA_test
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :AllelicTest
-                :BinaryTest
-                :PFGE
-                :Serotype_test
               )
 ] .
 

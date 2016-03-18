@@ -78,19 +78,27 @@ def createCGFtriples(df, row, isoTitle):
 	# Every cgf test in the csv is inVitro
 	cgfTriple += ltm.propTriple(cgfTest,{"isInVitro":"true"},"bool",True)
 
-	if fileLoc != "":
+	if fileLoc:
 		cgfTriple += ltm.propTriple(cgfTest,{"hasFileLocation":fileLoc},"string",True)  
 
-	if date != "" and date != -1:
-		cgfTriple += ltm.propTriple(cgfTest,{"hasDateCompleted":date},"string",True)
+	if date and date != -1:
+
+		dates = date.split("-")
+
+		dates = [cn.cleanInt(d) for d in dates]
+
+		cgfTriple += ltm.propTriple(cgfTest, {"hasDayCompleted":dates[2]}, "int", True) +\
+		             ltm.propTriple(cgfTest, {"hasMonthCompleted":dates[1]}, "int", True) +\
+		             ltm.propTriple(cgfTest, {"hasYearCompleted":dates[0]}, "int", True)
+
 
 	if not pd.isnull(fingerprint) and cn.isGoodVal(fingerprint):
 		fingerprint = fingerprint.replace("fp","")
-		cgfTriple += ltm.propTriple(cgfTest,{"hasFingerprint":fingerprint},"string",True)
+		cgfTriple += ltm.propTriple(cgfTest,{"foundFingerprint":fingerprint},"long", True)
 
 	if not pd.isnull(legacyHexNum) and cn.isGoodVal(legacyHexNum):
 		legacyHexNum = legacyHexNum.replace("BIN","")
-		cgfTriple += ltm.propTriple(cgfTest,{"hasLegacyHexNum":legacyHexNum},"string",True)
+		cgfTriple += ltm.propTriple(cgfTest,{"foundLegacyHexNum":legacyHexNum},"string", True)
 
 
 	if not pd.isnull(typingLab) and cn.isGoodVal(typingLab):
@@ -106,7 +114,7 @@ def createCGFtriples(df, row, isoTitle):
 		
 	clustTriple = createClustTriples(df,row,cgfTest)
 
-	if clustTriple != "":
+	if clustTriple:
 		cgfTriple += clustTriple
 	
 

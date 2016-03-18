@@ -441,7 +441,7 @@ def createAnimalTriples(df,row,isoTitle):
 		title=animal+"_"+isoTitle
 
 	if not pd.isnull(sex) and cn.isGoodVal(sex) and (sex[0]=="M" or sex[0]=="F"):
-		animalTriple+=ctm.propTriple(title,{"hasSex":sex[0]},"string",True)
+		animalTriple+=ctm.propTriple(title,{"hasSex":sex[0].lower()},"string",True)
 
 	if not pd.isnull(ageRank) and ("juvenile" in ageRank or "adult" in ageRank):
 		animalTriple+=ctm.propTriple(title,{"hasAgeRank":ageRank},"string",True)		

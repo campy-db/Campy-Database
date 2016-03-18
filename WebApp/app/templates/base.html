@@ -11,7 +11,7 @@ h1              { border-bottom: 2px solid #eee; }
 h2              { border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bottom: 0.2em; font-size: 1.5em; }
 
 
-.optionButton  { position: absolute; font-weight:bold; font-size: 1.3em; height: 1em; width: 9em; padding: 5px; 
+.optionButton  { border-radius: 5px; position: absolute; font-weight:bold; font-size: 1.3em; height: 1em; width: 9em; padding: 5px; 
                  border: 0; margin: 0; color:#377BA8; background: white; 
                  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
 
@@ -22,19 +22,21 @@ h2              { border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bot
                        border: 0; margin: 0; color:#377BA8; background: white; 
                        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);}
 
+p.small         { line-height: 10%; }
 h1.center       { text-align: center; }
 .warning        { color: #CCCCCC; }
 a.link          { text-decoration: none; }
 .section        { font-weight: bold; border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bottom: 0.2em; font-size: 1.3em;}
-.fieldAlignA    { position: absolute; left: 617px; }
-.fieldAlignB    { position: absolute; left: 680px; }
+.fieldAlignA    { position: absolute; left: 612px; }
+.fieldAlignB    { position: absolute; left: 675px; }
+.fieldAlignC    { position: absolute; left: 625px; }
 p.field         { font-weight: bold;}
 .page           { border-radius: 5px; margin: 4em auto; width: 51em;
                   padding: 1em; background: white; box-shadow: 0 0 12px 0 rgba(0,0,0,0.2), 0 0 12px 0 rgba(0,0,0,0.19); }
 .add	          { font-size: 1em; }
 .add dl   		  { font-weight: bold; }
-.flash          { background: #CEE5F5; padding: 0.5em;
-                  border: 1px solid #AACBE2; }
+.flash          { background: #377BA8; padding: 0.5em;
+                  border: 1px solid #AACBE2; color: white;}
 .error          { background: #F0D6D6; padding: 0.5em; }
 </style>
 
@@ -53,10 +55,11 @@ p.field         { font-weight: bold;}
   </div>
   {% endif %}
   {% endwith %}
-  {% if title %}
 
+  {% if title %}
   <h2>{{title}}</h2>
   {% endif %}
+
   {% block contentA %}{% endblock %}
 </div>
 

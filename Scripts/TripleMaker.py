@@ -266,6 +266,7 @@ class TripleMaker:
 	# Just to make propTriple more readable.
 	###################################################################################################
 	def addProp(self,p,props,litType=None,rLiteral=None):
+
 		result=""
 		result+=self.addURI(p)+" " # Add the URI to the property name
 				
@@ -281,6 +282,8 @@ class TripleMaker:
 			val=props[p][j] if isList else props[p]
 	
 			if litType:
+
+				val = val.lower() if litType == "bool" else val
 
 				if rLiteral:
 
