@@ -45,19 +45,19 @@ def createIsolationTriples(df,row,isoTitle):
 	# is confusing. So in the ontology we have 'hasGlycStock' and we interpret 1 in the csv as false
 	if not pd.isnull(glycStock) and cn.isGoodVal(glycStock):
 		glycStock=cn.cleanInt(glycStock) # Sometimes ints are converted to floats in the csv
-		glycStock="false" if "1" in glycStock else "true"
+		glycStock=False if "1" in glycStock else True
 		isoTriple+=ctm.propTriple(isoTitle,{"hasGlycStock":glycStock},"bool",True)
 
 	if not pd.isnull(hipO) and cn.isGoodVal(hipO):
 		hipO=cn.cleanInt(hipO)
 
 		if "1" in hipO:
-			hipO="true"; litType="bool"
+			hipO=True; litType="bool"
 		else:
 			if "?" in hipO: 
 				hipO="unknown"; litType="string"
 			else:
-				hipO="false"; litType="bool"
+				hipO=False; litType="bool"
 
 		isoTriple+=ctm.propTriple(isoTitle,{"hasHipO":hipO},litType,True)
 
