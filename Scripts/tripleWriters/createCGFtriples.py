@@ -76,7 +76,7 @@ def createCGFtriples(df, row, isoTitle):
 	cgfTriple = ltm.indTriple(cgfTest,"CGF_test")
 
 	# Every cgf test in the csv is inVitro
-	cgfTriple += ltm.propTriple(cgfTest,{"isInVitro":"true"},"bool",True)
+	cgfTriple += ltm.propTriple(cgfTest,{"isInVitro":True},"bool",True)
 
 	if fileLoc:
 		cgfTriple += ltm.propTriple(cgfTest,{"hasFileLocation":fileLoc},"string",True)  
@@ -87,10 +87,9 @@ def createCGFtriples(df, row, isoTitle):
 
 		dates = [cn.cleanInt(d) for d in dates]
 
-		cgfTriple += ltm.propTriple(cgfTest, {"hasDayCompleted":dates[2]}, "int", True) +\
-		             ltm.propTriple(cgfTest, {"hasMonthCompleted":dates[1]}, "int", True) +\
-		             ltm.propTriple(cgfTest, {"hasYearCompleted":dates[0]}, "int", True)
-
+		cgfTriple += ltm.propTriple(cgfTest, {"hasDayCompleted":dates[2], 
+		             			      "hasMonthCompleted":dates[1],
+		                                      "hasYearCompleted":dates[0]}, "int", True)
 
 	if not pd.isnull(fingerprint) and cn.isGoodVal(fingerprint):
 		fingerprint = fingerprint.replace("fp","")
