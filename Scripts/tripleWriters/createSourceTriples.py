@@ -46,9 +46,9 @@ def createAgeTriples(df,row,hum):
 
 					dates = [cn.cleanInt(d) for d in dates]
 
-					humTriple += ctm.propTriple(hum, {"hasBirthDay":dates[2]}, "int", True) +\
-					             ctm.propTriple(hum, {"hasBirthMonth":dates[1]}, "int", True) +\
-					             ctm.propTriple(hum, {"hasBirthYear":dates[0]}, "int", True)
+					humTriple += ctm.propTriple(hum, {"hasBirthDay":dates[2]
+					                                  "hasBirthMonth":dates[1]
+					                                  "hasBirthYear":dates[0]}, "int", True)
 
 				# else: date is invalid
 
@@ -260,18 +260,18 @@ def createTypeTriples(df,row,isoTitle):
 			# sourceSpec has info related to the properties of meat.
 			if "seasoned" in sourceSpec:
 				title=sampleType+"_seasoned_"+name
-				stTriple+=ctm.propTriple(title,{"isSeasoned":"false"},"bool",True)
+				stTriple+=ctm.propTriple(title,{"isSeasoned":False},"bool",True)
 
 			if "skin" in sourceSpec:
 				if "skinless" in sourceSpec:
 					title=sampleType+"_skinless_"+name
-					stTriple+=ctm.propTriple(title,{"isSkinless":"true"},"bool",True)
+					stTriple+=ctm.propTriple(title,{"isSkinless":True},"bool",True)
 				else:
 					title=sampleType+"_"+name+"_withskin"
-					stTriple+=ctm.propTriple(title,{"isSkinless":"false"},"bool",True)
+					stTriple+=ctm.propTriple(title,{"isSkinless":False},"bool",True)
 			if "rinse" in sourceSpec:
 				title=sampleType+"_"+name+"_rinse"
-				stTriple+=ctm.propTriple(title,{"isRinse":"true"},"bool",True)
+				stTriple+=ctm.propTriple(title,{"isRinse":True"},"bool",True)
 
 
 			if "breast" in title or "thigh" in title or "ground" in title or "loin" in title:
@@ -294,37 +294,31 @@ def createTypeTriples(df,row,isoTitle):
 #
 ######################################################################################################
 def isDomestic(farm,sourceSpec,animal,family):
-	domestic=""
-
+	
+	domestic = None
+	
 	if not pd.isnull(sourceSpec):
-		sourceSpec=sourceSpec.lower()
+		
+		sourceSpec = sourceSpec.lower()
+		
+		domestic = True if "domestic" in sourceSpec else domestic
+		domestic = False if "wild" in sourceSpec else domestic
 
-		# If the substring Domestic or domestic is in sourceSpec
-		if "domestic" in sourceSpec:
-			domestic="true"
-		if "wild" in sourceSpec:
-			domestic="false"
-
-	# The values miscWild and miscDomestic are in the Source General column
-	if "wild" in family:
-		domestic="false"
-	if "domestic" in family:
-		domestic="true"
+	# The values miscWild and miscDomestic are in the Source General column (family)
+	domestic = False if "wild" in family else domestic
+	domestic = True if "domestic" in family else domestic
 
 	# Handle the domestic type of animal cases
-	if animal in ("cow","chicken","dog","sheep","cat"):
-		domestic="true"
+	domestic = True if animal in ("cow","chicken","dog","sheep","cat") else domestic
+	
 	# Handle the wild type of animal cases
-	if animal in ("bear","canada goose"): 
-		domestic="false"
+	domestic=False if animal in ("bear","canada goose") else domestic
 
 	if not pd.isnull(farm):
-		farm=farm.lower()
-		if "farm" in farm:
-			domestic="true"
+		farm = farm.lower()
+		domestic = True if "farm" in farm else domestic
 
-	if "wild bird" in animal:
-		domestic="false"
+	domestic = False if "wild bird" in animal else domestic
 
 	return domestic
 
@@ -446,14 +440,14 @@ def createAnimalTriples(df,row,isoTitle):
 	if not pd.isnull(ageRank) and ("juvenile" in ageRank or "adult" in ageRank):
 		animalTriple+=ctm.propTriple(title,{"hasAgeRank":ageRank},"string",True)		
 		
-	if domestic!="":
+	if domestic:
 		animalTriple+=ctm.propTriple(title,{"isDomestic":domestic},"bool",True)
 
 	if animal!="unknown":
 		# animal becomes an instance of animal, and animal becomes a subclass of family
 		animalTriple+=ctm.indTriple(title,animal)+ctm.subClass(animal,family)
 
-	if taxoGenus!="":
+	if taxoGenus:
 		animalTriple+=ctm.propTriple(title,{"hasTaxoGenus":taxoGenus},"string",True)
 
 
