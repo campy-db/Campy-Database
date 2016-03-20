@@ -23,12 +23,13 @@ def createIDtriples(df,row,isoTitle):
 
 	# Add the nmlID, ldmsID and original sample name
 	if not pd.isnull(nmlid) and cn.isGoodVal(nmlid) and nmlid!="0":
-		idTriple+=ctm.propTriple(isoTitle,{"hasNMLid":nmlid},"string",True)
+		idTriple+=ctm.propTriple(isoTitle, {"hasNMLid":nmlid}, True, True)
 
 	if not pd.isnull(ldmsid) and cn.isGoodVal(ldmsid):
-		idTriple+=ctm.propTriple(isoTitle,{"hasLDMSid":ldmsid},"string",True)
+		idTriple+=ctm.propTriple(isoTitle,{"hasLDMSid":ldmsid}, True, True)
+		
 	if not pd.isnull(origName) and cn.isGoodVal(origName):
-		idTriple+=ctm.propTriple(isoTitle,{"hasOriginalName":origName},"string",True)
+		idTriple+=ctm.propTriple(isoTitle,{"hasOriginalName":origName}, True, True)
 
 	# Add the isolate's many sample ID's. Don't add the ID if it is the same as the isoTitle
 	# or other the other IDs before it
@@ -39,46 +40,46 @@ def createIDtriples(df,row,isoTitle):
 		if cn.compare([isoTitle,sidA]):
 			sidA=isoTitle
 
-		litAType="int" if cn.isNumber(sidA) else "string" # Some ids are ints
-		idTriple+=ctm.propTriple(isoTitle,{"hasSampleID":sidA},litAType,True)
+		sidA = int(float(sidA)) if cn.isNumber(sidA) else sidA # Some ids are ints
+		idTriple += ctm.propTriple(isoTitle, {"hasSampleID":sidA}, True, True)
 
 	if not pd.isnull(sidB) and cn.isGoodVal(sidB):
 		# The values 'wrong label on tube..' is in this column. We put this in the
 		# comments field instead
 		if "wrong" in sidB:
-			comment=sidB
+			comment = sidB
 		else:
-			if cn.compare([isoTitle,sidB]):
-				sidB=isoTitle
+			if cn.compare([isoTitle, sidB]):
+				sidB = isoTitle # Sometimes it's the same as the isoTitle
+				                # but with _ instead of -
 			
-			litBType="int" if cn.isNumber(sidB) else "string" # Some ids are ints
-			idTriple+=ctm.propTriple(isoTitle,{"hasSampleID":sidB},litBType,True)
+			sidB = int(float(sidB))"int" if cn.isNumber(sidB) else sidB # Some ids are ints
+			idTriple += ctm.propTriple(isoTitle, {"hasSampleID":sidB}, True, True)
 
 	if not pd.isnull(sidC) and cn.isGoodVal(sidC):
-		if cn.compare([isoTitle,sidC]):
-			sidC=isoTitle
+		if cn.compare([isoTitle,sidC]): # Again this id is sometimes the same as
+			sidC = isoTitle	 	# as isoTitle but with a different character
 
-		litCType="int" if cn.isNumber(sidC) else "string" # Some ids are ints
-		idTriple+=ctm.propTriple(isoTitle,{"hasSampleID":sidC},litCType,True)
+		sidC = int(float(sidC)) if cn.isNumber(sidC) else sidC # Some ids are ints
+		idTriple += ctm.propTriple(isoTitle, {"hasSampleID":sidC}, True, True)
 
 	# Alternate collection id is stored alongside original collection id.
 	if not pd.isnull(cidA):
-		cidA=cn.cleanInt(cidA)
+		cidA = int(float(cidA))
 		if re.search("[aA]lt",cidA) is not None:
-			cids=cidA.split(" ")
-			cidA=cids[0]
-			cidA=cidA[:len(cidA)-1] # Get rid of the semi colon at the end
-			cidB=cids[len(cids)-1] # Get the last item in the cids list
+			cids = cidA.split(" ")
+			cidA = cids[0]
+			cidA = cidA[:len(cidA)-1] # Get rid of the semi colon at the end
+			cidB = cids[len(cids)-1] # Get the last item in the cids list
 
-			cidB=cn.cleanInt(cidB)
-			litCBType="int" if cn.isNumber(cidB) else "string" # Some ids are ints	
-			idTriple+=ctm.propTriple(isoTitle,{"hasCollectionID":cidB},"string",True)
+			cidB = int(float(cidB)) if cn.isNumber(cidB) else cidB # Some ids are ints	
+			idTriple += ctm.propTriple(isoTitle, {"hasCollectionID":cidB}, True, True)
 
-		litCAType="int" if cn.isNumber(cidA) else "string" # Some ids are ints			
-		idTriple+=ctm.propTriple(isoTitle,{"hasCollectionID":cidA},litCAType,True)
+		cidA = int(float(cidA)) if cn.isNumber(cidA) else cidA # Some ids are ints			
+		idTriple += ctm.propTriple(isoTitle, {"hasCollectionID": cidA}, True, True)
 
 	if comment!="":
-		idTriple+=ctm.propTriple(isoTitle,{"hasComment":sidB},"string")
+		idTriple += ctm.propTriple(isoTitle, {"hasComment":sidB}, True)
 
 	return idTriple
 
