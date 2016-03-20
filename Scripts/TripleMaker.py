@@ -224,6 +224,8 @@ class TripleMaker:
               
               v = str(v).lower() if litType=="bool" else v
               
+              v = str(v) # Integers and so forth need to be strings
+              
               return v  
           
           
@@ -266,7 +268,7 @@ class TripleMaker:
 def main():
     t=TripleMaker("www.example.com/sam#")
     print(t.indTriple("Sam","Person")+\
-          t.propTriple("Sam",{"hasHairColor":["brown","green"], "isSmart":"very"},"string",True))
+          t.propTriple("Sam",{"hasHairColor":"15", "isSmart":15},"int",True))
 
 
 if __name__=="__main__":
