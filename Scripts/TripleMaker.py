@@ -205,7 +205,7 @@ class TripleMaker:
     	# rLiteral - True if the ALL property values are reified literals, false otherwise
     	#
     	###################################################################################################
-    	def propTriple(self, title, props, litType=None, rLiteral=None):
+    	def propTriple(self, title, props, isLiteral=None, rLiteral=None):
          
          if type(title) is not str:
               raise self.errMsg_str("title")
@@ -215,16 +215,18 @@ class TripleMaker:
               
          def edit(v):
              
+              litType = type(v)
+             
               v = "tag_{}".format(v) if rLiteral else v
     
-              v = self.addURI(v) if not litType or rLiteral else v
-              
               v = "\"{}\"".format(cn.cleanName(v))\
-                  if litType=="string" and not rLiteral else v
+                  if litType==str and not rLiteral else v
               
-              v = str(v).lower() if litType=="bool" else v
+              v = str(v).lower() if litType==bool else v
               
               v = str(v) # Integers and so forth need to be strings
+              
+              v = self.addURI(v) if not isLiteral or rLiteral else v
               
               return v  
           
@@ -238,7 +240,7 @@ class TripleMaker:
               return "{} {}".format(self.addURI(p), vals)
 
               
-         result = self.createRliterals(litType, props) if rLiteral else ""
+         result = self.createRliterals(props) if rLiteral else ""
               
          props = "; ".join([makeProp(p) for p in props])
             
@@ -250,13 +252,13 @@ class TripleMaker:
      ###################################################################################################
      # createRliteral
     	###################################################################################################
-    	def createRliterals(self, litType, props):
+    	def createRliterals(self, props):
          
          def makeProp(p):
 
              props[p] = [props[p]] if type(props[p]) is not list else props[p]             
              
-             return "".join([self.propTriple("tag_{}".format(v),{"hasLiteralValue":v},litType)\
+             return "".join([self.propTriple("tag_{}".format(v),{"hasLiteralValue":v},True)\
                     for v in props[p]])
              
          return "".join([makeProp(p) for p in props])
@@ -266,9 +268,10 @@ class TripleMaker:
 # Just for testing.
 ###################################################################################################
 def main():
+    
     t=TripleMaker("www.example.com/sam#")
     print(t.indTriple("Sam","Person")+\
-          t.propTriple("Sam",{"hasHairColor":"15", "isSmart":15},"int",True))
+          t.propTriple("Sam",{"hasHairColor":"True", "isSmart":15}, True, True))
 
 
 if __name__=="__main__":
