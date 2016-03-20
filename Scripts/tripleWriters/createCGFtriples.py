@@ -20,26 +20,26 @@ def createClustTriples(df, row, cgfTest):
 	if not pd.isnull(refClust) and cn.isGoodVal(refClust):
 
 		clusters = refClust.split("_")
-		c90 = clusters[0]
-		c95 = clusters[1]
-		c100 = clusters[2]
+		c90 = int(clusters[0])
+		c95 = int(clusters[1])
+		c100 = int(clusters[2])
 
-		c90name = "CGF_90_"+c90
-		c95name = "CGF_95_"+c90+"_"+c95
-		c100name = "CGF_100_"+c90+"_"+c95+"_"+c100
+		c90name = "{}_{}_{}".format("CGF", 90, c90)
+		c95name = "{}_{}_{}_{}".format("CGF", 95, c90, c95)
+		c100name = "{}_{}_{}_{}_{}".format("CGF", 100, c90, c95, c100)
 
 		c90Triple = ltm.indTriple(c90name,"CGFcluster")+\
-				  ltm.propTriple(c90name,{"hasThreshold":"90","hasClustNum":c90},"int",True)+\
-				  ltm.propTriple(c90name,{"hasSubCluster":c95name},False)
+				  ltm.propTriple(c90name, {"hasThreshold":90, "hasClustNum":c90}, True, True)+\
+				  ltm.propTriple(c90name, {"hasSubCluster":c95name})
 
-		c95Triple = ltm.indTriple(c95name,"CGFcluster")+\
-		          ltm.propTriple(c95name,{"hasThreshold":"95","hasClustNum":c95},"int",True)+\
-		          ltm.propTriple(c95name,{"hasSubCluster":c100name},False)
+		c95Triple = ltm.indTriple(c95name, "CGFcluster")+\
+		          ltm.propTriple(c95name, {"hasThreshold":95,"hasClustNum":c95}, True, True)+\
+		          ltm.propTriple(c95name, {"hasSubCluster":c100name})
 
 		c100Triple = ltm.indTriple(c100name,"CGFcluster")+\
-				   ltm.propTriple(c100name,{"hasThreshold":"100","hasClustNum":c100},"int",True)
+				   ltm.propTriple(c100name, {"hasThreshold":100,"hasClustNum":c100}, True, True)
 
-		cgfRefTriple = ltm.propTriple(cgfTest,{"hasCluster":[c90name,c95name,c100name]})
+		cgfRefTriple = ltm.propTriple(cgfTest,{"hasCluster":[c90name, c95name, c100name]})
 		clustTriple = c90Triple+c95Triple+c100Triple+cgfRefTriple
 
 	return clustTriple
@@ -65,7 +65,7 @@ def createCGFtriples(df, row, isoTitle):
 	if not pd.isnull(date_fileLoc) and cn.isGoodVal(date_fileLoc):
 
 		date = date_fileLoc.split(" ")[0]
-		date = cn.convertDate(date,False)
+		date = cn.convertDate(date, False)
 
 		index = date_fileLoc.find(" ")
 
@@ -73,31 +73,31 @@ def createCGFtriples(df, row, isoTitle):
 			fileLoc = date_fileLoc[index+1:]
 
 	# Every isolate has a cgf test
-	cgfTriple = ltm.indTriple(cgfTest,"CGF_test")
+	cgfTriple = ltm.indTriple(cgfTest, "CGF_test")
 
 	# Every cgf test in the csv is inVitro
-	cgfTriple += ltm.propTriple(cgfTest,{"isInVitro":True},"bool",True)
+	cgfTriple += ltm.propTriple(cgfTest,{"isInVitro":True}, True, True)
 
 	if fileLoc:
-		cgfTriple += ltm.propTriple(cgfTest,{"hasFileLocation":fileLoc},"string",True)  
+		cgfTriple += ltm.propTriple(cgfTest,{"hasFileLocation":fileLoc}, True, True)  
 
 	if date and date != -1:
 
 		dates = date.split("-")
 
-		dates = [cn.cleanInt(d) for d in dates]
+		dates = [int(float(d)) for d in dates]
 
 		cgfTriple += ltm.propTriple(cgfTest, {"hasDayCompleted":dates[2], 
 		             			      "hasMonthCompleted":dates[1],
-		                                      "hasYearCompleted":dates[0]}, "int", True)
+		                                      "hasYearCompleted":dates[0]}, True, True)
 
 	if not pd.isnull(fingerprint) and cn.isGoodVal(fingerprint):
-		fingerprint = fingerprint.replace("fp","")
-		cgfTriple += ltm.propTriple(cgfTest,{"foundFingerprint":fingerprint},"long", True)
+		fingerprint = str(fingerprint.replace("fp","")) # long type maybe? Leading zeroes? What do??
+		cgfTriple += ltm.propTriple(cgfTest, {"foundFingerprint":fingerprint}, True, True)
 
 	if not pd.isnull(legacyHexNum) and cn.isGoodVal(legacyHexNum):
-		legacyHexNum = legacyHexNum.replace("BIN","")
-		cgfTriple += ltm.propTriple(cgfTest,{"foundLegacyHexNum":legacyHexNum},"string", True)
+		legacyHexNum = str(legacyHexNum.replace("BIN",""))
+		cgfTriple += ltm.propTriple(cgfTest, {"foundLegacyHexNum":legacyHexNum}, True, True)
 
 
 	if not pd.isnull(typingLab) and cn.isGoodVal(typingLab):
