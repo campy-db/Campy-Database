@@ -52,7 +52,7 @@ def convertGPS(coord):
 		min=float(nums[2].strip())
 		sec=float(nums[3].strip())
 		
-		coord=str(deg+(min+sec/60)/60)
+		coord=(deg+(min+sec/60)/60)
 	return coord
 
 ######################################################################################################
