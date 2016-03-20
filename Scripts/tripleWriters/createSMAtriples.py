@@ -10,7 +10,7 @@ from labTM import lab as ltm
 ######################################################################################################
 # createSMAtriples
 ######################################################################################################
-def createSMAtriples(df, row, isoTitle):
+def createSMAtriples(df,  row,  isoTitle):
 
 	sTriple = ""
 	pulsovar = df["Pfge Sma I  / Pulsovar"][row]
@@ -19,11 +19,11 @@ def createSMAtriples(df, row, isoTitle):
 		
 		sTitle = "sma1_"+isoTitle
 
-		sTriple += ltm.indTriple(sTitle,"SMA1_test")
+		sTriple += ltm.indTriple(sTitle, "SMA1_test")
 
-		sTriple += ltm.propTriple(sTitle,{"foundPulsovar":pulsovar},"string",True)
+		sTriple += ltm.propTriple(sTitle, {"foundPulsovar":str(pulsovar)}, True, True)
 
-		sTriple += tm.multiURI((isoTitle, "hasLabTest", sTitle), (ctm.uri, ctm.uri, ltm.uri))
+		sTriple += tm.multiURI((isoTitle,  "hasLabTest",  sTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
 
 
 	return sTriple
