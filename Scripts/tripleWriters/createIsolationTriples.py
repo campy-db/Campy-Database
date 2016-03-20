@@ -25,46 +25,50 @@ def createIsolationTriples(df,row,isoTitle):
 
 	# For whatever reason there's just a dash as one of the media values. We'll ignore it for now.
 	if not pd.isnull(media) and media!="-" and "#N/A" not in media:
-		# We'll standardize all media to be uppercase and some have spaces but others don't. eg
-		# there's the value '10% B' and '10%B'. That's no good.
-		media=media.upper().replace(" ","")
+		# We'll standardize all media to be uppercase and have no spaces, because
+		# there are the values '10% B' and '10%B'. 
+		media = media.upper().replace(" ","")
 		
 		# Grab k and cefex from source specific 2
 		if not pd.isnull(sourceSpec) and re.search("[Cc]efex",sourceSpec) is not None:
-			media="K and CEFEX" # SUBJECT TO CHANGE
+			media = "K and CEFEX" # SUBJECT TO CHANGE
 
-		isoTriple+=ctm.propTriple(isoTitle,{"grownOn":media},"string",True)
+		isoTriple += ctm.propTriple(isoTitle, {"grownOn":media}, True, True)
 
 	if not pd.isnull(dilution):
+		
 		# Again there are some values that have spaces and others that don't. 
-		# We'll get rid of the spaces 
-		dilution=dilution.replace(" ","")
-		isoTriple+=ctm.propTriple(isoTitle,{"hasDilution":dilution},"string",True)
+		# We'll get rid of the spaces. Is this a number value?? 
+		dilution = dilution.replace(" ","")
+		isoTriple += ctm.propTriple(isoTitle, {"hasDilution":dilution}, True, True)
 
 	# The values in the csv are 1 or 0. 1 meaning it is true there is no glyc stock. This
 	# is confusing. So in the ontology we have 'hasGlycStock' and we interpret 1 in the csv as false
 	if not pd.isnull(glycStock) and cn.isGoodVal(glycStock):
-		glycStock=cn.cleanInt(glycStock) # Sometimes ints are converted to floats in the csv
-		glycStock=False if "1" in glycStock else True
-		isoTriple+=ctm.propTriple(isoTitle,{"hasGlycStock":glycStock},"bool",True)
+		
+		glycStock = int(float(glycStock)) # Sometimes ints are converted to floats in the csv
+		
+		glycStock = False if glycStock == 1 else True
+		
+		isoTriple += ctm.propTriple(isoTitle, {"hasGlycStock":glycStock}, True, True)
+		
 
 	if not pd.isnull(hipO) and cn.isGoodVal(hipO):
-		hipO=cn.cleanInt(hipO)
+		hipO = int(float(hipO))
 
-		if "1" in hipO:
-			hipO=True; litType="bool"
+		if hipO == 1:
+			hipO = True 
 		else:
-			if "?" in hipO: 
-				hipO="unknown"; litType="string"
-			else:
-				hipO=False; litType="bool"
-
-		isoTriple+=ctm.propTriple(isoTitle,{"hasHipO":hipO},litType,True)
+			hipO = "unknown" if "?" in hipO else False
+			
+		isoTriple += ctm.propTriple(isoTitle, {"hasHipO":hipO}, True, True)
 
 	# For whatever reason the value 'Treatment' is in the column 'Treatment'. We'll ignore it 
 	# for now. 
 	if not pd.isnull(treatment) and "Treatment" not in treatment and cn.isGoodVal(treatment):
-		isoTriple+=ctm.propTriple(isoTitle,{"hasTreatment":treatment},"string",True)
+		
+		isoTriple += ctm.propTriple(isoTitle, {"hasTreatment":treatment}, True, True)
+		
 
 	# The - also showed up in technique. We'll ignore it.
 	if not pd.isnull(technique) and technique!="-":
@@ -74,8 +78,8 @@ def createIsolationTriples(df,row,isoTitle):
 
 		# Some values have spaces and others don't. eg '24AE' and '24 AE'. We'll get rid of
 		# spaces.
-		technique=technique.replace(" ","")
+		technique= technique.replace(" ","")
 
-		isoTriple+=ctm.propTriple(isoTitle,{"hasTechnique":technique},"string",True)
+		isoTriple+=ctm.propTriple(isoTitle,{"hasTechnique":technique}, True, True)
 			
 	return isoTriple
