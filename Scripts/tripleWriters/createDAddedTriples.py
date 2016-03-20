@@ -21,11 +21,11 @@ def createDAddedTriples(df,row,isoTitle):
 
 			dates = dateAdded.split("-")
 
-			dates = [cn.cleanInt(d) for d in dates]
+			dates = [int(float(d)) for d in dates]
 
-			triple += ctm.propTriple(isoTitle, {"hasDayAdded":dates[2]}, "int", True) +\
-			          ctm.propTriple(isoTitle, {"hasMonthAdded":dates[1]}, "int", True) +\
-			          ctm.propTriple(isoTitle, {"hasYearAdded":dates[0]}, "int", True)
+			triple += ctm.propTriple(isoTitle, {"hasDayAdded":dates[2], 
+						            "hasMonthAdded":dates[1], 
+			           			    "hasYearAdded":dates[0]}, True, True)
 
 		# else: Invalid date
 
