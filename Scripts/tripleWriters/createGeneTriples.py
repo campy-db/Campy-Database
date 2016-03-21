@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/student/CampyDB/CampyDatabase")
+sys.path.append("/home/student/Campy/CampyDatabase")
 
 from Scripts.TripleMaker import TripleMaker as tm
 from Scripts import cleanCSV as cn

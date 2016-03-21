@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/student/CampyDB/CampyDatabase")
+sys.path.append("/home/student/Campy/CampyDatabase")
 
 from Scripts import cleanCSV as cn
 import pandas as pd
@@ -14,9 +14,13 @@ import re
 def createRefTriples(df, row, isoTitle):
 	
 	rTriple = ""
+
 	source = df["Source_Specific_2"][row]
+
 	animalID = df["Animal ID"][row]
+
 	ref = df["Dataset ID_1"][row]
+
 
 	if not pd.isnull(ref):
 		
@@ -31,7 +35,7 @@ def createRefTriples(df, row, isoTitle):
 				if re.search("[Hh]uman", source) is not None:
 					
 					# Use the human naming convention
-					title = "{}_{}".format(patient, isoTitle) 
+					title = "{}_{}".format("patient", isoTitle) 
 					sClass = "Patient"
 					
 				else: # It's an animal source

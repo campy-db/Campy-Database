@@ -64,7 +64,7 @@ class TripleMaker:
     		return "<"+self.uri+cn.cleanString(title)+">"
     
     	# Appends title to the reifiedLiteral URI
-    	def addrLitUri(self,title):
+    	def addrLitURI(self,title):
     		return "<"+self.rLitUri+cn.cleanString(title)+">"
          
     	# Returns a domain declaration.
@@ -207,61 +207,71 @@ class TripleMaker:
     	###################################################################################################
     	def propTriple(self, title, props, isLiteral=None, rLiteral=None):
          
-         if type(title) is not str:
+            if type(title) is not str:
               raise self.errMsg_str("title")
               
-         if type(props) is not dict:
+            if type(props) is not dict:
               raise self.errMsg_dict()
               
-         def edit(v):
+            def edit(v):
              
-              litType = type(v)
-             
-              v = "tag_{}".format(v) if rLiteral else v
-    
-              v = "\"{}\"".format(cn.cleanName(v))\
-                  if litType==str and not rLiteral else v
+                litType = type(v)
+
+                v = str(v).lower() if litType==bool else v # booleans in rdf are lower case
+
+                v = self.rlTag(v) if rLiteral else v
+
+                v = "\"{}\"".format(cn.cleanName(v))\
+                     if litType==str and not rLiteral else v
+
+                v = str(v) # Integers and so forth need to be strings
+
+                v = self.addURI(v) if not isLiteral or rLiteral else v
+
+                return v  
+
+
+            def makeProp(p):
               
-              v = str(v).lower() if litType==bool else v
-              
-              v = str(v) # Integers and so forth need to be strings
-              
-              v = self.addURI(v) if not isLiteral or rLiteral else v
-              
-              return v  
-          
-          
-         def makeProp(p):
-              
-              props[p] = [props[p]] if type(props[p]) is not list else props[p]
-              
-              vals = ", ".join([edit(v) for v in props[p]])
-                     
-              return "{} {}".format(self.addURI(p), vals)
+                props[p] = [props[p]] if type(props[p]) is not list else props[p]
+
+                vals = ", ".join([edit(v) for v in props[p]])
+                
+                uri_p = self.addURI(p) if p != "hasLiteralValue" else self.addrLitURI(p)
+
+                return "{} {}".format(uri_p, vals)
 
               
-         result = self.createRliterals(props) if rLiteral else ""
+            result = self.createRliterals(props) if rLiteral else ""
               
-         props = "; ".join([makeProp(p) for p in props])
-            
-         result += "{} {} .\n".format(self.addURI(title), props)
+            props = "; ".join([makeProp(p) for p in props])
+
+            result += "{} {} .\n".format(self.addURI(title), props)
+
+            return result
          
-         return result
          
-         
-     ###################################################################################################
-     # createRliteral
+        ###################################################################################################
+        # createRliteral
     	###################################################################################################
     	def createRliterals(self, props):
          
-         def makeProp(p):
+            def makeProp(p):
 
-             props[p] = [props[p]] if type(props[p]) is not list else props[p]             
+                props[p] = [props[p]] if type(props[p]) is not list else props[p]
+
+                return "".join([ self.propTriple(self.rlTag(v),{"hasLiteralValue":v},True)\
+                                 for v in props[p] ])
              
-             return "".join([self.propTriple("tag_{}".format(v),{"hasLiteralValue":v},True)\
-                    for v in props[p]])
-             
-         return "".join([makeProp(p) for p in props])
+            return "".join([makeProp(p) for p in props])
+
+
+        ###################################################################################################
+        # rlTag
+        ###################################################################################################
+        def rlTag(self, v):
+            v = str(v).lower() if type(v)==bool else v
+            return "tag_{}".format(v)
               
 ###################################################################################################
 # MAIN 
@@ -269,11 +279,10 @@ class TripleMaker:
 ###################################################################################################
 def main():
     
-    t=TripleMaker("www.example.com/sam#")
-    print(t.indTriple("Sam","Person")+\
-          t.propTriple("Sam",{"hasHairColor":"True", "isSmart":15}, True, True))
+    t = TripleMaker("www.example.com/campy#")
+    print t.indTriple("c1107","Isolate")+\
+          t.propTriple("c1107", {"hasIsolateName":"c1107"}, True, True)
 
 
 if __name__=="__main__":
 	main()
-    	

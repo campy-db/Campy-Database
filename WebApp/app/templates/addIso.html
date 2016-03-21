@@ -24,7 +24,7 @@
        <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
 
-    <br>
+      <br>
     </p>
 
     <div class=section>CGF Data</div>
@@ -63,36 +63,42 @@
 
       Typing Lab
       <span class=fieldAlignB>{{ form.lab(size=41) }}</span>
-    <br>
+      <br>
+
+    </p>
+
+    <div class=section>Source</div>
+
+    <p class=field>
+
+      Source
+      <span class=fieldAlignC>{{ form.source(size=41) }}
+      <b class=warning>(eg. chicken breast, water, cow, seasoned pork)</b></span>
+
+      <br>
     </p>
 
     <div class=section>Animal Source Data</div>
 
     <p class=field>
 
-      Animal
-      <span class=fieldAlignC>{{ form.animal(size=41) }}
-      <b class=warning>(eg. chicken, cow, fly, etc.)</b></span>
-
-      <br><br>
-
       ID
-      <span class=fieldAlignC>{{ form.aID(size=41) }}</span>
+      <span class=fieldAlignD>{{ form.aID(size=41) }}</span>
 
       <br><br>
 
       Gender
-      <span class=fieldAlignC>{{ form.sex() }}</span>
+      <span class=fieldAlignD>{{ form.sex() }}</span>
 
       <br><br>
 
       Domestic
-      <span class=fieldAlignC>{{ form.domestic() }}</span>
+      <span class=fieldAlignD>{{ form.domestic() }}</span>
 
       <br><br>
 
       Age Rank
-      <span class=fieldAlignC>{{ form.aage() }}</span>
+      <span class=fieldAlignD>{{ form.aage() }}</span>
 
     </p>
 

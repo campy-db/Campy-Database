@@ -1,6 +1,6 @@
 # -*- coding: latin-1 -*-
 import sys
-sys.path.append("/home/student/CampyDB/CampyDatabase")
+sys.path.append("/home/student/Campy/CampyDatabase")
 
 from Scripts import cleanCSV as cn
 import pandas as pd
@@ -35,7 +35,7 @@ def createProjTriples(df,row,isoTitle):
 					
 					# Split by '-',' ', or '_' if it's preceded by at least 2 characters,
 					# we don't want to remove 'C' when the project = C-Enternet for example.
-					toRem = re.split("(?< = ..)[- _]",proj)
+					toRem = re.split("(?<= ..)[- _]",proj)
 					
 					for r in toRem:
 						

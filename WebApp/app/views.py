@@ -21,8 +21,10 @@ def add():
         #q.writeToBG(triple)
         flash("Isolate added")
         return redirect("/index")
+    else:
+        print "huh"
 
-    return render_template("addIso.html",title = "Add Isolate",form = form)
+    return render_template("addIso.html", title = "Add Isolate", form = form)
 
 
 @app.route("/names")

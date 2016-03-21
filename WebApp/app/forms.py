@@ -29,18 +29,15 @@ class AddForm(Form):
 
     vitro = BooleanField("vitro")
 
-    sType = SelectField("sType", choices = 
-            [ ("Animal","Animal"), ("Environmental","Environmental"), ("Human","Human")])
-
-    animal = StringField("animal")
+    source = StringField("source")
 
     aID = StringField("aID")
 
-    sex = SelectField("sex", choices = [ ("m", "Male"), ("f", "Female") ])
+    sex = SelectField("sex", choices = [ ("", ""), ("m", "Male"), ("f", "Female") ])
 
     domestic = BooleanField("domestic")
 
-    aage = SelectField("aage", choices = [ ("newborn", "Newborn"), ("juvenile", "Juvenile"), ("adult", "Adult") ])
+    aage = SelectField("aage", choices = [ ("", ""), ("newborn", "Newborn"), ("juvenile", "Juvenile"), ("adult", "Adult") ])
 
 
 

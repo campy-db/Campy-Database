@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/student/CampyDB/CampyDatabase")
+sys.path.append("/home/student/Campy/CampyDatabase")
 
 from Scripts import cleanCSV as cn
 import pandas as pd
@@ -13,7 +13,7 @@ def createSpeciesTriples(df, row, isoTitle):
 	isoTriple = ""
 	specA = ""
 	specB = ""
-	lethSpec = df["Campy Species (Leth - 16S,  mapA,  ceuE)"][row]
+	lethSpec = df["Campy Species (Leth - 16S, mapA, ceuE)"][row]
 	altSpec = df["Alt. Speciation"][row]
 
 	# lethSpec is the default species unless it is empty,  equal to 'other campylobacter',  or just some

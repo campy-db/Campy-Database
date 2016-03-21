@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/student/CampyDB/CampyDatabase")
+sys.path.append("/home/student/Campy/CampyDatabase")
 
 from Scripts import cleanCSV as cn
 import pandas as pd
@@ -54,12 +54,12 @@ def createIsolationTriples(df,row,isoTitle):
 		
 
 	if not pd.isnull(hipO) and cn.isGoodVal(hipO):
-		hipO = int(float(hipO))
+		hipO = int(float(hipO)) if type(hipO) != str else hipO
 
 		if hipO == 1:
 			hipO = True 
 		else:
-			hipO = "unknown" if "?" in hipO else False
+			hipO = "unknown" if hipO == "?" else False
 			
 		isoTriple += ctm.propTriple(isoTitle, {"hasHipO":hipO}, True, True)
 
@@ -71,15 +71,15 @@ def createIsolationTriples(df,row,isoTitle):
 		
 
 	# The - also showed up in technique. We'll ignore it.
-	if not pd.isnull(technique) and technique!="-":
+	if not pd.isnull(technique) and technique != "-":
 		# Values enrichment, ENRICH and enrich are found in this col. We'll standardize it to enrich
 		if "enrich" in technique.lower():
-			technique="enrich"
+			technique = "enrich"
 
 		# Some values have spaces and others don't. eg '24AE' and '24 AE'. We'll get rid of
 		# spaces.
-		technique= technique.replace(" ","")
+		technique = technique.replace(" ","")
 
-		isoTriple+=ctm.propTriple(isoTitle,{"hasTechnique":technique}, True, True)
+		isoTriple += ctm.propTriple(isoTitle,{"hasTechnique":technique}, True, True)
 			
 	return isoTriple
