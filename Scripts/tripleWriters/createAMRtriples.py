@@ -15,7 +15,7 @@ def createAMRtriples(df, row, isoTitle):
         dm_title = "{}_{}".format(mic, drug)
         
         triple = ltm.indTriple(dm_title, "DrugMIC") + \
-                 ltm.propTriple(dm_title, {"hasMIC": mic}, "string", True) + \
+                 ltm.propTriple(dm_title, {"hasMIC": mic}, True, True) + \
                  ltm.propTriple(dm_title, {"hasDrug": drug}) + \
                  ltm.propTriple(test_title, {"foundMIC": dm_title})
 
