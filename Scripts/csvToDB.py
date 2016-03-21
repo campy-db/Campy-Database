@@ -17,7 +17,7 @@ import tripleWriters as tw
 ######################################################################################################
 def writeToOnt(t):
 
-	with open('/home/student/CampyDB/CampyDatabase/Ontologies/CampyOntology2.0.owl','a') as w:
+	with open('/home/student/Campy/CampyDatabase/Ontologies/CampyOntology2.0.owl','a') as w:
 		w.write(t)
 
 ######################################################################################################
@@ -35,19 +35,19 @@ def writeToBG(t):
 ######################################################################################################
 def createBIOtriples(df,row,isoTitle):
 
-	triple=tw.createRefTriples(df,row,isoTitle) # Reference strains
+	triple = tw.createRefTriples(df,row,isoTitle) # Reference strains
 
-	triple+=tw.createSpeciesTriples(df,row,isoTitle) # Type of species
+	triple += tw.createSpeciesTriples(df,row,isoTitle) # Type of species
 
-	triple+=tw.createTypingTriples(df,row,isoTitle) # Triples related to typing tests
+	triple += tw.createTypingTriples(df,row,isoTitle) # Triples related to typing tests
 	
-	triple+=tw.createSMAtriples(df,row,isoTitle) # SMA 1 test triples
+	triple += tw.createSMAtriples(df,row,isoTitle) # SMA 1 test triples
 
-	triple+=tw.createSeroTriples(df,row,isoTitle) # Serotype triples
+	triple += tw.createSeroTriples(df,row,isoTitle) # Serotype triples
 	
-	triple+=tw.createAMRtriples(df,row,isoTitle) # Triples for AMR tests
+	triple += tw.createAMRtriples(df,row,isoTitle) # Triples for AMR tests
 
-	triple+=tw.createCGFtriples(df,row,isoTitle) # Triples for CGF data
+	triple += tw.createCGFtriples(df,row,isoTitle) # Triples for CGF data
 
 	return triple
 
@@ -57,13 +57,13 @@ def createBIOtriples(df,row,isoTitle):
 ######################################################################################################
 def createEPItriples(df,row,isoTitle):
 
-	triple=tw.createDTakenTriples(df,row,isoTitle) # The date the sample was taken
+	#triple = tw.createDTakenTriples(df,row,isoTitle) # The date the sample was taken
 
-	triple+=tw.createLocTriples(df,row,isoTitle) # The location of where the sample was taken
+	#triple += tw.createLocTriples(df,row,isoTitle) # The location of where the sample was taken
 
-	triple+=tw.createSourceTriples(df,row,isoTitle) # Triples for The animal, human, or envrio source 
+	triple = tw.createSourceTriples(df,row,isoTitle) # Triples for The animal, human, or envrio source 
 
-	triple+=tw.createOutbreakTriples(df,row,isoTitle) # Outbreak triples
+	#triple += tw.createOutbreakTriples(df,row,isoTitle) # Outbreak triples
 
 	return triple
 
@@ -73,13 +73,13 @@ def createEPItriples(df,row,isoTitle):
 ######################################################################################################
 def createLIMStriples(df,row,isoTitle):
 
-	triple=tw.createDAddedTriples(df,row,isoTitle) # The date the isolate was added to the DB
+	triple = tw.createDAddedTriples(df,row,isoTitle) # The date the isolate was added to the DB
 
-	triple+=tw.createLabLocTriples(df,row,isoTitle) # The lab location of the isolate
+	triple += tw.createLabLocTriples(df,row,isoTitle) # The lab location of the isolate
 
-	triple+=tw.createIDtriples(df,row,isoTitle) # For the collection IDs and sample IDs
+	triple += tw.createIDtriples(df,row,isoTitle) # For the collection IDs and sample IDs
 
-	triple+=tw.createProjTriples(df,row,isoTitle) # Triples for the project info
+	triple += tw.createProjTriples(df,row,isoTitle) # Triples for the project info
 
 	return triple
 
@@ -91,20 +91,20 @@ def createTriples(df,row):
 
 	# Get the isolate name. Note the URI for an isolate needs to be a clean string, but we want the 
 	# original csv name aswell. Same goes for everything else with a name
-	isoTitle=df["Strain Name"][row]
+	isoTitle = df["Strain Name"][row]
 
-	triple=ctm.indTriple(isoTitle,"Isolate")+\
-		   ctm.propTriple(isoTitle,{"hasIsolateName":isoTitle},"string",True)
+	triple = ctm.indTriple(isoTitle,"Isolate")+\
+		     ctm.propTriple(isoTitle, {"hasIsolateName":isoTitle}, True, True)
 
-	triple+=tw.createIsolationTriples(df,row,isoTitle) # For isolation data
+	#triple+=tw.createIsolationTriples(df,row,isoTitle) # For isolation data
 
-	triple+=createBIOtriples(df,row,isoTitle)
+	#triple+=createBIOtriples(df,row,isoTitle)
 
-	triple+=createEPItriples(df,row,isoTitle)
+	triple += createEPItriples(df,row,isoTitle)
 
-	triple+=createLIMStriples(df,row,isoTitle)
+	#triple+=createLIMStriples(df,row,isoTitle)
 
-	#writeToOnt(triple) # Write to the owl file. Just for testing
+	writeToOnt(triple) # Write to the owl file. Just for testing
 	#writeToBG(triple) # Write the triples to the blazegraph server
 	
 ######################################################################################################
@@ -112,14 +112,14 @@ def createTriples(df,row):
 ######################################################################################################
 def writeData():
 
-	df=pd.read_csv(r"/home/student/CampyDB/CSVs/2016-02-10 CGF_DB_22011_2.csv")
+	df = pd.read_csv(r"/home/student/Campy/CSVs/2016-02-10 CGF_DB_22011_2.csv")
 
 	# The column names contain a bunch of genes that need to be in the triplestore,
 	# so we'll add those first
-	triple=tw.createGeneTriples(df)
+	triple = tw.createGeneTriples(df)
 
 	# The column names contain the names of the AMR drugs aswell
-	triple+=tw.createDrugTriples(df)
+	triple += tw.createDrugTriples(df)
 
 	#writeToBG(triple)
 	#df["Strain Name"].count()
