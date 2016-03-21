@@ -2,7 +2,7 @@
 A triplestore database for the epidemiological and biological data related to the bacteria Campylobacter Jejuni. 
 Complete with ontologies and web application for querying and updating data.
 Meant to run on a Blazegraph server with the namespace `campy`.
-`Sripts/csvToDB.py` (it's not here right now but will be soon) serves the purpose of cleaning and making triples out of legacy data that is stored on a csv
+`Sripts/csvToDB.py` serves the purpose of cleaning and making triples out of legacy data that is stored on a csv
 that is stored privately (it can't be public as it contains sensitive info).
 
 Currently there are no scripts for automatically uploading ontologies to blazegraph server and
@@ -17,7 +17,7 @@ around it - i.e. it is the one to be used. It imports `labTests.owl`.
 - Upload `campyOntology2.0.owl` and `labTests.owl` to Blazegraph (both are in Turtle format)
 - If you were me you would then upload the csv with the legacy data upto the Blazegraph server using
   `csvToDB.py`, but like I said the csv is stored privately.
-- Run `WebApp/run.py` . `run.py` is not an executable right now. Something I have to do...takes 2 seconds Sam
+- Run ./run.py (in the WebApp dir)
 - The web app should now be running locally on `port 5000`.
 
 At this point, you can run a query that fetches the names of all the isolates in the database by clicking the names 
