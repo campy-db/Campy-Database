@@ -378,9 +378,9 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> rdf:type owl:ObjectProperty ;
                                                                                                  
-                                                                                                 rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatProperty> ;
+                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
                                                                                                  
-                                                                                                 rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatType> .
+                                                                                                 rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatProperty> .
 
 
 
@@ -528,19 +528,6 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                                  rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource> ;
                                                                                                  
                                                                                                  rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceProperty> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleType
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleType> rdf:type owl:FunctionalProperty ,
-                                                                                                        owl:ObjectProperty ;
-                                                                                               
-                                                                                               rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> ;
-                                                                                               
-                                                                                               rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleType> ;
-                                                                                               
-                                                                                               rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceProperty> .
 
 
 
@@ -792,6 +779,20 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isGround
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isGround> rdf:type owl:ObjectProperty ;
+                                                                                          
+                                                                                          rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+                                                                                          
+                                                                                          rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+                                                                                          
+                                                                                          rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
+                                                                                          
+                                                                                          rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isPartOfOutbreak
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isPartOfOutbreak> rdf:type owl:ObjectProperty ;
@@ -826,7 +827,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                          
                                                                                          rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
                                                                                          
-                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatType> ;
+                                                                                         rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
                                                                                          
                                                                                          rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> .
 
@@ -840,7 +841,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                             
                                                                                             rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
                                                                                             
-                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatType> ;
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
                                                                                             
                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> .
 
@@ -854,7 +855,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                             
                                                                                             rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
                                                                                             
-                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatType> ;
+                                                                                            rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> ;
                                                                                             
                                                                                             rdfs:subPropertyOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty> .
 
@@ -958,7 +959,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AbattoirType> rdf:type owl:Class ;
                                                                                               
-                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#DomesticType> .
 
 
 
@@ -966,7 +967,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Animal> rdf:type owl:Class ;
                                                                                         
-                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> ,
+                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Organism> ,
                                                                                                         <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource> .
 
 
@@ -1057,7 +1058,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Canada_goose> rdf:type owl:Class ;
                                                                                               
-                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Avian> .
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Goose> .
 
 
 
@@ -1093,11 +1094,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#ClinicalType
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Clinical
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#ClinicalType> rdf:type owl:Class ;
-                                                                                              
-                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanType> .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Clinical> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#HumanType> .
 
 
 
@@ -1149,11 +1150,27 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#DomesticType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#DomesticType> rdf:type owl:Class ;
+                                                                                              
+                                                                                              rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Donkey
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Donkey> rdf:type owl:Class ;
                                                                                         
                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Equine> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Droppings
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Droppings> rdf:type owl:Class ;
+                                                                                           
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType> .
 
 
 
@@ -1173,11 +1190,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#EggType
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Egg
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#EggType> rdf:type owl:Class ;
-                                                                                         
-                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Food> .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Egg> rdf:type owl:Class ;
+                                                                                     
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FoodType> .
 
 
 
@@ -1217,7 +1234,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FarmType> rdf:type owl:Class ;
                                                                                           
-                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#DomesticType> .
 
 
 
@@ -1229,11 +1246,11 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Food
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FoodType
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Food> rdf:type owl:Class ;
-                                                                                      
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FoodType> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#DomesticType> .
 
 
 
@@ -1281,7 +1298,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Human> rdf:type owl:Class ;
                                                                                        
-                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> ,
+                                                                                       rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Organism> ,
                                                                                                        <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#SampleSource> ;
                                                                                        
                                                                                        owl:disjointWith <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> .
@@ -1316,7 +1333,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Isolate> rdf:type owl:Class ;
                                                                                          
-                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+                                                                                         rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Organism> .
 
 
 
@@ -1385,19 +1402,19 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Meat> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FoodType> .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatProperty
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatProperty> rdf:type owl:Class ;
                                                                                               
                                                                                               rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Property> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatType
-
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#MeatType> rdf:type owl:Class ;
-                                                                                          
-                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Food> .
 
 
 
@@ -1447,6 +1464,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Organism
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Organism> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Object> .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Outbreak
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Outbreak> rdf:type owl:Class ;
@@ -1485,6 +1510,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Pig> rdf:type owl:Class ;
                                                                                      
                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Porcine> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Pit
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Pit> rdf:type owl:Class ;
+                                                                                     
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType> .
 
 
 
@@ -1539,7 +1572,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#RetailType> rdf:type owl:Class ;
                                                                                             
-                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#DomesticType> .
 
 
 
@@ -1671,6 +1704,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Swab
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Swab> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType> .
+
+
+
 ###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Trumpeter_swan
 
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Trumpeter_swan> rdf:type owl:Class ;
@@ -1700,6 +1741,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Watershed> rdf:type owl:Class ;
                                                                                            
                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Location> .
+
+
+
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#WildType
+
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#WildType> rdf:type owl:Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
 
 
 
@@ -1785,4 +1834,3 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 #    Individuals
 #
 #################################################################
-
