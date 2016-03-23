@@ -44,7 +44,7 @@ def createAgeTriples(df, row, hum):
 
 					dates = bday.split("-")
 
-					dates = [cn.cleanInt(d) for d in dates]
+					dates = [int(float(d)) for d in dates]
 
 					humTriple += ctm.propTriple(hum, {"hasBirthDay":dates[2],
 					                                  "hasBirthMonth":dates[1],
@@ -62,7 +62,7 @@ def createAgeTriples(df, row, hum):
 				else:
 					age = now.year - int(bday[:yearLen]) # Use todays year for the age
 
-		humTriple +=   ctm.propTriple(hum,  {"hasAge":age},  True,  True) if age else ""	
+		humTriple += ctm.propTriple(hum,  {"hasAge":int(age)},  True,  True) if age else ""	
 
 	return humTriple
 
@@ -160,7 +160,7 @@ def createHumanTriples(df, row, isoTitle):
 	 # clinical sample types,  i.e. 'blood' or 'stool'
 	if type !=  "":
 
-		isoTriple += ctm.indTriple(type, "ClinicalType")
+		isoTriple += ctm.indTriple(type, "Clinical")
 		isoTriple += ctm.propTriple(type, {"hasName":type}, True)
 		isoTriple += ctm.propTriple(isoTitle, {"hasSampleType":type})
 		
@@ -202,13 +202,14 @@ def createEnviroTriples(df, row, isoTitle):
 				enviroSpec = "treated" # Don't need redundant info
 				
 			if "water" in enviroSpec.lower():
-				if enviroSpec !=  "Water": # EnviroSpec is "drinking water source water",  
-							   # "recreational water" or "core water site"
+				if enviroSpec != "Water" and enviroSpec != "Core water site": # EnviroSpec is "drinking water source water",  
+							                                                  # "recreational water" and Core water site 
+							                                                  # (ignore Core Water Site)
 					enviroSpec = enviroSpec.replace(" water", "") # Get rid of redundant info
 					
 				else:
 					enviroSpec = enviro # We don't really need this as enviroSpec already
-							     # equals water. But whatever ya know
+							            # equals water. But whatever ya know
 			 
 			# EnviroSpec is "Lagoon: Swine" or "Lagoon:Dairy"
 			if re.search("[Ll]agoon", enviroSpec) is not None:
@@ -237,97 +238,7 @@ def createEnviroTriples(df, row, isoTitle):
 	isoTriple = ctm.propTriple(isoTitle, {"hasSampleSource":title})
 
 	return enviroTriple + isoTriple
-		
 
-######################################################################################################
-# createTypeTriples
-# Here we create instances of the AnimalType class. Again we don't use unique identifiers as the user
-# probably needs to only know the type of sample. I wish we could just say :isoC1007 :hasSampeType 
-# "faecal",  but there are different kinds of faecal samples,  like droppings,  and swab. Also,  some 
-# sampletypes have properties attached to them so that further complicates things,  just a bit though.
-######################################################################################################
-def createTypeTriples(df, row, isoTitle):
-	
-	isoTriple = "" ; stTriple = "" ; title = ""
-
-	sampleType = df["Sample Type 2"][row] # Faecel,  Abbatoir,  Retail,  Egg
-
-	sourceSpec = df["Source_Specific_2"][row] # chickenBreast,  carcass,  rectal swab etc.
-
-
-	 # Insects don't have sample types
-	if not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect":
-		
-		sampleType = sampleType.lower()
-
-		if not pd.isnull(sourceSpec):
-			
-			sourceSpec = sourceSpec.lower()
-
-			title = sampleType # The name of the sample type is just the sample type name
-						     # unless there is something more specific in source specific 2
-
-			# The source specific 2 for animal sample types is really messy. It's just
-			# easier to hard code values in
-			title = "breast" if "breast" in sourceSpec else title
-			title = "thigh" if "thigh" in sourceSpec else title
-			title = "caecum" if "caecum" in sourceSpec else title
-			title = "carcass" if "carcass" in sourceSpec else title
-			title = "ground" if "ground" in sourceSpec else title
-			title = "loin" if "loin" in sourceSpec else title
-			title = "droppings" if "field sample" in sourceSpec else title
-			title = "pit" if "pit" in sourceSpec else title
-			title = "swab" if "swab" in sourceSpec else title
-			title = "weep" if "weep" in sourceSpec else title
-	
-			name = title
-
-			title = "{}_{}".format(sampleType, title) if title !=  sampleType else title
-
-			# sourceSpec has info related to the properties of meat.
-			if "seasoned" in sourceSpec:
-				
-				title = "{}_{}_{}".format(sampleType, "seasoned", name)
-				stTriple +=  ctm.propTriple(title, {"isSeasoned":False}, True, True)
-
-			if "skin" in sourceSpec:
-				
-				if "skinless" in sourceSpec:
-					
-					title = "{}_{}_{}".format(sampleType, "skinless", name)
-					stTriple += ctm.propTriple(title, {"isSkinless":True}, True, True)
-				else:
-					
-					title = "{}_{}_{}".format(sampleType, name, "withskin")
-					stTriple += ctm.propTriple(title, {"isSkinless":False}, True, True)
-					
-			if "rinse" in sourceSpec:
-				
-				title = "{}_{}_{}".format(sampleType, name, "rinse")
-				stTriple += ctm.propTriple(title, {"isRinse":True}, True, True)
-
-			if "breast" in title or "thigh" in title or "ground" in title or "loin" in title:
-				stTriple += ctm.indTriple(title, "MeatType")
-
-			stTriple += ctm.propTriple(title, {"hasName":name}, True)
-
-		else: # sourceSpec is nan
-			
-			name = sampleType
-			title = sampleType # faecal,  abattoir,  retail,  egg
-
-		if title == "egg":
-
-			stTriple += ctm.indTriple(title, "EggType")
-			sampleType = "Farm"
-
-
-		stClass = "{}{}".format(sampleType, "Type")
-		stTriple += ctm.indTriple(title, stClass)
-
-		isoTriple += ctm.propTriple(isoTitle, {"hasSampleType":title})
-
-	return stTriple+isoTriple
 
 ######################################################################################################
 #
@@ -361,18 +272,148 @@ def isDomestic(farm, sourceSpec, animal, family):
 
 	return domestic
 
+
+######################################################################################################
+# createTypeTriples
+# Here we create instances of the AnimalType class. Again we don't use unique identifiers as the user
+# probably needs to only know the type of sample. I wish we could just say :isoC1007 :hasSampeType 
+# "faecal",  but there are different kinds of faecal samples,  like droppings,  and swab. Also,  some 
+# sampletypes have properties attached to them so that further complicates things,  just a bit though.
+######################################################################################################
+def createTypeTriples(df, row, domestic, animal, animalTitle):
+	
+	stTriple = "" 
+	cut = "" 
+	fae = ""
+	abb = "" 
+
+	sampleType = df["Sample Type 2"][row] # Faecel,  Abbatoir,  Retail,  Egg
+
+	sourceSpec = df["Source_Specific_2"][row] # chickenBreast,  carcass,  rectal swab etc.
+
+	name = animal
+
+	# Insects don't have sample types
+	if not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect":
+		
+		sampleType = sampleType.lower()
+
+		name = "{} {}".format(sampleType, animal)
+
+		if not pd.isnull(sourceSpec):
+			
+			sourceSpec = sourceSpec.lower()
+
+			# The source specific 2 for animal sample types is really messy. It's just
+			# easier to hard code values in
+			cut = "breast" if "breast" in sourceSpec else ""
+			cut = "thigh" if "thigh" in sourceSpec else cut
+			cut = "ground" if "ground" in sourceSpec else cut
+			cut = "loin" if "loin" in sourceSpec else cut
+
+			abb = "caecum" if "caecum" in sourceSpec else ""
+			abb = "carcass" if "carcass" in sourceSpec else abb
+
+			fae = "droppings" if "field sample" in sourceSpec else ""
+			fae = "pit" if "pit" in sourceSpec else fae
+			fae = "swab" if "swab" in sourceSpec else fae
+			fae = "weep" if "weep" in sourceSpec else fae
+	
+
+			name = "{} {}".format(animal, cut) if cut else name
+			name = "{} {}".format(animal, abb) if abb else name
+			name = "{} {}".format(animal, fae) if fae else name
+
+		
+			# sourceSpec has info related to the properties of meat.
+			if "non-seasoned" in sourceSpec:
+
+				# The only non-seasoned cut in the csv is pork loin
+				name = "non-seasoned pork loin" 
+				stTriple += ctm.propTriple(animalTitle, {"isSeasoned":False}, True, True)
+
+			if "skin" in sourceSpec:
+
+				if "skinless" in sourceSpec:
+
+					name = "{} {} {}".format("skinless", animal, cut)
+					stTriple += ctm.propTriple(animalTitle, {"isSkinless":True}, True, True)
+
+				else:
+					
+					name = "{} {}".format(animal, cut, "with skin")
+					stTriple += ctm.propTriple(animalTitle, {"isSkinless":False}, True, True)
+					
+
+			if "rinse" in sourceSpec:
+				
+				name = "{} {} {}".format(animal, cut, "rinse") if cut else name
+				name = "{} {} {}".format(animal, abb, "rinse") if abb else name
+
+				stTriple += ctm.propTriple(animalTitle, {"isRinse":True}, True, True)
+
+			if "ground" in sourceSpec:
+
+				name = "{} {}".format("ground", animal)
+				stTriple += ctm.propTriple(animalTitle, {"isGround":True}, True, True)
+
+		# endif not pd.isnull(sourceSpec):
+
+
+		if domestic == False:
+			stTriple += ctm.indTriple(animalTitle, "WildType")
+
+		# Faecal samples can come from either wild or domestic animals
+		if domestic and fae:
+			stTriple += ctm.indTriple(animalTitle, "DomesticType")
+
+
+
+		stClass = "{}Type".format(sampleType)
+
+
+		if sampleType == "egg":
+
+			stClass = "FarmType"
+			name = "{} {}".format(animal, "egg")
+			stTriple += ctm.indTriple(animalTitle, "Egg")
+
+
+		if fae == "droppings":
+			stTriple += ctm.indTriple(animalTitle, "Droppings")
+
+		elif fae == "pit":
+			stTriple += ctm.indTriple(animalTitle, "Pit")
+
+		elif fae == "swab":
+			stTriple += ctm.indTriple(animalTitle, "Swab")
+
+		elif sampleType == "retail":
+			stTriple += ctm.indTriple(animalTitle, "Meat")
+			stTriple += ctm.indTriple(animalTitle, stClass)
+
+		else:
+			stTriple += ctm.indTriple(animalTitle, stClass)
+
+	# endif not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect":
+
+	stTriple += ctm.propTriple(animalTitle, {"hasName":name}, True)
+
+	return stTriple
+
+
 ######################################################################################################
 # createAnimalTriples
 # Creates instances of the Animal class for every isolate that has an animal as a source. Here we do
 # uniquely identify animals as there is an animal id provided in the good 'ole csv. Not all animals
-# have an id though so we name those ones [animel]_[isoTitle] where animal is the kind of animal,  eg
+# have an id though so we name those ones [animel]_[isoTitle] where animal is the kind of animal, eg
 # chicken. Note we create new classes here for every type of animal and the new class becomes a
-# subclass of its respective family. eg chicken_C1007 is an instance of Chicken,  and Chicken is  
+# subclass of its respective family. eg chicken_C1007 is an instance of Chicken, and Chicken is  
 # a sublass of Avian. Sometimes we know the source is an animal but we don't the family or animal. In
 # this case we say the animal type is 'unknown' and it just becomes an instance of the Misc class. 
 # Sometimes we know the family but not the animal type in which case unknown is an instance of family. 
-# When we do know the animal type,  there are properties attached to animals found all over the csv  
-# and many nice to work with,  totally random cases,  we have to handle.
+# When we do know the animal type, there are properties attached to animals found all over the csv  
+# and many nice to work with, totally random cases, we have to handle.
 ######################################################################################################
 def createAnimalTriples(df, row, isoTitle):
 	
@@ -390,12 +431,13 @@ def createAnimalTriples(df, row, isoTitle):
 	
 	id = df["Animal ID"][row] # If the animal has an id,  this will be its URI
 	
-	animal = cn.remPrefix(df["Source_Specific_1"][row], 2) # The actual animal,  eg chicken,  racoon etc.
+	# The actual animal, eg chicken, racoon etc.
+	animal = cn.remPrefix(df["Source_Specific_1"][row], 2) 
 	
 	ageRank = df["Patient D.O.B / Age"][row] # Juvenile,  Adult
 	
 	farm = df["Region_L2"][row] # Sometimes region_L2 (the sampling site) is a farm,  
-							  # in which case the animal is domestic
+							    # in which case the animal is domestic
 
 
 	# An animal,  say chicken,  will become an instance of family (Avian in this case),  and Chicken,  
@@ -416,9 +458,7 @@ def createAnimalTriples(df, row, isoTitle):
 			family = family.lower()
 
 			animal = "cattle" if animal == "cow" else animal
-
-			domestic = isDomestic(farm, sourceSpec, animal, family)
-
+		
 			# Handle the MiscDomestic,  and MiscWild family cases
 			if "misc" in family:
 				
@@ -484,8 +524,13 @@ def createAnimalTriples(df, row, isoTitle):
 				if "shore bird" in sourceSpec:
 					animal = "shore bird"
 
+
+			domestic = isDomestic(farm, sourceSpec, animal, family)	
+
+
 		else: # We know the family but not the animal
 			animal = "unknown"
+
 
 	# Note that even unknown animals need a unique identifier as they have properties attached to them
 	# and can be part of different families
@@ -509,18 +554,22 @@ def createAnimalTriples(df, row, isoTitle):
 	if not pd.isnull(ageRank) and ("juvenile" in ageRank or "adult" in ageRank):
 		animalTriple +=  ctm.propTriple(title, {"hasAgeRank":ageRank}, True, True)		
 		
-	if domestic:
-		animalTriple += ctm.propTriple(title, {"isDomestic":domestic}, True, True)
-
 	if animal != "unknown":
 		# animal becomes an instance of animal,  and animal becomes a subclass of family
-		animalTriple += ctm.indTriple(title, animal) + ctm.subClass(animal, family)
+		animalTriple += ctm.indTriple(title, animal)
+
+		if family == "Misc":
+			animalTriple += ctm.subClass(animal, family)
+			
 
 	if taxoGenus:
 		animalTriple += ctm.propTriple(title, {"hasTaxoGenus":taxoGenus}, True, True)
 
 
+
 	animalTriple += ctm.indTriple(title, family)
+
+	animalTriple += createTypeTriples(df, row, domestic, animal, title)
 
 	isoTriple += ctm.propTriple(isoTitle, {"hasSampleSource":title})
 
@@ -544,8 +593,7 @@ def createSourceTriples(df, row, isoTitle):
 	if sample == "Animal":
 		
 		resultTriple += createAnimalTriples(df, row, isoTitle)
-		resultTriple += createTypeTriples(df, row, isoTitle)
-		
+
 	if sample == "Environmental":
 		
 		resultTriple += createEnviroTriples(df, row, isoTitle)

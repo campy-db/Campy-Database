@@ -51,7 +51,9 @@ def createProjTriples(df,row,isoTitle):
 
 				if subproj:
 					
-					subproj = cn.cleanInt(subproj) # Some of the subprojects are years
+					# Some of the subprojects are years
+					subproj = int(float(subproj)) if cn.isNumber(subproj) else subproj 
+					
 					projTriple += ctm.indTriple(subproj, "SubProject")
 		   			projTriple += ctm.propTriple(subproj, {"hasName":subproj}, True)
 		   			projTriple += ctm.propTriple(proj, {"hasSubproject":subproj})

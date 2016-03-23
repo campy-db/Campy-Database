@@ -88,7 +88,7 @@ def createCGFtriples(df, row, isoTitle):
 		dates = [int(float(d)) for d in dates]
 
 		cgfTriple += ltm.propTriple(cgfTest, {"hasDayCompleted":dates[2], 
-		             			      "hasMonthCompleted":dates[1],
+		             			              "hasMonthCompleted":dates[1],
 		                                      "hasYearCompleted":dates[0]}, True, True)
 
 	if not pd.isnull(fingerprint) and cn.isGoodVal(fingerprint):

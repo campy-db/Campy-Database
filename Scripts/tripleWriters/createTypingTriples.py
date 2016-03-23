@@ -51,9 +51,12 @@ def createTypingTriples(df,  row,  isoTitle):
 	def allele_triple(g):
 
 		triple = ""
-		alIndex = cn.cleanInt(df[g][row])
+
+		alIndex = df[g][row]
 
 		if not pd.isnull(alIndex) and cn.isNumber(alIndex):
+
+			alIndex = int(float(alIndex))
 			
 			alTitle = "{}_{}".format(cn.cleanGene(g),  alIndex)
 			

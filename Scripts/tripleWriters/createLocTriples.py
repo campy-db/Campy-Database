@@ -17,18 +17,30 @@ import standardT as st
 # only bodies of water are the Sumas and Salmon river.
 ######################################################################################################
 def createLocTriples(df,row,isoTitle):
+
 	locTriple = ""
+
 	country = df["Country"][row]
+
 	subNat = df["Province/State"][row]
+
 	city = df["City"][row]
+
 	hAuthority = df["Region_L1"][row]
+
 	samplingSite = df["Region_L2"][row]
+
 	samplingSite2 = df["Source_Specific_2"][row] # Petting zoo is in this col, and we consider it to be
 										       # a sampling site.
+
 	c_netSite = df["C-EnterNet Site"][row]
+
 	fncSite = df["FNC Sentinel Site"][row]
+
 	lng = df["Longitude"][row]
+
 	lat = df["Latitude"][row]
+
 
 	# Need this for the body of water location and watersheds.
 	water = df["Sample Type 2"][row]
@@ -100,7 +112,7 @@ def createLocTriples(df,row,isoTitle):
 
 	if not pd.isnull(c_netSite) and cn.isGoodVal(c_netSite):
 		
-		c_netSite = cn.cleanInt(c_netSite) # Some of there are numbers
+		c_netSite = int(float(c_netSite)) if cn.isNumber(c_netSite) else c_netSite # Some of there are numbers
 		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", c_netSite, "C_EnterNetSite")
 
 	if not pd.isnull(fncSite) and cn.isGoodVal(fncSite):

@@ -44,7 +44,8 @@ def createRefTriples(df, row, isoTitle):
 					sClass = source
 					
 					if not pd.isnull(animalID):
-						title = cn.cleanInt(animalID) # Use animal ID if available
+						# Use animal ID if available
+						title = cn.cleanInt(animalID) 
 					else:
 						# Else use animal naming convention
 						title = "{}_{}".format(source, isoTitle) 

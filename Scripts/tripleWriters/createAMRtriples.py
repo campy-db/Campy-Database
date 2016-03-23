@@ -54,7 +54,7 @@ def createAMRtriples(df, row, isoTitle):
                    if not pd.isnull(df_row[r])]
 
     if not pd.isnull(amr): # secondary source of resistance triples
-        res_triples.append(ltm.propTriple(test_title, {"foundResistanceTo": amr.split(" ")[0]})) 
+        res_triples.append(ltm.propTriple(test_title, {"foundResistanceTo": amr.split(" ")[0].lower()})) 
     
     triples = mic_triples + res_triples # merge lists
 
