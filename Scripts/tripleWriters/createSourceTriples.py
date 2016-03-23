@@ -22,9 +22,13 @@ countries = [x.name for x in list(pc.countries)] # A list of names of countries
 def createAgeTriples(df, row, hum):
 	
 	humTriple = ""
+
 	yearLen = 4
+
 	ageLen = 2
+
 	age = df["Patient D.O.B / Age"][row]
+
 	yearTaken = df["YEAR"][row]
 										   
 	if not pd.isnull(age) and cn.isGoodVal(age): 
@@ -194,7 +198,7 @@ def createEnviroTriples(df, row, isoTitle):
 	if not pd.isnull(enviro) and cn.isGoodVal(enviro):
 		# enviro (Source general) is the class and enviroSpec (source specific 2) is the instance.
 
-		if not pd.isnull(enviroSpec) and "Other" not in enviroSpec: 
+		if not pd.isnull(enviroSpec) and cn.isGoodVal(enviroSpec): 
 			
 			# Have to clean enviroSpec strings a bit
 			if re.search("[Tt]reated", enviroSpec) is not None: # For the value 'Sewage (Treated)'
@@ -215,7 +219,7 @@ def createEnviroTriples(df, row, isoTitle):
 			if re.search("[Ll]agoon", enviroSpec) is not None:
 			
 				# Get rid of redundant info
-				enviroSpec = enviroSpec.replace("Lagoon:", "")
+				enviroSpec = "{} lagoon".format(enviroSpec.replace("Lagoon:", ""))
 
 		else: # We know the environment type (enviro) but EnviroSpec is nan or 'Other'
 			enviroSpec = enviro
@@ -233,7 +237,7 @@ def createEnviroTriples(df, row, isoTitle):
 	
 	title = enviroSpec.lower() # Doesn't need to be unique; there are no props attached to evironments. 
 	
-	enviroTriple = ctm.indTriple(title, enviro)+ctm.propTriple(title, {"hasName":enviroSpec}, True)
+	enviroTriple = ctm.indTriple(title, enviro) + ctm.propTriple(title, {"hasName":title}, True)
 	
 	isoTriple = ctm.propTriple(isoTitle, {"hasSampleSource":title})
 
@@ -300,6 +304,8 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 
 		name = "{} {}".format(sampleType, animal)
 
+		name = "{} {}".format(animal, "feces") if sampleType == "faecal" else name
+
 		if not pd.isnull(sourceSpec):
 			
 			sourceSpec = sourceSpec.lower()
@@ -359,7 +365,6 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 
 		# endif not pd.isnull(sourceSpec):
 
-
 		if domestic == False:
 			stTriple += ctm.indTriple(animalTitle, "WildType")
 
@@ -367,10 +372,7 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 		if domestic and fae:
 			stTriple += ctm.indTriple(animalTitle, "DomesticType")
 
-
-
 		stClass = "{}Type".format(sampleType)
-
 
 		if sampleType == "egg":
 
@@ -389,7 +391,13 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 			stTriple += ctm.indTriple(animalTitle, "Swab")
 
 		elif sampleType == "retail":
-			stTriple += ctm.indTriple(animalTitle, "Meat")
+
+			mClass = cut if cut else ""
+
+			stTriple += ctm.indTriple(animalTitle, mClass) if mClass else ""
+
+			stTriple += ctm.indTriple(animalTitle, "Meat") if not mClass else ""
+				
 			stTriple += ctm.indTriple(animalTitle, stClass)
 
 		else:
