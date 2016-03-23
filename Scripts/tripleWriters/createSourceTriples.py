@@ -319,12 +319,11 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 
 			abb = "caecum" if "caecum" in sourceSpec else ""
 			abb = "carcass" if "carcass" in sourceSpec else abb
+			abb = "weep" if "weep" in sourceSpec else abb
 
 			fae = "droppings" if "field sample" in sourceSpec else ""
 			fae = "pit" if "pit" in sourceSpec else fae
 			fae = "swab" if "swab" in sourceSpec else fae
-			fae = "weep" if "weep" in sourceSpec else fae
-	
 
 			name = "{} {}".format(animal, cut) if cut else name
 			name = "{} {}".format(animal, abb) if abb else name

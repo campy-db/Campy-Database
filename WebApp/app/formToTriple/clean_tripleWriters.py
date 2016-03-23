@@ -37,7 +37,7 @@ def createIsolateTriple(isoTitle):
 # createSourceTriple
 ######################################################################################################
 def createSourceTriple(source, isoTitle):
-	pass
+	return ""
 
 ######################################################################################################
 # createCGFtriple

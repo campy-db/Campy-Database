@@ -22,21 +22,21 @@ class TripleMaker:
     
     
     	###################################################################################################
-    # STATIC METHODS
+        # STATIC METHODS
     	###################################################################################################
     
     	###################################################################################################
     	# staticAddURI
     	###################################################################################################
     	@staticmethod
-    	def staticAddURI(title,uri):
+    	def staticAddURI(title, uri):
     		return "<"+uri+cn.cleanString(title)+">"
     
     	###################################################################################################
     	# multiURI
     	###################################################################################################
     	@staticmethod
-    	def multiURI(triple,uris,isLiteral = None):
+    	def multiURI(triple, uris, isLiteral = None):
     
     		l = 2 if isLiteral else 3
     
@@ -47,42 +47,52 @@ class TripleMaker:
     		return "{} .\n".format(result)
     
     	###################################################################################################
-    # UTILITY METHODS
+        # UTILITY METHODS
     	###################################################################################################
-    	def errMsg_str(self,s=None):
-    		if s:
-    			result=Exception(s+" must be a string")
-    		else:
-    			result=Exception("Arguments must be strings")
-    		return result
+    	def errMsg_str(self, s = None):
+
+            msg = "{} must be a string".format(s) if s else "Arguments must be strings"
+            return Exception(msg)
     
+
     	def errMsg_dict(self):
     		return Exception("Argument must be dictionary")
+
+
+        def errMsg_empty(self, s = None):
+
+            msg = "{} should not be empty".format(s) if s else "Value should not be empty"
+            return Exception(msg)
     
+
     	# Appends title to the user's uri
-    	def addURI(self,title):
+    	def addURI(self, title):
     		return "<"+self.uri+cn.cleanString(title)+">"
     
+
     	# Appends title to the reifiedLiteral URI
-    	def addrLitURI(self,title):
+    	def addrLitURI(self, title):
     		return "<"+self.rLitUri+cn.cleanString(title)+">"
          
+
     	# Returns a domain declaration.
     	# Note that only classes can be the domain of a property	
-    	def addDomain(self,domain):
+    	def addDomain(self, domain):
     		return "rdfs:domain "+self.addURI(domain)
     
+
     	# Returns an object range declaration for an objectProperty	
-    	def addObjRange(self,range_):
+    	def addObjRange(self, range_):
     		return "rdfs:range "+self.addURI(range_)	
     
+
     	# Returns a datatype range declaration for a datatypeProperty	
-    	def addDataRange(self,range_):
+    	def addDataRange(self, range_):
     		return "rdfs:range xsd:"+range_
       
     
     	###################################################################################################
-     # METHODS
+        # METHODS
     	###################################################################################################
         
     	###################################################################################################
@@ -214,6 +224,9 @@ class TripleMaker:
               raise self.errMsg_dict()
               
             def edit(v):
+
+                if v == "" or v == None:
+                    raise self.errMsg_empty("Property value")
              
                 litType = type(v)
 
@@ -222,7 +235,7 @@ class TripleMaker:
                 v = self.rlTag(v) if rLiteral else v
 
                 v = "\"{}\"".format(cn.cleanName(v))\
-                     if litType==str and not rLiteral else v
+                     if litType == str and not rLiteral else v
 
                 v = str(v) # Integers and so forth need to be strings
 

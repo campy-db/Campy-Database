@@ -17,12 +17,9 @@ def add():
 
     if form.validate_on_submit():
         triple = ft.formToTriple(form)
-        print triple
         #q.writeToBG(triple)
         flash("Isolate added")
         return redirect("/index")
-    else:
-        print "huh"
 
     return render_template("addIso.html", title = "Add Isolate", form = form)
 

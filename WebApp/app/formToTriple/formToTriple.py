@@ -7,9 +7,11 @@ def formToTriple(form):
 
     spec = str(form.spec.data) if form.spec.data else ""
 
-    def from_source():
+
+    def form_source():
 
         source = str(form.source.data) if form.source.data else ""
+
         return ctw.createSourceTriple(source, isoTitle)
 
 
@@ -37,6 +39,7 @@ def formToTriple(form):
         return ctw.createAnimalTriple(animalData, isoTitle)
 
     triple += form_CGF() +\
+              form_source() +\
               form_AnimalSource()
 
     return triple

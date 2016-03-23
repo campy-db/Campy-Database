@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 
 {% block contentA %}
+
 <body>
   <form action="" method=post class=add name=add>
     {{ form.hidden_tag() }}
@@ -9,7 +10,7 @@
     <div class=section>Basic Data</div>
     <p class=field>
 
-      Name <b class=fieldAlignA> {{ form.name(size=40) }}
+      Name <b> {{ form.name(size=40) }}
       <b class=warning>(Required)</b></b>
 
       {% for error in form.name.errors %}
@@ -18,7 +19,7 @@
 
       <br><br>
 
-      Species <b class=fieldAlignA> {{ form.spec(size=40) }}</b>
+      Species <b> {{ form.spec(size=40) }}</b>
 
       {% for error in form.spec.errors %}
        <br><span style="color: red;">[{{ error }}]</span>
@@ -32,11 +33,11 @@
     <p class=field>
 
       InVitro
-      <span class=fieldAlignB>{{ form.vitro() }}</span>
+      <span class>{{ form.vitro() }}</span>
   
       <br><br>
 
-      Fingerprint <span class=fieldAlignB>{{ form.fp(size=41) }}</span>
+      Fingerprint <span>{{ form.fp(size=41) }}</span>
 
       {% for error in form.fp.errors %}
        <br><span style="color: red;">[{{ error }}]</span>
@@ -45,7 +46,7 @@
       <br><br>
 
       Date Completed 
-      <span class=fieldAlignB>
+      <span>
       {{ form.dcy(size=11) }} {{ form.dcm(size=11) }} {{ form.dcd(size=11) }}
       <b class=warning>(Year-Month-Day)</b></span>
       
@@ -62,7 +63,7 @@
       <br><br>
 
       Typing Lab
-      <span class=fieldAlignB>{{ form.lab(size=41) }}</span>
+      <span>{{ form.lab(size=41) }}</span>
       <br>
 
     </p>
@@ -72,8 +73,13 @@
     <p class=field>
 
       Source
-      <span class=fieldAlignC>{{ form.source(size=41) }}
-      <b class=warning>(eg. chicken breast, water, cow, seasoned pork)</b></span>
+      <span>{{ form.source(size=41) }}
+      <b class=warning>(eg. chicken, water, cow, seasoned pork)</b></span>
+
+
+      {% for error in form.source.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
 
       <br>
     </p>
@@ -83,24 +89,25 @@
     <p class=field>
 
       ID
-      <span class=fieldAlignD>{{ form.aID(size=41) }}</span>
+      <span>{{ form.aID(size=41) }}</span>
 
       <br><br>
 
       Gender
-      <span class=fieldAlignD>{{ form.sex() }}</span>
+      <span>{{ form.sex() }}</span>
 
       <br><br>
 
       Domestic
-      <span class=fieldAlignD>{{ form.domestic() }}</span>
+      <span>{{ form.domestic() }}</span>
 
       <br><br>
 
       Age Rank
-      <span class=fieldAlignD>{{ form.aage() }}</span>
+      <span>{{ form.aage() }}</span>
 
     </p>
+
 
     <input type=submit value=Submit>
   </form>

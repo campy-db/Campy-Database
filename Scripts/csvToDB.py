@@ -96,13 +96,13 @@ def createTriples(df,row):
 	triple = ctm.indTriple(isoTitle,"Isolate")+\
 		     ctm.propTriple(isoTitle, {"hasIsolateName":isoTitle}, True, True)
 
-	#triple+=tw.createIsolationTriples(df,row,isoTitle) # For isolation data
+	#triple += tw.createIsolationTriples(df,row,isoTitle) # For isolation data
 
-	#triple+=createBIOtriples(df,row,isoTitle)
+	#triple += createBIOtriples(df,row,isoTitle)
 
 	triple += createEPItriples(df,row,isoTitle)
 
-	#triple+=createLIMStriples(df,row,isoTitle)
+	#triple += createLIMStriples(df,row,isoTitle)
 
 	writeToOnt(triple) # Write to the owl file. Just for testing
 	#writeToBG(triple) # Write the triples to the blazegraph server
@@ -120,6 +120,8 @@ def writeData():
 
 	# The column names contain the names of the AMR drugs aswell
 	triple += tw.createDrugTriples(df)
+
+	#writeToOnt(triple)
 
 	#writeToBG(triple)
 	#df["Strain Name"].count()

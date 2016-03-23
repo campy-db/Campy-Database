@@ -37,11 +37,12 @@ def writeToBG(t):
 # r - The result we got from blazegraph
 # isLiteral - True if the results are literals
 ######################################################################################################
-def trimResult(r):
+def trimResult(r, v):
 
 	l = []
-	for v in r["results"]["bindings"]:
-		l.append(v["v"]["value"])
+	for b in r["results"]["bindings"]:
+		l.append(b[v]["value"])
+
 	return l
 
 ######################################################################################################
@@ -50,19 +51,31 @@ def trimResult(r):
 ######################################################################################################
 def getIsoNames():
 
-	q = "select ?v where {?i %s ?n . ?n %s ?v .}"\
-	    %(ctm.addURI("hasIsolateName"),(litTM.addURI("hasLiteralValue")))
+	q = "select ?v where {{?i {} ?n . ?n {} ?v .}}"\
+	    .format(ctm.addURI("hasIsolateName"),(litTM.addURI("hasLiteralValue")))
 
 	result = e.query(q)
-	return trimResult(result)
+	
+	return trimResult(result, "v")
 
+######################################################################################################
+# getSource
+######################################################################################################
+def getSources():
+
+	q = "select distinct ?n where {{?s a {} . ?s {} ?n . }}"\
+	    .format(ctm.addURI("SampleSource"), ctm.addURI("hasName"))
+
+	result = e.query(q)
+
+	return trimResult(result, "n")
 
 ######################################################################################################
 # main
 # Just for testing.
 ######################################################################################################
 def main():
-	print getIsoNames()
+	print getSources()
 
 if __name__ == "__main__":
 	main()
