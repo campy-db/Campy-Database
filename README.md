@@ -13,7 +13,9 @@ around it - i.e. it is the one to be used. It imports `labTests.owl`.
 
 ## To run:
 - Start a Blazegraph server on `port 9999` (change the port number in `Scripts/endpoint.py` if you wish)
-- Create a new namespace named `campy`. Set `TruthMaintence` to `True` and change `noAxioms` to `OwlAxioms`.
+- Create a new namespace named `campy`. Set `TruthMaintence` to `True` and change `com.bigdata.rdf.axioms.NoAxioms`
+  to `com.bigdata.rdf.axioms.OwlAxioms`.
+- com.bigdata.rdf.store.AbstractTripleStore.axiomsClass=com.bigdata.rdf.axioms.OwlAxioms
 - Upload `campyOntology2.0.owl` and `labTests.owl` to Blazegraph (both are in Turtle format)
 - If you were me you would then upload the csv with the legacy data upto the Blazegraph server using
   `csvToDB.py`, but like I said the csv is stored privately.
