@@ -24,6 +24,6 @@ At this point, you can run a query that fetches the names of all the isolates in
 link and you can add data to the database by clicking the add isolate link (though right now it just prints the 
 triple to the terminal; we're still in the testing stages).
 
-Enjoy!
+Have fun.
 
 
