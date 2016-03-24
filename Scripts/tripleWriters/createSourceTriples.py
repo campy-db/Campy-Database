@@ -206,9 +206,10 @@ def createEnviroTriples(df, row, isoTitle):
 				enviroSpec = "treated" # Don't need redundant info
 				
 			if "water" in enviroSpec.lower():
-				if enviroSpec != "Water" and enviroSpec != "Core water site": # EnviroSpec is "drinking water source water",  
-							                                                  # "recreational water" and Core water site 
-							                                                  # (ignore Core Water Site)
+				# EnviroSpec is "drinking water source water",  
+		        # "recreational water" and Core water site 
+		        # (ignore Core Water Site)
+				if enviroSpec != "Water" and enviroSpec != "Core water site": 
 					enviroSpec = enviroSpec.replace(" water", "") # Get rid of redundant info
 					
 				else:
@@ -229,13 +230,15 @@ def createEnviroTriples(df, row, isoTitle):
 			enviro = "Substrate"
 			enviroSpec = "sand"
 
-	else: # We know it's an environmental source,  we don't know the environment type (enviro) or the specific
-		  # environment source (enviroSpec). Note that source specific 2 is empty if source general is too.
+	else: # We know it's an environmental source,  we don't know the environment type (enviro) 
+	      # or the specific environment source (enviroSpec). Note that source specific 2 is 
+	      # empty if source general is too.
+
 		enviro = "Environment"
-		enviroSpec = "unknown_enviro" # No unique identifier is needed here,  but some other things may be
-									# named unknown in the future.
+		enviroSpec = "unknown environment" # No unique identifier is needed here
 	
-	title = enviroSpec.lower() # Doesn't need to be unique; there are no props attached to evironments. 
+
+	title = enviroSpec.lower() 
 	
 	enviroTriple = ctm.indTriple(title, enviro) + ctm.propTriple(title, {"hasName":title}, True)
 	
@@ -288,9 +291,9 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 	
 	stTriple = "" 
 	cut = "" 
+	byprod = "" 
 	fae = ""
-	abb = "" 
-
+	
 	sampleType = df["Sample Type 2"][row] # Faecel,  Abbatoir,  Retail,  Egg
 
 	sourceSpec = df["Source_Specific_2"][row] # chickenBreast,  carcass,  rectal swab etc.
@@ -317,19 +320,19 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 			cut = "ground" if "ground" in sourceSpec else cut
 			cut = "loin" if "loin" in sourceSpec else cut
 
-			abb = "caecum" if "caecum" in sourceSpec else ""
-			abb = "carcass" if "carcass" in sourceSpec else abb
-			abb = "weep" if "weep" in sourceSpec else abb
+			byprod = "caecum" if "caecum" in sourceSpec else ""
+			byprod = "carcass" if "carcass" in sourceSpec else byprod
+			byprod = "weep" if "weep" in sourceSpec else byprod
 
 			fae = "droppings" if "field sample" in sourceSpec else ""
 			fae = "pit" if "pit" in sourceSpec else fae
 			fae = "swab" if "swab" in sourceSpec else fae
 
+
 			name = "{} {}".format(animal, cut) if cut else name
-			name = "{} {}".format(animal, abb) if abb else name
+			name = "{} {}".format(animal, byprod) if byprod else name
 			name = "{} {}".format(animal, fae) if fae else name
 
-		
 			# sourceSpec has info related to the properties of meat.
 			if "non-seasoned" in sourceSpec:
 
@@ -353,7 +356,7 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 			if "rinse" in sourceSpec:
 				
 				name = "{} {} {}".format(animal, cut, "rinse") if cut else name
-				name = "{} {} {}".format(animal, abb, "rinse") if abb else name
+				name = "{} {} {}".format(animal, byprod, "rinse") if byprod else name
 
 				stTriple += ctm.propTriple(animalTitle, {"isRinse":True}, True, True)
 
@@ -366,10 +369,9 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 
 		if domestic == False:
 			stTriple += ctm.indTriple(animalTitle, "WildType")
-
-		# Faecal samples can come from either wild or domestic animals
-		if domestic and fae:
+		else:
 			stTriple += ctm.indTriple(animalTitle, "DomesticType")
+
 
 		stClass = "{}Type".format(sampleType)
 
@@ -380,27 +382,19 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 			stTriple += ctm.indTriple(animalTitle, "Egg")
 
 
-		if fae == "droppings":
-			stTriple += ctm.indTriple(animalTitle, "Droppings")
+		# Pretty sure all byproducts are abbatoir samples, but it could be retail
+		stTriple += ctm.indTriple(animalTitle, byprod) if byprod else ""
 
-		elif fae == "pit":
-			stTriple += ctm.indTriple(animalTitle, "Pit")
+		stTriple += ctm.indTriple(animalTitle, cut) if cut else ""
 
-		elif fae == "swab":
-			stTriple += ctm.indTriple(animalTitle, "Swab")
+		# All retail samples are assumed to be meat, unless the byprod is specified
+		stTriple += ctm.indTriple(animalTitle, "Meat")\
+		            if not cut and not byprod and sampleType == "retail" else ""
 
-		elif sampleType == "retail":
+		stTriple += ctm.indTriple(animalTitle, fae) if fae else ""
 
-			mClass = cut if cut else ""
+		stTriple += ctm.indTriple(animalTitle, stClass)
 
-			stTriple += ctm.indTriple(animalTitle, mClass) if mClass else ""
-
-			stTriple += ctm.indTriple(animalTitle, "Meat") if not mClass else ""
-				
-			stTriple += ctm.indTriple(animalTitle, stClass)
-
-		else:
-			stTriple += ctm.indTriple(animalTitle, stClass)
 
 	# endif not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect":
 

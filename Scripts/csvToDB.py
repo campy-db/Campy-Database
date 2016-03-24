@@ -104,8 +104,8 @@ def createTriples(df,row):
 
 	#triple += createLIMStriples(df,row,isoTitle)
 
-	writeToOnt(triple) # Write to the owl file. Just for testing
-	#writeToBG(triple) # Write the triples to the blazegraph server
+	#writeToOnt(triple) # Write to the owl file. Just for testing
+	writeToBG(triple) # Write the triples to the blazegraph server
 	
 ######################################################################################################
 # Reads in data from the spreadsheet and writes triples
@@ -123,7 +123,7 @@ def writeData():
 
 	#writeToOnt(triple)
 
-	#writeToBG(triple)
+	writeToBG(triple)
 	#df["Strain Name"].count()
 	for row in range(df["Strain Name"].count()):
 		createTriples(df,row)

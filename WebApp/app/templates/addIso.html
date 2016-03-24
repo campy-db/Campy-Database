@@ -76,10 +76,14 @@
       <span>{{ form.source(size=41) }}
       <b class=warning>(eg. chicken, water, cow, seasoned pork)</b></span>
 
-
       {% for error in form.source.errors %}
       <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
+
+      <br><br>
+
+      Type
+      <span>{{ form.sourceType() }}</span>
 
       <br>
     </p>

@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Optional
-from util.validators import length, digit, fpBinary, range_, validSource
+from util.validators import length, digit, fpBinary, range_
 import datetime
 now = datetime.datetime.now()
 
@@ -28,7 +28,13 @@ class AddForm(Form):
 
     vitro = BooleanField("vitro")
 
-    source = StringField("source", validators = [ Optional(), validSource() ] )
+    source = StringField("source", validators = [ Optional() ] )
+
+    sourceType = SelectField("sourceType", choices = [ ("", ""),
+                                                     ("AbattoirType", "Abattoir"),
+                                                     ("FarmType", "Farm"),
+                                                     ("RetailType", "Retail"),
+                                                     ("WildType", "Wild") ])
 
     aID = StringField("aID")
 

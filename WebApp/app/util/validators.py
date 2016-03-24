@@ -2,8 +2,6 @@ import sys
 sys.path.append("/home/student/CampyDB/CampyDatabase")
 from Scripts import cleanCSV as cn
 from wtforms.validators import ValidationError, StopValidation
-from inProcessors import getSourceSubject
-from validValues import sources
 import re
 
 
@@ -80,7 +78,8 @@ def range_(val, min, max):
 
 
 def validSource():
-
+	pass
+	"""
 	message = "Valid sources are: {}".format(", ".join(sources))
 
 	def _validSource(form, field):
@@ -91,5 +90,5 @@ def validSource():
 			raise ValidationError(message)
 
 	return _validSource
-
+	"""
 #raise StopValidation()
