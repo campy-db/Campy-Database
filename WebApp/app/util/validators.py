@@ -2,7 +2,27 @@ import sys
 sys.path.append("/home/student/CampyDB/CampyDatabase")
 from Scripts import cleanCSV as cn
 from wtforms.validators import ValidationError, StopValidation
+from validValues import animals, sampleTypes
 import re
+
+"""
+######################################################################################################
+# Continues validation if the number of tries is less than or equal to one, else halts validation.
+# So for example if someone tries once to submit a form with a field that has DataRequired() and the
+# the field is empty, the DataRequired() error will be raised. But if they try the same thing again,
+# the form is considered valid.
+######################################################################################################
+def warning(msg = None):
+
+	def _warning(form, field):
+		if form.tries > 1:
+			raise StopValidation()
+		else:
+			if msg: 
+				raise ValidationError(msg)
+
+	return _warning
+"""
 
 
 def length(title = None, min = -1, max = -1):
@@ -77,18 +97,33 @@ def range_(val, min, max):
 	return _range_
 
 
-def validSource():
-	pass
-	"""
-	message = "Valid sources are: {}".format(", ".join(sources))
+def source():
 
-	def _validSource(form, field):
+    message = "Not a valid animal"
 
-		v = str(field.data)
+    def _validSource(form, field):
 
-		if not (v in sources):
-			raise ValidationError(message)
+    	val = field.data
 
-	return _validSource
-	"""
-#raise StopValidation()
+        vals = val.split(" ")
+
+        hasAnimal = any(v.replace("_", " ") in animals for v in vals)
+
+        if not hasAnimal:
+            raise ValidationError(message)
+
+    return _validSource
+
+
+
+"""
+if not valid:
+
+    tries = form.session["tries"]
+
+    if tries < 1:
+        form.session["tries"] += 1
+        raise ValidationError("Are you sure this is the source?")
+"""
+	
+

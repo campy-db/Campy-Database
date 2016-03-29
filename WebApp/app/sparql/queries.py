@@ -75,7 +75,7 @@ def getSources():
 # Get the lowest level subclasses of the class _class. IE get all the subclasses of _class that have
 # no subclasses of their own. 
 ######################################################################################################
-def getLowestClass(_class):
+def getLowestClasses(_class):
 
 	q = """
 		select ?label 
@@ -116,6 +116,11 @@ def getSubClasses(_class):
 	result = e.query(q)
 
 	return trimResult(result, "label")
+
+######################################################################################################
+# getAnimals
+# Get all the subclasses of Animal
+######################################################################################################
 
 
 ######################################################################################################

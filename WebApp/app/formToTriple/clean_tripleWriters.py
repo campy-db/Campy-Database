@@ -48,15 +48,19 @@ def createCGFtriple(data, isoTitle):
 
 	litProps = popVals({ "hasDayCompleted":data["day"], "hasMonthCompleted":data["month"], 
 	                     "hasYearCompleted":data["year"], "foundFingerprint":data["fingerprint"],
-	                     "isInVitro":data["vitro"] } )
+	                     "isInSilico":data["silico"] } )
 
 	props = popVals({ "doneAtLab":data["lab"] })
+
+	# If there is actually any CGF data, isInSilico is False by default
+	if "isInSilico" not in litProps.keys() and litProps or props:
+		litProps["isInSilico"] = False 
 
 	triple = ltm.propTriple(title, litProps, True, True) if litProps else ""
 
 	triple += ltm.propTriple(title, props) if props else ""
 
-	triple += ltm.indTriple(test, "CGF_test") if triple else ""
+	triple += ltm.indTriple(title, "CGF_test") if triple else ""
 
 	triple += tm.multiURI((isoTitle, "hasLabTest", title), (ctm.uri, ctm.uri, ltm.uri))\
 	          if triple else "" 

@@ -1,5 +1,5 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash, _app_ctx_stack
+                  render_template, flash, _app_ctx_stack
 from app import app
 from sparql import queries as q
 from forms import AddForm
@@ -13,11 +13,17 @@ def index():
 @app.route("/add", methods = ["GET","POST"])
 def add():
 
-    form = AddForm()
+    """
+    if request.method == "GET":
+        session["tries"] = 0
+    """
+    
+    form = AddForm(session)
 
     if form.validate_on_submit():
         triple = ft.formToTriple(form)
         #q.writeToBG(triple)
+        #print triple
         flash("Isolate added")
         return redirect("/index")
 

@@ -17,14 +17,14 @@ def formToTriple(form):
 
     def form_CGF():
 
-        fp = long(form.fp.data) if form.fp.data else ""
+        fp = str(form.fp.data) if form.fp.data else ""
         dcy = int(form.dcy.data) if form.dcy.data else ""
         dcm = int(form.dcm.data) if form.dcm.data else ""
         dcd = int(form.dcd.data) if form.dcd.data else ""
         lab = str(form.lab.data) if form.lab.data else ""
-        vitro = bool(form.vitro.data) if form.vitro.data else ""
+        silico = bool(form.silico.data) if form.silico.data else ""
 
-        cgfData = {"fingerprint":fp, "year":dcy, "month":dcm, "day":dcd, "lab":lab, "vitro":vitro}
+        cgfData = {"fingerprint":fp, "year":dcy, "month":dcm, "day":dcd, "lab":lab, "silico":silico}
         return ctw.createCGFtriple(cgfData, isoTitle)
 
 

@@ -75,8 +75,8 @@ def createCGFtriples(df, row, isoTitle):
 	# Every isolate has a cgf test
 	cgfTriple = ltm.indTriple(cgfTest, "CGF_test")
 
-	# Every cgf test in the csv is inVitro
-	cgfTriple += ltm.propTriple(cgfTest,{"isInVitro":True}, True, True)
+	# Every cgf test in the csv is in Vitro
+	cgfTriple += ltm.propTriple(cgfTest,{"isInSilico":False}, True, True)
 
 	if fileLoc:
 		cgfTriple += ltm.propTriple(cgfTest,{"hasFileLocation":fileLoc}, True, True)  

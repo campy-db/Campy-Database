@@ -32,8 +32,8 @@
 
     <p class=field>
 
-      InVitro
-      <span class>{{ form.vitro() }}</span>
+      In silico
+      <span class>{{ form.silico() }}</span>
   
       <br><br>
 
@@ -73,8 +73,8 @@
     <p class=field>
 
       Source
-      <span>{{ form.source(size=41) }}
-      <b class=warning>(eg. chicken, water, cow, seasoned pork)</b></span>
+      <span>{{ form.source(size=41) }}</span><br>
+      <b class=warning>(use underscores to link related terms. eg canada_goose feces)</b>
 
       {% for error in form.source.errors %}
       <br><span style="color: red;">[{{ error }}]</span>

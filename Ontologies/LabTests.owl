@@ -477,17 +477,17 @@
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#isInVitro
+###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#isInSilico
 
-:isInVitro rdf:type owl:ObjectProperty ;
-           
-           rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-           
-           rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-           
-           rdfs:domain :LabTest ;
-           
-           rdfs:subPropertyOf :hasLabTestProperty .
+:isInSilico rdf:type owl:ObjectProperty ;
+            
+            rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+            
+            rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
+            
+            rdfs:domain :LabTest ;
+            
+            rdfs:subPropertyOf :hasLabTestProperty .
 
 
 

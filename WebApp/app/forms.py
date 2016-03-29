@@ -1,12 +1,18 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Optional
-from util.validators import length, digit, fpBinary, range_
+from util.validators import length, digit, fpBinary, range_, source
 import datetime
 now = datetime.datetime.now()
 
 
 class AddForm(Form):
+
+    def __init__(self, ses):
+        self.session = ses
+        super(AddForm, self).__init__()
+
+    tries = 0
 
     name = StringField("name", validators = [DataRequired()])
 
@@ -26,15 +32,15 @@ class AddForm(Form):
 
     lab = StringField("lab")
 
-    vitro = BooleanField("vitro")
+    silico = BooleanField("silico")
 
-    source = StringField("source", validators = [ Optional() ] )
+    source = StringField("source", validators = [ Optional(), source() ])
 
     sourceType = SelectField("sourceType", choices = [ ("", ""),
                                                      ("AbattoirType", "Abattoir"),
                                                      ("FarmType", "Farm"),
                                                      ("RetailType", "Retail"),
-                                                     ("WildType", "Wild") ])
+                                                     ("WildType", "Wild") ] )
 
     aID = StringField("aID")
 

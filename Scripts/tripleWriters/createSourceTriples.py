@@ -206,12 +206,12 @@ def createEnviroTriples(df, row, isoTitle):
 				enviroSpec = "treated" # Don't need redundant info
 				
 			if "water" in enviroSpec.lower():
-				# EnviroSpec is "drinking water source water",  
-		        # "recreational water" and Core water site 
+
+				# EnviroSpec is "drinking water source water","recreational water" or Core water site 
 		        # (ignore Core Water Site)
 				if enviroSpec != "Water" and enviroSpec != "Core water site": 
-					enviroSpec = enviroSpec.replace(" water", "") # Get rid of redundant info
-					
+					enviroSpec = enviroSpec.replace(" water", "")
+					enviroSpec = "{} {}".format(enviroSpec, "water")
 				else:
 					enviroSpec = enviro # We don't really need this as enviroSpec already
 							            # equals water. But whatever ya know
@@ -373,7 +373,7 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 			stTriple += ctm.indTriple(animalTitle, "DomesticType")
 
 
-		stClass = "{}Type".format(sampleType)
+		stClass = "{}Type".format(sampleType) if sampleType != "faecal" else "Faecal"
 
 		if sampleType == "egg":
 
@@ -449,7 +449,7 @@ def createAnimalTriples(df, row, isoTitle):
 	if pd.isnull(family): # We know the source is an Animal but we don't know the family or type
 						  # of animal. So it just becomes an instance of the animal class and is
 						  # named 'unknown' (unless it has an id)
-		animal = "unknown"
+		animal = "unknown animal"
 		family = "Misc"
 		
 	else: # We know the family
@@ -472,7 +472,7 @@ def createAnimalTriples(df, row, isoTitle):
 					family = "Avian"
 
 				elif "small mammal" in animal:
-					animal = "unknown"
+					animal = "unknown animal"
 					family = "Misc"
 					
 				elif "peromyscus" in animal:
@@ -490,14 +490,14 @@ def createAnimalTriples(df, row, isoTitle):
 					
 				elif "unknown" in animal:
 					family = "Misc"
-					animal = "unknown"
+					animal = "unknown animal"
 
 				else: # racoons,  skunks,  and llama/alpaca
 					family = "Misc"
 
 			# There are the values Wild Bird,  goat/sheep,  alpaca/llama in source specific 1
 			if "wild bird" in animal:
-				animal = "unknown" # Wild bird has the family avian
+				animal = "unknown animal" # Wild bird has the family avian
 			if "/" in animal:
 				animal = animal.split("/")[0]
 
@@ -530,7 +530,7 @@ def createAnimalTriples(df, row, isoTitle):
 
 
 		else: # We know the family but not the animal
-			animal = "unknown"
+			animal = "unknown animal"
 
 
 	# Note that even unknown animals need a unique identifier as they have properties attached to them
@@ -555,7 +555,7 @@ def createAnimalTriples(df, row, isoTitle):
 	if not pd.isnull(ageRank) and ("juvenile" in ageRank or "adult" in ageRank):
 		animalTriple +=  ctm.propTriple(title, {"hasAgeRank":ageRank}, True, True)		
 		
-	if animal != "unknown":
+	if animal != "unknown animal":
 		# animal becomes an instance of animal,  and animal becomes a subclass of family
 		animalTriple += ctm.indTriple(title, animal)
 

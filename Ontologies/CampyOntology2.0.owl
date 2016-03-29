@@ -1284,7 +1284,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                            
                                                                                            rdfs:label "Droppings"@en ;
                                                                                            
-                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType> .
+                                                                                           rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Faecal> .
 
 
 
@@ -1314,7 +1314,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                      
                                                                                      rdfs:label "Egg"@en ;
                                                                                      
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FoodType> .
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Food> .
 
 
 
@@ -1349,13 +1349,13 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Faecal
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType> rdf:type owl:Class ;
-                                                                                            
-                                                                                            rdfs:label "Faecal Type"@en ;
-                                                                                            
-                                                                                            rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Faecal> rdf:type owl:Class ;
+                                                                                        
+                                                                                        rdfs:label "Faecal"@en ;
+                                                                                        
+                                                                                        rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
 
 
 
@@ -1379,13 +1379,13 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 
 
 
-###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FoodType
+###  https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Food
 
-<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FoodType> rdf:type owl:Class ;
-                                                                                          
-                                                                                          rdfs:label "Food Type"@en ;
-                                                                                          
-                                                                                          rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Food> rdf:type owl:Class ;
+                                                                                      
+                                                                                      rdfs:label "Food"@en ;
+                                                                                      
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#AnimalType> .
 
 
 
@@ -1595,7 +1595,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                       
                                                                                       rdfs:label "Meat"@en ;
                                                                                       
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FoodType> .
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Food> .
 
 
 
@@ -1734,7 +1734,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                      
                                                                                      rdfs:label "Pit"@en ;
                                                                                      
-                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType> .
+                                                                                     rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Faecal> .
 
 
 
@@ -1973,7 +1973,7 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
                                                                                       
                                                                                       rdfs:label "Swab"@en ;
                                                                                       
-                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#FaecalType> .
+                                                                                      rdfs:subClassOf <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Faecal> .
 
 
 
