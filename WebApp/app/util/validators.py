@@ -1,9 +1,13 @@
 import sys
 sys.path.append("/home/student/CampyDB/CampyDatabase")
+sys.path.append("/home/student/CampyDB/CampyDatabase/WebApp/app")
+
 from Scripts import cleanCSV as cn
 from wtforms.validators import ValidationError, StopValidation
-from validValues import animals, sampleTypes
+from validValues import animals, gen_animals, spec_animals, sample_types
+from sparql import queries as q
 import re
+
 
 """
 ######################################################################################################
@@ -105,16 +109,48 @@ def source():
 
     	val = field.data
 
-        vals = val.split(" ")
+        vals = [ v.lower().replace("_", " ") for v in val.split(" ") ]
 
-        hasAnimal = any(v.replace("_", " ") in animals for v in vals)
+        has_animal = False
 
-        if not hasAnimal:
-            raise ValidationError(message)
+        has_general_animal = False
+
+        for v in vals:
+
+            has_animal = True if v in animals else has_animal
+
+            if v in gen_animals:
+
+                animal = v
+
+                has_general_animal = True
+
+        if has_general_animal:
+
+            subClasses = [ s.lower() for s in q.getSubClasses(v) ]
+
+            sc_len = len(subClasses)
+
+            subClassList =\
+            "{} , or a {}".format( ", ".join(subClasses[:sc_len-1]), subClasses[sc_len-1] )\
+            if sc_len > 1 else subClasses[0]
+
+            tries = form.session["general_animal_tries"]
+
+            if form.session["form_error"] or tries < 1 or v != form.session["last_animal"]:
+
+                form.session["last_animal"] = v
+
+                form.session["general_animal_tries"] += 1
+
+                form.warning = True
+
+                raise ValidationError( "Do you know if it's a {}?".format(subClassList) )
+
+        if not has_animal:
+            raise ValidationError("Invalid source")
 
     return _validSource
-
-
 
 """
 if not valid:
