@@ -14,6 +14,8 @@ class AddForm(Form):
 
     tries = 0
 
+    warning = False
+
     name = StringField("name", validators = [DataRequired()])
 
     spec = StringField("spec")
@@ -37,10 +39,10 @@ class AddForm(Form):
     source = StringField("source", validators = [ Optional(), source() ])
 
     sourceType = SelectField("sourceType", choices = [ ("", ""),
-                                                     ("AbattoirType", "Abattoir"),
-                                                     ("FarmType", "Farm"),
-                                                     ("RetailType", "Retail"),
-                                                     ("WildType", "Wild") ] )
+                                                       ("Abattoir_type", "Abattoir"),
+                                                       ("Farm_type", "Farm"),
+                                                       ("Retail_type", "Retail"),
+                                                       ("Wild_type", "Wild") ] )
 
     aID = StringField("aID")
 
@@ -52,7 +54,7 @@ class AddForm(Form):
     aage = SelectField("aage", choices = [ ("", ""), 
     	                                   ("newborn", "Newborn"), 
     	                                   ("juvenile", "Juvenile"), 
-    	                                   ("adult", "Adult") ])
+    	                                   ("adult", "Adult") ] )
 
     
 
