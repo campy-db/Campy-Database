@@ -1,0 +1,7 @@
+[console_scripts]
+rdf2dot = rdflib.tools.rdf2dot:main
+csv2rdf = rdflib.tools.csv2rdf:main
+rdfpipe = rdflib.tools.rdfpipe:main
+rdfs2dot = rdflib.tools.rdfs2dot:main
+rdfgraphisomorphism = rdflib.tools.graphisomorphism:main
+
