@@ -72,10 +72,12 @@ def getSources():
 
 ######################################################################################################
 # getLowestClass
-# Get the lowest level subclasses of the class _class. IE get all the subclasses of _class that have
+# Get the lowest level subclasses of _class. IE get all the subclasses of _class that have
 # no subclasses of their own. 
 ######################################################################################################
 def getLowestClasses(_class):
+
+	_class = _class[0].upper() + _class[1:]
 
 	q = """
 		select ?label 
@@ -96,12 +98,37 @@ def getLowestClasses(_class):
 
 	return trimResult(result, "label")
 
+######################################################################################################
+# getHighestClasses
+# Returns all the subclasses of _class that have a subclass of their own.
+######################################################################################################
+def getHighestClasses(_class):
+
+	_class = _class[0].upper() + _class[1:]
+
+	q = """
+		select distinct ?label
+		where 
+		{{ 
+			?spec rdfs:subClassOf {c} .
+			?spec rdfs:label ?label .
+		    ?sub rdfs:subClassOf ?spec .
+			filter (?spec != {c} && ?sub != ?spec)	
+		}}
+		""".format(c = ctm.addURI(_class))
+
+	result = e.query(q)
+
+	return trimResult(result, "label")
+
 
 ######################################################################################################
 # getSubClasses
-# Get all the subclasses of _class excluding _class.
+# Get all the subclasses of _class.
 ######################################################################################################
 def getSubClasses(_class):
+
+	_class = _class[0].upper() + _class[1:]
 
 	q = """
 		select ?label 
