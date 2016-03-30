@@ -59,7 +59,7 @@ def createAMRtriples(df, row, isoTitle):
     triples = mic_triples + res_triples # merge lists
 
     if triples: # if data were not empty add URIs, etc
-        triples += [ ltm.indTriple(test_title,"AMRtest"), 
-                     tm.multiURI((isoTitle,"hasLabTest",test_title),(ctm.uri,ctm.uri,ltm.uri)) ]
+        triples += [ ltm.indTriple(test_title,"AMR_test"), 
+                     tm.multiURI((isoTitle,"hasLab_test",test_title),(ctm.uri,ctm.uri,ltm.uri)) ]
 
     return "".join(triples)

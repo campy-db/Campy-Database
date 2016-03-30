@@ -23,7 +23,7 @@ def createSeroTriples(df,  row,  isoTitle):
 
 		triple += ltm.propTriple(sTitle, {"foundSerotype":str(sero)}, True, True)
 
-		triple += tm.multiURI((isoTitle,  "hasLabTest",  sTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
+		triple += tm.multiURI((isoTitle,  "hasLab_test",  sTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
 
 
 	return triple

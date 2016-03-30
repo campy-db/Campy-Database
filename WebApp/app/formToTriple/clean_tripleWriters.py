@@ -76,7 +76,7 @@ def createCGFtriple(data, isoTitle):
 ######################################################################################################
 def createAnimalTriple(data, isoTitle):
 
-	title = data["aid"] if data["id"] else "placeholder"
+	title = data["aID"] if data["aID"] else "placeholder"
 	#title = "{}_{}".format(data["animal"], isoTitle) if data["animal"] and not data["id"] else ""
 
 	props = popVals({ "hasSex":data["sex"], "isDomestic":data["domestic"], "hasAgeRank":data["age"] })

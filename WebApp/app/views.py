@@ -13,11 +13,9 @@ def index():
 @app.route("/add", methods = ["GET","POST"])
 def add():
 
-    """
     if request.method == "GET":
-        session["tries"] = 0
-    """
-    
+        init_session_vars()
+
     form = AddForm(session)
 
     if form.validate_on_submit():
@@ -35,6 +33,12 @@ def names():
 
     isos = q.getIsoNames()
     return render_template("names.html",title = "Isolate Names",isos = isos)
+
+
+def init_session_vars():
+    session["general_animal_tries"] = 0
+    session["last_animal"] = None
+    session["form_error"] = False
 
 """
 @app.route("/login", methods = ["GET", "POST"])

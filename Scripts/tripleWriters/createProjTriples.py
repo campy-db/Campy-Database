@@ -10,7 +10,7 @@ import re
 ######################################################################################################
 #
 ######################################################################################################
-def createProjTriples(df,row,isoTitle):
+def createProjTriples(df, row, isoTitle):
 	
 	resultTriple = ""
 	projTriple = ""
@@ -52,13 +52,13 @@ def createProjTriples(df,row,isoTitle):
 				if subproj:
 					
 					# Some of the subprojects are years
-					subproj = int(float(subproj)) if cn.isNumber(subproj) else subproj 
-					
-					projTriple += ctm.indTriple(subproj, "SubProject")
+					subproj = cn.cleanInt(subproj) if cn.isNumber(subproj) else subproj 
+
+					projTriple += ctm.indTriple(subproj, "Sub_project")
 		   			projTriple += ctm.propTriple(subproj, {"hasName":subproj}, True)
 		   			projTriple += ctm.propTriple(proj, {"hasSubproject":subproj})
 
-	   				isoTriple += ctm.propTriple(isoTitle, {"partOfSubProject":subproj})
+	   				isoTriple += ctm.propTriple(isoTitle, {"partOfSub_project":subproj})
 
 	resultTriple += isoTriple + projTriple
 

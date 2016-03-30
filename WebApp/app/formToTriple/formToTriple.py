@@ -35,7 +35,7 @@ def formToTriple(form):
         isDom = bool(form.domestic.data).lower() if form.domestic.data else ""
         aage = str(form.aage.data) if form.aage.data else ""
 
-        animalData = {"id":aID, "sex":sex, "domestic":isDom, "age":aage}
+        animalData = {"aID":aID, "sex":sex, "domestic":isDom, "age":aage}
         return ctw.createAnimalTriple(animalData, isoTitle)
 
     triple += form_CGF() +\

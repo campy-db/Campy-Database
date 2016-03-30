@@ -21,8 +21,8 @@ def createGeneTriples(df):
 				 tm.multiURI((g,"hasName","\"{}\"".format(g)), (ltm.uri,ctm.uri), True)
 		return triple
 
-	gene_triples = [gene_triple(cn.cleanGene(g), "AllelicTypingGene") for g in aGenes] +\
-	               [gene_triple((g), "CGFtypingGene") for g in cgfGenes]
+	gene_triples = [gene_triple(cn.cleanGene(g), "Allelic_typing_gene") for g in aGenes] +\
+	               [gene_triple((g), "CGF_typing_gene") for g in cgfGenes]
 	               # Note that allelic typing genes in the csv need to be cleaned but
 	               # the cgf ones are fine as is
 	               

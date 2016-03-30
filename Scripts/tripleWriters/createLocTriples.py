@@ -64,9 +64,9 @@ def createLocTriples(df,row,isoTitle):
 				# body of water.
 				# The sumas and salmon rivers are the only bodies of water..right now
 				if re.search("[Rr]iver",bodyOfWater) is not None:
-					locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", bodyOfWater, "BodyOfWater")
+					locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", bodyOfWater, "Body_of_water")
 
-	# SamplingSite is a real mess. Has a lot of redundant information. Also, some of them
+	# Sampling_site is a real mess. Has a lot of redundant information. Also, some of them
 	# have city info (Fort Macleod) that isn't repeated in the City column. Note Fort Macleod 
 	# is also the name of the health authority 
 	if not pd.isnull(samplingSite) and cn.isGoodVal(samplingSite):
@@ -81,7 +81,7 @@ def createLocTriples(df,row,isoTitle):
 		samplingSite = re.sub("Mont...r...gie","Montérégie",samplingSite)
 		samplingSite = re.sub("H...pital","Hôpital",samplingSite)
 
-		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", samplingSite, "SamplingSite")
+		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", samplingSite, "Sampling_site")
 
 	if not pd.isnull(country) and cn.isGoodVal(country):
 		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", country, "Country")
@@ -105,18 +105,18 @@ def createLocTriples(df,row,isoTitle):
 			# for whatever reason � counts as 3 characters
 			hAuthority = re.sub("Mont...r...gie","Montérégie",hAuthority)
 
-			locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", hAuthority, "HealthAuthority")
+			locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", hAuthority, "Health_authority")
 
 	if not pd.isnull(samplingSite2) and ("Petting Zoo" in samplingSite2):
-		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", samplingSite2, "SamplingSite")
+		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", samplingSite2, "Sampling_site")
 
 	if not pd.isnull(c_netSite) and cn.isGoodVal(c_netSite):
 		
 		c_netSite = int(float(c_netSite)) if cn.isNumber(c_netSite) else c_netSite # Some of there are numbers
-		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", c_netSite, "C_EnterNetSite")
+		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", c_netSite, "C_Enternet_site")
 
 	if not pd.isnull(fncSite) and cn.isGoodVal(fncSite):
-		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", fncSite, "FNCSentinelSite")
+		locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", fncSite, "FNC_sentinel_site")
 
 	# Have to convert lat and long to signed decimal format
 	if not pd.isnull(lng) and cn.isGoodVal(lng):

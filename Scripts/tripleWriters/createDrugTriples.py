@@ -10,6 +10,6 @@ def createDrugTriples(df):
 	drugs=[d.replace("mic_","") for d in drugs]
 
 	for d in drugs:
-		dTriple+=ltm.indTriple(d,"AMRdrug")
+		dTriple+=ltm.indTriple(d,"AMR_drug")
 
 	return dTriple

@@ -51,13 +51,13 @@
       <b class=warning>(Year-Month-Day)</b></span>
       
       {% for error in form.dcy.errors %}
-      <br><span style="color: red;">[{{ error }}]</span>
+        <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
       {% for error in form.dcm.errors %}
-      <br><span style="color: red;">[{{ error }}]</span>
+        <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
       {% for error in form.dcd.errors %}
-      <br><span style="color: red;">[{{ error }}]</span>
+        <br><span style="color: red;">[{{ error }}]</span>
       {% endfor %}
 
       <br><br>
@@ -73,11 +73,15 @@
     <p class=field>
 
       Source
-      <span>{{ form.source(size=41) }}</span><br>
-      <b class=warning>(use underscores to link related terms. eg canada_goose feces)</b>
+      <span>{{ form.source(size=41) }}
+      <b class=warning>(use underscores to link related terms. eg 'canada_goose feces')</b></span>
 
       {% for error in form.source.errors %}
-      <br><span style="color: red;">[{{ error }}]</span>
+        {% if form.warning %}
+          <br><span style="color: #377BA8;">[{{ error }}]</span>
+        {% else %}
+          <br><span style="color: red;">[{{ error }}]</span>
+        {% endif %}
       {% endfor %}
 
       <br><br>

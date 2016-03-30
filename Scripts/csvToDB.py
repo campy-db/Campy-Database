@@ -26,7 +26,6 @@ def writeToOnt(t):
 # by our good friend Bryce Drew.
 ######################################################################################################
 def writeToBG(t):
-
 	print e.update("insert data{"+t+"}")
 
 ######################################################################################################
@@ -57,13 +56,13 @@ def createBIOtriples(df,row,isoTitle):
 ######################################################################################################
 def createEPItriples(df,row,isoTitle):
 
-	#triple = tw.createDTakenTriples(df,row,isoTitle) # The date the sample was taken
+	triple = tw.createDTakenTriples(df,row,isoTitle) # The date the sample was taken
 
-	#triple += tw.createLocTriples(df,row,isoTitle) # The location of where the sample was taken
+	triple += tw.createLocTriples(df,row,isoTitle) # The location of where the sample was taken
 
-	triple = tw.createSourceTriples(df,row,isoTitle) # Triples for The animal, human, or envrio source 
+	triple += tw.createSourceTriples(df,row,isoTitle) # Triples for The animal, human, or envrio source 
 
-	#triple += tw.createOutbreakTriples(df,row,isoTitle) # Outbreak triples
+	triple += tw.createOutbreakTriples(df,row,isoTitle) # Outbreak triples
 
 	return triple
 
@@ -96,16 +95,16 @@ def createTriples(df,row):
 	triple = ctm.indTriple(isoTitle,"Isolate")+\
 		     ctm.propTriple(isoTitle, {"hasIsolateName":isoTitle}, True, True)
 
-	#triple += tw.createIsolationTriples(df,row,isoTitle) # For isolation data
+	triple += tw.createIsolationTriples(df,row,isoTitle) # For isolation data
 
-	#triple += createBIOtriples(df,row,isoTitle)
+	triple += createBIOtriples(df,row,isoTitle)
 
 	triple += createEPItriples(df,row,isoTitle)
 
-	#triple += createLIMStriples(df,row,isoTitle)
+	triple += createLIMStriples(df,row,isoTitle)
 
-	#writeToOnt(triple) # Write to the owl file. Just for testing
-	writeToBG(triple) # Write the triples to the blazegraph server
+	writeToOnt(triple) # Write to the owl file. Just for testing
+	#writeToBG(triple) # Write the triples to the blazegraph server
 	
 ######################################################################################################
 # Reads in data from the spreadsheet and writes triples
@@ -121,12 +120,13 @@ def writeData():
 	# The column names contain the names of the AMR drugs aswell
 	triple += tw.createDrugTriples(df)
 
-	#writeToOnt(triple)
+	writeToOnt(triple)
 
-	writeToBG(triple)
+	#writeToBG(triple)
 	#df["Strain Name"].count()
 	for row in range(df["Strain Name"].count()):
-		createTriples(df,row)
+		if row > 15000:
+			createTriples(df,row)
 
 ######################################################################################################
 # Main

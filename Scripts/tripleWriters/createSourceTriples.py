@@ -368,16 +368,16 @@ def createTypeTriples(df, row, domestic, animal, animalTitle):
 		# endif not pd.isnull(sourceSpec):
 
 		if domestic == False:
-			stTriple += ctm.indTriple(animalTitle, "WildType")
+			stTriple += ctm.indTriple(animalTitle, "Wild_type")
 		else:
-			stTriple += ctm.indTriple(animalTitle, "DomesticType")
+			stTriple += ctm.indTriple(animalTitle, "Domestic_type")
 
 
-		stClass = "{}Type".format(sampleType) if sampleType != "faecal" else "Faecal"
+		stClass = "{}_type".format(sampleType) if sampleType != "faecal" else "Faecal"
 
 		if sampleType == "egg":
 
-			stClass = "FarmType"
+			stClass = "Farm_type"
 			name = "{} {}".format(animal, "egg")
 			stTriple += ctm.indTriple(animalTitle, "Egg")
 

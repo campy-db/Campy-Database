@@ -45,7 +45,7 @@ def createTypingTriples(df,  row,  isoTitle):
 	if not pd.isnull(st):
 		
 		triple += ltm.indTriple(mTitle, "MLST_test")	
-		triple += tm.multiURI((isoTitle,  "hasLabTest",  mTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
+		triple += tm.multiURI((isoTitle,  "hasLab_test",  mTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
 
 
 	def allele_triple(g):
@@ -60,7 +60,7 @@ def createTypingTriples(df,  row,  isoTitle):
 			
 			alTitle = "{}_{}".format(cn.cleanGene(g),  alIndex)
 			
-			triple =  ltm.indTriple(alTitle, "TypingAllele") +\
+			triple =  ltm.indTriple(alTitle, "Typing_allele") +\
 			          ltm.propTriple(alTitle, {"isOfGene":cn.cleanGene(g)}) +\
 			          ltm.propTriple(alTitle, {"hasAlleleIndex":alIndex}, True, True) +\
 			          test_triple(g, alTitle)
@@ -80,7 +80,7 @@ def createTypingTriples(df,  row,  isoTitle):
 			
 			triple += ltm.indTriple(tTitle,  tClass) +\
 				      ltm.propTriple(tTitle,  {"foundAllele":alTitle}) +\
-				      tm.multiURI((isoTitle,  "hasLabTest",  tTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
+				      tm.multiURI((isoTitle,  "hasLab_test",  tTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
 
 		return triple
 
@@ -98,7 +98,7 @@ def createTypingTriples(df,  row,  isoTitle):
 		if not pd.isnull(alIndex) and cn.isNumber(alIndex):
 			alIndex = cn.cleanInt(alIndex)
 			alTitle = cg.cleanGene(g)+"_"+alIndex
-			testTriple += ltm.indTriple(alTitle, "TypingAllele")
+			testTriple += ltm.indTriple(alTitle, "Typing_allele")
 			testTriple += ltm.propTriple(alTitle, {"isOfGene":cg.cleanGene(g)})
 			testTriple += ltm.propTriple(alTitle, {"hasAlleleIndex":alIndex}, "int", True)
 
@@ -110,7 +110,7 @@ def createTypingTriples(df,  row,  isoTitle):
 				testTriple += ltm.indTriple(testTitle, testClass)
 				testTriple += ltm.propTriple(testTitle, {"foundAllele":alTitle})
 
-				testTriple += ctm.addUri(isoTitle)+" "+ctm.addUri("hasLabTest")+" "\
+				testTriple += ctm.addUri(isoTitle)+" "+ctm.addUri("hasLab_test")+" "\
 						    +ltm.addUri(testTitle)+" ."
 
 	"""

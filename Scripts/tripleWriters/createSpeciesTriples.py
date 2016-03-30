@@ -63,7 +63,7 @@ def createSpeciesTriples(df, row, isoTitle):
 	
 		specA = specA.lower() # Some are no_16 and others are No_16
 		
-		isoTriple += ctm.indTriple(specA, "CampySpecies")+\
+		isoTriple += ctm.indTriple(specA, "Campy_species")+\
 				   ctm.propTriple(specA, {"hasName":specA}, True)
 				   
 		isoTriple += ctm.propTriple(isoTitle, {"hasSpecies":specA})
@@ -72,7 +72,7 @@ def createSpeciesTriples(df, row, isoTitle):
 		
 		specB = specB.lower() # Ditto
 		
-		isoTriple += ctm.indTriple(specB, "CampySpecies")+\
+		isoTriple += ctm.indTriple(specB, "Campy_species")+\
 			       ctm.propTriple(specB, {"hasName":specB}, True)
 			       
 		isoTriple += ctm.propTriple(isoTitle, {"hasSpecies":specB})

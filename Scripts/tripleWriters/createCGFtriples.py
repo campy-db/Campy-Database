@@ -28,15 +28,15 @@ def createClustTriples(df, row, cgfTest):
 		c95name = "{}_{}_{}_{}".format("CGF", 95, c90, c95)
 		c100name = "{}_{}_{}_{}_{}".format("CGF", 100, c90, c95, c100)
 
-		c90Triple = ltm.indTriple(c90name,"CGFcluster")+\
+		c90Triple = ltm.indTriple(c90name,"CGF_cluster")+\
 				  ltm.propTriple(c90name, {"hasThreshold":90, "hasClustNum":c90}, True, True)+\
 				  ltm.propTriple(c90name, {"hasSubCluster":c95name})
 
-		c95Triple = ltm.indTriple(c95name, "CGFcluster")+\
+		c95Triple = ltm.indTriple(c95name, "CGF_cluster")+\
 		          ltm.propTriple(c95name, {"hasThreshold":95,"hasClustNum":c95}, True, True)+\
 		          ltm.propTriple(c95name, {"hasSubCluster":c100name})
 
-		c100Triple = ltm.indTriple(c100name,"CGFcluster")+\
+		c100Triple = ltm.indTriple(c100name,"CGF_cluster")+\
 				   ltm.propTriple(c100name, {"hasThreshold":100,"hasClustNum":c100}, True, True)
 
 		cgfRefTriple = ltm.propTriple(cgfTest,{"hasCluster":[c90name, c95name, c100name]})
@@ -103,7 +103,7 @@ def createCGFtriples(df, row, isoTitle):
 	if not pd.isnull(typingLab) and cn.isGoodVal(typingLab):
 
 		# Have to create a typing lab triple and then attach the cgf test to it
-		labTriple = ltm.indTriple(typingLab,"TypingLab") # labTitle is an instance of the class TypingLab
+		labTriple = ltm.indTriple(typingLab,"Typing_lab") # labTitle is an instance of the class Typing_lab
 
 		labTriple += tm.multiURI(( typingLab, "hasName", "\"{}\"".format(typingLab)),\
 			         (ltm.uri, ctm.uri), True )
@@ -117,6 +117,6 @@ def createCGFtriples(df, row, isoTitle):
 		cgfTriple += clustTriple
 	
 
-	isoTriple = tm.multiURI( (isoTitle, "hasLabTest", cgfTest), (ctm.uri, ctm.uri, ltm.uri) )
+	isoTriple = tm.multiURI( (isoTitle, "hasLab_test", cgfTest), (ctm.uri, ctm.uri, ltm.uri) )
 
 	return labTriple+cgfTriple+isoTriple
