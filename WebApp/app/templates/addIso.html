@@ -72,7 +72,7 @@
 
     <p class=field>
 
-      Source
+      Source Data
       <span>{{ form.source(size=41) }}
       <b class=warning>(use underscores to link related terms. eg 'canada_goose feces')</b></span>
 
@@ -84,10 +84,23 @@
         {% endif %}
       {% endfor %}
 
-      <br><br>
-
-      Type
-      <span>{{ form.sourceType() }}</span>
+      {% if form.aID.errors %}
+        {% for error in form.aID.errors %}
+          <br><span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      {% elif form.sourceType.errors %}
+        {% for error in form.sourceType.errors %}
+          <br><span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      {% elif form.sex.errors %}
+        {% for error in form.sex.errors %}
+          <br><span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      {% else %}
+        {% for error in form.aage.errors %}
+          <br><span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      {% endif %}
 
       <br>
     </p>
@@ -101,21 +114,20 @@
 
       <br><br>
 
-      Gender
-      <span>{{ form.sex() }}</span>
-
-      <br><br>
-
-      Domestic
-      <span>{{ form.domestic() }}</span>
+      Type
+      <span>{{ form.sourceType() }}</span>
 
       <br><br>
 
       Age Rank
       <span>{{ form.aage() }}</span>
 
-    </p>
+      <br><br>
 
+      Gender
+      <span>{{ form.sex() }}</span>
+
+    </p>
 
     <input type=submit value=Submit>
   </form>

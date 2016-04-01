@@ -21,9 +21,11 @@ def add():
     if form.validate_on_submit():
         triple = ft.formToTriple(form)
         #q.writeToBG(triple)
-        #print triple
+        print triple
         flash("Isolate added")
         return redirect("/index")
+    else:
+        session["form_error"] = False
 
     return render_template("addIso.html", title = "Add Isolate", form = form)
 
@@ -36,7 +38,6 @@ def names():
 
 
 def init_session_vars():
-    session["general_animal_tries"] = 0
     session["last_animal"] = None
     session["form_error"] = False
 

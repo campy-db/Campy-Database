@@ -76,11 +76,20 @@ def createCGFtriple(data, isoTitle):
 ######################################################################################################
 def createAnimalTriple(data, isoTitle):
 
-	title = data["aID"] if data["aID"] else "placeholder"
-	#title = "{}_{}".format(data["animal"], isoTitle) if data["animal"] and not data["id"] else ""
+    title = "{}_{}".format(data["animal"], isoTitle) if data["animal"] else ""
+    title = data["aID"] if data["aID"] else title
 
-	props = popVals({ "hasSex":data["sex"], "isDomestic":data["domestic"], "hasAgeRank":data["age"] })
+    type_class = data["type"] if data["type"] else ""
 
-	triple = ctm.propTriple(title, props, True, True) if title and props else ""
+    name = "{} {}".format(type_class.replace("_type", "").lower(), data["animal"])\
+            if type_class else data["animal"]
 
-	return triple
+    props = popVals({ "hasName":name, "hasSex":data["sex"], "hasAgeRank":data["age"] })
+
+    triple = ctm.indTriple(title, data["animal"]) if data["animal"] else ""
+
+    triple += ctm.indTriple(title, type_class) if type_class and title else ""
+
+    triple += ctm.propTriple(title, props, True, True) if title and props else ""
+
+    return triple

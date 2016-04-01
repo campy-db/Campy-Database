@@ -1,3 +1,7 @@
+import sys
+sys.path.append("/home/student/CampyDB/CampyDatabase/WebApp/app")
+
+from util.validValues import animals as animals
 import clean_tripleWriters as ctw
 
 def formToTriple(form):
@@ -31,11 +35,12 @@ def formToTriple(form):
     def form_AnimalSource():
 
         aID = str(form.aID.data) if form.aID.data else ""
+        animal = get_animal(str(form.source.data)) if form.source else ""
+        typ = str(form.sourceType.data) if form.sourceType.data else ""
         sex = str(form.sex.data) if form.sex.data else ""
-        isDom = bool(form.domestic.data).lower() if form.domestic.data else ""
         aage = str(form.aage.data) if form.aage.data else ""
 
-        animalData = {"aID":aID, "sex":sex, "domestic":isDom, "age":aage}
+        animalData = {"animal":animal, "aID":aID, "type":typ, "sex":sex, "age":aage}
         return ctw.createAnimalTriple(animalData, isoTitle)
 
     triple += form_CGF() +\
@@ -43,4 +48,16 @@ def formToTriple(form):
               form_AnimalSource()
 
     return triple
+
+
+def get_animal(a):
+
+    vals = [ v.lower().replace("_", " ") for v in a.split(" ") ]
+
+    animal = ""
+
+    for v in vals:
+        animal = v if v in animals else animal
+    
+    return animal
     
