@@ -23,7 +23,7 @@ def createSMAtriples(df,  row,  isoTitle):
 
 		sTriple += ltm.propTriple(sTitle, {"foundPulsovar":str(pulsovar)}, True, True)
 
-		sTriple += tm.multiURI((isoTitle,  "hasLab_test",  sTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
+		sTriple += tm.multiURI((isoTitle,  "hasLabTest",  sTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
 
 
 	return sTriple

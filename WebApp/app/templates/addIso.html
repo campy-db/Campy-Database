@@ -74,7 +74,7 @@
 
       Source Data
       <span>{{ form.source(size=41) }}
-      <b class=warning>(use underscores to link related terms. eg 'canada_goose feces')</b></span>
+      <b class=warning>(Use underscores to link animals. eg 'canada_goose feces')</b></span>
 
       {% for error in form.source.errors %}
         {% if form.warning %}
@@ -114,8 +114,8 @@
 
       <br><br>
 
-      Type
-      <span>{{ form.sourceType() }}</span>
+      Locale
+      <span>{{ form.sourceLocale() }}</span>
 
       <br><br>
 

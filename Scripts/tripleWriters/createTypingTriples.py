@@ -45,7 +45,7 @@ def createTypingTriples(df,  row,  isoTitle):
 	if not pd.isnull(st):
 		
 		triple += ltm.indTriple(mTitle, "MLST_test")	
-		triple += tm.multiURI((isoTitle,  "hasLab_test",  mTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
+		triple += tm.multiURI((isoTitle,  "hasLabTest",  mTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
 
 
 	def allele_triple(g):
@@ -80,7 +80,7 @@ def createTypingTriples(df,  row,  isoTitle):
 			
 			triple += ltm.indTriple(tTitle,  tClass) +\
 				      ltm.propTriple(tTitle,  {"foundAllele":alTitle}) +\
-				      tm.multiURI((isoTitle,  "hasLab_test",  tTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
+				      tm.multiURI((isoTitle,  "hasLabTest",  tTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
 
 		return triple
 
@@ -110,7 +110,7 @@ def createTypingTriples(df,  row,  isoTitle):
 				testTriple += ltm.indTriple(testTitle, testClass)
 				testTriple += ltm.propTriple(testTitle, {"foundAllele":alTitle})
 
-				testTriple += ctm.addUri(isoTitle)+" "+ctm.addUri("hasLab_test")+" "\
+				testTriple += ctm.addUri(isoTitle)+" "+ctm.addUri("hasLabTest")+" "\
 						    +ltm.addUri(testTitle)+" ."
 
 	"""

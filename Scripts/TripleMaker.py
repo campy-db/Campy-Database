@@ -173,18 +173,21 @@ class TripleMaker:
     # title  - The name of the individual. Must be string
     # class_ - The class that the individual belongs to. Must be string. Can be absent though as you
     ###################################################################################################
-    def indTriple(self,title,class_=None):
+    def indTriple(self, title, class_ = None):
 
-        if type(title)==str:
+        if title == "":
+            raise self.errMsg_empty("title")
+
+        if type(title) == str:
             r=self.addURI(title)+" rdf:type owl:NamedIndividual " 
         else:
             raise self.errMsg_str("title")
 
         if class_:
-            if type(class_)==str:
-                class_=class_[0].upper()+class_[1:] # title() can't be used as sometimes the class
-                                                    # is camelCase, and title() will put everything
-                                                    # to lower case except the first letter
+            if type(class_) == str:
+                class_ = class_[0].upper()+class_[1:] # title() can't be used as sometimes the class
+                                                      # is camelCase, and title() will put everything
+                                                      # to lower case except the first letter
                 r+=", "+self.addURI(class_)+" "
             else:
                 raise self.errMsg_str("class_")

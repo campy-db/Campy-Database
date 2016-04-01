@@ -117,6 +117,6 @@ def createCGFtriples(df, row, isoTitle):
 		cgfTriple += clustTriple
 	
 
-	isoTriple = tm.multiURI( (isoTitle, "hasLab_test", cgfTest), (ctm.uri, ctm.uri, ltm.uri) )
+	isoTriple = tm.multiURI( (isoTitle, "hasLabTest", cgfTest), (ctm.uri, ctm.uri, ltm.uri) )
 
 	return labTriple+cgfTriple+isoTriple

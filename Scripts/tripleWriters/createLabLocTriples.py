@@ -24,6 +24,6 @@ def createLabLocTriples(df,row,isoTitle):
 	if isoLoc:
 		triple += ctm.indTriple(isoLoc, "Isolate_location")
 		triple += ctm.propTriple(isoLoc, {"hasName":isoLoc}, True )
-		triple += ctm.propTriple(isoTitle, {"hasIsolate_location":isoLoc})
+		triple += ctm.propTriple(isoTitle, {"hasIsolateLocation":isoLoc})
 
 	return triple

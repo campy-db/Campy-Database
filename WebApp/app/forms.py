@@ -38,13 +38,14 @@ class AddForm(Form):
 
     source = StringField("source", validators = [Optional(), source()])
 
-    sourceType = SelectField("sourceType", 
-                            validators = [Optional(), nonempty_source()], 
-                            choices = [ ("", ""),
-                                        ("Abattoir_type", "Abattoir"),
-                                        ("Farm_type", "Farm"),
-                                        ("Retail_type", "Retail"),
-                                        ("Wild_type", "Wild") ] )
+    sourceLocale = SelectField("sourceType", 
+                               validators = [Optional(), nonempty_source()], 
+                               choices = [ ("", ""),
+                                           ("abattoir", "Abattoir"),
+                                           ("farm", "Farm"),
+                                           ("retail", "Retail"),
+                                           ("wild", "Wild"),
+                                           ("domestic", "Domestic") ] )
 
     aID = StringField("aID", validators = [Optional(), nonempty_source()])
 

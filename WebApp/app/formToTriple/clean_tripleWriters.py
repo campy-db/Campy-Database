@@ -21,7 +21,7 @@ litTM = TripleMaker.TripleMaker(lit)
 def popVals(my_dict):
 
 	for d in my_dict.keys():
-		my_dict.pop(d, None) if not my_dict[d] else None
+		my_dict.pop(d, None) if my_dict[d] == "" else None
 
 	return my_dict
 
@@ -46,8 +46,10 @@ def createCGFtriple(data, isoTitle):
 
 	title = "cgf_" + isoTitle
 
-	litProps = popVals({ "hasDayCompleted":data["day"], "hasMonthCompleted":data["month"], 
-	                     "hasYearCompleted":data["year"], "foundFingerprint":data["fingerprint"],
+	litProps = popVals({ "hasDayCompleted":data["day"], 
+                         "hasMonthCompleted":data["month"], 
+	                     "hasYearCompleted":data["year"],
+                         "foundFingerprint":data["fingerprint"],
 	                     "isInSilico":data["silico"] } )
 
 	props = popVals({ "doneAtLab":data["lab"] })
@@ -76,20 +78,31 @@ def createCGFtriple(data, isoTitle):
 ######################################################################################################
 def createAnimalTriple(data, isoTitle):
 
-    title = "{}_{}".format(data["animal"], isoTitle) if data["animal"] else ""
-    title = data["aID"] if data["aID"] else title
+    animal = data["animal"]
 
-    type_class = data["type"] if data["type"] else ""
+    locale = data["locale"] 
 
-    name = "{} {}".format(type_class.replace("_type", "").lower(), data["animal"])\
-            if type_class else data["animal"]
+    title = "{}_{}".format(animal, isoTitle) if animal else ""
 
-    props = popVals({ "hasName":name, "hasSex":data["sex"], "hasAgeRank":data["age"] })
+    name = "{} {}".format(locale, animal) if locale else animal
 
-    triple = ctm.indTriple(title, data["animal"]) if data["animal"] else ""
+    if locale:
+        domestic = True if locale in ("domestic", "retail", "abattoir", "farm") else False
+    else:
+        domestic = ""
 
-    triple += ctm.indTriple(title, type_class) if type_class and title else ""
+    props = popVals({ "hasAnimalID":data["aID"], 
+                      "hasName":name, 
+                      "hasSex":data["sex"], 
+                      "hasAgeRank":data["age"],
+                      "isDomestic":domestic })
 
-    triple += ctm.propTriple(title, props, True, True) if title and props else ""
+    triple = ctm.indTriple(title, animal) if animal else ""
+
+    triple += ctm.propTriple(title, props, True, True) if props else ""
+
+    triple += ctm.propTriple(isoTitle, {"hasSampleSource":title}) if title else ""
+
+    triple += ctm.propTriple(isoTitle, {"hasSampleLocale":locale}, True, True) if locale else ""
 
     return triple

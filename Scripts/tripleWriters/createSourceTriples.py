@@ -13,21 +13,22 @@ subNats = [x.name for x in list(pc.subdivisions)] # A list of names of subnation
 countries = [x.name for x in list(pc.countries)] # A list of names of countries
 
 ######################################################################################################
-# createAgeTriples
+# getAge
+# Returns the age and/or birthdate
 # Some patients in the csv have ages. The values are found in the 'Patient D.O.B / Age' column. 
 # The column has birthdates,  ages,  and age ranges of the form 'a/X-Y years' where X and Y are ages
 # and a is some random character. As of right now,  we ignore ranges in hopes that Steven can get the
 # actual ages.
 ######################################################################################################
-def createAgeTriples(df, row, hum):
-	
-	humTriple = ""
+def getAge(df, row, hum):
 
 	yearLen = 4
 
 	ageLen = 2
 
 	age = df["Patient D.O.B / Age"][row]
+
+	birthdate = ""
 
 	yearTaken = df["YEAR"][row]
 										   
@@ -48,11 +49,7 @@ def createAgeTriples(df, row, hum):
 
 					dates = bday.split("-")
 
-					dates = [int(float(d)) for d in dates]
-
-					humTriple += ctm.propTriple(hum, {"hasBirthDay":dates[2],
-					                                  "hasBirthMonth":dates[1],
-					                                  "hasBirthYear":dates[0]}, True, True)
+					birthdate = [int(float(d)) for d in dates]
 
 				# else: date is invalid
 
@@ -67,9 +64,10 @@ def createAgeTriples(df, row, hum):
 				else:
 					age = now.year - int(bday[:yearLen]) # Use todays year for the age
 
-		humTriple += ctm.propTriple(hum,  {"hasAge":int(age)},  True,  True) if age else ""	
+	else:
+		age = ""
 
-	return humTriple
+	return age, birthdate
 
 ######################################################################################################
 # createTravelTriples
@@ -104,7 +102,7 @@ def createTravelTriples(df, row, hum):
 		trTriple +=  ctm.propTriple(travel, {"hasName":travel}, True)
 		humTriple = ctm.propTriple(hum, {"traveledTo":travel})
 
-	return trTriple+humTriple
+	return trTriple + humTriple
 
 ######################################################################################################
 # createHumanTriples
@@ -115,11 +113,11 @@ def createTravelTriples(df, row, hum):
 ######################################################################################################
 def createHumanTriples(df, row, isoTitle):
 	
-	type = ""
+	type = "" ; isoTriple = "" ; humTriple = ""
 
-	isoTriple = ""
+	humTitle = "patient"
 
-	hum = "{}_{}".format("patient", isoTitle)
+	name = "patient"
 	
 	gender = df["Gender"][row]
 
@@ -129,28 +127,45 @@ def createHumanTriples(df, row, isoTitle):
 
 	sTypeB = df["Clinical Sample Type"][row] # Also has clinical sample type
 
-
-	# Just create a generic human individual
-	humTriple = ctm.indTriple(hum, "Patient") # All human samples in the csv are patients
-
-	# Travel info is in the column 'comments' and it's quite messy so we'll
-	# handle it separately 
-	humTriple += createTravelTriples(df, row, hum)
-
 	# The age is stored in a column with birthdays and other random crap so we'll 
 	# handle it separately
-	humTriple += createAgeTriples(df, row, hum)
+	age, birthdate = getAge(df, row, humTitle)
+
 
 
 	# The values 0,  m,  f,  male,  female and 'not given' are in the csv. We won't add the prop if 
 	# it's 'not given'
 	if not pd.isnull(gender) and cn.isGoodVal(gender) and gender !=  0:
-		humTriple += ctm.propTriple(hum, {"hasGender":gender[0].lower()}, True, True)
+
+		gender = gender.lower()
+
+		# some of the genders in the csv are 'male' while others are just 'm'.
+		# same goes for female
+		g = gender[0]
+
+		humTitle = "{} {}".format(gender, humTitle)
+
+		# we don't want the name to be 'f patient', we want 'female patient'
+		gender = "female" if g == "f" else "male"
+
+		name = "{} {}".format(gender, name)
+
+	else:
+		g = ""
 
 	if not pd.isnull(postalCode):
-		humTriple += ctm.propTriple(hum, {"hasPostalCode":postalCode}, True, True)
 
-	# If sTypeA is nan,  try sTypeB
+		p = postalCode
+
+		humTitle = "{} {}".format(p, humTitle)
+
+		# we won't add the postal code to the name
+	else:
+		p = ""
+
+	humTitle = "{} {}".format(age, humTitle) if age else humTitle
+
+	# If sTypeA is nan, try sTypeB
 	typeCol = sTypeA if not pd.isnull(sTypeA) else sTypeB
 
 	if not pd.isnull(typeCol) and cn.isGoodVal(typeCol):
@@ -160,16 +175,36 @@ def createHumanTriples(df, row, isoTitle):
 		if re.search("[Bl]ood", typeCol) is not None:
 			type = "blood"
 
-
 	 # type could still be "" as not all the values for sTypeA (Source_Specific_2) are 
 	 # clinical sample types,  i.e. 'blood' or 'stool'
-	if type !=  "":
+	if type:
+	
+		isoTriple += ctm.indTriple(humTitle, type) 
 
-		isoTriple += ctm.indTriple(type, "Clinical")
-		isoTriple += ctm.propTriple(type, {"hasName":type}, True)
-		isoTriple += ctm.propTriple(isoTitle, {"hasSampleType":type})
-		
-	isoTriple += ctm.propTriple(isoTitle, {"hasSampleSource":hum})
+		name = "{} {}".format(name, type)
+
+
+	if birthdate:
+
+		humTriple += ctm.propTriple(humTitle, {"hasBirthDay":birthdate[2],
+		                      			       "hasBirthMonth":birthdate[1],
+		                      			       "hasBirthYear":birthdate[0]}, True, True)
+
+	humTriple += ctm.indTriple(humTitle, "Patient") # All human samples in the csv are patients
+
+	# Travel info is in the column 'comments' and it's quite messy so we'll
+	# handle it separately 
+	humTriple += createTravelTriples(df, row, humTitle)
+
+	humTriple += ctm.propTriple(humTitle,  {"hasAge":int(age)},  True,  True) if age else ""	
+
+	humTriple += ctm.propTriple(humTitle, {"hasGender":g}, True, True) if g else ""
+
+	humTriple += ctm.propTriple(humTitle, {"hasPostalCode":postalCode}, True, True) if p else ""
+
+	humTriple += ctm.propTriple(humTitle, {"hasName":name}, True, False)
+
+	isoTriple += ctm.propTriple(isoTitle, {"hasSampleSource":humTitle})
 
 	return humTriple + isoTriple
 
@@ -246,125 +281,6 @@ def createEnviroTriples(df, row, isoTitle):
 	isoTriple = ctm.propTriple(isoTitle, {"hasSampleSource":title})
 
 	return enviroTriple + isoTriple
-
-
-######################################################################################################
-# createTypeTriples
-# Here we create instances of the AnimalType class. Again we don't use unique identifiers as the user
-# probably needs to only know the type of sample. I wish we could just say :isoC1007 :hasSampeType 
-# "faecal",  but there are different kinds of faecal samples,  like droppings,  and swab. Also,  some 
-# sampletypes have properties attached to them so that further complicates things,  just a bit though.
-######################################################################################################
-def createTypeTriples(df, row, animal, animalTitle):
-	
-	stTriple = "" 
-	cut = "" 
-	byprod = "" 
-	fae = ""
-	
-	sampleType = df["Sample Type 2"][row] # Faecel,  Abbatoir,  Retail,  Egg
-
-	sourceSpec = df["Source_Specific_2"][row] # chickenBreast,  carcass,  rectal swab etc.
-
-	name = animal
-
-	# Insects don't have sample types
-	if not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect":
-		
-		sampleType = sampleType.lower()
-
-		name = "{} {}".format(sampleType, animal)
-
-		name = "{} {}".format(animal, "feces") if sampleType == "faecal" else name
-
-		if not pd.isnull(sourceSpec):
-			
-			sourceSpec = sourceSpec.lower()
-
-			# The source specific 2 for animal sample types is really messy. It's just
-			# easier to hard code values in
-			cut = "breast" if "breast" in sourceSpec else ""
-			cut = "thigh" if "thigh" in sourceSpec else cut
-			cut = "ground" if "ground" in sourceSpec else cut
-			cut = "loin" if "loin" in sourceSpec else cut
-
-			byprod = "caecum" if "caecum" in sourceSpec else ""
-			byprod = "carcass" if "carcass" in sourceSpec else byprod
-			byprod = "weep" if "weep" in sourceSpec else byprod
-
-			fae = "droppings" if "field sample" in sourceSpec else ""
-			fae = "pit" if "pit" in sourceSpec else fae
-			fae = "swab" if "swab" in sourceSpec else fae
-
-
-			name = "{} {} {}".format(sampleType, animal, cut) if cut else name
-			name = "{} {} {}".format(sampleType, animal, byprod) if byprod else name
-			name = "{} {}".format(animal, fae) if fae else name
-
-			# sourceSpec has info related to the properties of meat (ie cuts or abattoir caecum).
-			if "non-seasoned" in sourceSpec:
-
-				# The only non-seasoned cut in the csv is pork loin
-				name = "non-seasoned pork loin" 
-				stTriple += ctm.propTriple(animalTitle, {"isSeasoned":False}, True, True)
-
-			if "skin" in sourceSpec:
-
-				if "skinless" in sourceSpec:
-
-					name = "{} {} {}".format(sampleType, "skinless", animal, cut)
-					stTriple += ctm.propTriple(animalTitle, {"isSkinless":True}, True, True)
-
-				else:
-					
-					name = "{} {} {}".format(sampleType, animal, cut, "with skin")
-					stTriple += ctm.propTriple(animalTitle, {"isSkinless":False}, True, True)
-					
-
-			if "rinse" in sourceSpec:
-				
-				name = "{} {} {} {}".format(sampleType, animal, cut, "rinse") if cut else name
-				name = "{} {} {} {}".format(sampleType, animal, byprod, "rinse") if byprod else name
-
-				stTriple += ctm.propTriple(animalTitle, {"isRinse":True}, True, True)
-
-			if "ground" in sourceSpec:
-
-				name = "{} {} {}".format(sampleType, "ground", animal)
-				stTriple += ctm.propTriple(animalTitle, {"isGround":True}, True, True)
-
-		# endif not pd.isnull(sourceSpec):
-
-		locale = sampleType if sampleType != "faecal" else ""
-
-		if sampleType == "egg":
-
-			locale = "Farm"
-			name = "{} {} {}".format("farm", animal, "egg")
-			stTriple += ctm.indTriple(animalTitle, "Egg")
-
-
-		# Pretty sure all byproducts are abbatoir samples, but it could be retail
-		stTriple += ctm.indTriple(animalTitle, byprod) if byprod else ""
-
-		stTriple += ctm.indTriple(animalTitle, cut) if cut else ""
-
-		# All retail samples are assumed to be cuts, unless the byprod is specified
-		stTriple += ctm.indTriple(animalTitle, "Cut")\
-		            if not cut and not byprod and sampleType == "retail" else ""
-
-		stTriple += ctm.indTriple(animalTitle, fae) if fae else ""
-
-		stTriple += ctm.propTriple(animalTitle, {"hasSampleLocale":locale.lower()}, True, True)\
-		            if locale else ""
-
-		#stTriple += ctm.indTriple(animalTitle, stClass)
-
-	# endif not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect":
-
-	stTriple += ctm.propTriple(animalTitle, {"hasName":name}, True)
-
-	return stTriple
 
 
 ######################################################################################################
@@ -450,14 +366,10 @@ def createAnimalTriples(df, row, isoTitle):
 							    # in which case the animal is domestic
 
 	domestic = isDomestic(farm, sourceSpec, animal, family)	
-	if family == "MiscWild":
-		domestic = False
-
 
 	# An animal,  say chicken,  will become an instance of family (Avian in this case),  and Chicken,  
 	# for example. Then Chicken will become a subclass of Avian. The individuals URI will be 
-	# animal+isoTitle,  unless the id is present,  then this will be its URI. 
-
+	# animal+isoTitle
 
 	if pd.isnull(family): # We know the source is an Animal but we don't know the family or type
 						  # of animal. So it just becomes an instance of the animal class and is
@@ -537,41 +449,186 @@ def createAnimalTriples(df, row, isoTitle):
 
 		else: # We know the family but not the animal
 			animal = "unknown animal"
-
-	# Note that even unknown animals need a unique identifier as they have properties attached to them
-	# and can be part of different families
 	
-	title = "{}_{}".format(animal, isoTitle)
-
 	if not pd.isnull(id) and cn.isGoodVal(id):
 		id = cn.cleanInt(id)
-		animalTriple += ctm.propTriple(title, {"hasAnimalID":id}, True, True)
-
-	if dairy:
-		animalTriple += ctm.propTriple(title, {"isDairyCattle":True}, True, True)
-
-	if beef:
-		animalTriple += ctm.propTriple(title, {"isBeefCattle":True}, True, True)
+	else:
+		id = ""
 
 	if not pd.isnull(sex) and cn.isGoodVal(sex) and (sex[0] == "M" or sex[0] == "F"):
-		animalTriple += ctm.propTriple(title, {"hasSex":sex[0].lower()}, True, True)
+		s = sex.lower()[0]
+	else:
+		sex = ""
 
-	if not pd.isnull(ageRank) and ("juvenile" in ageRank or "adult" in ageRank):
-		animalTriple +=  ctm.propTriple(title, {"hasAgeRank":ageRank}, True, True)		
+	if pd.isnull(ageRank) or not ("juvenile" in ageRank or "adult" in ageRank):
+		ageRank = ""
+
+	######################################################################################################
+	# createTypeTriples
+	# Here we create instances of the AnimalType class. Again we don't use unique identifiers as the user
+	# probably needs to only know the type of sample. I wish we could just say :isoC1007 :hasSampeType 
+	# "faecal",  but there are different kinds of faecal samples,  like droppings,  and swab. Also,  some 
+	# sampletypes have properties attached to them so that further complicates things,  just a bit though.
+	######################################################################################################
+	def createTypeTriples(title):
 		
-	if "unknown" not in animal:
-		# animal becomes an instance of animal
-		animalTriple += ctm.indTriple(title, animal)
+		stTriple = "" 
+		cut = "" 
+		byprod = "" 
+		fae = ""
+		seasoned = None
+		skinless = None
+		is_rinse = None
+		is_ground = None
+		
+		sampleType = df["Sample Type 2"][row] # Faecel,  Abbatoir,  Retail,  Egg
 
-	if taxoGenus:
-		animalTriple += ctm.propTriple(title, {"hasTaxoGenus":taxoGenus}, True, True)
+		sourceSpec = df["Source_Specific_2"][row] # chickenBreast,  carcass,  rectal swab etc.
+
+		name = animal
+
+		# Insects don't have sample types
+		if not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect":
+			
+			sampleType = sampleType.lower()
+
+			name = "{} {}".format(sampleType, animal)
+
+			name = "{} {}".format(animal, "feces") if sampleType == "faecal" else name
+
+			if not pd.isnull(sourceSpec):
+				
+				sourceSpec = sourceSpec.lower()
+
+				# The source specific 2 for animal sample types is really messy. It's just
+				# easier to hard code values in
+				cut = "breast" if "breast" in sourceSpec else ""
+				cut = "thigh" if "thigh" in sourceSpec else cut
+				cut = "ground" if "ground" in sourceSpec else cut
+				cut = "loin" if "loin" in sourceSpec else cut
+
+				byprod = "caecum" if "caecum" in sourceSpec else ""
+				byprod = "carcass" if "carcass" in sourceSpec else byprod
+				byprod = "weep" if "weep" in sourceSpec else byprod
+
+				fae = "droppings" if "field sample" in sourceSpec else ""
+				fae = "pit" if "pit" in sourceSpec else fae
+				fae = "swab" if "swab" in sourceSpec else fae
+
+
+				name = "{} {} {}".format(sampleType, animal, cut) if cut else name
+				name = "{} {} {}".format(sampleType, animal, byprod) if byprod else name
+				name = "{} {}".format(animal, fae) if fae else name
+
+
+				# sourceSpec has info related to the properties of meat (ie cuts or abattoir caecum).
+				if "non-seasoned" in sourceSpec:
+
+					# The only non-seasoned cut in the csv is pork loin
+					name = "non-seasoned pork loin" 
+
+					seasoned = False
+
+					title = "{} {}".format("seasoned", title)
+
+				if "skin" in sourceSpec:
+
+					if "skinless" in sourceSpec:
+
+						name = "{} {} {}".format(sampleType, "skinless", animal, cut)
+
+						skinless = True
+
+						title = "{} {}".format("skinless", title)
+
+					else:
+						
+						name = "{} {} {}".format(sampleType, animal, cut, "with skin")
+
+						skinless = False
+
+						title = "{} {}".format("withskin", title)
+
+				if "rinse" in sourceSpec:
+					
+					name = "{} {} {} {}".format(sampleType, animal, cut, "rinse") if cut else name
+
+					name = "{} {} {} {}".format(sampleType, animal, byprod, "rinse") if byprod else name
+
+					is_rinse = True
+
+				if "ground" in sourceSpec:
+
+					a_name = "beef" if animal == "cattle" else animal
+
+					name = "{} {} {}".format(sampleType, "ground", a_name)
+
+					is_ground = True
+
+			# endif not pd.isnull(sourceSpec):
+
+			locale = sampleType if sampleType != "faecal" else ""
+
+			if sampleType == "egg":
+
+				locale = "Farm"
+
+				name = "{} {} {}".format("farm", animal, "egg")
+
+				stTriple += ctm.indTriple(title, "Egg")
+
+			stTriple += ctm.indTriple(title, byprod) if byprod else ""
+
+			stTriple += ctm.indTriple(title, cut) if cut else ""
+
+			# All retail samples are assumed to be cuts, unless the byprod is specified
+			stTriple += ctm.indTriple(title, "Cut")\
+			            if not cut and not byprod and sampleType == "retail" else ""
+
+			stTriple += ctm.indTriple(title, fae) if fae else ""
+
+			stTriple += ctm.propTriple(title, {"hasSampleLocale":locale.lower()}, True, True)\
+			            if locale else ""
+
+			#stTriple += ctm.indTriple(animalTitle, stClass)
+
+		# endif not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect"
+
+		stTriple += ctm.propTriple(title, {"isGround":is_ground}, True, True) if is_ground is not None else ""
+
+		stTriple += ctm.propTriple(title, {"isRinse":True}, True, True) if is_rinse is not None else ""
+
+		stTriple += ctm.propTriple(title, {"isSeasoned":seasoned}, True, True) if seasoned is not None else ""
+
+		stTriple += ctm.propTriple(title, {"isSkinless":skinless}, True, True) if skinless is not None else ""
+
+		stTriple += ctm.propTriple(title, {"hasName":name}, True)
+
+		return stTriple
+
+
+	title = "{}_{}".format(animal, isoTitle)
+
+	animalTriple += createTypeTriples(title)
+
+	# animal becomes an instance of animal
+	animalTriple += ctm.indTriple(title, animal) if "unknown" not in animal else ""
+
+	animalTriple += ctm.propTriple(title, {"isDomestic":domestic}) if domestic is not None else ""
+
+	animalTriple += ctm.propTriple(title, {"hasTaxoGenus":taxoGenus}, True, True) if taxoGenus else ""
+
+	animalTriple += ctm.propTriple(title, {"hasAgeRank":ageRank}, True, True) if ageRank else ""
+
+	animalTriple += ctm.propTriple(title, {"hasSex":sex}, True, True) if sex else ""
+
+	animalTriple += ctm.propTriple(title, {"isBeefCattle":True}, True, True) if beef else ""
+
+	animalTriple += ctm.propTriple(title, {"isDairyCattle":True}, True, True) if dairy else ""
+
+	animalTriple += ctm.propTriple(title, {"hasAnimalID":id}, True, True) if id else ""
 
 	animalTriple += ctm.indTriple(title, family)
-
-	animalTriple += ctm.propTriple(title, {"isDomesticSource":domestic}, True, True)\
-	                if domestic is not None else ""
-
-	animalTriple += createTypeTriples(df, row, animal, title)
 
 	isoTriple += ctm.propTriple(isoTitle, {"hasSampleSource":title})
 

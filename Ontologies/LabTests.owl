@@ -6,7 +6,9 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> .
 
-<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> rdf:type owl:Ontology .
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> rdf:type owl:Ontology ;
+                                                                         
+                                                                         rdfs:comment "An ontology for all the lab tests done on campybacter jejuni. All data comes from the csv 2016-02-10 CGF_DB_22011.csv. The ontology CampyOntology2.0.owl imports this ontology." .
 
 
 #################################################################
@@ -176,6 +178,10 @@
 ###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundSusceptibilityTo
 
 :foundSusceptibilityTo rdf:type owl:ObjectProperty ;
+                       
+                       rdfs:range :AMR_drug ;
+                       
+                       rdfs:domain :AMR_test ;
                        
                        rdfs:subPropertyOf :hasAMRproperty .
 

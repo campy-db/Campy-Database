@@ -36,11 +36,11 @@ def formToTriple(form):
 
         aID = str(form.aID.data) if form.aID.data else ""
         animal = get_animal(str(form.source.data)) if form.source else ""
-        typ = str(form.sourceType.data) if form.sourceType.data else ""
+        type = str(form.sourceType.data) if form.sourceType.data else ""
         sex = str(form.sex.data) if form.sex.data else ""
         aage = str(form.aage.data) if form.aage.data else ""
 
-        animalData = {"animal":animal, "aID":aID, "type":typ, "sex":sex, "age":aage}
+        animalData = {"animal":animal, "aID":aID, "type":type, "sex":sex, "age":aage}
         return ctw.createAnimalTriple(animalData, isoTitle)
 
     triple += form_CGF() +\

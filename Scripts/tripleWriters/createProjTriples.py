@@ -58,7 +58,7 @@ def createProjTriples(df, row, isoTitle):
 		   			projTriple += ctm.propTriple(subproj, {"hasName":subproj}, True)
 		   			projTriple += ctm.propTriple(proj, {"hasSubproject":subproj})
 
-	   				isoTriple += ctm.propTriple(isoTitle, {"partOfSub_project":subproj})
+	   				isoTriple += ctm.propTriple(isoTitle, {"partOfSubProject":subproj})
 
 	resultTriple += isoTriple + projTriple
 
