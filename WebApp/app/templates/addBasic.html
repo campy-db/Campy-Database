@@ -1,0 +1,25 @@
+
+<div class=section>Basic Data</div>
+
+<p class=field>
+
+  <span>  
+    Name {{ form.name(size=40) }}<b class=warning>(Required)</b>
+  </span>
+
+  {% for error in form.name.errors %}
+    <br><span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+
+  <br><br>
+
+  <span>
+    Species {{ form.spec(size = 40) }} 
+  </span>
+
+  {% for error in form.spec.errors %}
+   <br><span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+
+  <br>
+</p>

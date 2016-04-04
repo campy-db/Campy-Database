@@ -2,8 +2,7 @@ import sys
 sys.path.append("/home/student/CampyDB/CampyDatabase")
 sys.path.append("/home/student/CampyDB/CampyDatabase/WebApp/app")
 
-from Scripts import cleanCSV as cn
-from wtforms.validators import ValidationError, StopValidation
+from wtforms.validators import ValidationError, StopValidation, Regexp, NumberRange
 from validValues import animals, gen_animals, spec_animals, sample_types
 from sparql import queries as q
 import re
@@ -34,58 +33,50 @@ def length(title = None, min = -1, max = -1):
     if min != -1 and max != -1:
 
         if min != max:
-            message = " Length must be between {} and {} characters long. ".format(min, max)
-            message = " Length of {} must be between {} and {} characters long. " \
+            message = "Length must be between {} and {} characters long.".format(min, max)
+            message = "Length of {} must be between {} and {} characters long." \
 			          .format(title, min, max) if title else message
         else:
-            message = " Length must be exactly {}. ".format(max)
-            message = " Length of {} must be exactly {}. " \
+            message = "Length must be exactly {}.".format(max)
+            message = "Length of {} must be exactly {}." \
 			          .format(title, max) if title else message
 
     elif min != -1 and max == -1:
-        message = " Length must be greater than or equal to {}. ".format(min)
-        message = " Length of {} must be greater than or equal to {}. " \
+        message = "Length must be greater than or equal to {}.".format(min)
+        message = "Length of {} must be greater than or equal to {}." \
 		           .format(title, min) if title else message
 
     else:
         if min == -1 and max != -1:
-            message = " Length must be less than or equal to {}. ".format(max)
-            message = " Length of {} must be less than or equal to {}. " \
+            message = "Length must be less than or equal to {}.".format(max)
+            message = "Length of {} must be less than or equal to {}." \
 			     	   .format(title, max) if title else message
 
     def _length(form, field):
 		
-        l = field.data and len(field.data) or 0
+        l = field.data and len(str(field.data)) or 0
 
         if (l != 0 and (l < min or max != -1 and l > max)):
-
-            form.session["form_error"] = True
 
             raise ValidationError(message)
 
     return _length
 
 
-def digit():
+def digit(title = None):
 
-    message = " Value must be a number. "
+    title = title if title else "Value"
 
-    def _digit(form, field):
-		
-        v = field.data
+    message = "{} must be a number.".format(title)
 
-        if not v.isdigit():
+    regex = "[0-9]+"
 
-            form.session["form_error"] = True
-
-            raise ValidationError(message)
-
-    return _digit
+    return Regexp(regex = regex, message = message)
 
 
 def fpBinary():
 
-    message = "  Value must contain only 1s and 0s. "
+    message = "Value must contain only 1s and 0s."
 
     def _binary(form, field):
 		
@@ -93,29 +84,36 @@ def fpBinary():
 
         if (re.search("[01]{40}",v) is None):
 
-            form.session["form_error"] = True
-
             raise ValidationError(message)
 
     return _binary
 
 
-def range_(val, min, max):
+def range_(title = None, min = None, max = None):
 
-    message = " {} is out of range. ".format(val)
+    title = title if title else "Number"
 
     def _range_(form, field):
 
-        v = field.data and int(field.data) or ""
+        v = field.data or None
 
-        if (v < min or v > max):
+        try:
+            v = int(v)
+        except ValueError: 
+            v = None
 
-            form.session["form_error"] = True
+        if v and (min is not None and v < min) or (max is not None and v > max):
+
+            if max is None:
+                message = "{} must be at least {}.".format(title, min)
+            elif min is None:
+                message = "{} must be at most {}.".format(title, max)
+            else:
+                message = "{} must be between {} and {}.".format(title, min, max)
 
             raise ValidationError(message)
 
     return _range_
-
 
 def nonempty_source():
 
@@ -135,6 +133,8 @@ def source():
 
     def _validSource(form, field):
 
+        o_err = other_errors(form)
+
         def proc_general_animal(v):
 
             subClasses = [ s.lower() for s in q.getSubClasses(v) ]
@@ -145,7 +145,7 @@ def source():
             "{} , or a {}".format( ", ".join(subClasses[:sc_len-1]), subClasses[sc_len-1] )\
             if sc_len > 1 else subClasses[0]
 
-            if form.session["form_error"] or v != form.session["last_animal"]:
+            if o_err or v != form.session["last_animal"]:
 
                 form.session["last_animal"] = v
 
@@ -183,14 +183,14 @@ def source():
 
     return _validSource
 
-"""
-if not valid:
+def other_errors(form):
 
-    tries = form.session["tries"]
+    result = False
 
-    if tries < 1:
-        form.session["tries"] += 1
-        raise ValidationError("Are you sure this is the source?")
-"""
+    for name, f in form._fields.items():
+        result = True if f.errors else result
+
+    return result
+
 	
 

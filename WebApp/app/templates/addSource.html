@@ -1,0 +1,42 @@
+
+<div class=section>Source</div>
+
+<p class=field>
+
+  <span>
+    Source Data {{ form.source(size=41) }}
+    <b class=warning>(Use underscores to link animals. eg 'canada_goose feces')</b>
+  </span>
+
+  {% for error in form.source.errors %}
+    {% if form.warning %}
+      <br><span style="color: #377BA8;">[{{ error }}]</span>
+    {% else %}
+      <br><span style="color: red;">[{{ error }}]</span>
+    {% endif %}
+  {% endfor %}
+
+  {% if form.aID.errors and not form.source.data %}
+    {% for error in form.aID.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+  {% elif form.sourceLocale.errors %}
+    {% for error in form.sourceType.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+  {% elif form.sex.errors %}
+    {% for error in form.sex.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+  {% else %}
+    {% for error in form.aage.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+  {% endif %}
+
+  <br>
+</p>

@@ -6,130 +6,16 @@
 <body>
   <form action="" method=post class=add name=add>
     {{ form.hidden_tag() }}
+    
     <br>
-    <div class=section>Basic Data</div>
-    <p class=field>
 
-      Name <b> {{ form.name(size=40) }}
-      <b class=warning>(Required)</b></b>
-
-      {% for error in form.name.errors %}
-       <br><span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-
-      <br><br>
-
-      Species <b> {{ form.spec(size=40) }}</b>
-
-      {% for error in form.spec.errors %}
-       <br><span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-
-      <br>
-    </p>
-
-    <div class=section>CGF Data</div>
-
-    <p class=field>
-
-      In silico
-      <span class>{{ form.silico() }}</span>
-  
-      <br><br>
-
-      Fingerprint <span>{{ form.fp(size=41) }}</span>
-
-      {% for error in form.fp.errors %}
-       <br><span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-
-      <br><br>
-
-      Date Completed 
-      <span>
-      {{ form.dcy(size=11) }} {{ form.dcm(size=11) }} {{ form.dcd(size=11) }}
-      <b class=warning>(Year-Month-Day)</b></span>
-      
-      {% for error in form.dcy.errors %}
-        <br><span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-      {% for error in form.dcm.errors %}
-        <br><span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-      {% for error in form.dcd.errors %}
-        <br><span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-
-      <br><br>
-
-      Typing Lab
-      <span>{{ form.lab(size=41) }}</span>
-      <br>
-
-    </p>
-
-    <div class=section>Source</div>
-
-    <p class=field>
-
-      Source Data
-      <span>{{ form.source(size=41) }}
-      <b class=warning>(Use underscores to link animals. eg 'canada_goose feces')</b></span>
-
-      {% for error in form.source.errors %}
-        {% if form.warning %}
-          <br><span style="color: #377BA8;">[{{ error }}]</span>
-        {% else %}
-          <br><span style="color: red;">[{{ error }}]</span>
-        {% endif %}
-      {% endfor %}
-
-      {% if form.aID.errors %}
-        {% for error in form.aID.errors %}
-          <br><span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      {% elif form.sourceType.errors %}
-        {% for error in form.sourceType.errors %}
-          <br><span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      {% elif form.sex.errors %}
-        {% for error in form.sex.errors %}
-          <br><span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      {% else %}
-        {% for error in form.aage.errors %}
-          <br><span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      {% endif %}
-
-      <br>
-    </p>
-
-    <div class=section>Animal Source Data</div>
-
-    <p class=field>
-
-      ID
-      <span>{{ form.aID(size=41) }}</span>
-
-      <br><br>
-
-      Locale
-      <span>{{ form.sourceLocale() }}</span>
-
-      <br><br>
-
-      Age Rank
-      <span>{{ form.aage() }}</span>
-
-      <br><br>
-
-      Gender
-      <span>{{ form.sex() }}</span>
-
-    </p>
+    {% include "addBasic.html" %}
+    {% include "addCGF.html" %}
+    {% include "addSource.html" %}
+    {% include "addAnimal.html" %}
 
     <input type=submit value=Submit>
   </form>
 </body>
+
 {% endblock %}

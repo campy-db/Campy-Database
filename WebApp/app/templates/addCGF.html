@@ -1,0 +1,50 @@
+
+<div class=section>CGF Data</div>
+
+<p class=field>
+
+  <span>
+    In silico {{ form.silico() }}
+  </span>
+
+  <br><br>
+
+  <span>
+    Fingerprint {{ form.fp(size=41) }}
+  </span>
+
+  {% for error in form.fp.errors %}
+    <br><span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+
+  <br><br>
+
+  <span>
+    Date Completed 
+  
+    {{ form.dcy(size=11, placeholder = 'Year') }} 
+    {{ form.dcm(size=11, placeholder = 'Month') }} 
+    {{ form.dcd(size=11, placeholder = 'Day') }}
+  </span>
+  
+  {% for error in form.dcy.errors %}
+    <br><span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.dcm.errors %}
+    <br><span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.dcd.errors %}
+    <br><span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+
+  <br><br>
+
+  <span>
+    Typing Lab {{ form.lab(size=41) }}
+  </span>
+  
+  <br>
+
+</p>

@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, BooleanField, SelectField
+from wtforms import StringField, BooleanField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Optional
 from util.validators import length, digit, fpBinary, range_, source, nonempty_source
 import datetime
@@ -24,19 +24,17 @@ class AddForm(Form):
          [ Optional(), length(min = 40, max = 40), fpBinary() ])
 
     dcy = StringField("dcy", validators =\
-          [ Optional(), length(title = "year", min = 4, max = 4), digit(), range_("Year", 0, now.year) ])
+          [ Optional(), digit("Year"), length(title = "year", min = 4, max = 4), range_("Year", 1900, now.year) ])
 
     dcm = StringField("dcm", validators =\
-          [ Optional(), length(title = "month", min = 1, max = 2), digit(), range_("Month", 1, 12) ])
+          [ Optional(), digit("Month"), length(title = "month", min = 1, max = 2), range_("Month", 1, 12) ])
 
     dcd = StringField("dcd", validators =\
-    	  [ Optional(), length(title = "day", min = 1, max = 2), digit(), range_("Day", 1, 31) ])
+    	  [ Optional(), digit("Day"), length(title = "day", min = 1, max = 2), range_("Day", 1, 31) ])
 
     lab = StringField("lab")
 
     silico = BooleanField("silico")
-
-    source = StringField("source", validators = [Optional(), source()])
 
     sourceLocale = SelectField("sourceType", 
                                validators = [Optional(), nonempty_source()], 
@@ -59,9 +57,9 @@ class AddForm(Form):
                        validators = [Optional(), nonempty_source()], 
                        choices = [ ("", ""), 
                                    ("newborn", "Newborn"), 
-    	                           ("juvenile", "Juvenile"), 
-    	                           ("adult", "Adult") ] )
+    	                             ("juvenile", "Juvenile"), 
+    	                             ("adult", "Adult") ] )
 
-    
+    source = StringField("source", validators = [Optional(), source()])
 
 
