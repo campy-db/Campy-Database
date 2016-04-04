@@ -3,3 +3,4 @@
 *.pyc
 *.pdf
 test.py
+flask/
