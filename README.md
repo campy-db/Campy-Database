@@ -16,7 +16,7 @@ around it. It imports `LabTests.owl`.
 - Upload `campyOntology2.0.owl` and `LabTests.owl` to Blazegraph (both are in Turtle format)
 - If you were me you would then upload the csv with the legacy data upto the Blazegraph server using
   `csvToDB.py`, but like I said the csv is stored privately.
-- Run ./run.py (in the WebApp dir)
+- Run `./run.py` (in the WebApp dir)
 - The web app should now be running locally on `port 5000`.
 
 At this point, you can run a query that fetches the names of all the isolates in the database by clicking the `names` 
