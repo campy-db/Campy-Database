@@ -2,9 +2,11 @@
 {% extends "base.html" %}
 
 {% block contentA %}
-  {% for i in isos %}
-  <p>
-    {{ i }}
-  </p>
-  {% endfor %}
+  {% if isos %}
+    {% for i in isos %}
+    <p> {{ i }} </p>
+    {% endfor %}
+  {% else %}
+    <p> There are no isolates available! </p>
+  {% endif %}
 {% endblock %}

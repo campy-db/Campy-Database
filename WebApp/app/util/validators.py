@@ -3,7 +3,7 @@ sys.path.append("/home/student/CampyDB/CampyDatabase")
 sys.path.append("/home/student/CampyDB/CampyDatabase/WebApp/app")
 
 from wtforms.validators import ValidationError, StopValidation, Regexp, NumberRange
-from validValues import animals, gen_animals, spec_animals, sample_types
+from valid_values import animals, gen_animals, sample_types, gen_sample_types
 from sparql import queries as q
 import re
 
@@ -27,6 +27,22 @@ def warning(msg = None):
 	return _warning
 """
 
+def specialChars():
+
+    bad_chars = "<>"
+
+    message = "This field cannot contain the characters: {}".format(" ".join(bad_chars))
+
+    def _specialChars(form, field):
+
+        v = field.data
+
+        invalid = any([ True if b in v else False for b in bad_chars ])
+
+        if invalid:
+            raise ValidationError(message)
+
+    return _specialChars
 
 def length(title = None, min = -1, max = -1):
 
@@ -115,7 +131,7 @@ def range_(title = None, min = None, max = None):
 
     return _range_
 
-def nonempty_source():
+def nonemptySource():
 
     message = "You must specify a source"
 
@@ -127,63 +143,94 @@ def nonempty_source():
     return _nonempty_source
 
 
+def genVal(form, v, last):
+
+    o_err = otherErrors(form)
+
+    sub_classes = [ s.lower() for s in q.getSubClasses(v) ]
+
+    sc_len = len(sub_classes)
+
+    sub_class_list = ", ".join(sub_classes)
+
+    if o_err or v != form.session[last]:
+
+        form.session[last] = v
+
+        raise ValidationError\
+        ( ("warning", "Consider these values instead of {}: {}".format(v, sub_class_list)) )
+
+
+def processGenVal(form, field, gen_list, last):
+
+    val = field.data
+
+    vals = [ v.lower().replace("_", " ") for v in val.split(" ") ]
+
+    has_gen = False
+
+    for v in vals:
+
+        if v in gen_list:
+
+            gen_val = v
+
+            has_gen = True
+
+    if has_gen:
+        genVal(form, gen_val, last)
+
+
+def genAnimal():
+
+    def _genAnimal(form, field):
+
+        processGenVal(form, field, gen_animals, "last_animal")
+
+    return _genAnimal
+
+
+def genSample():
+
+    def _genSample(form, field):
+
+        processGenVal(form, field, gen_sample_types, "last_sample_type")
+
+    return _genSample
+
+
 def source():
 
-    message = "Not a valid animal"
+    message = "Must specify an animal"
 
     def _validSource(form, field):
-
-        o_err = other_errors(form)
-
-        def proc_general_animal(v):
-
-            subClasses = [ s.lower() for s in q.getSubClasses(v) ]
-
-            sc_len = len(subClasses)
-
-            subClassList =\
-            "{} , or a {}".format( ", ".join(subClasses[:sc_len-1]), subClasses[sc_len-1] )\
-            if sc_len > 1 else subClasses[0]
-
-            if o_err or v != form.session["last_animal"]:
-
-                form.session["last_animal"] = v
-
-                form.warning = True
-
-                raise ValidationError( "Do you know if it's a {}?".format(subClassList) )
 
         val = field.data
 
         vals = [ v.lower().replace("_", " ") for v in val.split(" ") ]
 
-        has_animal = False
+        has_animal = any([ True if v in animals else False for v in vals ])
 
-        has_general_animal = False
+        has_sample = None
 
-        has_sample_form = False
-
-        for v in vals:
-
-            has_animal = True if v in animals else has_animal
-
-            has_sample_form
-
-            if v in gen_animals:
-
-                animal = v
-
-                has_general_animal = True
-
-        if has_general_animal:
-            proc_general_animal(v)
+        if len(vals) > 1:
+            has_sample = any([ True if v in sample_types else False for v in vals ])
 
         if not has_animal:
-            raise ValidationError("Invalid source")
+
+            message = "You must specify an animal"
+
+            raise ValidationError(message)
+
+        if has_sample is not None and has_sample == False:
+
+            message = "Invalid sample type"
+
+            raise ValidationError(message)
 
     return _validSource
 
-def other_errors(form):
+def otherErrors(form):
 
     result = False
 

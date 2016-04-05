@@ -3,7 +3,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 from app import app
 from sparql import queries as q
 from forms import AddForm
-from formToTriple import formToTriple as ft
+from formToTriple import form_to_triple as ft
 
 @app.route("/")
 @app.route("/index")
@@ -20,7 +20,7 @@ def add():
 
     if form.validate_on_submit():
         triple = ft.formToTriple(form)
-        #q.writeToBG(triple)
+        q.writeToBG(triple)
         print triple
         flash("Isolate added")
         return redirect("/index")
@@ -39,6 +39,7 @@ def names():
 
 def init_session_vars():
     session["last_animal"] = None
+    session["last_sample_type"] = None
     session["form_error"] = False
 
 """

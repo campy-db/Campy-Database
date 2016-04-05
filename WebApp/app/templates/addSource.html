@@ -1,16 +1,16 @@
 
-<div class=section>Source</div>
+<div class=section>Source Data</div>
 
 <p class=field>
 
   <span>
-    Source Data {{ form.source(size=41) }}
-    <b class=warning>(Use underscores to link animals. eg 'canada_goose feces')</b>
+    Source {{ form.source(size = 41, placeholder = "e.g. chicken breast rinse") }}
+    <b class=warning>(Use underscores to link animal names. e.g. canada_goose)</b>
   </span>
 
   {% for error in form.source.errors %}
-    {% if form.warning %}
-      <br><span style="color: #377BA8;">[{{ error }}]</span>
+    {% if error[0] == 'warning' %}
+      <br><span style="color: #377BA8;">[{{ error[1] }}]</span>
     {% else %}
       <br><span style="color: red;">[{{ error }}]</span>
     {% endif %}

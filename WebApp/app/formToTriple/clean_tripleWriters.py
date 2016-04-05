@@ -16,7 +16,7 @@ lit = "http://www.essepuntato.it/2010/06/literalreification/"
 litTM = TripleMaker.TripleMaker(lit) 
 
 ######################################################################################################
-# 
+# Pop all the values from a dictionary that are empty
 ######################################################################################################
 def popVals(my_dict):
 
@@ -33,11 +33,6 @@ def createIsolateTriple(isoTitle):
 	return ctm.indTriple(isoTitle,"Isolate")+\
 	       ctm.propTriple(isoTitle,{"hasIsolateName":isoTitle},"string",True)
 
-######################################################################################################
-# createSourceTriple
-######################################################################################################
-def createSourceTriple(source, isoTitle):
-	return ""
 
 ######################################################################################################
 # createCGFtriple
@@ -82,22 +77,20 @@ def createAnimalTriple(data, isoTitle):
 
     locale = data["locale"] 
 
+    type = data["type"]
+
     title = "{}_{}".format(animal, isoTitle) if animal else ""
 
     name = "{} {}".format(locale, animal) if locale else animal
 
-    if locale:
-        domestic = True if locale in ("domestic", "retail", "abattoir", "farm") else False
-    else:
-        domestic = ""
-
     props = popVals({ "hasAnimalID":data["aID"], 
                       "hasName":name, 
                       "hasSex":data["sex"], 
-                      "hasAgeRank":data["age"],
-                      "isDomestic":domestic })
+                      "hasAgeRank":data["age"] })
 
     triple = ctm.indTriple(title, animal) if animal else ""
+
+    triple += ctm.indTriple(title, type) if type else ""
 
     triple += ctm.propTriple(title, props, True, True) if props else ""
 
