@@ -1,29 +1,26 @@
-import sys
-sys.path.append("/home/student/Campy/CampyDatabase")
+"""
+ createSeroTriples
+"""
 
-from Scripts import cleanCSV as cn
-from Scripts.TripleMaker import TripleMaker as tm
 import pandas as pd
-from campyTM import campy as ctm
-from labTM import lab as ltm
+from .. import cleanCSV as cn
+from ..TripleMaker import TripleMaker as tm
+from .campyTM import CAMPY as ctm
+from .labTM import LAB as ltm
 
-######################################################################################################
-# createSeroTriples
-######################################################################################################
-def createSeroTriples(df,  row,  isoTitle):
+def createSeroTriples(df, row, isoTitle):
 
-	triple = ""
-	sero = df["Serotype"][row]
+    triple = ""
+    sero = df["Serotype"][row]
 
-	if not pd.isnull(sero) and cn.isGoodVal(sero):
+    if not pd.isnull(sero) and cn.isGoodVal(sero):
 
-		sTitle =  "sero_{}".format(isoTitle)
+        sTitle = "sero_{}".format(isoTitle)
 
-		triple += ltm.indTriple(sTitle, "Serotype_test")
+        triple += ltm.indTriple(sTitle, "Serotype_test")
 
-		triple += ltm.propTriple(sTitle, {"foundSerotype":str(sero)}, True, True)
+        triple += ltm.propTriple(sTitle, {"foundSerotype":str(sero)}, True, True)
 
-		triple += tm.multiURI((isoTitle,  "hasLabTest",  sTitle),  (ctm.uri,  ctm.uri,  ltm.uri))
+        triple += tm.multiURI((isoTitle, "hasLabTest", sTitle), (ctm.uri, ctm.uri, ltm.uri))
 
-
-	return triple
+    return triple
