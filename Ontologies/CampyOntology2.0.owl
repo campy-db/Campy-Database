@@ -37,14 +37,16 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :hasAgeRank a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has age" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalID
 
 :hasAnimalID a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has ID" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasAnimalProperty
 
@@ -111,7 +113,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :hasDaySampleTaken a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has day sample taken" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasDilution
 
@@ -194,7 +197,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :hasLabTest a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasBIOproperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test> .
+	rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test> ;
+	rdfs:label "has lab test" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLatitude
 
@@ -202,7 +206,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 	rdfs:subPropertyOf :hasSourceLocation ;
 	a owl:FunctionalProperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has source latitude" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasLongitude
 
@@ -210,7 +215,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 	rdfs:subPropertyOf :hasSourceLocation ;
 	a owl:FunctionalProperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has source longitude" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasMeatProperty
 
@@ -237,7 +243,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :hasMonthSampleTaken a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has month sample taken" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasNMLid
 
@@ -294,7 +301,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :hasSampleLocale a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasSourceProperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has locale" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSampleSource
 
@@ -302,14 +310,16 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 	rdfs:subPropertyOf :hasSourceProperty ;
 	a owl:FunctionalProperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range :Sample_source .
+	rdfs:range :Sample_source ;
+	rdfs:label "has source" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasScientificName
 
 :hasScientificName a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has scientific name" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSex
 
@@ -317,7 +327,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	a owl:FunctionalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has sex" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSourceLocation
 
@@ -338,7 +349,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :hasSpecies a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasBIOproperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range :Campy_species .
+	rdfs:range :Campy_species ;
+	rdfs:label "has species" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSubproject
 
@@ -347,40 +359,53 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 	rdfs:domain :Project ;
 	rdfs:range :Sub_project .
 # 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasSubspecies
+
+:hasSubspecies a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasBIOproperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range :Campy_subspecies ;
+	rdfs:label "has subspecies" .
+# 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoClass
 
 :hasTaxoClass a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has class" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoFamily
 
 :hasTaxoFamily a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has family" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoGenus
 
 :hasTaxoGenus a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has genus" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoOrder
 
 :hasTaxoOrder a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has order" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTaxoSpecies
 
 :hasTaxoSpecies a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has species" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasTechnique
 
@@ -396,6 +421,14 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasUncertainSpecies
+
+:hasUncertainSpecies a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasBIOproperty ;
+	rdfs:domain :Isolate ;
+	rdfs:range :Campy_species ;
+	rdfs:label "has cf. species" .
+# 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#hasYearAdded
 
 :hasYearAdded a owl:ObjectProperty ;
@@ -409,7 +442,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :hasYearSampleTaken a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "has year sample taken" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isBeefCattle
 
@@ -417,7 +451,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCattleProperty ;
 	a owl:FunctionalProperty ;
 	rdfs:domain :Cattle ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "is a beef cattle" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isDairyCattle
 
@@ -425,14 +460,16 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCattleProperty ;
 	a owl:FunctionalProperty ;
 	rdfs:domain :Cattle ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "is a dairy cattle" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isDomestic
 
 :isDomestic a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "is domestic" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isGround
 
@@ -446,7 +483,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :isPartOfOutbreak a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
+	rdfs:label "is part of outbreak" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#isReferenceStrain
 
@@ -481,7 +519,8 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :partOfOutbreak a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasEPIproperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range :Outbreak .
+	rdfs:range :Outbreak ;
+	rdfs:label "park of outbreak" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#partOfProject
 
@@ -634,6 +673,12 @@ Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. "
 :Campy_species a owl:Class ;
 	rdfs:subClassOf :BIO_property ;
 	rdfs:label "Campy Species"@en .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Campy_subspecies
+
+:Campy_subspecies a owl:Class ;
+	rdfs:subClassOf :BIO_property ;
+	rdfs:label "Campy Subspecies" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology2.0.owl#Canada_goose
 
