@@ -5,7 +5,8 @@
 from flask import request, session, redirect, render_template, flash
 from app import app
 from .sparql import queries as q
-from .forms import AddForm
+from .sparql import data_queries as dq
+from .forms import AddForm, SummaryForm
 from .formToTriple import form_to_triple as ft
 
 @app.route("/")
@@ -39,8 +40,20 @@ def names():
     isos = q.getIsoNames()
     return render_template("names.html", title="Isolate Names", isos=isos)
 
+@app.route("/isolate_summary")
+def summary():
+
+    form = SummaryForm()
+
+    if form.validate_on_submit():
+        pass
+    return render_template("isolate_summary.html", title="Isolate Summary", form=form)
+
+
+
 
 def init_session_vars():
+
     session["last_animal"] = None
     session["last_sample_type"] = None
     session["form_error"] = False

@@ -13,6 +13,9 @@ range_, genAnimal, genSample, nonemptySource
 
 NOW = datetime.datetime.now()
 
+class SummaryForm(Form):
+    iso_title = StringField("iso_title", validators=[DataRequired()])
+
 class AddForm(Form):
 
     def __init__(self, ses):

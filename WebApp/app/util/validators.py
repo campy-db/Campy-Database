@@ -5,8 +5,9 @@
 
 import re
 from wtforms.validators import ValidationError, Regexp
-from .valid_values import ANIMALS, GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES, SPECIES
+from .valid_values import ANIMALS, GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
 from ..sparql import queries as q
+from .shared_validators import valid_species
 
 def specialChars(bad_chars):
 
@@ -75,41 +76,9 @@ def species():
 
         v = field.data
 
-        v = re.sub("[Cc]ampy(lobacter)?", "", v).lower()
+        valid, message = valid_species(v)
 
-        good_sep = False\
-        if re.search(r"subspec[\. ]|spp(\.)?|sub[- ]spec(ies)?", v) is not None else True
-
-        empty_sub =\
-        True if v.find("subspecies") != -1 and v.split("subspecies")[1] == "" else False
-
-        specs = [s.strip() for s in v.split("subspecies")]
-
-        spec = [s.strip() for s in specs[0].split("+")]
-
-        spec = v.split("cf.")[1].strip() if v.find("cf.") != -1 else spec
-
-        spec = [spec] if not isinstance(spec, list) else spec
-
-        print spec
-
-        subspec = specs[1] if len(specs) > 1 else ""
-
-        good_spec = all(True if s in SPECIES.keys() else False for s in spec)
-
-        message = "Did you mean \"subspecies\"?" if not good_sep else ""
-
-        message = "You forgot to add a subspecies" if empty_sub else ""
-
-        if good_spec:
-            good_subspec = True if not subspec or subspec in SPECIES["".join(spec)] else False
-
-            if not good_subspec:
-                message = "Invalid subspecies"
-        else:
-            message = "Invalid Species"
-
-        if not (good_sep and good_spec and good_subspec and not empty_sub):
+        if not valid:
             raise ValidationError(message)
 
     return _species

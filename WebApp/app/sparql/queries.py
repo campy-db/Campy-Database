@@ -2,6 +2,7 @@
  queries.py
 
  Gernal SPARQL queries.
+
 """
 
 import sys
@@ -45,10 +46,10 @@ def writeToBG(t):
 # r - The result we got from blazegraph
 # isLiteral - True if the results are literals
 ####################################################################################################
-def trimResult(r, v):
+def trimResult(result, v):
 
     l = []
-    for b in r["results"]["bindings"]:
+    for b in result["results"]["bindings"]:
         l.append(b[v]["value"])
 
     return l
@@ -78,6 +79,28 @@ def getSources():
     result = e.query(q)
 
     return trimResult(result, "n")
+
+def getLowestProps(prop):
+
+    q = """
+        select ?label 
+        where 
+        {{ 
+            ?spec rdfs:subPropertyOf {c} .
+            ?spec rdfs:label ?label . 
+            filter(?spec != {c}) . 
+            filter not exists 
+            {{
+                ?sub rdfs:subPropertyOf ?spec . 
+                filter(?sub != ?spec) 
+            }}
+        }}
+        """.format(c=ctm.addURI(prop))
+
+    result = e.query(q)
+
+    return trimResult(result, "label")
+
 
 ####################################################################################################
 # getLowestClass
