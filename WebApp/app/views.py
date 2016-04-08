@@ -1,16 +1,19 @@
-from flask import Flask, request, session, g, redirect, url_for, abort, \
-                  render_template, flash, _app_ctx_stack
+"""
+ views.py
+"""
+
+from flask import request, session, redirect, render_template, flash
 from app import app
-from sparql import queries as q
-from forms import AddForm
-from formToTriple import form_to_triple as ft
+from .sparql import queries as q
+from .forms import AddForm
+from .formToTriple import form_to_triple as ft
 
 @app.route("/")
 @app.route("/index")
 def index():
     return render_template("index.html")
 
-@app.route("/add", methods = ["GET","POST"])
+@app.route("/add", methods=["GET", "POST"])
 def add():
 
     if request.method == "GET":
@@ -20,21 +23,21 @@ def add():
 
     if form.validate_on_submit():
         triple = ft.formToTriple(form)
-        q.writeToBG(triple)
+        #q.writeToBG(triple)
         print triple
         flash("Isolate added")
         return redirect("/index")
     else:
         session["form_error"] = False
 
-    return render_template("addIso.html", title = "Add Isolate", form = form)
+    return render_template("addIso.html", title="Add Isolate", form=form)
 
 
 @app.route("/names")
 def names():
 
     isos = q.getIsoNames()
-    return render_template("names.html",title = "Isolate Names",isos = isos)
+    return render_template("names.html", title="Isolate Names", isos=isos)
 
 
 def init_session_vars():
