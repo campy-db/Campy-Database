@@ -4,9 +4,6 @@
  triepl-store running on blazegraph.
 """
 
-# -*- coding: latin-1 -*-
-
-
 import pandas as pd
 
 from .tripleWriters import *
@@ -40,7 +37,7 @@ def createBIOtriples(df, row, isoTitle):
 
     triple = createRefTriples(df, row, isoTitle) # Reference strains
 
-    triple = createSpeciesTriples(df, row, isoTitle) # Type of species
+    triple += createSpeciesTriples(df, row, isoTitle) # Type of species
 
     triple += createTypingTriples(df, row, isoTitle) # Triples related to typing tests
 
@@ -64,7 +61,7 @@ def createEPItriples(df, row, isoTitle):
 
     triple += createLocTriples(df, row, isoTitle) # The location of where the sample was taken
 
-    triple = createSourceTriples(df, row, isoTitle) # Triples for the isolate source
+    triple += createSourceTriples(df, row, isoTitle) # Triples for the isolate source
 
     triple += createOutbreakTriples(df, row, isoTitle) # Outbreak triples
 
@@ -108,7 +105,7 @@ def createTriples(df, row):
     triple += createLIMStriples(df, row, isoTitle)
 
     #writeToOnt(triple) # Write to the owl file. Just for testing
-    #writeToBG(triple) # Write the triples to the blazegraph server
+    writeToBG(triple) # Write the triples to the blazegraph server
 
 ####################################################################################################
 # Reads in data from the spreadsheet and writes triples
@@ -126,10 +123,11 @@ def writeData():
 
     #writeToOnt(triple)
 
-    #writeToBG(triple)
+    writeToBG(triple)
     #df["Strain Name"].count()
     for row in range(df["Strain Name"].count()):
-        createTriples(df, row)
+        if row > 20000:
+            createTriples(df, row)
 
 ####################################################################################################
 # Main
