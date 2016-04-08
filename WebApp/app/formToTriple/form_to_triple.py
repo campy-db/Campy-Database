@@ -2,6 +2,7 @@
  form_to_triple.py
 """
 
+import re
 from ..util.valid_values import ANIMALS, SAMPLE_TYPES
 from . import clean_triple_writers as ctw
 
@@ -11,13 +12,9 @@ def formToTriple(form):
 
     iso_title = str(form.name.data)
 
-    specs = str(form.spec.data).split("subspecies") if form.spec.data else ""
+    spec_str = str(form.spec.data) if form.spec.data else ""
 
-    spec = specs[0] if specs else ""
-    subspec = specs[1] if specs and len(specs) > 1 else ""
-
-    triple.append(ctw.createIsolateTriple(iso_title, spec, subspec))
-
+    triple.append(ctw.createIsolateTriple(iso_title, spec_str))
 
     def formCGF():
 
