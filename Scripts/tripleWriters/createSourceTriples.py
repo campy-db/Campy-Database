@@ -149,7 +149,7 @@ def createHumanTriples(df, row, isoTitle):
         # same goes for female
         g = gender[0]
 
-        humTitle = "{} {}".format(gender, humTitle)
+        humTitle = "{} {}".format(humTitle, isoTitle)
 
         # we don't want the name to be 'f patient', we want 'female patient'
         gender = "female" if g == "f" else "male"
@@ -465,14 +465,9 @@ def createAnimalTriples(df, row, isoTitle):
     ################################################################################################
     def createTypeTriples(title):
 
-        stTriple = ""
-        cut = ""
-        byprod = ""
-        fae = ""
-        seasoned = None
-        skinless = None
-        is_rinse = None
-        is_ground = None
+        stTriple, cut, byprod, fae = "", "", "", ""
+
+        seasoned, skinless, is_rinse, is_ground = None, None, None, None
 
         sampleType = df["Sample Type 2"][row] # Faecel, Abbatoir, Retail, Egg
 
@@ -516,11 +511,9 @@ def createAnimalTriples(df, row, isoTitle):
                 if "non-seasoned" in sourceSpec:
 
                     # The only non-seasoned cut in the csv is pork loin
-                    name = "non-seasoned pork loin" 
+                    name = "non-seasoned pork loin"
 
                     seasoned = False
-
-                    title = "{} {}".format("seasoned", title)
 
                 if "skin" in sourceSpec:
 
@@ -530,15 +523,11 @@ def createAnimalTriples(df, row, isoTitle):
 
                         skinless = True
 
-                        title = "{} {}".format("skinless", title)
-
                     else:
 
                         name = "{} {} {} {}".format(sampleType, animal, cut, "with skin")
 
                         skinless = False
-
-                        title = "{} {}".format("withskin", title)
 
                 if "rinse" in sourceSpec:
 
