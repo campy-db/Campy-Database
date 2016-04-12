@@ -55,52 +55,22 @@ def trimResult(result, v):
     return l
 
 ####################################################################################################
-# getIsoNames
+# isA
 #
-# Returns a list of the isolate names.
+# returns True if title is an instance of class_
 ####################################################################################################
-def getIsoNames():
+def isA(title, class_):
 
-    q = "select ?v where {{?i {} ?n . ?n {} ?v .}}"\
-        .format(ctm.addURI("hasIsolateName"), (LITTM.addURI("hasLiteralValue")))
-
-    result = e.query(q)
-
-    return trimResult(result, "v")
-
-####################################################################################################
-# getSource
-####################################################################################################
-def getSources():
-
-    q = "select distinct ?n where {{?s a {SampleSource} . ?s {hasName} ?n . }}"\
-        .format(SampleSource=ctm.addURI("SampleSource"), hasName=ctm.addURI("hasName"))
-
-    result = e.query(q)
-
-    return trimResult(result, "n")
-
-def getLowestProps(prop):
+    class_ = class_[0].upper() + class_[1:]
 
     q = """
-        select ?label 
-        where 
-        {{ 
-            ?spec rdfs:subPropertyOf {c} .
-            ?spec rdfs:label ?label . 
-            filter(?spec != {c}) . 
-            filter not exists 
-            {{
-                ?sub rdfs:subPropertyOf ?spec . 
-                filter(?sub != ?spec) 
-            }}
+        ask
+        where{{
+            {title} a {class_}
         }}
-        """.format(c=ctm.addURI(prop))
+        """.format(title=ctm.addURI(title), class_=ctm.addURI(class_))
 
-    result = e.query(q)
-
-    return trimResult(result, "label")
-
+    return e.query(q)["boolean"]
 
 ####################################################################################################
 # getLowestClass
@@ -108,9 +78,9 @@ def getLowestProps(prop):
 # Get the lowest level subclasses of _class. IE get all the subclasses of _class that have
 # no subclasses of their own.
 ####################################################################################################
-def getLowestClasses(_class):
+def getLowestClasses(class_):
 
-    _class = _class[0].upper() + _class[1:]
+    class_ = class_[0].upper() + class_[1:]
 
     q = """
         select ?label 
@@ -125,7 +95,7 @@ def getLowestClasses(_class):
                 filter(?sub != ?spec) 
             }}
         }}
-        """.format(c=ctm.addURI(_class))
+        """.format(c=ctm.addURI(class_))
 
     result = e.query(q)
 
@@ -182,7 +152,7 @@ def getSubClasses(_class):
 # Just for testing.
 ####################################################################################################
 def main():
-    print getSources()
+    pass
 
 if __name__ == "__main__":
     main()
