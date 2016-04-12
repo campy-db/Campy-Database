@@ -84,8 +84,6 @@ class TripleMaker(object):
         v = str(v).lower() if isinstance(v, bool) else v
         return "tag_{}".format(v)
 
-
-
     ################################################################################################
     # OBJECT METHODS
     ################################################################################################
@@ -179,6 +177,7 @@ class TripleMaker(object):
     def subClass(self, sub, sup):
 
         if isinstance(sup, str) and isinstance(sub, str):
+
             sub = sub[0].upper()+sub[1:]
             sup = sup[0].upper()+sup[1:]
 
@@ -207,9 +206,9 @@ class TripleMaker(object):
 
         if class_:
             if isinstance(class_, str):
-                class_ = class_[0].upper()+class_[1:] # title() can't be used as sometimes the class
-                                                      # is camelCase, and title() will put every-
-                                                      # thing to lower case except the first letter
+
+                class_ = class_[0].upper() + class_[1:]
+
                 r += ", "+self.addURI(class_)+" "
             else:
                 raise self.errMsg_str("class_")
