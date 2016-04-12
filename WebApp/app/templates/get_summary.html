@@ -1,0 +1,26 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block contentA %}
+
+<body>
+  <form action="" method=post class=add name=add>
+    {{ form.hidden_tag() }}
+
+    <br>
+    
+    <span>  
+      Isolate Name {{ form.iso_title(size=40) }}
+    </span>
+
+    {% for error in form.iso_title.errors %}
+      <br><span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    <br><br>
+
+    <input type=submit value=Submit>
+  </form>
+</body>
+
+{% endblock %}
