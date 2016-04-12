@@ -9,7 +9,7 @@ from .campyTM import CAMPY as ctm
 
 def createIDtriples(df, row, isoTitle):
 
-    idTriple = ""
+    idTriple, cidB, comment = "", "", ""
 
     nmlid = df["NML ID#"][row]
 
@@ -23,11 +23,9 @@ def createIDtriples(df, row, isoTitle):
 
     sidC = df["C-EnterNet Number"][row]
 
-    cidA = df["Sample Collection ID"][row] # Collection id
+    cid = df["Sample Collection ID"][row] # Collection id
 
-    cidB = ""
 
-    comment = ""
 
     # Add the nmlID, ldmsID and original sample name
     if not pd.isnull(nmlid) and cn.isGoodVal(nmlid) and nmlid != "0":
@@ -66,7 +64,6 @@ def createIDtriples(df, row, isoTitle):
         else:
 
             if cn.compare([isoTitle, sidB]):
-
                 sidB = isoTitle # Sometimes it's the same as the isoTitle
                                 # but with _ instead of -
 
@@ -84,23 +81,23 @@ def createIDtriples(df, row, isoTitle):
 
 
     # Alternate collection id is stored alongside original collection id.
-    if not pd.isnull(cidA):
+    if not pd.isnull(cid):
 
-        cidA = int(float(cidA)) if cn.isNumber(cidA) else cidA
+        cid = int(float(cid)) if cn.isNumber(cid) else cid
 
-        if re.search("[aA]lt", str(cidA)) is not None:
+        if re.search("[aA]lt", str(cid)) is not None:
 
-            cids = cidA.split(" ")
-            cidA = cids[0]
-            cidA = cidA[:len(cidA)-1] # Get rid of the semi colon at the end
+            cids = cid.split(" ")
+            cid = cids[0]
+            cid = cid[:len(cid)-1] # Get rid of the semi colon at the end
             cidB = cids[len(cids)-1] # Get the last item in the cids list
 
             cidB = int(float(cidB)) if cn.isNumber(cidB) else cidB # Some ids are ints
             idTriple += ctm.propTriple(isoTitle, {"hasCollectionID":cidB}, True, True)
 
 
-        cidA = int(float(cidA)) if cn.isNumber(cidA) else cidA # Some ids are ints
-        idTriple += ctm.propTriple(isoTitle, {"hasCollectionID": cidA}, True, True)
+        cid = int(float(cid)) if cn.isNumber(cid) else cid # Some ids are ints
+        idTriple += ctm.propTriple(isoTitle, {"hasCollectionID": cid}, True, True)
 
 
     if comment:

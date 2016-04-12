@@ -14,7 +14,9 @@ def createLabLocTriples(df, row, isoTitle):
     isoLocA = df["Isolate Location 1"][row]
     isoLocB = df["Isolate Location 2"][row]
 
-    # As the isolate's physical location
+    # There are two columns that contain the lab location of an isolate, but when column has a value
+    # the other does not.
+
     if not pd.isnull(isoLocA) and cn.isGoodVal(isoLocA):
         isoLoc = isoLocA
 

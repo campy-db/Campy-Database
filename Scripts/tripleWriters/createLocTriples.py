@@ -12,8 +12,8 @@
 
 """
 
-import pandas as pd
 import re
+import pandas as pd
 import standardT as st
 from .. import cleanCSV as cn
 from .campyTM import CAMPY as ctm
@@ -86,46 +86,51 @@ def createLocTriples(df, row, isoTitle):
             samplingSite = samplingSite.replace("Ft.", "Fort") # It's also abbreviated sometimes
 
         # The é and ô is � in the csv, and for whatever reason � counts as 3 characters
-        samplingSite = re.sub("Mont...r...gie","Montérégie",samplingSite)
-        samplingSite = re.sub("H...pital","Hôpital",samplingSite)
+        samplingSite = re.sub("Mont...r...gie", "Montérégie", samplingSite)
+        samplingSite = re.sub("H...pital", "Hôpital", samplingSite)
 
-        locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", samplingSite, "Sampling_site")
+        locTriple +=\
+        st.addStandardTrips(isoTitle, "hasSourceLocation", samplingSite, "Sampling_site")
 
     if not pd.isnull(country) and cn.isGoodVal(country):
         locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", country, "Country")
 
     if not pd.isnull(subNat) and cn.isGoodVal(subNat):
-        locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", subNat, "SubNational")
+        locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", subNat, "Subnational")
 
     if not pd.isnull(city) and cn.isGoodVal(city):
         locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", city, "City")
 
     if not pd.isnull(hAuthority) and cn.isGoodVal(hAuthority):
-        
-        hAuthority = cn.remPrefix(hAuthority,3)
-        
+
+        hAuthority = cn.remPrefix(hAuthority, 3)
+
         # Sometimes watersheds are here. If they are, they are also in the Sample Source
-        # column, and we've already handled that. Note that a watershed is not a 
+        # column, and we've already handled that. Note that a watershed is not a
         # health authority
-        if re.search("[Ww]atershed",hAuthority) is None: 
+        if re.search("[Ww]atershed", hAuthority) is None:
 
             # Montérégie is in the csv and the é is all screwed up its � in the csv, and
             # for whatever reason � counts as 3 characters
-            hAuthority = re.sub("Mont...r...gie","Montérégie",hAuthority)
+            hAuthority = re.sub("Mont...r...gie", "Montérégie", hAuthority)
 
-            locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", hAuthority, "Health_authority")
+            locTriple +=\
+            st.addStandardTrips(isoTitle, "hasSourceLocation", hAuthority, "Health_authority")
 
     if not pd.isnull(samplingSite2) and ("Petting Zoo" in samplingSite2):
-        locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", samplingSite2, "Sampling_site")
+        locTriple +=\
+        st.addStandardTrips(isoTitle, "hasSourceLocation", samplingSite2, "Sampling_site")
 
     if not pd.isnull(c_netSite) and cn.isGoodVal(c_netSite):
 
     	# Some of there are numbers
         c_netSite = int(float(c_netSite)) if cn.isNumber(c_netSite) else c_netSite
-        locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", c_netSite, "C_Enternet_site")
+        locTriple +=\
+        st.addStandardTrips(isoTitle, "hasSourceLocation", c_netSite, "C_Enternet_site")
 
     if not pd.isnull(fncSite) and cn.isGoodVal(fncSite):
-        locTriple += st.addStandardTrips(isoTitle, "hasSourceLocation", fncSite, "FNC_sentinel_site")
+        locTriple +=\
+        st.addStandardTrips(isoTitle, "hasSourceLocation", fncSite, "FNC_sentinel_site")
 
     # Have to convert lat and long to signed decimal format
     if not pd.isnull(lng) and cn.isGoodVal(lng):
@@ -134,7 +139,7 @@ def createLocTriples(df, row, isoTitle):
             lat = cn.convertGPS(lat)
             lng = cn.convertGPS(lng)
 
-            locTriple+= ctm.propTriple(isoTitle,{"hasLatitude":lat}, True, True)
-            locTriple+= ctm.propTriple(isoTitle,{"hasLongitude":lng}, True, True)
+            locTriple += ctm.propTriple(isoTitle, {"hasLatitude":lat}, True, True)
+            locTriple += ctm.propTriple(isoTitle, {"hasLongitude":lng}, True, True)
 
     return locTriple

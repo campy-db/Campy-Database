@@ -11,8 +11,7 @@ import pandas as pd
 from dateutil.parser import parse as dateParse
 
 ####################################################################################################
-# Really shouldn't be here but we need it and I donno where to put it right now. Oh well, I'll do it
-# later.
+# Really shouldn't be here but we need it and I donno where to put it right now.
 # Returns true if a value in vals is the same as one or more of the other values in vals.
 # Standardizes all values in vals and puts them in a dictionary. If the dictionary entry for a value
 # is greater than 1, return true.
@@ -154,6 +153,7 @@ def convertDate(d, df):
 # All prefixes in the csv have an underscore before them. Not all values in a column are prefixed.
 ####################################################################################################
 def remPrefix(val, l):
+
     if val != "" and not pd.isnull(val) and "_" in val:
         val = val[l:]
     return val
