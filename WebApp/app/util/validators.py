@@ -191,6 +191,23 @@ def genSample():
     return _genSample
 
 
+def isA(class_):
+
+    def _isA(form, field):
+
+        val = field.data
+
+        result = q.isA(val, class_)
+
+        if not result:
+
+            message = "\"{}\" is not an {}".format(val, class_)
+
+            raise ValidationError(message)
+
+    return _isA
+
+
 def source_():
 
     def _validSource(form, field):
