@@ -8,28 +8,56 @@ body            { font-family: Arial, sans-serif;
 a, h1, h2       { color: #377BA8; }
 h1, h2          { font-family: Arial, sans-serif; margin: 0; }
 h1              { border-bottom: 2px solid #eee; }
-h2              { border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bottom: 0.2em; font-size: 1.5em; }
+h2              { border-bottom: 2px solid #eee; 
+                  padding-top: 0.2em; 
+                  padding-bottom: 0.2em; 
+                  font-size: 1.5em; }
 
 
-.optionButton  { border-radius: 5px; position: absolute; font-weight:bold; font-size: 1.3em; height: 1em; width: 12em; padding: 5px; 
-                 border: 0; margin: 0; color:#377BA8; background: white; 
+.optionButton  { border-radius: 5px; 
+                 position: absolute; 
+                 font-weight:bold; 
+                 font-size: 1.3em; 
+                 height: 1em; 
+                 width: 12em; 
+                 padding: 5px; 
+                 border: 0; margin: 0; 
+                 color:#377BA8; 
+                 background: white; 
                  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
 
 .optionButton:hover { font-size: 1.35em; height: 1.1em; width: 12em; 
                       box-shadow: 0 0 10px 0 rgba(0,0,0,0.2), 0 0 10px 0 rgba(0,0,0,0.19); }
 
-.optionButton:active { position: absolute; font-weight:bold; font-size: 1.3em; height: 1em; width: 12em; padding: 5px; 
-                       border: 0; margin: 0; color:#377BA8; background: white; 
+.optionButton:active { position: absolute; 
+                       font-weight:bold; 
+                       font-size: 1.3em; 
+                       height: 1em; 
+                       width: 12em; 
+                       padding: 5px; 
+                       border: 0; 
+                       margin: 0; 
+                       color:#377BA8; 
+                       background: white; 
                        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);}
 
+.med_size       { font-size: 1.2em; }
 p.small         { line-height: 10%; }
 h1.center       { text-align: center; }
 .warning        { color: #CCCCCC; }
 a.link          { text-decoration: none; }
-.section        { font-weight: bold; border-bottom: 2px solid #eee; padding-top: 0.2em; padding-bottom: 0.2em; font-size: 1.3em;}
+.section        { font-weight: bold; 
+                  border-bottom: 2px solid #eee; 
+                  padding-top: 0.2em; 
+                  padding-bottom: 0.2em; 
+                  font-size: 1.3em; }
+
 p.field         { color: #6E6E6E; font-weight: bold;}
 .page           { border-radius: 5px; margin: 4em auto; width: 55em;
-                  padding: 1em; background: white; box-shadow: 0 0 12px 0 rgba(0,0,0,0.2), 0 0 12px 0 rgba(0,0,0,0.19); }
+                  padding: 1em; 
+                  background: white; 
+                  box-shadow: 0 0 12px 0 rgba(0,0,0,0.2), 0 0 12px 0 rgba(0,0,0,0.19); }
+
 .add	          { font-size: 1em; }
 .add dl   		  { font-weight: bold; }
 .flash          { background: #377BA8; padding: 0.5em;
@@ -41,13 +69,16 @@ p.field         { color: #6E6E6E; font-weight: bold;}
 </head>
 <title>CampyDB</title>
 <div class=page>
-  <h1 class=center><a href="/index"><img src="{{ url_for('static', filename='images/banner.bmp') }}"></a></h1>
+  <h1 class=center>
+    <a href="/index"><img src="{{ url_for('static', filename='images/banner.bmp') }}"></a>
+  </h1>
+
   {% with messages = get_flashed_messages() %}
   {% if messages %}
   <div class=flash>
     <ul>
     {% for message in messages %}
-    <li>{{ message }} </li>
+      <li>{{ message }} </li>
     {% endfor %}
     </ul>
   </div>
@@ -55,7 +86,7 @@ p.field         { color: #6E6E6E; font-weight: bold;}
   {% endwith %}
 
   {% if title %}
-  <h2>{{title}}</h2>
+    <h2>{{title}}</h2>
   {% endif %}
 
   {% block contentA %}{% endblock %}
