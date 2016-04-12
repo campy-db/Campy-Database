@@ -9,12 +9,12 @@ from wtforms import StringField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Optional
 from .util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
-range_, genAnimal, genSample, nonemptySource
+range_, genAnimal, genSample, nonemptySource, isA
 
 NOW = datetime.datetime.now()
 
 class SummaryForm(Form):
-    iso_title = StringField("iso_title", validators=[DataRequired()])
+    iso_title = StringField("iso_title", validators=[DataRequired(), isA("Isolate")])
 
 class AddForm(Form):
 
