@@ -1,0 +1,26 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block contentA %}
+
+<body>
+  <br>
+
+  {% for section, data_dict in data.iteritems() %}
+
+    <div class=section>{{ section }}</div><br>
+
+    {% for k, v in data_dict.iteritems()  %}
+
+      {% if v %}
+        <span><b>{{k}}:</b> {{v}}</span> 
+        <br><br>
+      {% endif %}
+
+    {% endfor %}
+
+  {% endfor %}
+
+</body>
+
+{% endblock %}
