@@ -177,9 +177,14 @@ def createHumanTriples(df, row, isoTitle):
      # clinical sample types, i.e. 'blood' or 'stool'
     if type_:
 
-        isoTriple += ctm.indTriple(humTitle, type_)
-
+        isoTriple += ctm.indTriple(type_, "Clinical")
+        isoTriple += ctm.propTriple(isoTitle, {"hasSampleType":type_})
         name = "{} {}".format(name, type_)
+
+    else:
+
+        isoTriple += ctm.indTriple("clinical", "Clinical")
+        isoTriple += ctm.propTriple(isoTitle, {"hasSampleType":"clinical"})
 
     if birthdate:
 
@@ -232,31 +237,35 @@ def createEnviroTriples(df, row, isoTitle):
     if not pd.isnull(enviro) and cn.isGoodVal(enviro):
         # enviro (Source general) is the class and enviroSpec (source specific 2) is the instance.
 
+        enviro = enviro.lower()
+
         if not pd.isnull(enviroSpec) and cn.isGoodVal(enviroSpec):
 
+            enviroSpec = enviroSpec.lower()
+
             # Have to clean enviroSpec strings a bit
-            if re.search("[Tt]reated", enviroSpec) is not None: # For the value 'Sewage (Treated)'
+            if re.search("treated", enviroSpec) is not None: # For the value 'Sewage (Treated)'
 
-                enviroSpec = "treated" # Don't need redundant info
+                enviroSpec = "treated_sewage"
 
-            if "water" in enviroSpec.lower():
+            if "water" in enviroSpec:
 
-                # EnviroSpec is "drinking water source water","recreational water" or Core water
-                # site (ignore Core Water Site)
-                if enviroSpec != "Water" and enviroSpec != "Core water site":
+                # EnviroSpec is "drinking water source water","recreational water", "other-water"
+                # or "Core water site" (ignore Core Water Site). Get rid of the first "water"
+                # substring in "drinking water source water" (it's ugly)
+                if enviroSpec == "drinking water source water":
 
                     enviroSpec = enviroSpec.replace(" water", "")
                     enviroSpec = "{} {}".format(enviroSpec, "water")
 
-                else:
-                    enviroSpec = enviro # We don't really need this as enviroSpec already
-                                        # equals water. But whatever ya know
+                if enviroSpec == "core water site":
+                    enviroSpec = "water"
 
             # EnviroSpec is "Lagoon: Swine" or "Lagoon:Dairy"
-            if re.search("[Ll]agoon", enviroSpec) is not None:
+            if "lagoon" in enviroSpec is not None:
 
                 # Get rid of redundant info
-                enviroSpec = "{} lagoon".format(enviroSpec.replace("Lagoon:", ""))
+                enviroSpec = "{} lagoon".format(enviroSpec.replace("lagoon:", ""))
 
         else: # We know the environment type (enviro) but EnviroSpec is nan or 'Other'
             enviroSpec = enviro
@@ -275,7 +284,7 @@ def createEnviroTriples(df, row, isoTitle):
         enviroSpec = "unknown environment" # No unique identifier is needed here
 
 
-    title = enviroSpec.lower()
+    title = enviroSpec
 
     enviroTriple = ctm.indTriple(title, enviro) + ctm.propTriple(title, {"hasName":title}, True)
 
@@ -453,9 +462,7 @@ def createAnimalTriples(df, row, isoTitle):
     ################################################################################################
     def createTypeTriples(title):
 
-        typeTitle, stTriple, cut, byprod, fae = "", "", "", "", ""
-
-        seasoned, skinless, is_rinse, is_ground = None, None, None, None
+        stTriple, cut, byprod, fae = "", "", "", ""
 
         sampleType = df["Sample Type 2"][row] # Faecal, Abbatoir, Retail, Egg
 
@@ -546,7 +553,7 @@ def createAnimalTriples(df, row, isoTitle):
 
             stTriple += ctm.indTriple(title, cut) if cut else ""
 
-            if fae:
+            if fae or sampleType == "faecal":
                 stTriple += ctm.indTriple(title, "Faecal")
 
             # All retail samples are assumed to be cuts, unless the byprod is specified
@@ -557,7 +564,7 @@ def createAnimalTriples(df, row, isoTitle):
             stTriple += ctm.propTriple(isoTitle, {"hasLocale":locale.lower()}, True, True)\
                         if locale else ""
 
-            if title != sampleType:
+            if title != sampleType or title == "faecal":
                 stTriple += ctm.propTriple(isoTitle, {"hasSampleType":title})
 
         # endif not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect"
