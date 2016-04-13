@@ -4,7 +4,8 @@
 
 body            { font-family: Arial, sans-serif; 
 	                background: #eee; 
-				          color: #585858;}
+				          color: #585858;
+                  margin: 0; }
 a, h1, h2       { color: #377BA8; }
 h1, h2          { font-family: Arial, sans-serif; margin: 0; }
 h1              { border-bottom: 2px solid #eee; }
@@ -13,6 +14,27 @@ h2              { border-bottom: 2px solid #eee;
                   padding-bottom: 0.2em; 
                   font-size: 1.5em; }
 
+ul              { list-style-type: none;
+                  margin: 0 auto;
+                  padding: 0;
+                  overflow: hidden;
+                  background-color: white;
+                  top: 0;
+                  width: 52em;
+                  box-shadow: 0 0 12px 0 rgba(0,0,0,0.2), 0 0 12px 0 rgba(0,0,0,0.19); }
+
+li              { float: left; }
+
+li a            { display: block;
+                  color: #BDBDBD;
+                  text-align: center;
+                  padding: 14px 16px;
+                  text-decoration: none; }
+
+li a:hover:not(.active) 
+               { color: #666666; }
+
+.active        { color: #666666; }
 
 .optionButton  { border-radius: 5px; 
                  position: absolute; 
@@ -41,7 +63,6 @@ h2              { border-bottom: 2px solid #eee;
                        background: white; 
                        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);}
 
-.med_size       { font-size: 1.2em; }
 p.small         { line-height: 10%; }
 h1.center       { text-align: center; }
 .warning        { color: #CCCCCC; }
@@ -53,7 +74,8 @@ a.link          { text-decoration: none; }
                   font-size: 1.3em; }
 
 p.field         { color: #6E6E6E; font-weight: bold;}
-.page           { border-radius: 5px; margin: 4em auto; width: 55em;
+.page           { margin: 1.5em auto; 
+                  width: 50em;
                   padding: 1em; 
                   background: white; 
                   box-shadow: 0 0 12px 0 rgba(0,0,0,0.2), 0 0 12px 0 rgba(0,0,0,0.19); }
@@ -64,10 +86,17 @@ p.field         { color: #6E6E6E; font-weight: bold;}
                   border: 1px solid #AACBE2; color: white;}
 .error          { background: #F0D6D6; padding: 0.5em; }
 
+
+
 </style>
 
 </head>
-<title>CampyDB</title>
+<title>Campy Database</title>
+
+<ul>
+  <li><a href="/index"><b>Login</b></a></li>
+</ul>
+
 <div class=page>
   <h1 class=center>
     <a href="/index"><img src="{{ url_for('static', filename='images/banner.bmp') }}"></a>
