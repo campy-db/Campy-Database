@@ -4,839 +4,539 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> .
 
-<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> rdf:type owl:Ontology ;
-                                                                         
-                                                                         rdfs:comment "An ontology for all the lab tests done on campybacter jejuni. All data comes from the csv 2016-02-10 CGF_DB_22011.csv. The ontology CampyOntology2.0.owl imports this ontology." .
-
-
-#################################################################
-#
-#    Object Properties
-#
-#################################################################
-
-
-###  http://www.essepuntato.it/2010/06/literalreification/hasLiteral
-
-<http://www.essepuntato.it/2010/06/literalreification/hasLiteral> rdf:type owl:ObjectProperty ;
-                                                                  
-                                                                  rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#doneAtLab
-
-:doneAtLab rdf:type owl:ObjectProperty ;
-           
-           rdfs:domain :Lab_test ;
-           
-           rdfs:range :Typing_lab ;
-           
-           rdfs:subPropertyOf :hasLabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundAllele
-
-:foundAllele rdf:type owl:ObjectProperty ;
-             
-             rdfs:domain :Allelic_test ;
-             
-             rdfs:range :Typing_allele ;
-             
-             rdfs:subPropertyOf :hasAllelicProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundClonalComplex
-
-:foundClonalComplex rdf:type owl:ObjectProperty ;
-                    
-                    rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                    
-                    rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                    
-                    rdfs:domain :MLST_test ;
-                    
-                    rdfs:subPropertyOf :hasMLSTproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundFingerprint
-
-:foundFingerprint rdf:type owl:FunctionalProperty ,
-                           owl:ObjectProperty ;
-                  
-                  rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                  
-                  rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                  
-                  rdfs:domain :CGF_test ;
-                  
-                  rdfs:subPropertyOf :hasCGFproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundHexNum
-
-:foundHexNum rdf:type owl:FunctionalProperty ,
-                      owl:ObjectProperty ;
-             
-             rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-             
-             rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-             
-             rdfs:domain :CGF_test ;
-             
-             rdfs:subPropertyOf :hasCGFproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundLegacyHexNum
-
-:foundLegacyHexNum rdf:type owl:FunctionalProperty ,
-                            owl:ObjectProperty ;
-                   
-                   rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                   
-                   rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                   
-                   rdfs:domain :CGF_test ;
-                   
-                   rdfs:subPropertyOf :hasCGFproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundMIC
-
-:foundMIC rdf:type owl:ObjectProperty ;
-          
-          rdfs:domain :AMR_test ;
-          
-          rdfs:range :DrugMIC ;
-          
-          rdfs:subPropertyOf :hasAMRproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundPulsovar
-
-:foundPulsovar rdf:type owl:ObjectProperty ;
-               
-               rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-               
-               rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-               
-               rdfs:domain :PFGE ;
-               
-               rdfs:subPropertyOf :hasPFGEproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundResistanceTo
-
-:foundResistanceTo rdf:type owl:ObjectProperty ;
-                   
-                   rdfs:range :AMR_drug ;
-                   
-                   rdfs:domain :AMR_test ;
-                   
-                   rdfs:subPropertyOf :hasAMRproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundST
-
-:foundST rdf:type owl:ObjectProperty ;
-         
-         rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-         
-         rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-         
-         rdfs:domain :MLST_test ;
-         
-         rdfs:subPropertyOf :hasMLSTproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundSerotype
-
-:foundSerotype rdf:type owl:ObjectProperty ;
-               
-               rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-               
-               rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-               
-               rdfs:domain :Serotype_test ;
-               
-               rdfs:subPropertyOf :hasSerotypeProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundSusceptibilityTo
-
-:foundSusceptibilityTo rdf:type owl:ObjectProperty ;
-                       
-                       rdfs:range :AMR_drug ;
-                       
-                       rdfs:domain :AMR_test ;
-                       
-                       rdfs:subPropertyOf :hasAMRproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAMRproperty
-
-:hasAMRproperty rdf:type owl:ObjectProperty ;
-                
-                rdfs:range :AMR_property ;
-                
-                rdfs:domain :AMR_test ;
-                
-                rdfs:subPropertyOf :hasLabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAllele
-
-:hasAllele rdf:type owl:ObjectProperty ;
-           
-           rdfs:subPropertyOf :hasTypingGeneProperty ;
-           
-           owl:inverseOf :isOfGene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAlleleIndex
-
-:hasAlleleIndex rdf:type owl:ObjectProperty ;
-                
-                rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                
-                rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                
-                rdfs:domain :Typing_allele ;
-                
-                rdfs:subPropertyOf :hasTypingAlleleProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAllelicProperty
-
-:hasAllelicProperty rdf:type owl:ObjectProperty ;
-                    
-                    rdfs:range :Allelic_property ;
-                    
-                    rdfs:domain :Allelic_test ;
-                    
-                    rdfs:subPropertyOf :hasTypingTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasBinaryProperty
-
-:hasBinaryProperty rdf:type owl:ObjectProperty ;
-                   
-                   rdfs:range :Binary_property ;
-                   
-                   rdfs:domain :Binary_test ;
-                   
-                   rdfs:subPropertyOf :hasTypingTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasCGFproperty
-
-:hasCGFproperty rdf:type owl:ObjectProperty ;
-                
-                rdfs:range :CGF_property ;
-                
-                rdfs:domain :CGF_test ;
-                
-                rdfs:subPropertyOf :hasBinaryProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasClustNum
-
-:hasClustNum rdf:type owl:ObjectProperty ;
-             
-             rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-             
-             rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-             
-             rdfs:domain :Cluster ;
-             
-             rdfs:subPropertyOf :hasClusterProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasCluster
-
-:hasCluster rdf:type owl:ObjectProperty ;
-            
-            rdfs:range :Cluster ;
-            
-            rdfs:domain :Typing_test ;
-            
-            rdfs:subPropertyOf :hasTypingTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasClusterProperty
-
-:hasClusterProperty rdf:type owl:ObjectProperty ;
-                    
-                    rdfs:domain :Cluster ;
-                    
-                    rdfs:range :Cluster_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDayCompleted
-
-:hasDayCompleted rdf:type owl:ObjectProperty ;
-                 
-                 rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                 
-                 rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                 
-                 rdfs:domain :Lab_test ;
-                 
-                 rdfs:subPropertyOf :hasLabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDrug
-
-:hasDrug rdf:type owl:ObjectProperty ;
-         
-         rdfs:range :AMR_drug ;
-         
-         rdfs:domain :DrugMIC ;
-         
-         rdfs:subPropertyOf :hasDrugMICproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDrugMICproperty
-
-:hasDrugMICproperty rdf:type owl:ObjectProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasFileLocation
-
-:hasFileLocation rdf:type owl:ObjectProperty ;
-                 
-                 rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                 
-                 rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                 
-                 rdfs:domain :Lab_test ;
-                 
-                 rdfs:subPropertyOf :hasLabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasLabTestProperty
-
-:hasLabTestProperty rdf:type owl:ObjectProperty ;
-                    
-                    rdfs:domain :Lab_test ;
-                    
-                    rdfs:range :Lab_test_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasMIC
-
-:hasMIC rdf:type owl:ObjectProperty ;
-        
-        rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-        
-        rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-        
-        rdfs:domain :DrugMIC ;
-        
-        rdfs:subPropertyOf :hasDrugMICproperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasMLSTproperty
-
-:hasMLSTproperty rdf:type owl:ObjectProperty ;
-                 
-                 rdfs:range :MLST_property ;
-                 
-                 rdfs:domain :MLST_test ;
-                 
-                 rdfs:subPropertyOf :hasAllelicProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasMonthCompleted
-
-:hasMonthCompleted rdf:type owl:ObjectProperty ;
-                   
-                   rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                   
-                   rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                   
-                   rdfs:domain :Lab_test ;
-                   
-                   rdfs:subPropertyOf :hasLabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasPFGEproperty
-
-:hasPFGEproperty rdf:type owl:ObjectProperty ;
-                 
-                 rdfs:domain :PFGE ;
-                 
-                 rdfs:range :PFGE_property ;
-                 
-                 rdfs:subPropertyOf :hasTypingTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasSerotypeProperty
-
-:hasSerotypeProperty rdf:type owl:ObjectProperty ;
-                     
-                     rdfs:range :Serotype_property ;
-                     
-                     rdfs:domain :Serotype_test ;
-                     
-                     rdfs:subPropertyOf :hasTypingTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasSubCluster
-
-:hasSubCluster rdf:type owl:ObjectProperty ;
-               
-               rdfs:range :Cluster ;
-               
-               rdfs:domain :Cluster ;
-               
-               rdfs:subPropertyOf :hasClusterProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasThreshold
-
-:hasThreshold rdf:type owl:ObjectProperty ;
-              
-              rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-              
-              rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-              
-              rdfs:domain :Cluster ;
-              
-              rdfs:subPropertyOf :hasClusterProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingAlleleProperty
-
-:hasTypingAlleleProperty rdf:type owl:ObjectProperty ;
-                         
-                         rdfs:domain :Typing_allele ;
-                         
-                         rdfs:range :Typing_allele_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingGeneProperty
-
-:hasTypingGeneProperty rdf:type owl:ObjectProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingTestProperty
-
-:hasTypingTestProperty rdf:type owl:ObjectProperty ;
-                       
-                       rdfs:domain :Typing_test ;
-                       
-                       rdfs:range :Typing_test_property ;
-                       
-                       rdfs:subPropertyOf :hasLabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasYearCompleted
-
-:hasYearCompleted rdf:type owl:ObjectProperty ;
-                  
-                  rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-                  
-                  rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-                  
-                  rdfs:domain :Lab_test ;
-                  
-                  rdfs:subPropertyOf :hasLabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#isInSilico
-
-:isInSilico rdf:type owl:ObjectProperty ;
-            
-            rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-            
-            rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
-            
-            rdfs:domain :Lab_test ;
-            
-            rdfs:subPropertyOf :hasLabTestProperty .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#isOfGene
-
-:isOfGene rdf:type owl:ObjectProperty ;
-          
-          rdfs:range :Allelic_typing_gene ;
-          
-          rdfs:domain :Typing_allele ;
-          
-          rdfs:subPropertyOf :hasTypingAlleleProperty .
-
-
-
-
-
-#################################################################
-#
-#    Data properties
-#
-#################################################################
-
-
-###  http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue
-
-<http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue> rdf:type owl:DatatypeProperty ;
-                                                                       
-                                                                       rdfs:domain <http://www.essepuntato.it/2010/06/literalreification/Literal> .
-
-
-
-
-
-#################################################################
-#
-#    Classes
-#
-#################################################################
-
-
-###  http://www.essepuntato.it/2010/06/literalreification/Literal
-
-<http://www.essepuntato.it/2010/06/literalreification/Literal> rdf:type owl:Class ;
-                                                               
-                                                               rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                                                                 owl:onProperty <http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue> ;
-                                                                                 owl:cardinality "1"^^xsd:nonNegativeInteger
-                                                                               ] .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_drug
-
-:AMR_drug rdf:type owl:Class ;
-          
-          rdfs:subClassOf :AMR_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_property
-
-:AMR_property rdf:type owl:Class ;
-              
-              rdfs:subClassOf :Lab_test_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_test
-
-:AMR_test rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Lab_test ;
-          
-          owl:disjointWith :Typing_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Allelic_property
-
-:Allelic_property rdf:type owl:Class ;
-                  
-                  rdfs:subClassOf :Typing_test_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Allelic_test
-
-:Allelic_test rdf:type owl:Class ;
-              
-              rdfs:subClassOf :Typing_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Allelic_typing_gene
-
-:Allelic_typing_gene rdf:type owl:Class ;
-                     
-                     rdfs:subClassOf :Typing_gene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Binary_property
-
-:Binary_property rdf:type owl:Class ;
-                 
-                 rdfs:subClassOf :Typing_test_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Binary_test
-
-:Binary_test rdf:type owl:Class ;
-             
-             rdfs:subClassOf :Typing_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_cluster
-
-:CGF_cluster rdf:type owl:Class ;
-             
-             rdfs:subClassOf :Cluster .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_property
-
-:CGF_property rdf:type owl:Class ;
-              
-              rdfs:subClassOf :Binary_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_test
-
-:CGF_test rdf:type owl:Class ;
-          
-          rdfs:subClassOf :Binary_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_typing_gene
-
-:CGF_typing_gene rdf:type owl:Class ;
-                 
-                 rdfs:subClassOf :Typing_gene .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster
-
-:Cluster rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster_property
-
-:Cluster_property rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#DrugMIC
-
-:DrugMIC rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaA_SVR_test
-
-:FlaA_SVR_test rdf:type owl:Class ;
-               
-               rdfs:subClassOf :Allelic_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaPeptide_test
-
-:FlaPeptide_test rdf:type owl:Class ;
-                 
-                 rdfs:subClassOf :Allelic_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test
-
-:Lab_test rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test_property
-
-:Lab_test_property rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MLST_property
-
-:MLST_property rdf:type owl:Class ;
-               
-               rdfs:subClassOf :Allelic_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MLST_test
-
-:MLST_test rdf:type owl:Class ;
-           
-           rdfs:subClassOf :Allelic_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MOMP_test
-
-:MOMP_test rdf:type owl:Class ;
-           
-           rdfs:subClassOf :Allelic_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PFGE
-
-:PFGE rdf:type owl:Class ;
-      
-      rdfs:subClassOf :Typing_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PFGE_property
-
-:PFGE_property rdf:type owl:Class ;
-               
-               rdfs:subClassOf :Typing_test_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PorA_test
-
-:PorA_test rdf:type owl:Class ;
-           
-           rdfs:subClassOf :Allelic_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#SMA1_test
-
-:SMA1_test rdf:type owl:Class ;
-           
-           rdfs:subClassOf :PFGE .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Serotype_property
-
-:Serotype_property rdf:type owl:Class ;
-                   
-                   rdfs:subClassOf :Typing_test_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Serotype_test
-
-:Serotype_test rdf:type owl:Class ;
-               
-               rdfs:subClassOf :Typing_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele
-
-:Typing_allele rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele_property
-
-:Typing_allele_property rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene
-
-:Typing_gene rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene_property
-
-:Typing_gene_property rdf:type owl:Class .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_lab
-
-:Typing_lab rdf:type owl:Class ;
-            
-            rdfs:subClassOf :Lab_test_property .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_test
-
-:Typing_test rdf:type owl:Class ;
-             
-             rdfs:subClassOf :Lab_test .
-
-
-
-###  https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_test_property
-
-:Typing_test_property rdf:type owl:Class ;
-                      
-                      rdfs:subClassOf :Lab_test_property .
-
-
-
-
-
-#################################################################
-#
-#    General axioms
-#
-#################################################################
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :Allelic_test
-                :Binary_test
-                :PFGE
-                :Serotype_test
-              )
-] .
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :FlaA_SVR_test
-                :FlaPeptide_test
-                :MLST_test
-                :MOMP_test
-                :PorA_test
-              )
-] .
-
-
-
-
-###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
-
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> a owl:Ontology ;
+	rdfs:comment "An ontology for all the lab tests done on campybacter jejuni. All data comes from the csv 2016-02-10 CGF_DB_22011.csv. The ontology CampyOntology.owl imports this ontology." .
+# 
+# 
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
+# 
+# 
+# http://www.essepuntato.it/2010/06/literalreification/hasLiteral
+
+<http://www.essepuntato.it/2010/06/literalreification/hasLiteral> a owl:ObjectProperty ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#doneAtLab
+
+:doneAtLab a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasLabTestProperty ;
+	rdfs:domain :Lab_test ;
+	rdfs:range :Typing_lab .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundAllele
+
+:foundAllele a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasAllelicProperty ;
+	rdfs:domain :Allelic_test ;
+	rdfs:range :Typing_allele .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundClonalComplex
+
+:foundClonalComplex a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasMLSTproperty ;
+	rdfs:domain :MLST_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundFingerprint
+
+:foundFingerprint a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCGFproperty ;
+	a owl:FunctionalProperty ;
+	rdfs:domain :CGF_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundHexNum
+
+:foundHexNum a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCGFproperty ;
+	a owl:FunctionalProperty ;
+	rdfs:domain :CGF_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundLegacyHexNum
+
+:foundLegacyHexNum a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCGFproperty ;
+	a owl:FunctionalProperty ;
+	rdfs:domain :CGF_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundMIC
+
+:foundMIC a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasAMRproperty ;
+	rdfs:domain :AMR_test ;
+	rdfs:range :DrugMIC .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundPulsovar
+
+:foundPulsovar a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasPFGEproperty ;
+	rdfs:domain :PFGE ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundResistanceTo
+
+:foundResistanceTo a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasAMRproperty ;
+	rdfs:domain :AMR_test ;
+	rdfs:range :AMR_drug .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundST
+
+:foundST a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasMLSTproperty ;
+	rdfs:domain :MLST_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundSerotype
+
+:foundSerotype a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasSerotypeProperty ;
+	rdfs:domain :Serotype_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#foundSusceptibilityTo
+
+:foundSusceptibilityTo a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasAMRproperty ;
+	rdfs:domain :AMR_test ;
+	rdfs:range :AMR_drug .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAMRproperty
+
+:hasAMRproperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasLabTestProperty ;
+	rdfs:domain :AMR_test ;
+	rdfs:range :AMR_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAllele
+
+:hasAllele a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasTypingGeneProperty ;
+	owl:inverseOf :isOfGene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAlleleIndex
+
+:hasAlleleIndex a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasTypingAlleleProperty ;
+	rdfs:domain :Typing_allele ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasAllelicProperty
+
+:hasAllelicProperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasTypingTestProperty ;
+	rdfs:domain :Allelic_test ;
+	rdfs:range :Allelic_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasBinaryProperty
+
+:hasBinaryProperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasTypingTestProperty ;
+	rdfs:domain :Binary_test ;
+	rdfs:range :Binary_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasCGFproperty
+
+:hasCGFproperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasBinaryProperty ;
+	rdfs:domain :CGF_test ;
+	rdfs:range :CGF_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasClustNum
+
+:hasClustNum a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasClusterProperty ;
+	rdfs:domain :Cluster ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasCluster
+
+:hasCluster a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasTypingTestProperty ;
+	rdfs:domain :Typing_test ;
+	rdfs:range :Cluster .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasClusterProperty
+
+:hasClusterProperty a owl:ObjectProperty ;
+	rdfs:domain :Cluster ;
+	rdfs:range :Cluster_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDayCompleted
+
+:hasDayCompleted a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
+	rdfs:domain :Lab_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDrug
+
+:hasDrug a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasDrugMICproperty ;
+	rdfs:domain :DrugMIC ;
+	rdfs:range :AMR_drug .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasDrugMICproperty
+
+:hasDrugMICproperty a owl:ObjectProperty .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasFileLocation
+
+:hasFileLocation a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
+	rdfs:domain :Lab_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasLabTestProperty
+
+:hasLabTestProperty a owl:ObjectProperty ;
+	rdfs:domain :Lab_test ;
+	rdfs:range :Lab_test_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasMIC
+
+:hasMIC a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasDrugMICproperty ;
+	rdfs:domain :DrugMIC ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasMLSTproperty
+
+:hasMLSTproperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasAllelicProperty ;
+	rdfs:domain :MLST_test ;
+	rdfs:range :MLST_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasMonthCompleted
+
+:hasMonthCompleted a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
+	rdfs:domain :Lab_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasPFGEproperty
+
+:hasPFGEproperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasTypingTestProperty ;
+	rdfs:domain :PFGE ;
+	rdfs:range :PFGE_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasSerotypeProperty
+
+:hasSerotypeProperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasTypingTestProperty ;
+	rdfs:domain :Serotype_test ;
+	rdfs:range :Serotype_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasSubCluster
+
+:hasSubCluster a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasClusterProperty ;
+	rdfs:domain :Cluster ;
+	rdfs:range :Cluster .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasThreshold
+
+:hasThreshold a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasClusterProperty ;
+	rdfs:domain :Cluster ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingAlleleProperty
+
+:hasTypingAlleleProperty a owl:ObjectProperty ;
+	rdfs:domain :Typing_allele ;
+	rdfs:range :Typing_allele_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingGeneProperty
+
+:hasTypingGeneProperty a owl:ObjectProperty .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingTestProperty
+
+:hasTypingTestProperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasLabTestProperty ;
+	rdfs:domain :Typing_test ;
+	rdfs:range :Typing_test_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasYearCompleted
+
+:hasYearCompleted a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
+	rdfs:domain :Lab_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#isInSilico
+
+:isInSilico a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
+	rdfs:domain :Lab_test ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#isOfGene
+
+:isOfGene a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasTypingAlleleProperty ;
+	rdfs:domain :Typing_allele ;
+	rdfs:range :Allelic_typing_gene .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+# 
+# 
+# http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue
+
+<http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue> a owl:DatatypeProperty ;
+	rdfs:domain <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://www.essepuntato.it/2010/06/literalreification/Literal
+
+<http://www.essepuntato.it/2010/06/literalreification/Literal> a owl:Class ;
+	rdfs:subClassOf _:genid1 .
+
+_:genid1 a owl:Restriction ;
+	owl:onProperty <http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue> ;
+	owl:cardinality "1"^^xsd:nonNegativeInteger .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_drug
+
+:AMR_drug a owl:Class ;
+	rdfs:subClassOf :AMR_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_property
+
+:AMR_property a owl:Class ;
+	rdfs:subClassOf :Lab_test_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_test
+
+:AMR_test a owl:Class ;
+	rdfs:subClassOf :Lab_test ;
+	owl:disjointWith :Typing_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Allelic_property
+
+:Allelic_property a owl:Class ;
+	rdfs:subClassOf :Typing_test_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Allelic_test
+
+:Allelic_test a owl:Class ;
+	rdfs:subClassOf :Typing_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Allelic_typing_gene
+
+:Allelic_typing_gene a owl:Class ;
+	rdfs:subClassOf :Typing_gene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Binary_property
+
+:Binary_property a owl:Class ;
+	rdfs:subClassOf :Typing_test_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Binary_test
+
+:Binary_test a owl:Class ;
+	rdfs:subClassOf :Typing_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_cluster
+
+:CGF_cluster a owl:Class ;
+	rdfs:subClassOf :Cluster .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_property
+
+:CGF_property a owl:Class ;
+	rdfs:subClassOf :Binary_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_test
+
+:CGF_test a owl:Class ;
+	rdfs:subClassOf :Binary_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_typing_gene
+
+:CGF_typing_gene a owl:Class ;
+	rdfs:subClassOf :Typing_gene .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster
+
+:Cluster a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster_property
+
+:Cluster_property a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#DrugMIC
+
+:DrugMIC a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaA_SVR_test
+
+:FlaA_SVR_test a owl:Class ;
+	rdfs:subClassOf :Allelic_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaPeptide_test
+
+:FlaPeptide_test a owl:Class ;
+	rdfs:subClassOf :Allelic_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test
+
+:Lab_test a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test_property
+
+:Lab_test_property a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MLST_property
+
+:MLST_property a owl:Class ;
+	rdfs:subClassOf :Allelic_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MLST_test
+
+:MLST_test a owl:Class ;
+	rdfs:subClassOf :Allelic_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#MOMP_test
+
+:MOMP_test a owl:Class ;
+	rdfs:subClassOf :Allelic_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PFGE
+
+:PFGE a owl:Class ;
+	rdfs:subClassOf :Typing_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PFGE_property
+
+:PFGE_property a owl:Class ;
+	rdfs:subClassOf :Typing_test_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#PorA_test
+
+:PorA_test a owl:Class ;
+	rdfs:subClassOf :Allelic_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#SMA1_test
+
+:SMA1_test a owl:Class ;
+	rdfs:subClassOf :PFGE .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Serotype_property
+
+:Serotype_property a owl:Class ;
+	rdfs:subClassOf :Typing_test_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Serotype_test
+
+:Serotype_test a owl:Class ;
+	rdfs:subClassOf :Typing_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele
+
+:Typing_allele a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele_property
+
+:Typing_allele_property a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene
+
+:Typing_gene a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene_property
+
+:Typing_gene_property a owl:Class .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_lab
+
+:Typing_lab a owl:Class ;
+	rdfs:subClassOf :Lab_test_property .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_test
+
+:Typing_test a owl:Class ;
+	rdfs:subClassOf :Lab_test .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_test_property
+
+:Typing_test_property a owl:Class ;
+	rdfs:subClassOf :Lab_test_property .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    General axioms
+# #
+# #################################################################
+# 
+# 
+
+_:genid2 a owl:AllDisjointClasses ;
+	owl:members _:genid6 .
+
+_:genid6 a rdf:List ;
+	rdf:first :Allelic_test ;
+	rdf:rest _:genid5 .
+
+_:genid5 a rdf:List ;
+	rdf:first :Binary_test ;
+	rdf:rest _:genid4 .
+
+_:genid4 a rdf:List ;
+	rdf:first :PFGE ;
+	rdf:rest _:genid3 .
+
+_:genid3 a rdf:List ;
+	rdf:first :Serotype_test ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid7 a owl:AllDisjointClasses ;
+	owl:members _:genid12 .
+
+_:genid12 a rdf:List ;
+	rdf:first :FlaA_SVR_test ;
+	rdf:rest _:genid11 .
+
+_:genid11 a rdf:List ;
+	rdf:first :FlaPeptide_test ;
+	rdf:rest _:genid10 .
+
+_:genid10 a rdf:List ;
+	rdf:first :MLST_test ;
+	rdf:rest _:genid9 .
+
+_:genid9 a rdf:List ;
+	rdf:first :MOMP_test ;
+	rdf:rest _:genid8 .
+
+_:genid8 a rdf:List ;
+	rdf:first :PorA_test ;
+	rdf:rest rdf:nil .
+# 
+# Generated by the OWL API (version 4.2.1.20160306-0033) https://github.com/owlcs/owlapi

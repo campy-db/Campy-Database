@@ -14,7 +14,7 @@ from Scripts import cleanCSV as cn
 ####################################################################################################
 # GLOBAL VARIABLES
 ####################################################################################################
-CAMPY = "https://github.com/samuel-peers/CAMPYOntology/blob/master/CampyOntology2.0.owl#"
+CAMPY = "https://github.com/samuel-peers/CAMPYOntology/blob/master/CampyOntology.owl#"
 LAB = "https://github.com/samuel-peers/CAMPYOntology/blob/master/LabTests.owl#"
 LIT = "http://www.essepuntato.it/2010/06/LITeralreification/"
 LITTM = TripleMaker.TripleMaker(LIT)

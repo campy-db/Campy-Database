@@ -4,6 +4,9 @@
  triepl-store running on blazegraph.
 """
 
+import sys
+import getopt
+import argparse
 import pandas as pd
 
 from .tripleWriters import *
@@ -18,7 +21,7 @@ from .tripleWriters.campyTM import CAMPY as ctm
 ####################################################################################################
 def writeToOnt(t):
 
-    with open("/home/student/Campy/CampyDatabase/Ontologies/CampyOntology2.0.owl", "a") as w:
+    with open("/home/student/Campy/CampyDatabase/Ontologies/CampyOntology.owl", "a") as w:
         w.write(t)
 
 ####################################################################################################
@@ -57,13 +60,13 @@ def createBIOtriples(df, row, isoTitle):
 ####################################################################################################
 def createEPItriples(df, row, isoTitle):
 
-    #triple = createDTakenTriples(df, row, isoTitle) # The date the sample was taken
+    triple = createDTakenTriples(df, row, isoTitle) # The date the sample was taken
 
-    #triple += createLocTriples(df, row, isoTitle) # The location of where the sample was taken
+    triple += createLocTriples(df, row, isoTitle) # The location of where the sample was taken
 
-    triple = createSourceTriples(df, row, isoTitle) # Triples for the isolate source
+    triple += createSourceTriples(df, row, isoTitle) # Triples for the isolate source
 
-   # triple += createOutbreakTriples(df, row, isoTitle) # Outbreak triples
+    triple += createOutbreakTriples(df, row, isoTitle) # Outbreak triples
 
     return triple
 
@@ -96,13 +99,13 @@ def createTriples(df, row):
     triple = ctm.indTriple(isoTitle, "Isolate")+\
              ctm.propTriple(isoTitle, {"hasIsolateName":isoTitle}, True, True)
 
-    #triple += createIsolationTriples(df, row, isoTitle) # For isolation data
+    triple += createIsolationTriples(df, row, isoTitle) # For isolation data
 
-   # triple += createBIOtriples(df, row, isoTitle)
+    triple += createBIOtriples(df, row, isoTitle)
 
     triple += createEPItriples(df, row, isoTitle)
 
-    #triple += createLIMStriples(df, row, isoTitle)
+    triple += createLIMStriples(df, row, isoTitle)
 
     writeToOnt(triple) # Write to the owl file. Just for testing
     #writeToBG(triple) # Write the triples to the blazegraph server
@@ -110,9 +113,7 @@ def createTriples(df, row):
 ####################################################################################################
 # Reads in data from the spreadsheet and writes triples
 ####################################################################################################
-def writeData():
-
-    df = pd.read_csv(r"/home/student/Campy/CSVs/2016-02-10 CGF_DB_22011_2.csv")
+def writeData(df, num_rows):
 
     # The column names contain a bunch of genes that need to be in the triplestore,
     # so we'll add those first
@@ -125,16 +126,44 @@ def writeData():
 
     #writeToBG(triple)
     #df["Strain Name"].count() <--Use this in the range() to fill the whole database
-    for row in range(df["Strain Name"].count()):
-        if row > 14000:
-            createTriples(df, row)
+    for row in range(num_rows):
+        createTriples(df, row)
+
+
+####################################################################################################
+# arguments
+#
+# Return the arguments from the command line
+####################################################################################################
+def arguments(max_):
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", "--rows", type=int, nargs="?", help="The number of rows to parse")
+
+    args = parser.parse_args()
+
+    if args.rows:
+        if args.rows > max_:
+            print "rows must be less than {}".format(max_)
+            sys.exit(2)
+        if args.rows < 0:
+            print "rows must be greater than 0"
+            sys.exit(2)
+
+    return args.rows
 
 ####################################################################################################
 # Main
 ####################################################################################################
 def main():
-    writeData()
+
+    df = pd.read_csv(r"/home/student/Campy/CSVs/2016-02-10 CGF_DB_22011_2.csv")
+
+    max_rows = df["Strain Name"].count()
+
+    num_rows = max_rows if arguments(max_rows) is None else arguments(max_rows)
+
+    writeData(df, num_rows)
 
 if __name__ == "__main__":
     main()
-    

@@ -108,7 +108,7 @@ def getLocation(iso):
     hn = CTM.addURI("hasName")
     iso = CTM.addURI(iso)
 
-    locs = ("Country", "SubNational", "City")
+    locs = ("Country", "Subnational", "City")
 
     result = []
 

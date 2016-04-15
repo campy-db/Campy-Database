@@ -204,9 +204,10 @@ def createHumanTriples(df, row, isoTitle):
 
     humTriple += ctm.propTriple(humTitle, {"hasPostalCode":postalCode}, True, True) if p else ""
 
-    humTriple += ctm.propTriple(humTitle, {"hasName":name}, True, False)
+    humTriple += ctm.propTriple(humTitle, {"hasName":"patient"}, True)
 
-    isoTriple += ctm.propTriple(isoTitle, {"hasSampleSource":humTitle})
+    isoTriple += ctm.propTriple(isoTitle, {"hasHumanSource":humTitle}) +\
+                 ctm.propTriple(isoTitle, {"hasSourceName":name}, True, True)
 
     return humTriple + isoTriple
 
@@ -288,7 +289,9 @@ def createEnviroTriples(df, row, isoTitle):
 
     enviroTriple = ctm.indTriple(title, enviro) + ctm.propTriple(title, {"hasName":title}, True)
 
-    isoTriple = ctm.propTriple(isoTitle, {"hasSampleSource":title})
+
+    isoTriple = ctm.propTriple(isoTitle, {"hasEnviroSource":title}) +\
+                ctm.propTriple(isoTitle, {"hasSourceName":title}, True, True)
 
     return enviroTriple + isoTriple
 
@@ -569,7 +572,7 @@ def createAnimalTriples(df, row, isoTitle):
 
         # endif not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect"
 
-        # stTriple += ctm.propTriple(title, {"hasName":name}, True)
+        stTriple += ctm.propTriple(isoTitle, {"hasSourceName":name}, True, True)
 
         return stTriple
 
@@ -603,9 +606,12 @@ def createAnimalTriples(df, row, isoTitle):
     animalTriple += \
     ctm.propTriple(title, {"hasAnimalID":id_}, True, True) if id_ else ""
 
+    animalTriple += \
+        ctm.propTriple(title, {"hasName":animal}, True)
+
     animalTriple += ctm.indTriple(title, family)
 
-    isoTriple += ctm.propTriple(isoTitle, {"hasSampleSource":title})
+    isoTriple += ctm.propTriple(isoTitle, {"hasAnimalSource":title})
 
     return animalTriple + isoTriple
 
@@ -625,15 +631,12 @@ def createSourceTriples(df, row, isoTitle):
                                     # not this one (SampleType)).
 
     if sample == "Animal":
-
         resultTriple += createAnimalTriples(df, row, isoTitle)
 
     if sample == "Environmental":
-
         resultTriple += createEnviroTriples(df, row, isoTitle)
 
     if sample == "Human":
-
         resultTriple += createHumanTriples(df, row, isoTitle)
 
     return resultTriple

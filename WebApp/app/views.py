@@ -4,7 +4,6 @@
 
 from flask import request, session, redirect, render_template, flash
 from app import app
-from .sparql import queries as q
 from .sparql import data_queries as dq
 from .forms import AddForm, SummaryForm
 from .formToTriple import form_to_triple as ft
@@ -76,7 +75,7 @@ def getSummary():
 
         epi_vals, lims_vals, bio_vals = [], [], []
 
-        epi_vals.append(dq.getPropVal(iso_title, "hasSampleSource"))
+        epi_vals.append(dq.getPropVal(iso_title, "hasSourceName"))
         epi_vals.append(dq.getLocation(iso_title))
 
         lims_vals.append(dq.getPropVal(iso_title, "partOfProject"))

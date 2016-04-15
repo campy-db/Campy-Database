@@ -80,4 +80,5 @@ SAMPLE_TYPES = [st.lower() for st in q.getSubClasses("Animal_sample")]
 # General sample types. eg. food, faecal
 GEN_SAMPLE_TYPES = [st.lower() for st in q.getHighestClasses("Animal_sample")]
 
-SPECIES = get_species()
+#SPECIES = get_species()
+SPECIES = {"jejuni":["jejuni", "poylpei"]}
