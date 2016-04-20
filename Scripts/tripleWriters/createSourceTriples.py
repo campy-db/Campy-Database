@@ -14,12 +14,13 @@ SUBNATS = [x.name for x in list(pc.subdivisions)] # A list of names of subnation
 COUNTRIES = [x.name for x in list(pc.countries)] # A list of names of countries
 
 ####################################################################################################
-# getAge
+#
 # Returns the age and/or birthdate
 # Some patients in the csv have ages. The values are found in the 'Patient D.O.B / Age' column.
 # The column has birthdates, ages, and age ranges of the form 'a/X-Y years' where X and Y are
 # ages and a is some random character. As of right now, we ignore ranges in hopes that Steven can
 # get the actual ages.
+#
 ####################################################################################################
 def getAge(df, row):
 
@@ -32,7 +33,6 @@ def getAge(df, row):
     yearTaken = df["YEAR"][row]
 
     if not pd.isnull(age) and cn.isGoodVal(age):
-
         if len(age) > ageLen: # if a birthday or range
 
             if "years" in age: # Every range contains the word 'years'.
@@ -40,14 +40,11 @@ def getAge(df, row):
                 age = "" # Ignore ranges for now
 
             else: # The value is a birth day
-
                 bday = cn.convertDate(age, False) # Will standardize the date to iso and check
                                                   # if it's a valid date.
-
                 if bday != -1:
 
                     dates = str(bday).split("-")
-
                     birthdate = [int(float(d)) for d in dates]
 
                 # else: date is invalid
@@ -56,7 +53,6 @@ def getAge(df, row):
 
                     # yearTaken is stored as a float for w/e reason in the csv
                     age = int(float(yearTaken)) - int(dates[0])
-
                     # One of the dates the sample was taken is 2011 and the age is 2010
                     age = 0 if age < 0 else age
 
@@ -64,19 +60,18 @@ def getAge(df, row):
                     age = NOW.year - int(bday[:yearLen]) # Use todays year for the age
 
         # end if len(age) > ageLen
-
     else:
         age = ""
 
     return age, birthdate
 
 ####################################################################################################
-# createTravelTriples
 #
 # A patient's travel info is in column 'Comments' and is of the form 'Travel: [location]'.
 # Sometimes it's just the country, or the province/state, or both. We will store only the lowest
 # level. eg from the location value 'Ohia, USA' we will store only Ohio as it is derivable that
 # the patient traveled to the states.
+#
 ####################################################################################################
 def createTravelTriples(df, row, hum):
 
@@ -110,12 +105,12 @@ def createTravelTriples(df, row, hum):
     return trTriple + humTriple
 
 ####################################################################################################
-# createHumanTriples
 #
 # Create an individual human for all isolates that have a human as a source. No names are given so
 # the unique id for humans is 'patient_[isoTitle]'. Note all humans in the csv are patients so they
 # will be instances of the Patient class. Here we will also get the properties postal code if
 # available and gender if available. We also get set the clinical sample type here.
+#
 ####################################################################################################
 def createHumanTriples(df, row, isoTitle):
 
@@ -206,18 +201,18 @@ def createHumanTriples(df, row, isoTitle):
 
     humTriple += ctm.propTriple(humTitle, {"hasName":"patient"}, True)
 
-    isoTriple += ctm.propTriple(isoTitle, {"hasHumanSource":humTitle}) +\
-                 ctm.propTriple(isoTitle, {"hasSourceName":name}, True, True)
+    isoTriple += ctm.propTriple(isoTitle, {"hasHumanSource":humTitle})
 
     return humTriple + isoTriple
 
 ####################################################################################################
-# createEnviroTriples
+#
 # Creates an instance of Environment for every isolate that has an environmental source type. We
 # don't bother uniquely identifying different environment sources; this is just so the user knows
 # what type of environment the source came from. We would consider revising this if enviro sources
 # had an ID. Though really the enviro's unique ID is the sampling site name or body of water name
 # which we fetch in the function createLocation triples.
+#
 ####################################################################################################
 def createEnviroTriples(df, row, isoTitle):
 
@@ -255,11 +250,12 @@ def createEnviroTriples(df, row, isoTitle):
                 # or "Core water site" (ignore Core Water Site). Get rid of the first "water"
                 # substring in "drinking water source water" (it's ugly)
                 if enviroSpec == "drinking water source water":
-
-                    enviroSpec = enviroSpec.replace(" water", "")
-                    enviroSpec = "{} {}".format(enviroSpec, "water")
+                    enviroSpec = "drinking water"
 
                 if enviroSpec == "core water site":
+                    enviroSpec = "water"
+
+                if enviroSpec == "water-other":
                     enviroSpec = "water"
 
             # EnviroSpec is "Lagoon: Swine" or "Lagoon:Dairy"
@@ -267,6 +263,8 @@ def createEnviroTriples(df, row, isoTitle):
 
                 # Get rid of redundant info
                 enviroSpec = "{} lagoon".format(enviroSpec.replace("lagoon:", ""))
+
+            #end if not pd.isnull(enviroSpec) and cn.isGoodVal(enviroSpec)
 
         else: # We know the environment type (enviro) but EnviroSpec is nan or 'Other'
             enviroSpec = enviro
@@ -290,14 +288,11 @@ def createEnviroTriples(df, row, isoTitle):
     enviroTriple = ctm.indTriple(title, enviro) + ctm.propTriple(title, {"hasName":title}, True)
 
 
-    isoTriple = ctm.propTriple(isoTitle, {"hasEnviroSource":title}) +\
-                ctm.propTriple(isoTitle, {"hasSourceName":title}, True, True)
+    isoTriple = ctm.propTriple(isoTitle, {"hasEnviroSource":title})
 
     return enviroTriple + isoTriple
 
 ####################################################################################################
-# isDomestic
-#
 # Returns True if the given animal is a domestic animal.
 ####################################################################################################
 def isDomestic(sourceSpec, animal, family):
@@ -333,7 +328,6 @@ def isDomestic(sourceSpec, animal, family):
     return domestic
 
 ####################################################################################################
-# createAnimalTriples
 #
 # Creates instances of the Animal class for every isolate that has an animal as a source.
 # Sometimes we know the source is an animal but we don't the family or animal. In this case we say
@@ -341,6 +335,7 @@ def isDomestic(sourceSpec, animal, family):
 # know the family but not the animal type in which case unknown is an instance of family. When we
 # do know the animal type, there are properties attached to animals found all over the csv
 # and many nice to work with, totally random cases, we have to handle.
+#
 ####################################################################################################
 def createAnimalTriples(df, row, isoTitle):
 
@@ -452,13 +447,13 @@ def createAnimalTriples(df, row, isoTitle):
 
     if pd.isnull(sex) or not cn.isGoodVal(sex) or not (sex[0] == "M" or sex[0] == "F"):
         sex = ""
+    else:
+        sex = sex[0].lower()
 
     if pd.isnull(ageRank) or not ("juvenile" in ageRank or "adult" in ageRank):
         ageRank = ""
 
     ################################################################################################
-    # createTypeTriples
-    #
     # Here we put animals under different sample type classes. So an animal source will be an
     # instance of whatever kind of animal it is, and whatever sample type it is. EG chicken_1205
     # is an instance of Chicken and could be an instance of Droppings.
@@ -471,18 +466,12 @@ def createAnimalTriples(df, row, isoTitle):
 
         sourceSpec = df["Source_Specific_2"][row] # chickenBreast, carcass, rectal swab etc.
 
-        name = animal
-
         # Insects don't have sample types
         if not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect":
 
             sampleType = sampleType.lower()
 
             title = sampleType
-
-            name = "{} {}".format(sampleType, animal)
-
-            name = "{} {}".format(animal, "feces") if sampleType == "faecal" else name
 
             if not pd.isnull(sourceSpec):
 
@@ -506,10 +495,6 @@ def createAnimalTriples(df, row, isoTitle):
                 title = "{}_{}".format(title, cut) if cut else title
                 title = "{}_{}".format(title, byprod) if byprod else title
                 title = fae if fae else title
-
-                name = "{} {} {}".format(sampleType, animal, cut) if cut else name
-                name = "{} {} {}".format(sampleType, animal, byprod) if byprod else name
-                name = "{} {}".format(animal, fae) if fae else name
 
                 # sourceSpec has info related to the properties of meat (ie cuts or abattoir caecum)
                 if "non-seasoned" in sourceSpec:
@@ -556,13 +541,12 @@ def createAnimalTriples(df, row, isoTitle):
 
             stTriple += ctm.indTriple(title, cut) if cut else ""
 
-            if fae or sampleType == "faecal":
-                stTriple += ctm.indTriple(title, "Faecal")
+            stTriple += ctm.indTriple(title, fae) if fae else ""
 
             # All retail samples are assumed to be cuts, unless the byprod is specified
             if not cut and not byprod and sampleType == "retail":
                 title = "retail_cut"
-                stTriple += ctm.indTriple(title, "Cut")
+                stTriple += ctm.indTriple(title, "Meat_cut")
 
             stTriple += ctm.propTriple(isoTitle, {"hasLocale":locale.lower()}, True, True)\
                         if locale else ""
@@ -571,8 +555,6 @@ def createAnimalTriples(df, row, isoTitle):
                 stTriple += ctm.propTriple(isoTitle, {"hasSampleType":title})
 
         # endif not pd.isnull(sampleType) and cn.isGoodVal(sampleType) and sampleType != "Insect"
-
-        stTriple += ctm.propTriple(isoTitle, {"hasSourceName":name}, True, True)
 
         return stTriple
 
@@ -617,8 +599,6 @@ def createAnimalTriples(df, row, isoTitle):
 
 
 ####################################################################################################
-# createSourceTriples
-#
 # Here we call functions to create all triples associated with the source of the isolate
 ####################################################################################################
 def createSourceTriples(df, row, isoTitle):
