@@ -5,7 +5,7 @@ Meant to run on a Blazegraph server with the namespace `campy`.
 `Sripts/csvToDB.py` serves the purpose of cleaning and making triples out of legacy data that is stored on a csv
 that is stored privately (it can't be public as it contains sensitive info).
 
-The ontology `campyOntology2.0.owl` is the primarily used ontology and all SPARQL queries in the web app are built
+The ontology `campyOntology.owl` is the primarily used ontology and all SPARQL queries in the web app are built
 around it. It imports `LabTests.owl`. 
 
 ## To run:
