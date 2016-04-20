@@ -14,7 +14,7 @@ h2              { border-bottom: 2px solid #eee;
                   padding-bottom: 0.2em; 
                   font-size: 1.5em; }
 
-ul              { list-style-type: none;
+ul.nav           { list-style-type: none;
                   margin: 0 auto;
                   padding: 0;
                   overflow: hidden;
@@ -23,15 +23,15 @@ ul              { list-style-type: none;
                   width: 52em;
                   box-shadow: 0 0 12px 0 rgba(0,0,0,0.2), 0 0 12px 0 rgba(0,0,0,0.19); }
 
-li              { float: left; }
+li.nav          { float: left; }
 
-li a            { display: block;
+li.nav a        { display: block;
                   color: #BDBDBD;
                   text-align: center;
                   padding: 14px 16px;
                   text-decoration: none; }
 
-li a:hover:not(.active) 
+li.nav a:hover:not(.active) 
                { color: #666666; }
 
 .active        { color: #666666; }
@@ -64,7 +64,6 @@ li a:hover:not(.active)
                        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);}
 
 p.small         { line-height: 10%; }
-h1.center       { text-align: center; }
 .warning        { color: #CCCCCC; }
 a.link          { text-decoration: none; }
 .section        { font-weight: bold; 
@@ -90,16 +89,21 @@ p.field         { color: #6E6E6E; font-weight: bold;}
 
 </style>
 
+<link rel="icon" 
+      type="image/svg" 
+      href="{{ url_for('static', filename='images/campylogo.png') }}">
+
 </head>
 <title>Campy Database</title>
 
-<ul>
-  <li><a href="/index"><b>Login</b></a></li>
+
+<ul class=nav>
+  <li class=nav><a href="/index"><b>Login</b></a></li>
 </ul>
 
 <div class=page>
-  <h1 class=center>
-    <a href="/index"><img src="{{ url_for('static', filename='images/cbanner.png') }}"></a>
+  <h1>
+    <a href="/index"><img src="{{ url_for('static', filename='images/CampyBanner.svg') }}" height="150" width="800"></a>
   </h1>
 
   {% with messages = get_flashed_messages() %}

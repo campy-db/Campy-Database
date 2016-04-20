@@ -5,35 +5,35 @@
 
   <span>
     Source {{ form.source(size = 41, placeholder = "e.g. chicken breast rinse") }}
-    <b class=warning>(Use _ to link animal names. e.g. canada_goose)</b>
+    <br><b class=warning>(Link related terms with an underscore. e.g. canada_goose, breast with_skin</b>
   </span>
 
   {% for error in form.source.errors %}
     {% if error[0] == 'warning' %}
       <br><span style="color: #377BA8;">[{{ error[1] }}]</span>
     {% else %}
-      <br><span style="color: red;">[{{ error }}]</span>
+      <br><span style="color: #db4437;">[{{ error }}]</span>
     {% endif %}
   {% endfor %}
 
   {% if form.aID.errors and not form.source.data %}
     {% for error in form.aID.errors %}
-      <br><span style="color: red;">[{{ error }}]</span>
+      <br><span style="color: #db4437;">[{{ error }}]</span>
     {% endfor %}
 
   {% elif form.sourceLocale.errors %}
     {% for error in form.sourceType.errors %}
-      <br><span style="color: red;">[{{ error }}]</span>
+      <br><span style="color: #db4437;">[{{ error }}]</span>
     {% endfor %}
 
   {% elif form.sex.errors %}
     {% for error in form.sex.errors %}
-      <br><span style="color: red;">[{{ error }}]</span>
+      <br><span style="color: #db4437;">[{{ error }}]</span>
     {% endfor %}
 
   {% else %}
     {% for error in form.aage.errors %}
-      <br><span style="color: red;">[{{ error }}]</span>
+      <br><span style="color: #db4437;">[{{ error }}]</span>
     {% endfor %}
 
   {% endif %}

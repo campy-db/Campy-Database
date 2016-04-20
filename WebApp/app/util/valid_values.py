@@ -11,8 +11,6 @@ import re
 from ..sparql import queries as q
 
 ####################################################################################################
-# get_species
-#
 # Fetches campylobacter species and subspecies from the ncbi website. Creates a dictionary. Adds
 # a species as a key and then its value is a list of subspecies.
 ####################################################################################################
@@ -69,16 +67,30 @@ def get_species():
 # can placed in the database.
 ####################################################################################################
 
+ENVIROS = ["lagoon", "water", "sewage", "sand", "soil"]
+
+ENVIRO_PROPS = ["dairy", "swine", "treated", "drinking", "recreational"]
+
+PEOPLE = ["human", "patient"]
+
+CLINICAL_TYPES = ["stool", "blood"]
+
 ANIMALS = [a.lower() for a in q.getSubClasses("Animal")]
 
 # General animals. eg. cow, avian, duck, companion
-GEN_ANIMALS = [a.lower() for a in q.getHighestClasses("Animal")]
+GEN_ANIMALS = [a.lower() for a in q.getSuperClasses("Animal")]
 
 # Sample types. eg. swab, droppings, cut, breast
 SAMPLE_TYPES = [st.lower() for st in q.getSubClasses("Animal_sample")]
 
 # General sample types. eg. food, faecal
-GEN_SAMPLE_TYPES = [st.lower() for st in q.getHighestClasses("Animal_sample")]
+GEN_SAMPLE_TYPES = [st.lower() for st in q.getSuperClasses("Animal_sample")]
 
+# Valid sample type properties
+SAMPLE_PROPS = ["rinse", "seasoned", "with skin", "skinless"]
+
+# get_species() takes a little bit of time to complete, so when the site is running, and you make a
+# change to any of the code, the site detects the change and reloads. get_species slows this down
+# and it's annoying so for now just return this species dictionary.
 #SPECIES = get_species()
-SPECIES = {"jejuni":["jejuni", "poylpei"]}
+SPECIES = {"jejuni":["jejuni", "doylie"]}

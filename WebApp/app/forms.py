@@ -9,7 +9,7 @@ from wtforms import StringField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Optional
 from .util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
-range_, genAnimal, genSample, nonemptySource, isA
+range_, genAnimal, genSample, nonemptySource, isA, postalCode
 
 NOW = datetime.datetime.now()
 
@@ -65,6 +65,12 @@ class AddForm(Form):
                                 ("newborn", "Newborn"),
                                 ("juvenile", "Juvenile"),
                                 ("adult", "Adult")])
+
+    travel = StringField("travel")
+
+    hage = StringField("hage", validators=[Optional(), digit(), length(min_=1, max_=2)])
+
+    postal_code = StringField("postal_code", validators=[Optional(), postalCode()])
 
     source = StringField("source", validators=[Optional(), source_(), genAnimal(), genSample()])
 

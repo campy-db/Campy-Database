@@ -8,17 +8,17 @@
   </span>
 
   {% for error in form.name.errors %}
-    <br><span style="color: red;">[{{ error }}]</span>
+    <br><span style="color: #db4437;">[{{ error }}]</span>
   {% endfor %}
 
   <br><br>
 
   <span>
-    Species {{ form.spec(size = 40) }}
+    Species {{ form.spec(size=40, placeholder="e.g. Jejuni, or Jejuni spp. Doylie") }}
   </span>
 
   {% for error in form.spec.errors %}
-   <br><span style="color: red;">[{{ error }}]</span>
+    <br><span style="color: #db4437;">[{{ error }}]</span>
   {% endfor %}
 
   <br>

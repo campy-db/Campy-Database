@@ -102,11 +102,11 @@ def getLowestClasses(class_):
     return trimResult(result, "label")
 
 ####################################################################################################
-# getHighestClasses
+# getSuperClasses
 #
 # Returns all the subclasses of _class that have a subclass of their own.
 ####################################################################################################
-def getHighestClasses(_class):
+def getSuperClasses(_class):
 
     _class = _class[0].upper() + _class[1:]
 

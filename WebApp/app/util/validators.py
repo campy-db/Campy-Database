@@ -1,14 +1,21 @@
 """
  validators.py
+
+ Here we store all validators, or interfaces to shared_validators, that are required for the forms
+ we use. Flask validators have kind of a specific format, so that's why we need shared_validators
+ in a seperate module and have shared_validator interfaces here. The shared_validators will be
+ re-used when we do batch upload.
 """
 # pylint: disable=W0613
 
-import re
 from wtforms.validators import ValidationError, Regexp
 from .valid_values import ANIMALS, GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
 from ..sparql import queries as q
-from .shared_validators import valid_species
+from .shared_validators import validSpecies, validBinaryFP, validSource, genValue, validPostalCode
 
+####################################################################################################
+# Raises an error if the field value does not contain any of the characters in bad_chars.
+####################################################################################################
 def specialChars(bad_chars):
 
     message = "This field cannot contain the characters: {}".format(" ".join(bad_chars))
@@ -24,6 +31,9 @@ def specialChars(bad_chars):
 
     return _specialChars
 
+####################################################################################################
+# Raises an error if the length of the field value is between min and max (exclusive).
+####################################################################################################
 def length(title=None, min_=-1, max_=-1):
 
     if min_ != -1 and max_ != -1:
@@ -59,6 +69,9 @@ def length(title=None, min_=-1, max_=-1):
     return _length
 
 
+####################################################################################################
+# Raises an error if the field value is an integer.
+####################################################################################################
 def digit(title=None):
 
     title = title if title else "Value"
@@ -69,36 +82,43 @@ def digit(title=None):
 
     return Regexp(regex=regex, message=message)
 
-
+####################################################################################################
+# Raises an error if the field value is one of the campy species defined in valid_values. See
+# validSpecies in shared_validators.
+####################################################################################################
 def species():
 
     def _species(form, field):
 
         v = field.data
 
-        valid, message = valid_species(v)
+        valid, message = validSpecies(v)
 
         if not valid:
             raise ValidationError(message)
 
     return _species
 
-
+####################################################################################################
+# Raises an error if the field value contains only 1s and 0s. See validBinary in
+# shared_validators.py
+####################################################################################################
 def fpBinary():
-
-    message = "Value must contain only 1s and 0s."
 
     def _binary(form, field):
 
         v = field.data
 
-        if re.search("[01]{40}", v) is None:
+        valid, message = validBinaryFP(v)
 
+        if not valid:
             raise ValidationError(message)
 
     return _binary
 
-
+####################################################################################################
+# Raises an error if the field value is in between min and max, exclusive
+####################################################################################################
 def range_(title=None, min_=None, max_=None):
 
     title = title if title else "Number"
@@ -125,6 +145,13 @@ def range_(title=None, min_=None, max_=None):
 
     return _range_
 
+####################################################################################################
+#
+# This is called for all the fields that are related to source. It raises an error if the source
+# field is empty. So say someone picks abattoir in the locale field and source is empty, an error
+# saying you must specicy a source will be raised. That's good.
+#
+####################################################################################################
 def nonemptySource():
 
     message = "You must specify a source"
@@ -136,61 +163,51 @@ def nonemptySource():
 
     return _nonempty_source
 
-
-def genVal(form, v, last):
-
-    o_err = otherErrors(form)
-
-    sub_classes = [s.lower() for s in q.getSubClasses(v)]
-
-    sub_class_list = ", ".join(sub_classes)
-
-    if o_err or v != form.session[last]:
-
-        form.session[last] = v
-
-        raise ValidationError\
-        (("warning", "Consider these values instead of {}: {}".format(v, sub_class_list)))
-
-
-def processGenVal(form, field, gen_list, last):
-
-    val = field.data
-
-    vals = [v.lower().replace("_", " ") for v in val.split(" ")]
-
-    has_gen = False
-
-    for v in vals:
-
-        if v in gen_list:
-
-            gen_val = v
-
-            has_gen = True
-
-    if has_gen:
-        genVal(form, gen_val, last)
-
-
+####################################################################################################
+# An interface function for processGeneral. This is for handling general animal input.
+####################################################################################################
 def genAnimal():
 
     def _genAnimal(form, field):
 
-        processGenVal(form, field, GEN_ANIMALS, "last_animal")
+        v = field.data
+
+        processGeneral(form, v, GEN_ANIMALS, "last_animal")
 
     return _genAnimal
 
-
+####################################################################################################
+# Same deal as genAnimal but for handling general sample type input
+####################################################################################################
 def genSample():
 
     def _genSample(form, field):
 
-        processGenVal(form, field, GEN_SAMPLE_TYPES, "last_sample_type")
+        v = field.data
+
+        processGeneral(form, v, GEN_SAMPLE_TYPES, "last_sample_type")
 
     return _genSample
 
+####################################################################################################
+# Handles vals that are in gen_list. See genValue in shared_validators, most the work is done there.
+####################################################################################################
+def processGeneral(form, val, gen_list, last_val_key):
 
+    o_err = otherErrors(form)
+
+    last_val = form.session[last_val_key]
+
+    valid, message, gen_val = genValue(val, gen_list, o_err, last_val)
+
+    if not valid:
+
+        form.session[last_val_key] = gen_val
+        raise ValidationError(("warning", message))
+
+####################################################################################################
+# Here we do pretty much the same thing as in genAnimal, except for sample types.
+####################################################################################################
 def isA(class_):
 
     def _isA(form, field):
@@ -207,35 +224,38 @@ def isA(class_):
 
     return _isA
 
-
+####################################################################################################
+# Raise an error if the source value is not a valid animal+[sample type], environment, or a valid
+# human+[sample type]. (sample type is optional). See valid source in shared_validators.py
+####################################################################################################
 def source_():
 
     def _validSource(form, field):
 
         val = field.data
 
-        vals = [v.lower().replace("_", " ") for v in val.split(" ")]
+        valid, message = validSource(val)
 
-        has_animal = any([True if v in ANIMALS else False for v in vals])
-
-        has_sample = None
-
-        if len(vals) > 1:
-            has_sample = any([True if v in SAMPLE_TYPES else False for v in vals])
-
-        if not has_animal:
-
-            message = "You must specify an animal"
-
-            raise ValidationError(message)
-
-        if has_sample is not None and has_sample is False:
-
-            message = "Invalid sample type"
-
+        if not valid:
             raise ValidationError(message)
 
     return _validSource
+
+####################################################################################################
+# Raises an error if the field data is not a well formated postal code.
+####################################################################################################
+def postalCode():
+
+    def _postalCode(form, field):
+
+        val = field.data
+
+        valid, message = validPostalCode(val)
+
+        if not valid:
+            raise ValidationError(message)
+
+    return _postalCode
 
 def otherErrors(form):
 

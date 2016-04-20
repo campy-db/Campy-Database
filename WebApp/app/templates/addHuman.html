@@ -1,0 +1,24 @@
+
+<div class=section>Patient Data</div>
+
+<p class=field>
+
+  <span>
+    Travel {{ form.travel(size=41, placeholder="e.g. Cuba") }}
+  </span>
+  <br><br>
+  <span>
+    Age {{ form.hage(size=41)}}
+  </span>
+  {% for error in form.hage.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+  <br><br>
+  <span>
+    Postal Code {{ form.postal_code(size=41) }}
+  </span>
+  {% for error in form.postal_code.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+  <br><br>
+</p>

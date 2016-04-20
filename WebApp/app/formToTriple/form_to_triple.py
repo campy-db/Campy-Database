@@ -1,11 +1,21 @@
 """
  form_to_triple.py
+
+ Here we handle all the fields in the AddForm, and pass it to the clean_triple_writers.
+ We cast all fields to their appropriate type and then create a dictionary of all the data,
+ whether the field is empty or not.
+
 """
 
-import re
-from ..util.valid_values import ANIMALS, SAMPLE_TYPES
-from . import clean_triple_writers as ctw
+from ..util.valid_values import ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS, ENVIRO_PROPS, PEOPLE,\
+                                CLINICAL_TYPES
+from .clean_triple_writers import *
 
+####################################################################################################
+# formToTriple
+#
+# Take all the fields from the AddForm and pass it to clean_triple_writers.
+####################################################################################################
 def formToTriple(form):
 
     triple = []
@@ -14,8 +24,11 @@ def formToTriple(form):
 
     spec_str = str(form.spec.data) if form.spec.data else ""
 
-    triple.append(ctw.createIsolateTriple(iso_title, spec_str))
+    triple.append(createIsolateTriple(iso_title, spec_str))
 
+    ################################################################################################
+    # Get all the CGF data from the form
+    ################################################################################################
     def formCGF():
 
         fp = str(form.fp.data) if form.fp.data else ""
@@ -28,46 +41,91 @@ def formToTriple(form):
         cgf_data =\
         {"fingerprint":fp, "year":dcy, "month":dcm, "day":dcd, "lab":lab, "silico":silico}
 
-        return ctw.createCGFtriple(cgf_data, iso_title)
+        return createCGFtriple(cgf_data, iso_title)
 
-    def formAnimalSource():
+    ################################################################################################
+    # Get all the source data from the form
+    ################################################################################################
+    def formSource():
 
-        aID = str(form.aID.data) if form.aID.data else ""
-        animal = getAnimal(str(form.source.data)) if form.source else ""
-        type_ = getType(str(form.source.data)) if form.source else ""
-        locale = str(form.sourceLocale.data) if form.sourceLocale.data else ""
-        sex = str(form.sex.data) if form.sex.data else ""
-        aage = str(form.aage.data) if form.aage.data else ""
+        ############################################################################################
+        # Get all the animal source data
+        ############################################################################################
+        def formAnimalSource(animal, source):
 
-        animal_data =\
-        {"animal":animal, "type":type_, "aID":aID, "locale":locale, "sex":sex, "age":aage}
+            type_ = getValueIn(source, SAMPLE_TYPES)
+            type_prop = getValueIn(source, SAMPLE_PROPS)
 
-        return ctw.createAnimalTriple(animal_data, iso_title)
+            aID = str(form.aID.data) if form.aID.data else ""
+            locale = str(form.sourceLocale.data) if form.sourceLocale.data else ""
+            sex = str(form.sex.data) if form.sex.data else ""
+            aage = str(form.aage.data) if form.aage.data else ""
 
-    triple.append(" ".join([formCGF(), formAnimalSource()]))
+            animal_data = {"animal":animal,
+                           "type":type_,
+                           "type_prop":type_prop,
+                           "aID":aID, "locale":locale,
+                           "sex":sex, "age":aage}
+
+            return createAnimalTriple(animal_data, iso_title)
+
+        ############################################################################################
+        # Get the environment source data
+        ############################################################################################
+        def formEnviroSource(enviro, source):
+
+            enviro_prop = getValueIn(source, ENVIRO_PROPS)
+
+            enviro_data = {"enviro":enviro, "enviro_prop":enviro_prop}
+
+            return createEnviroTriple(enviro_data, iso_title)
+
+        ############################################################################################
+        # Get the human source data
+        ############################################################################################
+        def formHumanSource(human, source):
+
+            clinical_type = getValueIn(source, CLINICAL_TYPES)
+
+            human_data = {"human":human, "clinical_type":clinical_type}
+
+            return createHumanTriple(human_data, iso_title)
+
+
+        source = str(form.source.data)
+
+        # Because source can contain an animal, enviro, or human source, we have to determine which
+        # one and make the appropriate triples
+        if not source:
+            return ""
+        else:
+            animal = getValueIn(source, ANIMALS)
+            enviro = getValueIn(source, ENVIROS)
+            human = getValueIn(source, PEOPLE)
+
+            if animal:
+                return formAnimalSource(animal, source)
+            if enviro:
+                return formEnviroSource(enviro, source)
+            if human:
+                return formHumanSource(human, source)
+
+
+    triple.append(" ".join([formCGF(), formSource()]))
 
     return "".join(triple)
 
-
-def getAnimal(a):
-
-    vals = [v.lower().replace("_", " ") for v in a.split(" ")]
-
-    animal = ""
-
-    for v in vals:
-        animal = v if v in ANIMALS else animal
-
-    return animal
-
-def getType(s):
+####################################################################################################
+#
+####################################################################################################
+def getValueIn(s, poss_vals):
 
     vals = [v.lower().replace("_", " ") for v in s.split(" ")]
 
-    type_ = ""
+    result = ""
 
     for v in vals:
-        type_ = v if v in SAMPLE_TYPES else type_
+        result = v if v in poss_vals else result
 
-    return type_
+    return result
 
