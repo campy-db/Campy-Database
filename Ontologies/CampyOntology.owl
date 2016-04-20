@@ -604,7 +604,8 @@ I just considered domestic to mean dogs and other pets.""" .
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Breast
 
 :Breast a owl:Class ;
-	rdfs:subClassOf :Cut ;
+	rdfs:subClassOf :Meat_cut ;
+	rdfs:comment "There are different kinds of breast so it needs its own class" ;
 	rdfs:label "Breast"@en .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Buffalo
@@ -641,6 +642,7 @@ I just considered domestic to mean dogs and other pets.""" .
 
 :Caecum a owl:Class ;
 	rdfs:subClassOf :By_product ;
+	rdfs:comment "There are different kinds of caecum so it needs its own class" ;
 	rdfs:label "Caecum"@en .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Campy_species
@@ -665,6 +667,7 @@ I just considered domestic to mean dogs and other pets.""" .
 
 :Carcass a owl:Class ;
 	rdfs:subClassOf :By_product ;
+	rdfs:comment "There are different kinds of carcasses so it needs its own class" ;
 	rdfs:label "Carcass"@en .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Cat
@@ -721,12 +724,6 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:subClassOf :Cattle ;
 	rdfs:label "Cow"@en .
 # 
-# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Cut
-
-:Cut a owl:Class ;
-	rdfs:subClassOf :Food ;
-	rdfs:label "Cut"@en .
-# 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Deer
 
 :Deer a owl:Class ;
@@ -750,6 +747,12 @@ I just considered domestic to mean dogs and other pets.""" .
 :Donkey a owl:Class ;
 	rdfs:subClassOf :Equine ;
 	rdfs:label "Donkey"@en .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Droppings
+
+:Droppings a owl:Class ;
+	rdfs:subClassOf :Faecal ;
+	rdfs:label "Droppings" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Duck
 
@@ -820,7 +823,8 @@ I just considered domestic to mean dogs and other pets.""" .
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ground
 
 :Ground a owl:Class ;
-	rdfs:subClassOf :Cut ;
+	rdfs:subClassOf :Meat_cut ;
+	rdfs:comment "There are different kinds of ground meat so it needs its own class" ;
 	rdfs:label "Ground"@en .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Health_authority
@@ -915,7 +919,8 @@ I just considered domestic to mean dogs and other pets.""" .
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Loin
 
 :Loin a owl:Class ;
-	rdfs:subClassOf :Cut ;
+	rdfs:subClassOf :Meat_cut ;
+	rdfs:comment "There are different kinds of loin cuts so it needs its own class" ;
 	rdfs:label "Loin"@en .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Marmot
@@ -923,6 +928,12 @@ I just considered domestic to mean dogs and other pets.""" .
 :Marmot a owl:Class ;
 	rdfs:subClassOf :Rodent ;
 	rdfs:label "Marmot"@en .
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Meat_cut
+
+:Meat_cut a owl:Class ;
+	rdfs:subClassOf :Food ;
+	rdfs:label "Meat Cut"@en .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Methodology_property
 
@@ -989,10 +1000,17 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:subClassOf :Porcine ;
 	rdfs:label "Pig"@en .
 # 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Pit
+
+:Pit a owl:Class ;
+	rdfs:subClassOf :Faecal ;
+	rdfs:label "Pit" .
+# 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine
 
 :Porcine a owl:Class ;
-	rdfs:subClassOf :Animal .
+	rdfs:subClassOf :Animal ;
+	rdfs:label "Porcine" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Project
 
@@ -1119,15 +1137,23 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:subClassOf :Location ;
 	rdfs:label "Surveillance Site"@en .
 # 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Swab
+
+:Swab a owl:Class ;
+	rdfs:subClassOf :Faecal ;
+	rdfs:label "Swab" .
+# 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Swan
 
 :Swan a owl:Class ;
-	rdfs:subClassOf :Avian .
+	rdfs:subClassOf :Avian ;
+	rdfs:label "Swan" .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thigh
 
 :Thigh a owl:Class ;
-	rdfs:subClassOf :Cut ;
+	rdfs:subClassOf :Meat_cut ;
+	rdfs:comment "There are different kinds of thigh cuts so it needs its own class" ;
 	rdfs:label "Thigh"@en .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Trumpeter_swan
@@ -1158,6 +1184,7 @@ I just considered domestic to mean dogs and other pets.""" .
 
 :Weep a owl:Class ;
 	rdfs:subClassOf :By_product ;
+	rdfs:comment "There are different kinds of weep so it needs its own class" ;
 	rdfs:label "Weep"@en .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_drug
