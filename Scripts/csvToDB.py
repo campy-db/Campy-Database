@@ -5,7 +5,6 @@
 """
 
 import sys
-import getopt
 import argparse
 import pandas as pd
 
@@ -60,13 +59,13 @@ def createBIOtriples(df, row, isoTitle):
 ####################################################################################################
 def createEPItriples(df, row, isoTitle):
 
-    triple = createDTakenTriples(df, row, isoTitle) # The date the sample was taken
+    #triple = createDTakenTriples(df, row, isoTitle) # The date the sample was taken
 
-    triple += createLocTriples(df, row, isoTitle) # The location of where the sample was taken
+    #triple += createLocTriples(df, row, isoTitle) # The location of where the sample was taken
 
-    triple += createSourceTriples(df, row, isoTitle) # Triples for the isolate source
+    triple = createSourceTriples(df, row, isoTitle) # Triples for the isolate source
 
-    triple += createOutbreakTriples(df, row, isoTitle) # Outbreak triples
+    #triple += createOutbreakTriples(df, row, isoTitle) # Outbreak triples
 
     return triple
 
@@ -99,13 +98,13 @@ def createTriples(df, row):
     triple = ctm.indTriple(isoTitle, "Isolate")+\
              ctm.propTriple(isoTitle, {"hasIsolateName":isoTitle}, True, True)
 
-    triple += createIsolationTriples(df, row, isoTitle) # For isolation data
+    #triple += createIsolationTriples(df, row, isoTitle) # For isolation data
 
-    triple += createBIOtriples(df, row, isoTitle)
+    #triple += createBIOtriples(df, row, isoTitle)
 
     triple += createEPItriples(df, row, isoTitle)
 
-    triple += createLIMStriples(df, row, isoTitle)
+    #triple += createLIMStriples(df, row, isoTitle)
 
     writeToOnt(triple) # Write to the owl file. Just for testing
     #writeToBG(triple) # Write the triples to the blazegraph server

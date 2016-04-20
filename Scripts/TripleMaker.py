@@ -81,7 +81,7 @@ class TripleMaker(object):
     @classmethod
     def rlTag(cls, v):
 
-        v = str(v).lower() if isinstance(v, bool) else v
+        v = str(v).lower() if isinstance(v, bool) else str(v)
         return "tag_{}".format(v)
 
     ################################################################################################

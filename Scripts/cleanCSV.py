@@ -2,7 +2,10 @@
 """
  cleanCSV.py
 
- For cleaning csvs, checking if csv values are what they should be.
+ For cleaning the csv. Removes bad characters, checks if a given value is bad, and standardizes
+ values. This module is also called by TripleMaker to remove characters that are not allowed in URIS
+ and those not allowed in string literals.
+
 """
 
 import re
@@ -71,6 +74,7 @@ def convertGPS(coord):
 # Returns true if s is a number, eg hex, int, double etc
 ####################################################################################################
 def isNumber(s):
+
     try:
         float(s)
         return True
@@ -106,7 +110,7 @@ def cleanString(s):
     return s
 
 ####################################################################################################
-# Removes characters from strings that are to be used as names in an ontology
+# Removes characters from strings that are to be used as string literals in an ontology
 ####################################################################################################
 def cleanName(s):
 
@@ -114,10 +118,12 @@ def cleanName(s):
         for c in "}{\"":
             s = s.replace(c, "")
         s = s.strip()
+
     return s
 
 ####################################################################################################
-# Some of the years and ids were converted to doubles for some reason
+# Some of the years and ids were converted to doubles for some reason in the csv so here we cast
+# them to integers and then strings
 ####################################################################################################
 def cleanInt(s):
 
@@ -127,17 +133,19 @@ def cleanInt(s):
     return s
 
 ####################################################################################################
-# Converts date d to a specified format. We'll be using ISO. df is True if the format has the day
-# first, eg 14/01/1993. But some are month first, eg 4/18/2015. This is the default.
+# Converts date d to a specified format. We'll be using ISO. day_first is True if the format has the
+# day first, eg 14/01/1993. But some have month first, eg 4/18/2015. This is the default.
 ####################################################################################################
-def convertDate(d, df):
+def convertDate(d, dayfirst):
+
     result = -1
-    # Sometimes dates are just the year or day.
+    # Sometimes dates are just the year or day, so we try to parse the date and if that fails, just
+    # pass the d parameter back, because it is either not a full date, or a bad value
     try:
         if d != "" and not pd.isnull(d):
 
             df = "%Y-%m-%d"
-            dt = dateParse(d, dayfirst=df)
+            dt = dateParse(d, dayfirst=dayfirst)
             result = (dt.strftime(df))
 
         else:
@@ -149,8 +157,8 @@ def convertDate(d, df):
     return result
 
 ####################################################################################################
-# Removes a prefix from val of length l
-# All prefixes in the csv have an underscore before them. Not all values in a column are prefixed.
+# Removes a prefix from val of length l. All prefixes in the csv have an underscore before them. Not
+# all values in a column are prefixed.
 ####################################################################################################
 def remPrefix(val, l):
 
@@ -160,7 +168,7 @@ def remPrefix(val, l):
 
 
 ####################################################################################################
-# cleanGene
+# All the genes in the csv are prefixed with some extraneous stuff, so we remove it.
 ####################################################################################################
 def cleanGene(g):
 
