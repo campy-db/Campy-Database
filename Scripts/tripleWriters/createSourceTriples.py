@@ -14,13 +14,11 @@ SUBNATS = [x.name for x in list(pc.subdivisions)] # A list of names of subnation
 COUNTRIES = [x.name for x in list(pc.countries)] # A list of names of countries
 
 ####################################################################################################
-#
 # Returns the age and/or birthdate
 # Some patients in the csv have ages. The values are found in the 'Patient D.O.B / Age' column.
 # The column has birthdates, ages, and age ranges of the form 'a/X-Y years' where X and Y are
 # ages and a is some random character. As of right now, we ignore ranges in hopes that Steven can
 # get the actual ages.
-#
 ####################################################################################################
 def getAge(df, row):
 
@@ -66,12 +64,10 @@ def getAge(df, row):
     return age, birthdate
 
 ####################################################################################################
-#
 # A patient's travel info is in column 'Comments' and is of the form 'Travel: [location]'.
 # Sometimes it's just the country, or the province/state, or both. We will store only the lowest
 # level. eg from the location value 'Ohia, USA' we will store only Ohio as it is derivable that
 # the patient traveled to the states.
-#
 ####################################################################################################
 def createTravelTriples(df, row, hum):
 
@@ -105,12 +101,10 @@ def createTravelTriples(df, row, hum):
     return trTriple + humTriple
 
 ####################################################################################################
-#
 # Create an individual human for all isolates that have a human as a source. No names are given so
 # the unique id for humans is 'patient_[isoTitle]'. Note all humans in the csv are patients so they
 # will be instances of the Patient class. Here we will also get the properties postal code if
 # available and gender if available. We also get set the clinical sample type here.
-#
 ####################################################################################################
 def createHumanTriples(df, row, isoTitle):
 
@@ -206,13 +200,11 @@ def createHumanTriples(df, row, isoTitle):
     return humTriple + isoTriple
 
 ####################################################################################################
-#
 # Creates an instance of Environment for every isolate that has an environmental source type. We
 # don't bother uniquely identifying different environment sources; this is just so the user knows
 # what type of environment the source came from. We would consider revising this if enviro sources
 # had an ID. Though really the enviro's unique ID is the sampling site name or body of water name
 # which we fetch in the function createLocation triples.
-#
 ####################################################################################################
 def createEnviroTriples(df, row, isoTitle):
 
@@ -328,14 +320,12 @@ def isDomestic(sourceSpec, animal, family):
     return domestic
 
 ####################################################################################################
-#
 # Creates instances of the Animal class for every isolate that has an animal as a source.
 # Sometimes we know the source is an animal but we don't the family or animal. In this case we say
 # the animal type is 'unknown' and it just becomes an instance of the Animal class. Sometimes we
 # know the family but not the animal type in which case unknown is an instance of family. When we
 # do know the animal type, there are properties attached to animals found all over the csv
 # and many nice to work with, totally random cases, we have to handle.
-#
 ####################################################################################################
 def createAnimalTriples(df, row, isoTitle):
 

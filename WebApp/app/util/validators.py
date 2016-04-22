@@ -9,7 +9,7 @@
 # pylint: disable=W0613
 
 from wtforms.validators import ValidationError, Regexp
-from .valid_values import ANIMALS, GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
+from .valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
 from ..sparql import queries as q
 from .shared_validators import validSpecies, validBinaryFP, validSource, genValue, validPostalCode
 
@@ -146,11 +146,9 @@ def range_(title=None, min_=None, max_=None):
     return _range_
 
 ####################################################################################################
-#
 # This is called for all the fields that are related to source. It raises an error if the source
 # field is empty. So say someone picks abattoir in the locale field and source is empty, an error
 # saying you must specicy a source will be raised. That's good.
-#
 ####################################################################################################
 def nonemptySource():
 
@@ -163,16 +161,25 @@ def nonemptySource():
 
     return _nonempty_source
 
+
+def vtest(form, field, other_errors):
+
+    v = field.data
+
+    if v:
+        processGeneral(form, v, ["sam", "bill"], "last_test", other_errors)
+
 ####################################################################################################
 # An interface function for processGeneral. This is for handling general animal input.
 ####################################################################################################
 def genAnimal():
 
-    def _genAnimal(form, field):
+    def _genAnimal(form, field, other_errors):
 
         v = field.data
 
-        processGeneral(form, v, GEN_ANIMALS, "last_animal")
+        if v:
+            processGeneral(form, v, GEN_ANIMALS, "last_animal", other_errors)
 
     return _genAnimal
 
@@ -181,24 +188,23 @@ def genAnimal():
 ####################################################################################################
 def genSample():
 
-    def _genSample(form, field):
+    def _genSample(form, field, other_errors):
 
         v = field.data
 
-        processGeneral(form, v, GEN_SAMPLE_TYPES, "last_sample_type")
+        if v:
+            processGeneral(form, v, GEN_SAMPLE_TYPES, "last_sample_type", other_errors)
 
     return _genSample
 
 ####################################################################################################
 # Handles vals that are in gen_list. See genValue in shared_validators, most the work is done there.
 ####################################################################################################
-def processGeneral(form, val, gen_list, last_val_key):
-
-    o_err = otherErrors(form)
+def processGeneral(form, val, gen_list, last_val_key, other_errors):
 
     last_val = form.session[last_val_key]
 
-    valid, message, gen_val = genValue(val, gen_list, o_err, last_val)
+    valid, message, gen_val = genValue(val, gen_list, last_val, other_errors)
 
     if not valid:
 

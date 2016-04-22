@@ -1,5 +1,5 @@
 """
- Triple Maker
+ TripleMaker
 """
 
 from . import cleanCSV as cn
@@ -7,7 +7,6 @@ from . import cleanCSV as cn
 class TripleMaker(object):
 
     ################################################################################################
-    # Constructor
     #
     # uri - The uri that the user has defined for their database. Must have # or / at the end.
     #       And < > are not to be included
@@ -30,16 +29,10 @@ class TripleMaker(object):
     # STATIC & CLASS METHODS
     ################################################################################################
 
-    ################################################################################################
-    # staticAddURI
-    ################################################################################################
     @staticmethod
     def staticAddURI(title, uri):
         return "<{}{}>".format(uri, cn.cleanString(title))
 
-    ################################################################################################
-    # multiURI
-    ################################################################################################
     @staticmethod
     def multiURI(triple, uris, isLiteral=None):
 
@@ -75,9 +68,6 @@ class TripleMaker(object):
     def addDataRange(cls, range_):
         return "rdfs:range xsd:{}".format(range_)
 
-    ################################################################################################
-    # rlTag
-    ################################################################################################
     @classmethod
     def rlTag(cls, v):
 
@@ -107,7 +97,7 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    # objProp
+    #
     # Returns a triple that creates a new object property. All args must be strings
     #
     # title  - The name of the new property
@@ -131,7 +121,7 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    # dataProp
+    #
     # Returns a triple that creates a new data property. All args must be strings
     #
     # title  - The name of the new property
@@ -155,7 +145,7 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    # superClass
+    #
     # Returns a triple that creates a new class that is not a sublcass of any class.
     #
     # sup - The name of the new class. Must be string
@@ -168,7 +158,7 @@ class TripleMaker(object):
             raise self.errMsg_str()
 
     ################################################################################################
-    # subClass
+    #
     # Returns a triple that creates a new subclass. All args must be strings
     #
     # sub - The name of the new class
@@ -188,7 +178,7 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    # indTriple
+    #
     # Returns a triple creating an individual that belongs to some class, or no class.
     #
     # title  - The name of the individual. Must be string
@@ -217,7 +207,7 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    # propTriple
+    #
     # Create a triple for defining the properties of an individual
     #
     # title - A string. The title of the individual.
@@ -229,7 +219,6 @@ class TripleMaker(object):
     # isLiteral - True if the ALL the property values are literals. False or None otherwise.
     #
     # rLiteral - True if the ALL property values are to be reified literals. False or None otherwise
-    #
     ################################################################################################
     def propTriple(self, title, props, isLiteral=None, rLiteral=None):
 

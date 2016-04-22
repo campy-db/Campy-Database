@@ -11,7 +11,6 @@ from .valid_values import SPECIES, ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS,
 from ..sparql import queries as q
 
 ####################################################################################################
-#
 # Returns true if the string v contains valid mixed campy species, valid species and subspecies,
 # valid cf. species, or just a single valid species, where valid means the species actually
 # exsists according to the list of campy species on ncbi website. See SPECIES in util/valid_values.
@@ -19,7 +18,6 @@ from ..sparql import queries as q
 # (cf.) species, defined as "cf. [spec]", a species and a subspecies, defined as "[main spec]
 # [subspec_syn] [sub spec]" (eg "Jejuni spp. Doylei"), or it can just be the single species name.
 # Note the word "Campy" or "Campylobacter" is allowed in the input and we remove it here.
-#
 ####################################################################################################
 def validSpecies(v):
 
@@ -100,15 +98,9 @@ def validBinaryFP(v):
     return valid, message
 
 ####################################################################################################
-#
 # Only handles animal sources right now. Checks if one of the strings in val is in the list ANIMALS
 # (created in valid_values.py). If there is more than one string in val, check if it is in the list
 # SAMPLE_TYPES. This means that valid animal sources are of the form "chicken breast".
-#
-# TO DO
-# - Handle environment sources (EG dairy lagoon, water, drinking water, sewage, treated sewage)
-# - Handle human sources (EG patient blood, patient stool, human blood, human stool)
-#
 ####################################################################################################
 def validSource(val):
 
@@ -170,7 +162,6 @@ def validSource(val):
 
 
 ####################################################################################################
-#
 # Here we check if a value is "general", ie in the list gen_list (we create general value lists in
 # valid_values.py). If the value val is general, return a warning message and set valid as False.
 #
@@ -179,14 +170,17 @@ def validSource(val):
 # you look at validators.py and views.py, last_val is set to None the first time and gets updated
 # accordingly (this will be done for the batch uploader as well)), return valid=False. If the user
 # then changes the value to "Ruminant", last_val should equal "Avian" and we return valid=False
-# again. Say they DON'T change "Ruminant" now and last_val="Ruminant", now we return valid=True
+# again.
+#
+# Say they DON'T change "Ruminant" now and last_val="Ruminant", now we return valid=True
 # because a general value is not an incorrect value, we just want the user to know that there are
 # better more specific values they should consider, and that's what we return in the message, a list
-# of more specific alternatives to val. We also set it to False if it's general and o_err is True,
-# because if there are other errors, we should still show the warning message.
+# of more specific alternatives to val.
 #
+# We also set it to False if it's general and o_err is True, ie there are other errors in the form,
+# because if there are other errors, we should still show the warning message.
 ####################################################################################################
-def genValue(val, gen_list, o_err, last_val):
+def genValue(val, gen_list, last_val, o_err):
 
     valid = True
     message = ""

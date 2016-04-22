@@ -87,7 +87,19 @@ def formToTriple(form):
 
             clinical_type = getValueIn(source, CLINICAL_TYPES)
 
-            human_data = {"human":human, "clinical_type":clinical_type}
+            age = int(form.hage.data) if form.hage.data else ""
+            travel = str(form.travel.data) if form.travel.data else ""
+            postal_code = str(form.postal_code.data) if form.postal_code.data else ""
+            gender = str(form.hsex.data) if form.hsex.data else ""
+            pID = str(form.pID.data) if form.pID.data else ""
+
+            human_data = {"human":human,
+                          "clinical_type":clinical_type,
+                          "postal_code":postal_code,
+                          "travel":travel,
+                          "age":age,
+                          "gender":gender,
+                          "pID":pID}
 
             return createHumanTriple(human_data, iso_title)
 

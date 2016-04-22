@@ -1,5 +1,8 @@
 """
  forms.py
+
+ For all the forms we use in the web application. Should be made modular.
+
 """
 
 import datetime
@@ -9,38 +12,93 @@ from wtforms import StringField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Optional
 from .util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
-range_, genAnimal, genSample, nonemptySource, isA, postalCode
+range_, genAnimal, genSample, nonemptySource, isA, postalCode, vtest
 
 NOW = datetime.datetime.now()
 
-class SummaryForm(Form):
+####################################################################################################
+# A form for inputing an isolate name
+####################################################################################################
+class IsoNameForm(Form):
     iso_title = StringField("iso_title", validators=[DataRequired(), isA("Isolate")])
 
+####################################################################################################
+# A form for adding new isolate data
+####################################################################################################
 class AddForm(Form):
 
     def __init__(self, ses):
         self.session = ses
         super(AddForm, self).__init__()
 
+    ################################################################################################
+    # Overloads the validate_on_submit method defined in flask_wtf/form.py.
+    # All general value validators need to go here because they have to check for other errors in
+    # the form.
+    ################################################################################################
+    def validate_on_submit(self):
+
+        result = super(AddForm, self).validate_on_submit()
+
+        other_errors = not result # result is True if there are no errors
+
+        def checkGenVals(addError):
+
+            gen_result = result
+
+            try:
+                genAnimal()(self, self.source, other_errors)
+            except ValueError as e:
+                gen_result = False
+                if addError:
+                    self.source.errors.append(e.args[0])
+
+            try:
+                genSample()(self, self.source, other_errors)
+            except ValueError as e:
+                gen_result = False
+                if addError:
+                    self.source.errors.append(e.args[0])
+
+            try:
+                vtest(self, self.test, other_errors)
+            except ValueError as e:
+                gen_result = False
+                if addError:
+                    self.test.errors.append(e.args[0])
+
+            return gen_result
+
+
+        if checkGenVals(False) is False:
+            other_errors = True
+            result = checkGenVals(True)
+
+
+        return result
+
+
     name = StringField("name", validators=[DataRequired(), specialChars("<>")])
 
     spec = StringField("spec", validators=[Optional(), species()])
 
     fp = StringField("fp", validators=\
-         [Optional(), length(min_=40, max_=40), fpBinary()])
+                          [Optional(), length(min_=40, max_=40), fpBinary()])
 
     dcy = StringField("dcy", validators=\
-          [Optional(), digit("Year"), range_("Year", 1900, NOW.year)])
+                             [Optional(), digit("Year"), range_("Year", 1900, NOW.year)])
 
     dcm = StringField("dcm", validators=\
-          [Optional(), digit("Month"), range_("Month", 1, 12)])
+                             [Optional(), digit("Month"), range_("Month", 1, 12)])
 
     dcd = StringField("dcd", validators=\
-    	    [Optional(), digit("Day"), range_("Day", 1, 31)])
+    	                     [Optional(), digit("Day"), range_("Day", 1, 31)])
 
     lab = StringField("lab")
 
     silico = BooleanField("silico")
+
+    source = StringField("source", validators=[Optional(), source_()])
 
     sourceLocale = SelectField("sourceType",
                                validators=[Optional(), nonemptySource()],
@@ -72,5 +130,13 @@ class AddForm(Form):
 
     postal_code = StringField("postal_code", validators=[Optional(), postalCode()])
 
-    source = StringField("source", validators=[Optional(), source_(), genAnimal(), genSample()])
+    hsex = SelectField("sex",
+                       validators=[Optional(), nonemptySource()],
+                       choices=[("", ""),
+                                ("m", "Male"),
+                                ("f", "Female")])
+
+    pID = StringField("pID")
+
+    test = StringField("test")
 

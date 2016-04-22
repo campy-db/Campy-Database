@@ -5,7 +5,7 @@
 from flask import request, session, redirect, render_template, flash
 from app import app
 from .sparql import data_queries as dq
-from .forms import AddForm, SummaryForm
+from .forms import AddForm, IsoNameForm
 from .formToTriple import form_to_triple as ft
 
 ####################################################################################################
@@ -66,7 +66,7 @@ def names():
 @app.route("/getSummary", methods=["GET", "POST"])
 def getSummary():
 
-    form = SummaryForm()
+    form = IsoNameForm()
 
     if form.validate_on_submit():
 
