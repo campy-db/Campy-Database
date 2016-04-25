@@ -8,7 +8,7 @@
 <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> a owl:Ontology ;
 	owl:imports <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> ;
 	rdfs:comment """An ontology for storing information related to Campylobacter Jejuni. The main categories of info are: EPI data (source type, source location, isolation date etc.), BIO data (typing results, AMR info etc.), and LIMS data (typing lab, project etc.). 
-Most fields are derived from the csv \"database\" 2015-06-11_CGF_DB_20080.csv. """^^xsd:string .
+Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv."""^^xsd:string .
 # 
 # 
 # #################################################################
@@ -344,14 +344,6 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Isolate ;
 	rdfs:range :Location .
 # 
-# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSourceName
-
-:hasSourceName a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasSourceProperty ;
-	rdfs:domain :Isolate ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> ;
-	rdfs:comment "We use this to name the source. So if :iso12 :hasAnimalSource :chicken and :iso12 :hasSourceType :faecal, we'll say :iso12 :hasSourceName \"chicken feces\". This is just so people can easily see where the isolate came from." .
-# 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSourceProperty
 
 :hasSourceProperty a owl:ObjectProperty ;
@@ -536,6 +528,10 @@ I just considered domestic to mean dogs and other pets.""" .
 # #
 # #################################################################
 # 
+# 
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasChicken
+
+:hasChicken a owl:DatatypeProperty .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComment
 

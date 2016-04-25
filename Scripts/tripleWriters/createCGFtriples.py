@@ -28,15 +28,15 @@ def createClustTriples(df, row, cgfTest):
         c95name = "{}_{}_{}_{}".format("CGF", 95, c90, c95)
         c100name = "{}_{}_{}_{}_{}".format("CGF", 100, c90, c95, c100)
 
-        c90Triple = ltm.indTriple(c90name, "CGF_cluster")+\
-                  ltm.propTriple(c90name, {"hasThreshold":90, "hasClustNum":c90}, True, True)+\
-                  ltm.propTriple(c90name, {"hasSubCluster":c95name})
+        c90Triple = ltm.indTriple(c90name, "Cluster")+\
+                    ltm.propTriple(c90name, {"hasThreshold":90, "hasClustNum":c90}, True, True)+\
+                    ltm.propTriple(c90name, {"hasSubCluster":c95name})
 
-        c95Triple = ltm.indTriple(c95name, "CGF_cluster")+\
-                  ltm.propTriple(c95name, {"hasThreshold":95, "hasClustNum":c95}, True, True)+\
-                  ltm.propTriple(c95name, {"hasSubCluster":c100name})
+        c95Triple = ltm.indTriple(c95name, "Cluster")+\
+                    ltm.propTriple(c95name, {"hasThreshold":95, "hasClustNum":c95}, True, True)+\
+                    ltm.propTriple(c95name, {"hasSubCluster":c100name})
 
-        c100Triple = ltm.indTriple(c100name, "CGF_cluster")+\
+        c100Triple = ltm.indTriple(c100name, "Cluster")+\
                      ltm.propTriple(c100name, {"hasThreshold":100, "hasClustNum":c100}, True, True)
 
         cgfRefTriple = ltm.propTriple(cgfTest, {"hasCluster":[c90name, c95name, c100name]})

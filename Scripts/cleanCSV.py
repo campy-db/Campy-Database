@@ -13,6 +13,21 @@ from collections import defaultdict
 import pandas as pd
 from dateutil.parser import parse as dateParse
 
+def cleanValue(s):
+
+    if not isNumber(s) and not pd.isnull(s):
+
+        s = s.strip()
+
+        for c in r"{;}: .,-()\/#\"<>":
+            s = s.replace(c, '_')
+
+        s = re.sub("__+", "_", s) # Change 2 or more consecutive underscores into one underscore
+        s = s[:len(s)-1] if s[len(s)-1] == "_" else s # Get rid of trailing underscores
+        s = s[1:] if s[0] == "_" and len(s) > 1 else s # Also get rid of leading underscores
+
+    return s
+
 ####################################################################################################
 # Really shouldn't be here but we need it and I donno where to put it right now.
 # Returns true if a value in vals is the same as one or more of the other values in vals.
@@ -27,7 +42,7 @@ def compare(vals):
 
     # clean all the values first. Otherwise A-B is not the same as
     # A_b (for out purposes they are the same)
-    vals = [cleanString(v).lower() for v in vals if not pd.isnull(v)]
+    vals = [cleanValue(v).lower() for v in vals if not pd.isnull(v)]
 
     # Add it to the dict and increase its value
     for val in vals:
@@ -80,46 +95,6 @@ def isNumber(s):
         return True
     except ValueError:
         return False
-
-####################################################################################################
-# Removes characters that screw things up when the string is being used as a URI
-####################################################################################################
-def cleanString(s):
-
-    if not isNumber(s) and not pd.isnull(s):
-
-        s = s.strip()
-
-        # For numbers, sometimes we get the value <30. This becomes the same as 30 if we replace the
-        # <, similarily >, (both are illegal uri characters) with _. This is no good as we end
-        # up with tag_30 hasLiteralValue 30 and hasLiteralValue <30. So we replace < with
-        # 'l' and > with 'g'. So now we end up with tag_30 hasLiteralvalue 30 and tag_g30 hasLiteral
-        # Value >30.
-
-        # Replaces '>' with 'g' if '>' is followed by a digit, or ' = '
-        s = re.sub(r">(?=(\d|=\d))", "g", s)
-        re.sub(r"<(?=(\d|=\d))", "l", s) # and ' = ' is followed by a digit
-
-        for c in r"{;}: .,-()\/#\"<>":
-            s = s.replace(c, '_')
-
-        s = re.sub("__+", "_", s) # Change 2 or more consecutive underscores into one underscore
-        s = s[:len(s)-1] if s[len(s)-1] == "_" else s # Get rid of trailing underscores
-        s = s[1:] if s[0] == "_" and len(s) > 1 else s # Also get rid of leading underscores
-
-    return s
-
-####################################################################################################
-# Removes characters from strings that are to be used as string literals in an ontology
-####################################################################################################
-def cleanName(s):
-
-    if not isNumber(s) and not pd.isnull(s):
-        for c in "}{\"":
-            s = s.replace(c, "")
-        s = s.strip()
-
-    return s
 
 ####################################################################################################
 # Some of the years and ids were converted to doubles for some reason in the csv so here we cast

@@ -2,7 +2,8 @@
  TripleMaker
 """
 
-from . import cleanCSV as cn
+import re
+import pandas as pd
 
 class TripleMaker(object):
 
@@ -29,9 +30,57 @@ class TripleMaker(object):
     # STATIC & CLASS METHODS
     ################################################################################################
 
+    # Returns true if s is a number, eg hex, int, double etc. Called in cleanString and cleanName
+    @staticmethod
+    def isNumber(s):
+
+        try:
+            float(s)
+            return True
+        except ValueError:
+            return False
+
+    # Removes characters that screw things up when the string is being used as a URI
+    @staticmethod
+    def cleanString(s):
+
+        if not TripleMaker.isNumber(s) and not pd.isnull(s):
+
+            s = s.strip()
+
+            # For numbers, sometimes we get the value <30. This becomes the same as 30 if we replace
+            # the <, similarily >, (both are illegal uri characters) with _. This is no good as we
+            # end up with tag_30 hasLiteralValue 30 and hasLiteralValue <30. So we replace < with
+            # 'l' and > with 'g'. So now we end up with tag_30 hasLiteralvalue 30 and tag_g30
+            # hasLiteralValue >30.
+
+            # Replaces '>' with 'g' if '>' is followed by a digit, or ' = '
+            s = re.sub(r">(?=(\d|=\d))", "g", s)
+            re.sub(r"<(?=(\d|=\d))", "l", s) # and ' = ' is followed by a digit
+
+            for c in r"{;}: .,-()\/#\"<>":
+                s = s.replace(c, '_')
+
+            s = re.sub("__+", "_", s) # Change 2 or more consecutive underscores into one underscore
+            s = s[:len(s)-1] if s[len(s)-1] == "_" else s # Get rid of trailing underscores
+            s = s[1:] if s[0] == "_" and len(s) > 1 else s # Also get rid of leading underscores
+
+        return s
+
+    # Removes characters from strings that are to be used as string literals in an ontology
+    @staticmethod
+    def cleanName(s):
+
+        if not TripleMaker.isNumber(s) and not pd.isnull(s):
+            for c in "}{\"":
+                s = s.replace(c, "")
+            s = s.strip()
+
+        return s
+
     @staticmethod
     def staticAddURI(title, uri):
-        return "<{}{}>".format(uri, cn.cleanString(title))
+        return "<{}{}>".format(uri, TripleMaker.cleanString(title))
 
     @staticmethod
     def multiURI(triple, uris, isLiteral=None):
@@ -80,11 +129,11 @@ class TripleMaker(object):
 
     # Appends title to the user's uri
     def addURI(self, title):
-        return "<{}>".format(self.uri+cn.cleanString(title))
+        return "<{}>".format(self.uri+TripleMaker.cleanString(title))
 
     # Appends title to the reifiedLiteral URI
     def addrlitURI(self, title):
-        return "<{}>".format(self.rlit_uri+cn.cleanString(title))
+        return "<{}>".format(self.rlit_uri+TripleMaker.cleanString(title))
 
     # Returns a domain declaration.
     # Note that only classes can be the domain of a property
@@ -97,7 +146,6 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    #
     # Returns a triple that creates a new object property. All args must be strings
     #
     # title  - The name of the new property
@@ -121,7 +169,6 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    #
     # Returns a triple that creates a new data property. All args must be strings
     #
     # title  - The name of the new property
@@ -145,7 +192,6 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    #
     # Returns a triple that creates a new class that is not a sublcass of any class.
     #
     # sup - The name of the new class. Must be string
@@ -158,7 +204,6 @@ class TripleMaker(object):
             raise self.errMsg_str()
 
     ################################################################################################
-    #
     # Returns a triple that creates a new subclass. All args must be strings
     #
     # sub - The name of the new class
@@ -178,7 +223,6 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    #
     # Returns a triple creating an individual that belongs to some class, or no class.
     #
     # title  - The name of the individual. Must be string
@@ -207,7 +251,6 @@ class TripleMaker(object):
 
 
     ################################################################################################
-    #
     # Create a triple for defining the properties of an individual
     #
     # title - A string. The title of the individual.
@@ -239,7 +282,7 @@ class TripleMaker(object):
 
             v = self.rlTag(v) if rLiteral else v
 
-            v = "\"{}\"".format(cn.cleanName(v))\
+            v = "\"{}\"".format(TripleMaker.cleanName(v))\
                  if litType == str and not rLiteral else v
 
             v = str(v) # Integers and so forth need to be strings
@@ -267,7 +310,6 @@ class TripleMaker(object):
         return result
 
     ################################################################################################
-    # createRliteral
     # Called in propTriple. Used to create triples that define reified literals.
     #
     # props - A dictionary of properties as defined in propTriple definition.
