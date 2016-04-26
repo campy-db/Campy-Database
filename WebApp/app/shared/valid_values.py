@@ -92,5 +92,5 @@ SAMPLE_PROPS = ["rinse", "seasoned", "with skin", "skinless"]
 # get_species() takes a little bit of time to complete, so when the site is running, and you make a
 # change to any of the code, the site detects the change and reloads. get_species slows this down
 # and it's annoying so for now just return this species dictionary.
-SPECIES = get_species()
-#SPECIES = {"jejuni":["jejuni", "doylie"]}
+#SPECIES = get_species()
+SPECIES = {"jejuni":["jejuni", "doylie"]}

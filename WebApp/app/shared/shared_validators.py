@@ -9,7 +9,7 @@ import re
 from .valid_values import SPECIES, ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS, ENVIRO_PROPS,\
                           PEOPLE, CLINICAL_TYPES
 from ..sparql import queries as q
-from .getSpecies import getSpecies
+from .extractValue import getSpecies
 
 ####################################################################################################
 # Returns true if the string v contains valid mixed campy species, valid species and subspecies,
@@ -189,6 +189,6 @@ def validPostalCode(val):
 
     if re.search(r"[A-Za-z][0-9][A-Za-z][ ][0-9][A-Za-z][0-9]", val) is None:
         valid = False
-        message = "Invalid postal code format."
+        message = "Invalid postal code."
 
     return valid, message

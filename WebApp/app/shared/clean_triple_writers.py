@@ -15,7 +15,7 @@ from Scripts.TripleMaker import TripleMaker as tm
 from Scripts import TripleMaker
 from Scripts.tripleWriters.campyTM import CAMPY as ctm
 from Scripts.tripleWriters.labTM import LAB as ltm
-from .getSpecies import getSpecies
+from .extractValue import getSpecies
 
 ####################################################################################################
 # GLOBAL VARIABLES
