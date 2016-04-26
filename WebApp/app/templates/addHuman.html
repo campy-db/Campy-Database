@@ -7,11 +7,19 @@
     Patient ID {{ form.pID() }}
   </span>
 
+  {% for error in form.pID.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
   <br><br>
 
   <span>
     Gender {{ form.hsex() }}
   </span>
+
+  {% for error in form.hsex.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
 
   <br><br>
 
@@ -38,5 +46,9 @@
   <span>
     Travel {{ form.travel(size=41, placeholder="e.g. Lison, Portugal") }}
   </span>
+
+  {% for error in form.travel.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
 
 </p>

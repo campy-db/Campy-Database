@@ -1,7 +1,8 @@
 """
  data_queries.py
 
- Specific sparql queries for retrieving a set of data
+ Specific sparql queries
+
 """
 
 import sys
@@ -11,65 +12,41 @@ from Scripts import endpoint as e
 from Scripts import TripleMaker as tm
 from Scripts.tripleWriters.campyTM import CAMPY as CTM
 from Scripts.tripleWriters.labTM import LAB as LTM
-
-
-####################################################################################################
-# GLOBAL VARIABLES
-####################################################################################################
-LIT_URI = "http://www.essepuntato.it/2010/06/literalreification/"
-LIT = tm.TripleMaker(LIT_URI)
-
-####################################################################################################
-# Returns a list of lists, where the lists are all the bindings for the vars in the query. EG if we
-# do "select ?a ?b ?c ?d ..." then we'll have a list that looks like:
-# [[a1, b1, c1, d1], [a2, b2, c2, d2], ..., [ak, bk, ck, dk]], where a# is the binding for ?a, same
-# deal for the other letters.
-#
-# Returns a list if there is only one var in the query, IE if each list in the list has length 1. EG
-# if after the for loop, l = [[a], [a1], ..., [ak]], then we return [a, a1, ..., ak].
-#
-# Returns a list of values if after the for loop, the outer list contains one list. EG if
-# l = [[a, b, c]], then return [a, b, c].
-#
-# Returns a single string if the result is one single value in a single inner list. EG if after the
-# for loop, l = [["someval"]], we return "someval"
-#
-# Returns an empty string if there are no results.
-####################################################################################################
-def trimResult(r):
-
-    result = []
-    vars_ = r["head"]["vars"]
-    for b in r["results"]["bindings"]:
-        triple = []
-        for v in vars_:
-            triple.append(b[v]["value"])
-        result.append(triple)
-
-    if len(vars_) == 1:
-        result = ["".join(v) for v in result]
-
-    if len(result) == 1:
-        result = result[0]
-
-    if not result:
-        return ""
-
-    return result
+from .shared import *
+from ..shared.extractValue import getSpecies
 
 ####################################################################################################
 # Returns a list of isolate names.
 ####################################################################################################
-def getIsoNames():
+def getIsoNames(species=None):
+
+    has_species = ""
+
+    if species:
+        spec, subspec, un_spec = getSpecies(species)
+        if spec:
+            for s in spec:
+                has_species += "?i :{} :{} .".format("hasSpecies", s)
+        if subspec:
+            has_species += "?i :{} :{} .".format("hasSubspecies", subspec)
+        if un_spec:
+            has_species += "?i :{} :{} .".format("hasUncertainSpecies", un_spec)
+
 
     q = """
+        {cprefix}
+        {lprefix}
         select ?v 
         where {{
-            ?i {hasIsoName} ?n . 
-            ?n {hasLit} ?v .
-        }}
-        """.format(hasIsoName=CTM.addURI("hasIsolateName"),
-                   hasLit=(LIT.addURI("hasLiteralValue")))
+            ?i :{hasIsoName} ?n .
+            {hasSpecies}
+            ?n lit:{hasLit} ?v .
+        }} order by ?v
+        """.format(cprefix=CPREFIX,
+                   lprefix=LITPREFIX,
+                   hasIsoName="hasIsolateName",
+                   hasSpecies=has_species,
+                   hasLit=("hasLiteralValue"))
 
     result = trimResult(e.query(q))
 
@@ -81,31 +58,26 @@ def getIsoNames():
 # return the two species with "+" in the middle. EG coli + jejuni gets returned for an isolate with
 # a mix of coli and jejuni.
 ####################################################################################################
-def getSpecies(iso):
+def getIsoSpecies(iso):
 
     q = """
+        {cprefix}
         select (group_concat(?sn ; separator=" + ") as ?species)
         where {{
-            ?i {hasSpecies} ?s .
-            ?s {hasName} ?sn .
-            filter(?i = {iso})
+            ?i :{hasSpecies} ?s .
+            ?s :{hasName} ?sn .
+            filter(?i = :{iso})
         }} group by ?i
-        """.format(iso=CTM.addURI(iso),
-                   hasSpecies=CTM.addURI("hasSpecies"),
-                   hasName=CTM.addURI("hasName"))
+        """.format(cprefix=CPREFIX, hasSpecies="hasSpecies", hasName="hasName", iso=iso)
 
     result = trimResult(e.query(q))
 
     return "".join(result)
 
 ####################################################################################################
-#
+# Returns the isolate sample location as "Country, Subnational, City"
 ####################################################################################################
 def getLocation(iso):
-
-    hsl = CTM.addURI("hasSourceLocation")
-    hn = CTM.addURI("hasName")
-    iso = CTM.addURI(iso)
 
     locs = ("Country", "Subnational", "City")
 
@@ -113,12 +85,17 @@ def getLocation(iso):
 
     for loc in locs:
         q = """
+            {cprefix}
             select ?n
             where {{
-               {iso} {hsl} ?c . 
-               ?c a {loc} . 
-               ?c {hn} ?n 
-            }}""".format(iso=iso, hsl=hsl, loc=CTM.addURI(loc), hn=hn)
+               :{iso} :{hasLocation} ?c . 
+               ?c a :{loc} . 
+               ?c :{hasName} ?n 
+            }}""".format(cprefix=CPREFIX,
+                         iso=iso,
+                         hasLocation="hasSourceLocation",
+                         loc=loc,
+                         hasName="hasName")
 
         r = trimResult(e.query(q))
 
@@ -134,14 +111,18 @@ def getLocation(iso):
 def getPropVal(subj, prop):
 
     q = """
+        {cprefix}
+        {lprefix}
         select ?val
         where {{
-            {subject} {property} ?o .
-            ?o ({hasName}|{hasLiteralValue}) ?val .
+            :{subject} :{property} ?o .
+            ?o (:{hasName}|lit:{hasLiteralValue}) ?val .
         }}
-        """.format(subject=CTM.addURI(subj),
-                   property=CTM.addURI(prop),
-                   hasName=CTM.addURI("hasName"),
-                   hasLiteralValue=LIT.addURI("hasLiteralValue"))
+        """.format(cprefix=CPREFIX,
+                   lprefix=LITPREFIX,
+                   subject=subj,
+                   property=prop,
+                   hasName="hasName",
+                   hasLiteralValue="hasLiteralValue")
 
     return trimResult(e.query(q))

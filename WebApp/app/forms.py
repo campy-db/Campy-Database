@@ -12,9 +12,15 @@ from wtforms import StringField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Optional
 from .util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
-range_, genAnimal, genSample, nonemptySource, isA, postalCode, vtest
+range_, genAnimal, genSample, nonemptySource, isA, postalCode
 
 NOW = datetime.datetime.now()
+
+####################################################################################################
+# A form for filtering isolates on the names.html page
+####################################################################################################
+class FilterIsoForm(Form):
+    species = StringField("species", validators=[Optional(), species()])
 
 ####################################################################################################
 # A form for inputing an isolate name
@@ -47,36 +53,26 @@ class AddForm(Form):
             gen_result = result
 
             try:
-                genAnimal()(self, self.source, other_errors)
+                genAnimal(self, self.source, other_errors)
             except ValueError as e:
                 gen_result = False
                 if addError:
                     self.source.errors.append(e.args[0])
 
             try:
-                genSample()(self, self.source, other_errors)
+                genSample(self, self.source, other_errors)
             except ValueError as e:
                 gen_result = False
                 if addError:
                     self.source.errors.append(e.args[0])
-
-            try:
-                vtest(self, self.test, other_errors)
-            except ValueError as e:
-                gen_result = False
-                if addError:
-                    self.test.errors.append(e.args[0])
 
             return gen_result
-
 
         if checkGenVals(False) is False:
             other_errors = True
             result = checkGenVals(True)
 
-
         return result
-
 
     name = StringField("name", validators=[DataRequired(), specialChars("<>")])
 
@@ -124,11 +120,18 @@ class AddForm(Form):
                                 ("juvenile", "Juvenile"),
                                 ("adult", "Adult")])
 
-    travel = StringField("travel")
+    # Needs a travel validator. Should just make a getTravelLoc function
+    # that returns country, subnational, city (need this for clean_triple_writers)
+    travel = StringField("travel", validators=[Optional(), nonemptySource()])
 
-    hage = StringField("hage", validators=[Optional(), digit(), length(min_=1, max_=2)])
+    hage = StringField("hage", validators=[Optional(),
+                                           nonemptySource(),
+                                           digit(),
+                                           length(min_=1, max_=2)])
 
-    postal_code = StringField("postal_code", validators=[Optional(), postalCode()])
+    postal_code = StringField("postal_code", validators=[Optional(),
+                                                         nonemptySource(),
+                                                         postalCode()])
 
     hsex = SelectField("sex",
                        validators=[Optional(), nonemptySource()],
@@ -136,7 +139,7 @@ class AddForm(Form):
                                 ("m", "Male"),
                                 ("f", "Female")])
 
-    pID = StringField("pID")
+    pID = StringField("pID", validators=[Optional(), nonemptySource()])
 
-    test = StringField("test")
+
 

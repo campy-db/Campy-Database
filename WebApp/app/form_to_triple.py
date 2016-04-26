@@ -7,9 +7,10 @@
 
 """
 
-from .util.valid_values import ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS, ENVIRO_PROPS, PEOPLE,\
+from .shared.valid_values import ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS, ENVIRO_PROPS, PEOPLE,\
                                 CLINICAL_TYPES
-from .clean_triple_writers import *
+from .shared.clean_triple_writers import *
+from .shared.extractValue import *
 
 ####################################################################################################
 # formToTriple
@@ -53,8 +54,8 @@ def formToTriple(form):
         ############################################################################################
         def formAnimalSource(animal, source):
 
-            type_ = getValueIn(source, SAMPLE_TYPES)
-            type_prop = getValueIn(source, SAMPLE_PROPS)
+            type_ = getType(source)
+            type_prop = getTypeProp(source)
 
             aID = str(form.aID.data) if form.aID.data else ""
             locale = str(form.sourceLocale.data) if form.sourceLocale.data else ""
@@ -74,7 +75,7 @@ def formToTriple(form):
         ############################################################################################
         def formEnviroSource(enviro, source):
 
-            enviro_prop = getValueIn(source, ENVIRO_PROPS)
+            enviro_prop = getEnviroProp(source, )
 
             enviro_data = {"enviro":enviro, "enviro_prop":enviro_prop}
 
@@ -85,7 +86,7 @@ def formToTriple(form):
         ############################################################################################
         def formHumanSource(human, source):
 
-            clinical_type = getValueIn(source, CLINICAL_TYPES)
+            clinical_type = getClinicalType(source)
 
             age = int(form.hage.data) if form.hage.data else ""
             travel = str(form.travel.data) if form.travel.data else ""
@@ -111,9 +112,9 @@ def formToTriple(form):
         if not source:
             return ""
         else:
-            animal = getValueIn(source, ANIMALS)
-            enviro = getValueIn(source, ENVIROS)
-            human = getValueIn(source, PEOPLE)
+            animal = getAnimal(source)
+            enviro = getEnviro(source)
+            human = getPerson(source)
 
             if animal:
                 return formAnimalSource(animal, source)
@@ -126,18 +127,3 @@ def formToTriple(form):
     triple.append(" ".join([formCGF(), formSource()]))
 
     return "".join(triple)
-
-####################################################################################################
-#
-####################################################################################################
-def getValueIn(s, poss_vals):
-
-    vals = [v.lower().replace("_", " ") for v in s.split(" ")]
-
-    result = ""
-
-    for v in vals:
-        result = v if v in poss_vals else result
-
-    return result
-

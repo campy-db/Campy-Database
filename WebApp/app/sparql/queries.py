@@ -1,7 +1,7 @@
 """
  queries.py
 
- Gernal SPARQL queries.
+ General SPARQL queries.
 
 """
 
@@ -12,70 +12,31 @@ from Scripts import endpoint as e
 from Scripts import TripleMaker as tm
 from Scripts.tripleWriters.campyTM import CAMPY as ctm
 from Scripts.tripleWriters.labTM import LAB as ltm
-
-
-####################################################################################################
-# Global variables
-####################################################################################################
-LIT = "http://www.essepuntato.it/2010/06/literalreification/"
-LITTM = tm.TripleMaker(LIT)
+from .shared import *
 
 ####################################################################################################
 # FUNCTIONS
 ####################################################################################################
 
 ####################################################################################################
-# writeToBG
-#
-# Write a triple to the database running on blazegraph. Blazegraph server must be running for this
-# to work.
-#
-# t - The triple to be inserted.
-####################################################################################################
-def writeToBG(t):
-    q = "insert data{{{}}}".format(t)
-    print q
-
-####################################################################################################
-# trimResult
-#
-# The result sent back from the blazegraph server is a messy dictionary with the bindings as a list
-# for the key "bindings". URIS have the key "", while literals have the key "v". We return a list of
-# the URI, or literal bindings. Returns a list.
-#
-# r - The result we got from blazegraph
-# isLiteral - True if the results are literals
-####################################################################################################
-def trimResult(result, v):
-
-    l = []
-    for b in result["results"]["bindings"]:
-        l.append(b[v]["value"])
-
-    return l
-
-####################################################################################################
-# isA
-#
-# returns True if title is an instance of class_
+# Returns True if title is an instance of class_
 ####################################################################################################
 def isA(title, class_):
 
     class_ = class_[0].upper() + class_[1:]
 
     q = """
+        {cprefix}
         ask
         where{{
-            {title} a {class_}
+            :{title} a :{class_}
         }}
-        """.format(title=ctm.addURI(title), class_=ctm.addURI(class_))
+        """.format(cprefix=CPREFIX, title=title, class_=class_)
 
     return e.query(q)["boolean"]
 
 ####################################################################################################
-# getLowestClass
-#
-# Get the lowest level subclasses of _class. IE get all the subclasses of _class that have
+# Get the lowest level subclasses of class_. IE get all the subclasses of class_ that have
 # no subclasses of their own.
 ####################################################################################################
 def getLowestClasses(class_):
@@ -83,72 +44,72 @@ def getLowestClasses(class_):
     class_ = class_[0].upper() + class_[1:]
 
     q = """
+        {cprefix}
         select ?label 
         where 
         {{ 
-            ?spec rdfs:subClassOf {c} .
+            ?spec rdfs:subClassOf :{c} .
             ?spec rdfs:label ?label . 
-            filter(?spec != {c}) . 
+            filter(?spec != :{c}) . 
             filter not exists 
             {{
                 ?sub rdfs:subClassOf ?spec . 
                 filter(?sub != ?spec) 
             }}
         }}
-        """.format(c=ctm.addURI(class_))
+        """.format(cprefix=CPREFIX, c=class_)
 
     result = e.query(q)
 
-    return trimResult(result, "label")
+    return trimResult(result)
 
 ####################################################################################################
-# getSuperClasses
-#
-# Returns all the subclasses of _class that have a subclass of their own.
+# Returns all the subclasses of class_ that have a subclass of their own.
 ####################################################################################################
-def getSuperClasses(_class):
+def getSuperClasses(class_):
 
-    _class = _class[0].upper() + _class[1:]
+    class_ = class_[0].upper() + class_[1:]
 
     q = """
+        {cprefix}
         select distinct ?label
         where 
         {{ 
-            ?spec rdfs:subClassOf {c} .
+            ?spec rdfs:subClassOf :{c} .
             ?spec rdfs:label ?label .
             ?sub rdfs:subClassOf ?spec .
-            filter (?spec != {c} && ?sub != ?spec)  
+            filter (?spec != :{c} && ?sub != ?spec)  
         }}
-        """.format(c=ctm.addURI(_class))
+        """.format(cprefix=CPREFIX, c=class_)
 
     result = e.query(q)
 
-    return trimResult(result, "label")
+    return trimResult(result)
 
 ####################################################################################################
-# getSubClasses
-# Get all the subclasses of _class.
+# Get all the subclasses of class_.
 ####################################################################################################
-def getSubClasses(_class):
+def getSubClasses(class_):
 
-    _class = _class[0].upper() + _class[1:]
+    class_ = class_[0].upper() + class_[1:]
 
     q = """
+        {cprefix}
         select ?label 
         where 
         {{
-            ?sub rdfs:subClassOf {super} . 
+            ?sub rdfs:subClassOf :{super} . 
             ?sub rdfs:label ?label . 
-            filter(?sub != {super})
+            filter(?sub != :{super})
         }}
-        """.format(super=ctm.addURI(_class))
+        """.format(cprefix=CPREFIX, super=class_)
 
     result = e.query(q)
 
-    return trimResult(result, "label")
+    return trimResult(result)
 
 ####################################################################################################
-# main
+# MAIN
 # Just for testing.
 ####################################################################################################
 def main():

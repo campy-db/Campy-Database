@@ -9,9 +9,10 @@
 # pylint: disable=W0613
 
 from wtforms.validators import ValidationError, Regexp
-from .valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
+from ..shared.valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
 from ..sparql import queries as q
-from .shared_validators import validSpecies, validBinaryFP, validSource, genValue, validPostalCode
+from ..shared.shared_validators import validSpecies, validBinaryFP, validSource, genValue,\
+     validPostalCode
 
 ####################################################################################################
 # Raises an error if the field value does not contain any of the characters in bad_chars.
@@ -161,41 +162,25 @@ def nonemptySource():
 
     return _nonempty_source
 
-
-def vtest(form, field, other_errors):
+####################################################################################################
+# An interface function for processGeneral. This is for handling general animal input.
+####################################################################################################
+def genAnimal(form, field, other_errors):
 
     v = field.data
 
     if v:
-        processGeneral(form, v, ["sam", "bill"], "last_test", other_errors)
-
-####################################################################################################
-# An interface function for processGeneral. This is for handling general animal input.
-####################################################################################################
-def genAnimal():
-
-    def _genAnimal(form, field, other_errors):
-
-        v = field.data
-
-        if v:
-            processGeneral(form, v, GEN_ANIMALS, "last_animal", other_errors)
-
-    return _genAnimal
+        processGeneral(form, v, GEN_ANIMALS, "last_animal", other_errors)
 
 ####################################################################################################
 # Same deal as genAnimal but for handling general sample type input
 ####################################################################################################
-def genSample():
+def genSample(form, field, other_errors):
 
-    def _genSample(form, field, other_errors):
+    v = field.data
 
-        v = field.data
-
-        if v:
-            processGeneral(form, v, GEN_SAMPLE_TYPES, "last_sample_type", other_errors)
-
-    return _genSample
+    if v:
+        processGeneral(form, v, GEN_SAMPLE_TYPES, "last_sample_type", other_errors)
 
 ####################################################################################################
 # Handles vals that are in gen_list. See genValue in shared_validators, most the work is done there.
@@ -262,12 +247,3 @@ def postalCode():
             raise ValidationError(message)
 
     return _postalCode
-
-def otherErrors(form):
-
-    result = False
-
-    for name, f in form._fields.iteritems():
-        result = True if f.errors else result
-
-    return result

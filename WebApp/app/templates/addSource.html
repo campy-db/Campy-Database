@@ -16,27 +16,5 @@
     {% endif %}
   {% endfor %}
 
-  {% if form.aID.errors and not form.source.data %}
-    {% for error in form.aID.errors %}
-      <br><span style="color: #db4437;">[{{ error }}]</span>
-    {% endfor %}
-
-  {% elif form.sourceLocale.errors %}
-    {% for error in form.sourceType.errors %}
-      <br><span style="color: #db4437;">[{{ error }}]</span>
-    {% endfor %}
-
-  {% elif form.sex.errors %}
-    {% for error in form.sex.errors %}
-      <br><span style="color: #db4437;">[{{ error }}]</span>
-    {% endfor %}
-
-  {% else %}
-    {% for error in form.aage.errors %}
-      <br><span style="color: #db4437;">[{{ error }}]</span>
-    {% endfor %}
-
-  {% endif %}
-
   <br>
 </p>

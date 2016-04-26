@@ -14,10 +14,6 @@
     {% include "addSource.html" %}
     {% include "addAnimal.html" %}
     {% include "addHuman.html" %}
-    test {{ form.test(size=41) }}
-    {% for error in form.test.errors %}
-      <br><span style="color: #db4437;">[{{ error }}]</span>
-    {% endfor %}
 
     <input type=submit value=Submit>
   </form>

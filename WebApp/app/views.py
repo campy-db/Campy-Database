@@ -2,11 +2,14 @@
  views.py
 """
 
+import os
 from flask import request, session, redirect, render_template, flash, url_for
-from app import app
+from werkzeug import secure_filename
+from app import app, ALLOWED_EXTENSIONS
 from .sparql import data_queries as dq
-from .forms import AddForm, IsoNameForm
-import form_to_triple as ft
+from .forms import AddForm, IsoNameForm, FilterIsoForm
+import app.form_to_triple as ft
+import app.BatchUploader as Uploader
 
 ####################################################################################################
 # The homepage I guess. Just renders the index html where the buttons are displayed.
@@ -34,10 +37,34 @@ def add():
         print triple
         flash("Isolate added")
         return redirect("/index")
-    else:
-        session["form_error"] = False
 
     return render_template("addIso.html", title="Add Isolate", form=form)
+
+####################################################################################################
+#
+####################################################################################################
+@app.route("/upload", methods=["GET", "POST"])
+def upload():
+
+    def allowed_file(fname):
+        return "." in fname and fname.rsplit(".", 1)[1] in ALLOWED_EXTENSIONS
+
+    if request.method == "POST":
+
+        file_ = request.files["file"]
+        if file_ and allowed_file(file_.filename):
+            fname = secure_filename(file_.filename)
+            file_.save(os.path.join(app.config["UPLOAD_FOLDER"], fname))
+            uploader = Uploader.BatchUploader(fname)
+            uploader.createTriples()
+            # Make triples out of data and if data is validated with success, add them to
+            # blazegraph, else return list of errors and warnings.
+            # if valid:
+            #   flash("All data added")
+            # else:
+            #   pass
+            return redirect(url_for("index"))
+    return render_template("upload.html", title="Upload Data")
 
 ####################################################################################################
 # Calls the query getIsoNames to retrieve, you guessed it, all the names of the isolates in the
@@ -45,15 +72,22 @@ def add():
 # and won't be included in the final app, but good for testing and seeing how everything works
 # together.
 ####################################################################################################
-@app.route("/names")
+@app.route("/names", methods=["GET", "POST"])
 def names():
 
+    form = FilterIsoForm()
+
+    if form.validate_on_submit():
+        species = form.species.data
+        isos = dq.getIsoNames(species=species)
+        return render_template("names.html", title="Isolate Names", isos=isos, form=form)
+
     isos = dq.getIsoNames()
-    return render_template("names.html", title="Isolate Names", isos=isos)
+    return render_template("names.html", title="Isolate Names", isos=isos, form=form)
 
 ####################################################################################################
-# Renders the summaryForm when there's a GET request, displays a summary page for an isolate on a
-# successful POST request. Retrieves most of the data for an isolate and displays it to the user.
+# Renders the summaryForm when there's a GET request, redirects to the summary page (if the form
+# successfully validates).
 ####################################################################################################
 @app.route("/getSummary", methods=["GET", "POST"])
 def getSummary():
@@ -67,6 +101,9 @@ def getSummary():
 
     return render_template("get_summary.html", title="Isolate Summary", form=form)
 
+####################################################################################################
+# Retrieves most of the data for an isolate from the blazegraph server and displays it to the user.
+####################################################################################################
 @app.route("/summary/<iso_title>")
 def summary(iso_title):
 
@@ -90,7 +127,7 @@ def summary(iso_title):
     lims_vals.append(dq.getPropVal(iso_title, "hasLDMSid"))
     lims_vals.append(dq.getPropVal(iso_title, "hasNMLid"))
 
-    bio_vals.append(dq.getSpecies(iso_title))
+    bio_vals.append(dq.getIsoSpecies(iso_title))
 
     epi_keys = ("Source", "Location")
     bio_keys = ("Species",)
@@ -99,8 +136,6 @@ def summary(iso_title):
     epi_data = popVals(dict(zip(epi_keys, epi_vals)))
     bio_data = popVals(dict(zip(bio_keys, bio_vals)))
     lims_data = popVals(dict(zip(lims_keys, lims_vals)))
-
-    print bio_data
 
     data = {"EPI Data":epi_data, "Biological Data":bio_data, "LIMS Data":lims_data}
 
@@ -117,7 +152,6 @@ def init_session_vars():
 
     session["last_animal"] = None
     session["last_sample_type"] = None
-    session["form_error"] = False
 
 """
 @app.route("/login", methods = ["GET", "POST"])

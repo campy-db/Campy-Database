@@ -6,23 +6,35 @@
   <span>
     Animal ID {{ form.aID(size=41) }}
   </span>
+  {% for error in form.aID.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
 
   <br><br>
 
   <span>
     Locale {{ form.sourceLocale() }}
   </span>
+  {% for error in form.sourceLocale.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
 
   <br><br>
 
   <span>
     Age Rank {{ form.aage() }}
   </span>
+  {% for error in form.aage.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
 
   <br><br>
 
   <span>
     Gender {{ form.sex() }}
   </span>
+  {% for error in form.sex.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
 
 </p>
