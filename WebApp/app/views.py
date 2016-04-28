@@ -41,7 +41,8 @@ def add():
     return render_template("addIso.html", title="Add Isolate", form=form)
 
 ####################################################################################################
-#
+# Passes a file that the user uploads to a BatchUploader object. The batchuploader then makes
+# triples out of the data and throws them to blazegraph
 ####################################################################################################
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
@@ -49,21 +50,36 @@ def upload():
     def allowed_file(fname):
         return "." in fname and fname.rsplit(".", 1)[1] in ALLOWED_EXTENSIONS
 
+    if request.method == "GET":
+        session["last_values"] = None
+        session["last_file_name"] = None
+
     if request.method == "POST":
 
         file_ = request.files["file"]
         if file_ and allowed_file(file_.filename):
+
             fname = secure_filename(file_.filename)
+
+            if fname == session["last_file_name"]:
+                last_values = session["last_values"]
+            else:
+                last_values = None
+
+            session["last_file_name"] = fname
+
             file_.save(os.path.join(app.config["UPLOAD_FOLDER"], fname))
+
             uploader = Uploader.BatchUploader(fname)
-            uploader.createTriples()
-            # Make triples out of data and if data is validated with success, add them to
-            # blazegraph, else return list of errors and warnings.
-            # if valid:
-            #   flash("All data added")
-            # else:
-            #   pass
-            return redirect(url_for("index"))
+            valid, session["last_values"] = uploader.createTriples(last_values)
+
+            if valid:
+                flash("All data added")
+                return redirect(url_for("index"))
+            else:
+                ew_list = uploader.getEW()
+                return render_template("upload.html", title="Upload Data", errors=ew_list)
+
     return render_template("upload.html", title="Upload Data")
 
 ####################################################################################################

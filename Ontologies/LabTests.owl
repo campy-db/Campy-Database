@@ -360,11 +360,6 @@ _:genid1 a owl:Restriction ;
 :Binary_test a owl:Class ;
 	rdfs:subClassOf :Typing_test .
 # 
-# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_cluster
-
-:CGF_cluster a owl:Class ;
-	rdfs:subClassOf :Cluster .
-# 
 # https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#CGF_property
 
 :CGF_property a owl:Class ;
@@ -382,7 +377,8 @@ _:genid1 a owl:Restriction ;
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster
 
-:Cluster a owl:Class .
+:Cluster a owl:Class ;
+	rdfs:subClassOf :Binary_property .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster_property
 
@@ -390,7 +386,8 @@ _:genid1 a owl:Restriction ;
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#DrugMIC
 
-:DrugMIC a owl:Class .
+:DrugMIC a owl:Class ;
+	rdfs:subClassOf :AMR_property .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#FlaA_SVR_test
 
@@ -457,7 +454,8 @@ _:genid1 a owl:Restriction ;
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele
 
-:Typing_allele a owl:Class .
+:Typing_allele a owl:Class ;
+	rdfs:subClassOf :Allelic_property .
 # 
 # https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele_property
 

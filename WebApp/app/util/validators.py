@@ -12,7 +12,8 @@ from wtforms.validators import ValidationError, Regexp
 from ..shared.valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
 from ..sparql import queries as q
 from ..shared.shared_validators import validSpecies, validBinaryFP, validSource, genValue,\
-     validPostalCode
+                                       validPostalCode, checkGenAnimal, checkGenType
+from ..shared.extractValue import getSpecies, getAnimal, getType
 
 ####################################################################################################
 # Raises an error if the field value does not contain any of the characters in bad_chars.
@@ -93,7 +94,9 @@ def species():
 
         v = field.data
 
-        valid, message = validSpecies(v)
+        spec, subspec, un_spec = getSpecies(v)
+
+        valid, message = validSpecies(spec, subspec, un_spec)
 
         if not valid:
             raise ValidationError(message)
@@ -170,31 +173,32 @@ def genAnimal(form, field, other_errors):
     v = field.data
 
     if v:
-        processGeneral(form, v, GEN_ANIMALS, "last_animal", other_errors)
+
+        last_val = form.session["last_animal"]
+        animal = getAnimal(v)
+        valid, message = checkGenAnimal(animal, last_val, other_errors)
+
+        if not valid:
+
+            form.session["last_animal"] = animal
+            raise ValidationError(("warning", message))
 
 ####################################################################################################
 # Same deal as genAnimal but for handling general sample type input
 ####################################################################################################
 def genSample(form, field, other_errors):
-
     v = field.data
 
     if v:
-        processGeneral(form, v, GEN_SAMPLE_TYPES, "last_sample_type", other_errors)
 
-####################################################################################################
-# Handles vals that are in gen_list. See genValue in shared_validators, most the work is done there.
-####################################################################################################
-def processGeneral(form, val, gen_list, last_val_key, other_errors):
+        last_val = form.session["last_sample_type"]
+        type_ = getType(v)
+        valid, message = checkGenType(type_, last_val, other_errors)
 
-    last_val = form.session[last_val_key]
+        if not valid:
 
-    valid, message, gen_val = genValue(val, gen_list, last_val, other_errors)
-
-    if not valid:
-
-        form.session[last_val_key] = gen_val
-        raise ValidationError(("warning", message))
+            form.session["last_sample_type"] = type_
+            raise ValidationError(("warning", message))
 
 ####################################################################################################
 # Here we do pretty much the same thing as in genAnimal, except for sample types.

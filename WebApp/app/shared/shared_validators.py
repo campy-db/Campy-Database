@@ -7,9 +7,8 @@
 
 import re
 from .valid_values import SPECIES, ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS, ENVIRO_PROPS,\
-                          PEOPLE, CLINICAL_TYPES
+                          PEOPLE, CLINICAL_TYPES, GEN_ANIMALS, GEN_SAMPLE_TYPES
 from ..sparql import queries as q
-from .extractValue import getSpecies
 
 ####################################################################################################
 # Returns true if the string v contains valid mixed campy species, valid species and subspecies,
@@ -20,9 +19,7 @@ from .extractValue import getSpecies
 # [subspec_syn] [sub spec]" (eg "Jejuni spp. Doylei"), or it can just be the single species name.
 # Note the word "Campy" or "Campylobacter" is allowed in the input and we remove it here.
 ####################################################################################################
-def validSpecies(v):
-
-    spec, subspec, un_spec = getSpecies(v)
+def validSpecies(spec, subspec, un_spec):
 
     good_spec, good_subspec, good_un_spec = True, True, True
 
@@ -127,6 +124,14 @@ def validSource(val):
 
     return valid, message
 
+####################################################################################################
+# Interface functions for genValue
+####################################################################################################
+def checkGenAnimal(val, last_val, o_err):
+    return genValue(val, GEN_ANIMALS, last_val, o_err)
+
+def checkGenType(val, last_val, o_err):
+    return genValue(val, GEN_SAMPLE_TYPES, last_val, o_err)
 
 ####################################################################################################
 # Here we check if a value is "general", ie in the list gen_list (we create general value lists in
@@ -151,33 +156,26 @@ def genValue(val, gen_list, last_val, o_err):
 
     valid = True
     message = ""
-    gen_val = ""
-
-    vals = [v.lower().replace("_", " ") for v in val.split(" ")]
 
     has_gen = False
 
-    for v in vals:
-
-        if v in gen_list:
-
-            gen_val = v
-            has_gen = True
+    if val in gen_list:
+        has_gen = True
 
     if has_gen:
 
-        sub_classes = [s.lower() for s in q.getSubClasses(gen_val)]
+        sub_classes = [s.lower() for s in q.getSubClasses(val)]
 
         sub_class_list = ", ".join(sub_classes)
 
-        if o_err or gen_val != last_val:
+        if o_err or val != last_val:
 
             #last_val = gen_val
 
             valid = False
-            message = "Consider these values instead of {}: {}".format(gen_val, sub_class_list)
+            message = "Consider these values instead of {}: {}".format(val, sub_class_list)
 
-    return valid, message, gen_val
+    return valid, message
 
 ####################################################################################################
 # Raise an error if the source value is not a valid postal code format.

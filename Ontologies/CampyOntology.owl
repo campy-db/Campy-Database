@@ -529,10 +529,6 @@ I just considered domestic to mean dogs and other pets.""" .
 # #################################################################
 # 
 # 
-# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasChicken
-
-:hasChicken a owl:DatatypeProperty .
-# 
 # https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComment
 
 :hasComment a owl:DatatypeProperty ;
