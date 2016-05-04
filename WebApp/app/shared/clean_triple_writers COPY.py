@@ -16,7 +16,7 @@ from Scripts import TripleMaker
 from Scripts.tripleWriters.campyTM import CAMPY as ctm
 from Scripts.tripleWriters.labTM import LAB as ltm
 from .extractValue import getSpecies
-
+from .tripleWriters import *
 ####################################################################################################
 # GLOBAL VARIABLES
 ####################################################################################################
@@ -26,21 +26,83 @@ LIT = "http://www.essepuntato.it/2010/06/LITeralreification/"
 LITTM = TripleMaker.TripleMaker(LIT)
 
 ####################################################################################################
+# FUNCTIONS
+####################################################################################################
+
+####################################################################################################
+# Pop all the empty values from a dictionary
+####################################################################################################
+def popVals(my_dict):
+    return {x:y for x, y in my_dict.iteritems() if y != ""}
+
+####################################################################################################
 # Create an isolate instance. spec_str is the species defined by the user. It can be a mixed species
 # , defined as "[spec1]+[spec2]", or it could be an uncertain (cf.) species, defined as "cf. [spec]"
 # , a species and a subspecies, defined as "[main spec] [subspec_syn] [sub spec]"
 # (eg "Jejuni spp. Doylei"), or it can just be the single species name. Note the word "Campy" or
 # "Campylobacter" is allowed in the input and we remove it here.
 ####################################################################################################
-def createIsolateTriple(iso_title, spec_str):	
-	return isolateTripleWriter (iso_title, spec_str)
- 
+def createIsolateTriple(iso_title, spec_str):
+
+    triple = []
+
+    if spec_str:
+        spec, subspec, un_spec = getSpecies(spec_str)
+
+        for s in spec:
+            triple.append(ctm.propTriple(iso_title, {"hasSpecies":s}))
+
+        if subspec:
+            triple.append(ctm.propTriple(iso_title, {"hasSubSpecies":subspec}))
+
+        if un_spec:
+            triple.append(ctm.propTriple(iso_title, {"hasUncertainSpecies":un_spec}))
+
+    triple.append(ctm.indTriple(iso_title, "Isolate")+\
+                  ctm.propTriple(iso_title, {"hasIsolateName":iso_title}, True, True))
+
+    return "".join(triple)
+
+
 ####################################################################################################
 # Create all the cgf triples using a property dictionary. Define a typing lab instance if the user
 # has specified one.
 ####################################################################################################
 def createCGFtriple(data, iso_title):
-    return CGFTripleWriter(data, iso_title):
+
+    triple = []
+
+    title = "cgf_{}".format(iso_title)
+
+    litProps = popVals({"hasDayCompleted":data["day"], \
+                        "hasMonthCompleted":data["month"], \
+                        "hasYearCompleted":data["year"], \
+                        "foundFingerprint":data["fingerprint"], \
+                        "isInSilico":data["silico"]})
+
+    typing_lab = data["lab"]
+
+    # If there is actually any CGF data, isInSilico is False by default
+    if "isInSilico" not in litProps.keys() and litProps or typing_lab:
+        litProps["isInSilico"] = False
+
+    if litProps:
+        triple.append(ltm.propTriple(title, litProps, True, True))
+
+    if triple:
+        triple.append(ltm.indTriple(title, "CGF_test"))
+
+    if triple:
+        triple.append(tm.multiURI((iso_title, "hasLABTest", title), (ctm.uri, ctm.uri, ltm.uri)))
+
+    if typing_lab:
+
+        triple.append(ltm.propTriple(title, {"doneAtLab":typing_lab}))
+
+        triple.append(tm.multiURI((typing_lab, "hasName", "\"{}\"".format(typing_lab)),\
+                      (ctm.uri, ctm.uri, ltm.uri), isLiteral=True))
+
+    return "".join(triple)
 
 
 ####################################################################################################
