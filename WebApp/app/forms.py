@@ -59,12 +59,12 @@ class AddForm(Form):
                 if addError:
                     self.source.errors.append(e.args[0])
 
-            try:
-                micValue(self, self.source)
-            except ValueError as e:
-                gen_result = False
-                if addError:
-                    self.source.errors.append(e.args[0])
+            #try:
+            #    micValue(self, self.source)
+            #except ValueError as e:
+            #    gen_result = False
+            #    if addError:
+            #        self.source.errors.append(e.args[0])
 
             try:
                 genSample(self, self.source, other_errors)

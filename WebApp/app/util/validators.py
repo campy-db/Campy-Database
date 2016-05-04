@@ -253,9 +253,10 @@ def postalCode():
     return _postalCode
 
 def micValue():
+    print("<<<<<<<<<<<<<ATTEMPT VALIDATION>>>>>>>>>>>")
 
     def _validMIC(form, field):
-
+        print("<<<<<<<<<<<<<ATTEMPT VALIDATION 2>>>>>>>>>>>")
         v = field.data
 
         valid, message = validMIC(v)

@@ -205,7 +205,7 @@ def validMIC(v):
         message += "Invalid MIC value. "
         valid = False
     if isFloat:
-        if (v <= 0):
+        if (float(v) <= 0):
             message += "MIC values must be greater than 0."
             valid = False
     return valid, message
