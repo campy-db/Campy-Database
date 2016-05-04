@@ -10,8 +10,8 @@ sys.path.append("/home/student/Campy/CampyDatabase")
 
 from Scripts import endpoint as e
 from Scripts import TripleMaker as tm
-from Scripts.tripleWriters.campyTM import CAMPY as ctm
-from Scripts.tripleWriters.labTM import LAB as ltm
+from Scripts.tripleWriters.campyTM import CAMPY as CTM
+from Scripts.tripleWriters.labTM import LAB as LTM
 from .shared import *
 
 ####################################################################################################
@@ -29,9 +29,9 @@ def isA(title, class_):
         {cprefix}
         ask
         where{{
-            :{title} a :{class_}
+            {title} a :{class_}
         }}
-        """.format(cprefix=CPREFIX, title=title, class_=class_)
+        """.format(cprefix=CPREFIX, title=CTM.addURI(title), class_=class_)
 
     return e.query(q)["boolean"]
 

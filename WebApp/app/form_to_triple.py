@@ -18,7 +18,7 @@ from .shared.extractValue import *
 # Take all the fields from the AddForm and pass it to clean_triple_writers.
 ####################################################################################################
 def formToTriple(form):
-
+    print("<<<<<<<<<<<RUNNING1 >>>>>>>>>>>>>>>")
     triple = []
 
     iso_title = str(form.name.data)
@@ -43,6 +43,30 @@ def formToTriple(form):
         {"fingerprint":fp, "year":dcy, "month":dcm, "day":dcd, "lab":lab, "silico":silico}
 
         return createCGFtriple(cgf_data, iso_title)
+
+    ################################################################################################
+    # Get all the CGF data from the form
+    ################################################################################################
+    def formDrugResistance():
+        print("<<<<<<<<<<<RUNNING>>>>>>>>>>>>>>>")
+        azm = str(form.azm.data) if form.azm.data else ""
+        chl = str(form.chl.data) if form.chl.data else ""
+        cip = str(form.cip.data) if form.cip.data else ""
+        cli = str(form.cli.data) if form.cli.data else ""
+        ery = str(form.ery.data) if form.ery.data else ""
+        flr = str(form.flr.data) if form.flr.data else ""
+        gen = str(form.gen.data) if form.gen.data else ""
+        nal = str(form.nal.data) if form.nal.data else ""
+        tel = str(form.tel.data) if form.tel.data else ""
+        tet = str(form.tel.data) if form.tel.data else ""
+
+        drug_data = {"azm":azm, "chl":chl,
+                    "cip":cip, "cli":cip, 
+                    "ery":ery, "flr":flr,
+                    "gen":gen, "nal":nal,
+                    "tel":tel, "tet":tet}
+        return createDrugResistanceTriple(drug_data, iso_title, spec_str)
+
 
     ################################################################################################
     # Get all the source data from the form
@@ -124,6 +148,6 @@ def formToTriple(form):
                 return formHumanSource(human, source)
 
 
-    triple.append(" ".join([formCGF(), formSource()]))
+    triple.append(" ".join([formCGF(), formDrugResistance(), formSource()]))
 
     return "".join(triple)

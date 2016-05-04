@@ -1,0 +1,29 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block contentA %}
+  <body>
+    <h3>
+      Upload your Campylobacter data here!
+      Only csv files are accepted right now.
+    </h3>
+
+    {% if errors %}
+      {% for error in errors %}
+        {% if error[0] == 'warning' %}
+          <b><span style="color: #377BA8;">{{ error[1] }}</span></b>
+        {% else %}
+          <b><span style="color: #db4437;">{{ error[1] }}</span></b>
+        {% endif %}
+        <br>
+      {% endfor %}
+      <br>
+    {% endif %}
+    <form method=POST enctype=multipart/form-data action="">
+      <input type=file name=file>
+      <br><br>
+      <input type=submit value=Upload>
+    </form> 
+    <br>
+  </body>
+{% endblock %}

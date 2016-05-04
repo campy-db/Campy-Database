@@ -90,6 +90,27 @@ class AddForm(Form):
     dcd = StringField("dcd", validators=\
     	                     [Optional(), digit("Day"), range_("Day", 1, 31)])
 
+    azm = StringField("azm", validators=\
+                           [Optional()])
+    chl = StringField("chl", validators=\
+                           [Optional()])
+    cip = StringField("cip", validators=\
+                           [Optional()])
+    cli = StringField("cli", validators=\
+                           [Optional()])
+    ery = StringField("ery", validators=\
+                           [Optional()])
+    flr = StringField("flr", validators=\
+                           [Optional()])
+    gen = StringField("gen", validators=\
+                           [Optional()])
+    nal = StringField("nal", validators=\
+                           [Optional()])
+    tel = StringField("tel", validators=\
+                           [Optional()])
+    tet = StringField("tet", validators=\
+                           [Optional()])
+
     lab = StringField("lab")
 
     silico = BooleanField("silico")

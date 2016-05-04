@@ -16,7 +16,7 @@ from .shared import *
 from ..shared.extractValue import getSpecies
 
 ####################################################################################################
-# Returns a list of isolate names.
+# Returns a list of isolate names. Filter by species if you want
 ####################################################################################################
 def getIsoNames(species=None):
 
@@ -38,15 +38,13 @@ def getIsoNames(species=None):
         {lprefix}
         select ?v 
         where {{
-            ?i :{hasIsoName} ?n .
+            ?i :hasIsolateName ?n .
             {hasSpecies}
-            ?n lit:{hasLit} ?v .
+            ?n lit:hasLiteralValue ?v .
         }} order by ?v
         """.format(cprefix=CPREFIX,
                    lprefix=LITPREFIX,
-                   hasIsoName="hasIsolateName",
-                   hasSpecies=has_species,
-                   hasLit=("hasLiteralValue"))
+                   hasSpecies=has_species)
 
     result = trimResult(e.query(q))
 
@@ -64,11 +62,11 @@ def getIsoSpecies(iso):
         {cprefix}
         select (group_concat(?sn ; separator=" + ") as ?species)
         where {{
-            ?i :{hasSpecies} ?s .
-            ?s :{hasName} ?sn .
-            filter(?i = :{iso})
+            ?i :hasIsolateName {iso} .
+            ?i :hasSpecies ?s .
+            ?s :hasName ?sn .
         }} group by ?i
-        """.format(cprefix=CPREFIX, hasSpecies="hasSpecies", hasName="hasName", iso=iso)
+        """.format(cprefix=CPREFIX, iso="\"{}\"".format(iso))
 
     result = trimResult(e.query(q))
 
@@ -88,14 +86,11 @@ def getLocation(iso):
             {cprefix}
             select ?n
             where {{
-               :{iso} :{hasLocation} ?c . 
+               ?i :hasIsolateName {iso} .
+               ?i :hasSourceLocation ?c . 
                ?c a :{loc} . 
-               ?c :{hasName} ?n 
-            }}""".format(cprefix=CPREFIX,
-                         iso=iso,
-                         hasLocation="hasSourceLocation",
-                         loc=loc,
-                         hasName="hasName")
+               ?c :hasName ?n 
+            }}""".format(cprefix=CPREFIX, iso="\"{}\"".format(iso), loc=loc)
 
         r = trimResult(e.query(q))
 
@@ -115,14 +110,12 @@ def getPropVal(subj, prop):
         {lprefix}
         select ?val
         where {{
-            :{subject} :{property} ?o .
-            ?o (:{hasName}|lit:{hasLiteralValue}) ?val .
+            {subject} :{property} ?o .
+            ?o (:hasName|lit:hasLiteralValue) ?val .
         }}
         """.format(cprefix=CPREFIX,
                    lprefix=LITPREFIX,
-                   subject=subj,
-                   property=prop,
-                   hasName="hasName",
-                   hasLiteralValue="hasLiteralValue")
+                   subject=CTM.addURI(subj),
+                   property=prop)
 
     return trimResult(e.query(q))

@@ -54,7 +54,11 @@ def validBinaryFP(v):
     message = ""
 
     for char in v:
-        if char != "0" or char != "1":
+        print(char == "1")
+        print(char == "0")
+        if char != "0" and char != "1":
+            print(char == "1")
+            print(char == "0")
             valid = False
             message = "Fingerprint must contain only 1s and 0s"
             break

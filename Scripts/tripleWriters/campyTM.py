@@ -6,4 +6,4 @@
 from Scripts import TripleMaker as tm
 
 CAMPY =\
-tm.TripleMaker("https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#")
+tm.TripleMaker("https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#")

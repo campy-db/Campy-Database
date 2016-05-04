@@ -35,19 +35,19 @@ def writeToBG(t):
 ####################################################################################################
 def createBIOtriples(df, row, isoTitle):
 
-    #triple = createRefTriples(df, row, isoTitle) # Reference strains
+    triple = createRefTriples(df, row, isoTitle) # Reference strains
 
-    triple = createSpeciesTriples(df, row, isoTitle) # Type of species
+    triple += createSpeciesTriples(df, row, isoTitle) # Type of species
 
-    #triple += createTypingTriples(df, row, isoTitle) # Triples related to typing tests
+    triple += createTypingTriples(df, row, isoTitle) # Triples related to typing tests
 
-    #triple += createSMAtriples(df, row, isoTitle) # SMA 1 test triples
+    triple += createSMAtriples(df, row, isoTitle) # SMA 1 test triples
 
-    #triple += createSeroTriples(df, row, isoTitle) # Serotype triples
+    triple += createSeroTriples(df, row, isoTitle) # Serotype triples
 
-    #triple += createAMRtriples(df, row, isoTitle) # Triples for AMR tests
+    triple += createAMRtriples(df, row, isoTitle) # Triples for AMR tests
 
-    #triple += createCGFtriples(df, row, isoTitle) # Triples for CGF data
+    triple += createCGFtriples(df, row, isoTitle) # Triples for CGF data
 
     return triple
 
@@ -93,16 +93,16 @@ def createTriples(df, row):
     triple = ctm.indTriple(isoTitle, "Isolate")+\
              ctm.propTriple(isoTitle, {"hasIsolateName":isoTitle}, True, True)
 
-    #triple += createIsolationTriples(df, row, isoTitle) # For isolation data
+    triple += createIsolationTriples(df, row, isoTitle) # For isolation data
 
     triple += createBIOtriples(df, row, isoTitle)
 
-    #triple += createEPItriples(df, row, isoTitle)
+    triple += createEPItriples(df, row, isoTitle)
 
-    #triple += createLIMStriples(df, row, isoTitle)
+    triple += createLIMStriples(df, row, isoTitle)
 
-    writeToOnt(triple) # Write to the owl file. Just for testing
-    #writeToBG(triple) # Write the triples to the blazegraph server
+    #writeToOnt(triple) # Write to the owl file. Just for testing
+    writeToBG(triple) # Write the triples to the blazegraph server
 
 ####################################################################################################
 # Reads in data from the spreadsheet and writes triples
@@ -118,7 +118,7 @@ def writeData(df, num_rows):
 
     #writeToOnt(triple) #<--Use this for testing. Just don't do too many rows, slows down protege
 
-    #writeToBG(triple)
+    writeToBG(triple)
     for row in range(num_rows):
         createTriples(df, row)
 

@@ -1,0 +1,71 @@
+
+<div class=section>Drug Resistance Data</div>
+
+<p class=field>
+
+  <span>
+    r_pattern {{ form.aID(size=41) }}
+  </span>
+  {% for error in form.aID.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  <br><br>
+  <span>
+    {{ form.azm(size=11, placeholder = 'mic_azm') }} 
+    {{ form.chl(size=11, placeholder = 'mic_chl') }} 
+    {{ form.cip(size=11, placeholder = 'mic_cip') }}
+    {{ form.cli(size=11, placeholder = 'mic_cli') }} 
+    {{ form.ery(size=11, placeholder = 'mic_ery') }} 
+    {{ form.flr(size=11, placeholder = 'mic_flr') }}
+    {{ form.gen(size=11, placeholder = 'mic_gen') }} 
+    {{ form.nal(size=11, placeholder = 'mic_nal') }} 
+    {{ form.tel(size=11, placeholder = 'mic_tel') }}
+    {{ form.tet(size=11, placeholder = 'mic_tet') }} 
+  </span>
+
+  {% for error in form.azm.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.chl.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.cip.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.cli.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.ery.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.flr.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.gen.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.nal.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.tel.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  {% for error in form.tet.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+
+
+  
+
+</p>
