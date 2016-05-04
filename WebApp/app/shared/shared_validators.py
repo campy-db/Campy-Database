@@ -44,7 +44,6 @@ def validSpecies(spec, subspec, un_spec):
 
     return valid, message
 
-
 ####################################################################################################
 # Returns True if the fingerprint contains only 1s and 0s.
 ####################################################################################################
@@ -193,4 +192,20 @@ def validPostalCode(val):
         valid = False
         message = "Invalid postal code."
 
+    return valid, message
+
+def validMIC(v):
+    valid = True
+    message = ""
+    isFloat = True
+    try:
+        float(v)
+    except ValueError:
+        isFloat = False
+        message += "Invalid MIC value. "
+        valid = False
+    if isFloat:
+        if (v <= 0):
+            message += "MIC values must be greater than 0."
+            valid = False
     return valid, message

@@ -12,7 +12,7 @@ from wtforms import StringField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Optional
 from .util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
-range_, genAnimal, genSample, nonemptySource, isA, postalCode
+range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue
 
 NOW = datetime.datetime.now()
 
@@ -60,6 +60,13 @@ class AddForm(Form):
                     self.source.errors.append(e.args[0])
 
             try:
+                micValue(self, self.source)
+            except ValueError as e:
+                gen_result = False
+                if addError:
+                    self.source.errors.append(e.args[0])
+
+            try:
                 genSample(self, self.source, other_errors)
             except ValueError as e:
                 gen_result = False
@@ -90,8 +97,7 @@ class AddForm(Form):
     dcd = StringField("dcd", validators=\
     	                     [Optional(), digit("Day"), range_("Day", 1, 31)])
 
-    azm = StringField("azm", validators=\
-                           [Optional()])
+    azm = StringField("azm", validators=[micValue()])
     chl = StringField("chl", validators=\
                            [Optional()])
     cip = StringField("cip", validators=\

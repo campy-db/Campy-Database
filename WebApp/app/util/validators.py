@@ -12,7 +12,7 @@ from wtforms.validators import ValidationError, Regexp
 from ..shared.valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
 from ..sparql import queries as q
 from ..shared.shared_validators import validSpecies, validBinaryFP, validSource, genValue,\
-                                       validPostalCode, checkGenAnimal, checkGenType
+                                       validPostalCode, checkGenAnimal, checkGenType, validMIC
 from ..shared.extractValue import getSpecies, getAnimal, getType
 
 ####################################################################################################
@@ -251,3 +251,16 @@ def postalCode():
             raise ValidationError(message)
 
     return _postalCode
+
+def micValue():
+
+    def _validMIC(form, field):
+
+        v = field.data
+
+        valid, message = validMIC(v)
+
+        if not valid:
+            raise ValidationError(message)
+
+    return _validMIC
