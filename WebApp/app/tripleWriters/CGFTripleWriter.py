@@ -1,4 +1,9 @@
-def createCGFtriple(data, iso_title):
+from WebApp.app.util import *
+from Scripts.tripleWriters.labTM import LAB as ltm
+from Scripts.TripleMaker import TripleMaker as tm
+from WebApp.app.util import *
+
+def CGFtripleWriter(data, iso_title):
 
     triple = []
 
