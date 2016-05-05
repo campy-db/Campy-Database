@@ -96,26 +96,17 @@ class AddForm(Form):
 
     dcd = StringField("dcd", validators=\
     	                     [Optional(), digit("Day"), range_("Day", 1, 31)])
-
-    azm = StringField("azm", validators=[micValue()])
-    chl = StringField("chl", validators=\
-                           [Optional()])
-    cip = StringField("cip", validators=\
-                           [Optional()])
-    cli = StringField("cli", validators=\
-                           [Optional()])
-    ery = StringField("ery", validators=\
-                           [Optional()])
-    flr = StringField("flr", validators=\
-                           [Optional()])
-    gen = StringField("gen", validators=\
-                           [Optional()])
-    nal = StringField("nal", validators=\
-                           [Optional()])
-    tel = StringField("tel", validators=\
-                           [Optional()])
-    tet = StringField("tet", validators=\
-                           [Optional()])
+    
+    azm = StringField("azm", validators=[micValue(StringField("spec", validators=[species()]))])
+    chl = StringField("chl", validators=[micValue(StringField("spec", validators=[species()]))])
+    cip = StringField("cip", validators=[micValue(StringField("spec", validators=[species()]))])
+    cli = StringField("cli", validators=[micValue(StringField("spec", validators=[species()]))])
+    ery = StringField("ery", validators=[micValue(StringField("spec", validators=[species()]))])
+    flr = StringField("flr", validators=[micValue(StringField("spec", validators=[species()]))])
+    gen = StringField("gen", validators=[micValue(StringField("spec", validators=[species()]))])
+    nal = StringField("nal", validators=[micValue(StringField("spec", validators=[species()]))])
+    tel = StringField("tel", validators=[micValue(StringField("spec", validators=[species()]))])
+    tet = StringField("tet", validators=[micValue(StringField("spec", validators=[species()]))])
 
     lab = StringField("lab")
 

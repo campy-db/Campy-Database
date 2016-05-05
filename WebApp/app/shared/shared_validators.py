@@ -10,6 +10,9 @@ from .valid_values import SPECIES, ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS,
                           PEOPLE, CLINICAL_TYPES, GEN_ANIMALS, GEN_SAMPLE_TYPES
 from ..sparql import queries as q
 
+from .tripleWriters.dictionary.resistanceDictionary import getBreakpoints as getResistanceBP
+from .tripleWriters.dictionary.susceptibleDictionary import getBreakpoints as getSusceptibleBP
+
 ####################################################################################################
 # Returns true if the string v contains valid mixed campy species, valid species and subspecies,
 # valid cf. species, or just a single valid species, where valid means the species actually
@@ -157,6 +160,7 @@ def checkGenType(val, last_val, o_err):
 ####################################################################################################
 def genValue(val, gen_list, last_val, o_err):
 
+
     valid = True
     message = ""
 
@@ -194,18 +198,21 @@ def validPostalCode(val):
 
     return valid, message
 
-def validMIC(v):
+def validMIC(value, drug, species):
+    #def isBetweenBP(value, drug, susceptibleBP, resistantBP):
+    #    resDict = getResistanceBP()
+    #    if(value == 
     valid = True
     message = ""
     isFloat = True
     try:
-        float(v)
+        float(value)
     except ValueError:
         isFloat = False
         message += "Invalid MIC value. "
         valid = False
     if isFloat:
-        if (float(v) <= 0):
+        if (float(value) <= 0):
             message += "MIC values must be greater than 0."
             valid = False
     return valid, message

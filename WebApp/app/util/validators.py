@@ -252,14 +252,16 @@ def postalCode():
 
     return _postalCode
 
-def micValue():
+def micValue(species):
     print("<<<<<<<<<<<<<ATTEMPT VALIDATION>>>>>>>>>>>")
 
     def _validMIC(form, field):
         print("<<<<<<<<<<<<<ATTEMPT VALIDATION 2>>>>>>>>>>>")
-        v = field.data
+        value = field.data
+        drug = field.name
 
-        valid, message = validMIC(v)
+        print ("FIELD: >>>>  " + field.name)
+        valid, message = validMIC(value, drug, species)
 
         if not valid:
             raise ValidationError(message)
