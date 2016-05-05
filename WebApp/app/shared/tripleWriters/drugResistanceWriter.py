@@ -1,5 +1,5 @@
 from Scripts.tripleWriters.labTM import LAB as ltm
-from .resistanceDictionary import getBreakpoints
+from .dictionary.resistanceDictionary import getBreakpoints
 from Scripts.tripleWriters.campyTM import CAMPY as ctm
 from Scripts.TripleMaker import TripleMaker as tm
 

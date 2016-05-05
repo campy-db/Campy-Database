@@ -1,5 +1,0 @@
-from animalTripleWriter import animalTripleWriter
-from CGFTripleWriter import CGFTripleWriter
-from environmentTripleWriter import environmentTripleWriter
-from humanTripleWriter import humanTripleWriter
-from isolateTripleWriter import isolateTripleWriter
