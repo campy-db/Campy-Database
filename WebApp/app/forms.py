@@ -7,14 +7,19 @@
 
 import datetime
 
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms import StringField, BooleanField, SelectField
-from wtforms.validators import DataRequired, Optional
-from .util.validators import\
+from wtforms.fields.core import UnboundField
+from wtforms.validators import DataRequired, Optional 
+from app.util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
 range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue
 
 NOW = datetime.datetime.now()
+
+def validate_mic(drug):
+    return StringField(drug, validators=[micValue(), Optional()])
+
 
 ####################################################################################################
 # A form for filtering isolates on the names.html page
@@ -34,8 +39,11 @@ class IsoNameForm(Form):
 class AddForm(Form):
 
     def __init__(self, ses):
+
         self.session = ses
         super(AddForm, self).__init__()
+
+
 
     ################################################################################################
     # Overloads the validate_on_submit method defined in flask_wtf/form.py.
@@ -47,6 +55,7 @@ class AddForm(Form):
         result = super(AddForm, self).validate_on_submit()
 
         other_errors = not result # result is True if there are no errors
+
 
         def checkGenVals(addError):
 
@@ -82,7 +91,7 @@ class AddForm(Form):
         return result
 
     name = StringField("name", validators=[DataRequired(), specialChars("<>")])
-
+    print dir(name)
     spec = StringField("spec", validators=[Optional(), species()])
 
     fp = StringField("fp", validators=\
@@ -96,17 +105,42 @@ class AddForm(Form):
 
     dcd = StringField("dcd", validators=\
     	                     [Optional(), digit("Day"), range_("Day", 1, 31)])
+
+    ################################################################################################
+    # <<<<<NOTE>>>>> THIS SECTION REQUIRES REFACTORING
+    ################################################################################################
+    # drugs = ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet']
     
-    azm = StringField("azm", validators=[micValue(StringField("spec", validators=[species()]))])
-    chl = StringField("chl", validators=[micValue(StringField("spec", validators=[species()]))])
-    cip = StringField("cip", validators=[micValue(StringField("spec", validators=[species()]))])
-    cli = StringField("cli", validators=[micValue(StringField("spec", validators=[species()]))])
-    ery = StringField("ery", validators=[micValue(StringField("spec", validators=[species()]))])
-    flr = StringField("flr", validators=[micValue(StringField("spec", validators=[species()]))])
-    gen = StringField("gen", validators=[micValue(StringField("spec", validators=[species()]))])
-    nal = StringField("nal", validators=[micValue(StringField("spec", validators=[species()]))])
-    tel = StringField("tel", validators=[micValue(StringField("spec", validators=[species()]))])
-    tet = StringField("tet", validators=[micValue(StringField("spec", validators=[species()]))])
+    try: 
+        print ("spec: " + spec)
+    except:
+        print ("failed to print spec")
+    #if(isinstance(spec, UnboundField)):
+    #print("<<<<<<UNBOUND>>>>>>")
+    azm = validate_mic("azm")
+    chl = validate_mic("chl")
+    cip = validate_mic("cip")
+    cli = validate_mic("cli")
+    ery = validate_mic("ery")
+    flr = validate_mic("flr")
+    gen = validate_mic("gen")
+    nal = validate_mic("nal")
+    tel = validate_mic("tel")
+    tet = validate_mic("tet")
+        # resistance = {drug:validate_mic(drug) for drug in drugs}
+        # print(dir(resistance["azm"]))
+
+
+    # chl = StringField("chl", validators=[micValue(spec)])
+    # cip = StringField("cip", validators=[micValue(spec)])
+    # cli = StringField("cli", validators=[micValue(spec)])
+    # ery = StringField("ery", validators=[micValue(spec)])
+    # flr = StringField("flr", validators=[micValue(spec)])
+    # gen = StringField("gen", validators=[micValue(spec)])
+    # nal = StringField("nal", validators=[micValue(spec)])
+    # tel = StringField("tel", validators=[micValue(spec)])
+    # tet = StringField("tet", validators=[micValue(spec)])
+    ################################################################################################
 
     lab = StringField("lab")
 

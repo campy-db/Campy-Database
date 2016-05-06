@@ -56,8 +56,6 @@ def validBinaryFP(v):
     message = ""
 
     for char in v:
-        print(char == "1")
-        print(char == "0")
         if char != "0" and char != "1":
             print(char == "1")
             print(char == "0")
@@ -198,13 +196,17 @@ def validPostalCode(val):
 
     return valid, message
 
-def validMIC(value, drug, species):
+def validMIC(value, drug, species=None):
+    print("<<<<<<<<<<ETTER>>>>>>>>>>>>>>>>>>>>")
     #def isBetweenBP(value, drug, susceptibleBP, resistantBP):
     #    resDict = getResistanceBP()
     #    if(value == 
     valid = True
     message = ""
     isFloat = True
+    print type(value)
+    if (species == None):
+        message += ""
     try:
         float(value)
     except ValueError:

@@ -33,17 +33,20 @@ def drugResistanceWriter(data, isoTitle, species):
     micTriples = [micTriple(data[drug], drug, testTitle)
                  for drug in data
                  if not data[drug] == ""]
+    if species:
+        resTriples = [resTriple(data, drug, testTitle)
+                     for drug in data
+                     if not data[drug] == ""]
 
-    resTriples = [resTriple(data, drug, testTitle)
-                 for drug in data
-                 if not data[drug] == ""]
-
-    triples = micTriples + resTriples # merge lists
-
-    if triples: # if data were not empty add URIs, etc
-        triples += [ltm.indTriple(testTitle, "AMR_test"),
+        triples = micTriples + resTriples # merge lists
+        if triples: # if data were not empty add URIs, etc
+            triples += [ltm.indTriple(testTitle, "AMR_test"),
+                tm.multiURI((isoTitle, "hasLabTest", testTitle), (ctm.uri, ctm.uri, ltm.uri))]
+        return "".join(triples)
+    else:
+        micTriples += [ltm.indTriple(testTitle, "AMR_test"),
             tm.multiURI((isoTitle, "hasLabTest", testTitle), (ctm.uri, ctm.uri, ltm.uri))]
-    return "".join(triples)
+        return "".join(micTriples)
 
 
 

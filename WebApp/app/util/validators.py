@@ -252,18 +252,23 @@ def postalCode():
 
     return _postalCode
 
-def micValue(species):
-    print("<<<<<<<<<<<<<ATTEMPT VALIDATION>>>>>>>>>>>")
-
+def micValue():
     def _validMIC(form, field):
+        print("BEFORE>>>>>>>>>>>>>")
+        print("SPEC EVALUATION: " + str(form.spec.data == (u"")))
+        print("SPEC DATA TYPE: " + str(type(form.spec.data)))
         print("<<<<<<<<<<<<<ATTEMPT VALIDATION 2>>>>>>>>>>>")
         value = field.data
         drug = field.name
 
-        print ("FIELD: >>>>  " + field.name)
-        valid, message = validMIC(value, drug, species)
+        
+        if (form.spec.data == (u"")):
+            valid, message = validMIC(value, drug)
+        else:
+            valid, message = validMIC(value, drug, species)
 
         if not valid:
             raise ValidationError(message)
 
     return _validMIC
+

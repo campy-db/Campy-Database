@@ -58,10 +58,10 @@ def formToTriple(form):
         gen = str(form.gen.data) if form.gen.data else ""
         nal = str(form.nal.data) if form.nal.data else ""
         tel = str(form.tel.data) if form.tel.data else ""
-        tet = str(form.tel.data) if form.tel.data else ""
+        tet = str(form.tet.data) if form.tet.data else ""
 
         drug_data = {"azm":azm, "chl":chl,
-                    "cip":cip, "cli":cip, 
+                    "cip":cip, "cli":cli, 
                     "ery":ery, "flr":flr,
                     "gen":gen, "nal":nal,
                     "tel":tel, "tet":tet}

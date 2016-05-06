@@ -1,7 +1,7 @@
 def getBreakpoints(species):
-    if (species.lower() == "jejuni"):
+    if species.lower() == "jejuni":
         return susceptibleBreakpointJejuni
-    elif (species.lower() == "coli"):
+    elif species.lower() == "coli":
         return susceptibleBreakpointColi
     else:
         return ""

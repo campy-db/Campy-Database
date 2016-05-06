@@ -28,10 +28,11 @@ def add():
 
     if request.method == "GET":
         init_session_vars()
-
+    print("<<<POINT 1>>>")
     form = AddForm(session)
-
+    print("<<<POINT 2>>>")
     if form.validate_on_submit():
+        print("<<<POINT 3>>>")
         triple = ft.formToTriple(form)
         #q.writeToBG(triple)
         print triple
