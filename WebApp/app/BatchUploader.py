@@ -2,7 +2,7 @@
  BatchUploader.py
 """
 import pandas as pd
-import shared.clean_triple_writers as ctw
+from .shared.tripleWriters import *
 from .shared.extractValue import getAnimal, getEnviro, getPerson, getType, getTypeProp
 from .shared.shared_validators import validSource, checkGenAnimal, checkGenType
 from Scripts.endpoint import update
@@ -151,7 +151,7 @@ class BatchUploader(object):
                                 "age":""}
 
                         if valid_a and valid_t and iso_title:
-                            epi_triple = ctw.createAnimalTriple(data, iso_title)
+                            epi_triple = createAnimalTriple(data, iso_title)
                         else:
                             valid = False
 
@@ -176,7 +176,7 @@ class BatchUploader(object):
             valid = False
         else:
             iso_title = str(self.data_frame[name_key][0])
-            triple.append(ctw.createIsolateTriple(iso_title, ""))
+            triple.append(createIsolateTriple(iso_title, ""))
 
         # We do keep going even if there is no Strain Name column because we want to return any
         # other errors in the sheet to the user
