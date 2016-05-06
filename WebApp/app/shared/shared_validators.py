@@ -57,8 +57,6 @@ def validBinaryFP(v):
 
     for char in v:
         if char != "0" and char != "1":
-            print(char == "1")
-            print(char == "0")
             valid = False
             message = "Fingerprint must contain only 1s and 0s"
             break
@@ -197,16 +195,12 @@ def validPostalCode(val):
     return valid, message
 
 def validMIC(value, drug, species=None):
-    print("<<<<<<<<<<ETTER>>>>>>>>>>>>>>>>>>>>")
-    #def isBetweenBP(value, drug, susceptibleBP, resistantBP):
-    #    resDict = getResistanceBP()
-    #    if(value == 
     message = ""
     valid = True
     isFloat = True
     micValue = value.lstrip(">")
     print type(value)
-    if (species == None):
+    if species == None:
         message += ""
     try:
         float(micValue)
@@ -215,19 +209,21 @@ def validMIC(value, drug, species=None):
         message += "Invalid MIC value. "
         valid = False
     if isFloat:
-        if (float(micValue) <= 0):
+        if float(micValue) <= 0:
             message += "MIC values must be greater than 0."
             valid = False
-        if (species):
+        if species:
             #print("type2222222222:" + str(type(species)))
             resDict = getResistanceBP(species)
             susDict = getSusceptibleBP(species)
-            if (float(micValue) > susDict[drug] and float(micValue) < resDict[drug]):
-                message += "MIC value for " + drug + " must greater than the resistant breakpoint or less than the susceptibile breakpoint specified by CIPARS/NARMS."
+            if float(micValue) > susDict[drug] and float(micValue) < resDict[drug]:
+                message += "MIC value for " + drug + " must greater than the resistant breakpoint\
+                 or less than the susceptibile breakpoint specified by CIPARS/NARMS."
                 valid = False
             #print("value :            " + value + "         >>>>>>>>>>")
-            if (">" in str(value[0]) and float(micValue) <= susDict[drug]):
-                message +=  "MIC value for " + drug + " must not have contain a > sign if it falls below the suceptible breakpoint specified by CIPARS/NARMS"
+            if ">" in str(value[0]) and float(micValue) <= susDict[drug]:
+                message +=  "MIC value for " + drug + " must not have contain a > sign if it falls\
+                 below the suceptible breakpoint specified by CIPARS/NARMS"
                 valid = False
 
     return valid, message

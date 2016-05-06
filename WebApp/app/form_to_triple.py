@@ -9,7 +9,7 @@
 
 from .shared.valid_values import ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS, ENVIRO_PROPS, PEOPLE,\
                                 CLINICAL_TYPES
-from .shared.clean_triple_writers import *
+from .shared.tripleWriters import *
 from .shared.extractValue import *
 
 ####################################################################################################
@@ -42,7 +42,7 @@ def formToTriple(form):
         cgf_data =\
         {"fingerprint":fp, "year":dcy, "month":dcm, "day":dcd, "lab":lab, "silico":silico}
 
-        return createCGFtriple(cgf_data, iso_title)
+        return createCGFTriple(cgf_data, iso_title)
 
     ################################################################################################
     # Get all the CGF data from the form
