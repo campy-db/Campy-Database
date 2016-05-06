@@ -265,7 +265,7 @@ def micValue():
         if (form.spec.data == (u"")):
             valid, message = validMIC(value, drug)
         else:
-            valid, message = validMIC(value, drug, species)
+            valid, message = validMIC(value, drug, form.spec.data)
 
         if not valid:
             raise ValidationError(message)
