@@ -19,7 +19,7 @@ around it. It imports `LabTests.owl`.
 - The web app should now be running locally on `port 5000`.
 
 At this point, you can run a query that fetches the names of all the isolates in the database by clicking the `names` 
-link (and also filter by species), and you can add data to the database by clicking the `add isolate` link (though right now it just prints the triple to the terminal; we're still in the testing stages). The `upload` page allows you to upload a csv file. After uploading, the web app will try to make triples from the data. If the column names and data are of the correct format, triples will be made and printed to the terminal.
+link (and also filter by species), and you can add data to the database by clicking the `add isolate` link (though right now it just prints the triple to the terminal; we're still in the testing stages). The `upload` page allows you to upload a csv file. After uploading, the web app will try to make triples from the data. If the column names and data are of the correct format, triples will be made and printed to the terminal, but right now it only does the source and strain name data.
 
 Have fun.
 
