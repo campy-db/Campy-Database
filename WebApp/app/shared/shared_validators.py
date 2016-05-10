@@ -7,7 +7,7 @@
 
 import re
 from .valid_values import SPECIES, ANIMALS, SAMPLE_TYPES, SAMPLE_PROPS, ENVIROS, ENVIRO_PROPS,\
-                          PEOPLE, CLINICAL_TYPES, GEN_ANIMALS, GEN_SAMPLE_TYPES
+                          PEOPLE, CLINICAL_TYPES, GEN_ANIMALS, GEN_SAMPLE_TYPES, ANTIGENS
 from ..sparql import queries as q
 
 from .tripleWriters.dictionary.resistanceDictionary import getBreakpoints as getResistanceBP
@@ -194,12 +194,14 @@ def validPostalCode(val):
 
     return valid, message
 
+####################################################################################################
+# Comments here someday
+####################################################################################################
 def validMIC(value, drug, species=None):
     message = ""
     valid = True
     isFloat = True
     micValue = value.lstrip(">")
-    print type(value)
     if species == None:
         message += ""
     try:
@@ -213,17 +215,46 @@ def validMIC(value, drug, species=None):
             message += "MIC values must be greater than 0."
             valid = False
         if species:
-            #print("type2222222222:" + str(type(species)))
             resDict = getResistanceBP(species)
             susDict = getSusceptibleBP(species)
             if float(micValue) > susDict[drug] and float(micValue) < resDict[drug]:
                 message += "MIC value for " + drug + " must greater than the resistant breakpoint\
                  or less than the susceptibile breakpoint specified by CIPARS/NARMS."
                 valid = False
-            #print("value :            " + value + "         >>>>>>>>>>")
-            if ">" in str(value[0]) and float(micValue) <= susDict[drug]:
+            if ">" in str(value[0]) and float(micValue) < susDict[drug]:
                 message +=  "MIC value for " + drug + " must not have contain a > sign if it falls\
                  below the suceptible breakpoint specified by CIPARS/NARMS"
                 valid = False
 
     return valid, message
+
+def validAntigen(antigen):
+    message = ""
+    valid = True
+
+    if not antigen in ANTIGENS:
+        valid = False
+        message = "Antigen is not among list of allowed antigens. Currently allowed antigens are " + str(ANTIGENS) + "."
+    print ("ANTIGEN VALID: " + str(valid))
+    return valid, message
+
+def validSero(serotype):
+    def isInt(num):
+        number = True
+        try:
+            int(num)
+        except ValueError:
+            number = False
+        return number
+    message = ""
+    valid = True
+    serotype = serotype.split(",")
+    #serotypes = {isInt(s) for s in serotype if s not ""}
+    for s in serotype:
+        if not isInt(s):
+            valid = False
+            message = "Serotypes must be entered as integers seperated by a comma (no spaces)."
+            break
+    print ("SEROTYPE VALID: " + str(valid))
+    return valid, message
+    

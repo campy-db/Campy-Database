@@ -14,7 +14,7 @@ def createDrugResistanceTriple(data, isoTitle, species):
         return triple
 
     def resTriple(data, drug, testTitle):
-        if isResistant(drug, data, species): 
+        if isResistant(drug, data, species): # if resistant
             triple = ltm.propTriple(testTitle, {"foundResistanceTo": drug})
         else:
             triple = ltm.propTriple(testTitle, {"foundSusceptibiltyTo": drug})
@@ -22,7 +22,7 @@ def createDrugResistanceTriple(data, isoTitle, species):
 
     def isResistant(drug, data, species):
         resDict = getBreakpoints(species)
-        if(float(data[drug].lstrip(">")) >= float(resDict[drug])):
+        if(float(data[drug].lstrip(">")) > float(resDict[drug])):
             return True
         else:
             return False
@@ -38,15 +38,14 @@ def createDrugResistanceTriple(data, isoTitle, species):
                      for drug in data
                      if not data[drug] == ""]
 
-        triples = micTriples + resTriples 
-        if triples: 
+        triples = micTriples + resTriples # merge lists
+        if triples: # if data were not empty add URIs, etc
             triples += [ltm.indTriple(testTitle, "AMR_test"),
                 tm.multiURI((isoTitle, "hasLabTest", testTitle), (ctm.uri, ctm.uri, ltm.uri))]
         return "".join(triples)
     else:
-        if micTriples:
-            micTriples += [ltm.indTriple(testTitle, "AMR_test"),
-                tm.multiURI((isoTitle, "hasLabTest", testTitle), (ctm.uri, ctm.uri, ltm.uri))]
+        micTriples += [ltm.indTriple(testTitle, "AMR_test"),
+            tm.multiURI((isoTitle, "hasLabTest", testTitle), (ctm.uri, ctm.uri, ltm.uri))]
         return "".join(micTriples)
 
 

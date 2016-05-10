@@ -1,11 +1,11 @@
-@prefix : <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#> .
+@prefix : <https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl> a owl:Ontology ;
+<https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl> a owl:Ontology ;
 	owl:imports <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> ;
 	rdfs:comment """An ontology for storing information related to Campylobacter Jejuni. The main categories of info are: EPI data (source type, source location, isolation date etc.), BIO data (typing results, AMR info etc.), and LIMS data (typing lab, project etc.). 
 Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv."""^^xsd:string .
@@ -18,163 +18,163 @@ Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv.""
 # #################################################################
 # 
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#grownOn
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#grownOn
 
 :grownOn a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasMethodologyProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasAge
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAge
 
 :hasAge a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasHumanProperty ;
 	rdfs:domain :Human ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasAgeRank
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAgeRank
 
 :hasAgeRank a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasAnimalID
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalID
 
 :hasAnimalID a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasAnimalProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalProperty
 
 :hasAnimalProperty a owl:ObjectProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range :Animal_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasAnimalSource
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasAnimalSource
 
 :hasAnimalSource a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasSampleSource ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Animal .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasBIOproperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBIOproperty
 
 :hasBIOproperty a owl:ObjectProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :BIO_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasBirthDay
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBirthDay
 
 :hasBirthDay a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasHumanProperty ;
 	rdfs:domain :Human ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasBirthMonth
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBirthMonth
 
 :hasBirthMonth a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasHumanProperty ;
 	rdfs:domain :Human ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasBirthYear
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasBirthYear
 
 :hasBirthYear a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasHumanProperty ;
 	rdfs:domain :Human ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasCattleProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCattleProperty
 
 :hasCattleProperty a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasAnimalProperty ;
 	rdfs:domain :Cattle .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasCollectionID
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasCollectionID
 
 :hasCollectionID a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasColonyMorph
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasColonyMorph
 
 :hasColonyMorph a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasIsolationProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasDayAdded
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDayAdded
 
 :hasDayAdded a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasDaySampleTaken
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDaySampleTaken
 
 :hasDaySampleTaken a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasDilution
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasDilution
 
 :hasDilution a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasIsolationProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasEPIproperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEPIproperty
 
 :hasEPIproperty a owl:ObjectProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :EPI_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasEnviroSource
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasEnviroSource
 
 :hasEnviroSource a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasSampleSource ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Environment .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasGender
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGender
 
 :hasGender a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasHumanProperty ;
 	rdfs:domain :Human ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasGlycStock
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasGlycStock
 
 :hasGlycStock a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasIsolationProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasHipO
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHipO
 
 :hasHipO a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasIsolationProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasHumanProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanProperty
 
 :hasHumanProperty a owl:ObjectProperty ;
 	rdfs:domain :Human ;
 	rdfs:range :Human_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasHumanSource
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasHumanSource
 
 :hasHumanSource a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasSampleSource ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Human .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasIsolateLocation
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolateLocation
 
 :hasIsolateLocation a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasLIMSproperty ;
@@ -182,7 +182,7 @@ Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv.""
 	rdfs:domain :Isolate ;
 	rdfs:range :Isolate_location .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasIsolateName
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolateName
 
 :hasIsolateName a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
@@ -190,13 +190,13 @@ Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv.""
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasIsolationProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasIsolationProperty
 
 :hasIsolationProperty a owl:ObjectProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Isolation_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasLDMSid
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLDMSid
 
 :hasLDMSid a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
@@ -204,20 +204,20 @@ Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv.""
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasLIMSproperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLIMSproperty
 
 :hasLIMSproperty a owl:ObjectProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :LIMS_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasLabTest
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLabTest
 
 :hasLabTest a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasBIOproperty ;
 	rdfs:domain :Isolate ;
-	rdfs:range <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Lab_test> .
+	rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasLatitude
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLatitude
 
 :hasLatitude a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasSourceLocation ;
@@ -225,7 +225,7 @@ Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv.""
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasLocale
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLocale
 
 :hasLocale a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
@@ -235,7 +235,7 @@ Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv.""
 But if it's from a farm, abattoir or some store, then shouldn't be considered domestic? 
 I just considered domestic to mean dogs and other pets.""" .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasLongitude
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasLongitude
 
 :hasLongitude a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasSourceLocation ;
@@ -243,28 +243,28 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasMethodologyProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMethodologyProperty
 
 :hasMethodologyProperty a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasIsolationProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Methodology_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasMonthAdded
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthAdded
 
 :hasMonthAdded a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasMonthSampleTaken
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasMonthSampleTaken
 
 :hasMonthSampleTaken a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasNMLid
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasNMLid
 
 :hasNMLid a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
@@ -272,14 +272,14 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOriginalName
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasOriginalName
 
 :hasOriginalName a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasPatientID
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPatientID
 
 :hasPatientID a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasPatientProperty ;
@@ -287,34 +287,34 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Patient ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasPatientProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPatientProperty
 
 :hasPatientProperty a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasHumanProperty ;
 	rdfs:domain :Patient ;
 	rdfs:range :Patient_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasPostalCode
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasPostalCode
 
 :hasPostalCode a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasHumanProperty ;
 	rdfs:domain :Human ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasProjectProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasProjectProperty
 
 :hasProjectProperty a owl:ObjectProperty ;
 	rdfs:domain :Project ;
 	rdfs:range :Project_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSampleID
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSampleID
 
 :hasSampleID a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSampleSource
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSampleSource
 
 :hasSampleSource a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasSourceProperty ;
@@ -322,14 +322,14 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Isolate ;
 	rdfs:range :Sample_source .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasScientificName
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasScientificName
 
 :hasScientificName a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSex
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSex
 
 :hasSex a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
@@ -337,105 +337,105 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSourceLocation
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSourceLocation
 
 :hasSourceLocation a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasSourceProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Location .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSourceProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSourceProperty
 
 :hasSourceProperty a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasEPIproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Source_property .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSourceType
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSourceType
 
 :hasSourceType a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasSourceProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Sample_type .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSpecies
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSpecies
 
 :hasSpecies a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasBIOproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Campy_species .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSubproject
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSubproject
 
 :hasSubproject a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasProjectProperty ;
 	rdfs:domain :Project ;
 	rdfs:range :Sub_project .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasSubspecies
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasSubspecies
 
 :hasSubspecies a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasBIOproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Campy_subspecies .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasTaxoClass
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoClass
 
 :hasTaxoClass a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasTaxoFamily
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoFamily
 
 :hasTaxoFamily a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasTaxoGenus
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoGenus
 
 :hasTaxoGenus a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasTaxoOrder
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoOrder
 
 :hasTaxoOrder a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasTaxoSpecies
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTaxoSpecies
 
 :hasTaxoSpecies a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasTechnique
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTechnique
 
 :hasTechnique a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasMethodologyProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasTreatment
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasTreatment
 
 :hasTreatment a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasIsolationProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasUncertainSpecies
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasUncertainSpecies
 
 :hasUncertainSpecies a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasBIOproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Campy_species .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasYearAdded
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearAdded
 
 :hasYearAdded a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLIMSproperty ;
@@ -443,14 +443,14 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasYearSampleTaken
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasYearSampleTaken
 
 :hasYearSampleTaken a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#isBeefCattle
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isBeefCattle
 
 :isBeefCattle a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCattleProperty ;
@@ -458,7 +458,7 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Cattle ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#isDairyCattle
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isDairyCattle
 
 :isDairyCattle a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCattleProperty ;
@@ -466,59 +466,59 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Cattle ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#isDomestic
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isDomestic
 
 :isDomestic a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasAnimalProperty ;
 	rdfs:domain :Animal ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#isPartOfOutbreak
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isPartOfOutbreak
 
 :isPartOfOutbreak a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasEPIproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#isReferenceStrain
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#isReferenceStrain
 
 :isReferenceStrain a owl:ObjectProperty ;
 	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> ;
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#partOfOutbreak
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#partOfOutbreak
 
 :partOfOutbreak a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasEPIproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Outbreak .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#partOfProject
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#partOfProject
 
 :partOfProject a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasLIMSproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Project .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#partOfSubProject
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#partOfSubProject
 
 :partOfSubProject a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasLIMSproperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range :Sub_project .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#traveledTo
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#traveledTo
 
 :traveledTo a owl:ObjectProperty ;
 	rdfs:subPropertyOf :hasHumanProperty ;
 	rdfs:domain :Human ;
 	rdfs:range :Location .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasTypingGeneProperty
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingGeneProperty
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasTypingGeneProperty> rdfs:domain <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_gene> ;
-	rdfs:range <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_gene_property> .
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#hasTypingGeneProperty> rdfs:domain <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene> ;
+	rdfs:range <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene_property> .
 # 
 # 
 # 
@@ -529,13 +529,13 @@ I just considered domestic to mean dogs and other pets.""" .
 # #################################################################
 # 
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasComment
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasComment
 
 :hasComment a owl:DatatypeProperty ;
 	rdfs:domain :Isolate ;
 	rdfs:range xsd:string .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#hasName
 
 :hasName a owl:DatatypeProperty ;
 	rdfs:domain :Object ;
@@ -550,917 +550,693 @@ I just considered domestic to mean dogs and other pets.""" .
 # #################################################################
 # 
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Animal
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal
 
 :Animal a owl:Class ;
 	rdfs:subClassOf :Organism , :Sample_source ;
 	rdfs:label "Animal"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Animal_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal_property
 
 :Animal_property a owl:Class ;
 	rdfs:subClassOf :Property ;
 	rdfs:label "Animal Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Animal_sample
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Animal_sample
 
 :Animal_sample a owl:Class ;
 	rdfs:subClassOf :Sample_type ;
 	rdfs:label "Animal Sample"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Avian
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Avian
 
 :Avian a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	owl:disjointWith :Rodent ;
 	rdfs:label "Avian"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#BIO_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#BIO_property
 
 :BIO_property a owl:Class ;
 	rdfs:subClassOf :Property ;
 	rdfs:label "Biological Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Bear
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Bear
 
 :Bear a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Bear"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Body_of_water
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Body_of_water
 
 :Body_of_water a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "Body of Water"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Breast
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Breast
 
 :Breast a owl:Class ;
 	rdfs:subClassOf :Meat_cut ;
 	rdfs:comment "There are different kinds of breast so it needs its own class" ;
 	rdfs:label "Breast"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Buffalo
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Buffalo
 
 :Buffalo a owl:Class ;
 	rdfs:subClassOf :Ruminant ;
 	rdfs:label "Buffalo"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Bufflehead
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Bufflehead
 
 :Bufflehead a owl:Class ;
 	rdfs:subClassOf :Duck ;
 	rdfs:label "Bufflehead"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Bull
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Bull
 
 :Bull a owl:Class ;
 	rdfs:subClassOf :Cattle ;
 	rdfs:label "Bull"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#By_product
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#By_product
 
 :By_product a owl:Class ;
 	rdfs:subClassOf :Animal_sample ;
 	rdfs:label "By-product"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#C_Enternet_site
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#C_Enternet_site
 
 :C_Enternet_site a owl:Class ;
 	rdfs:subClassOf :Surveillance_site ;
 	rdfs:label "C-EnterNet Site"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Caecum
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Caecum
 
 :Caecum a owl:Class ;
 	rdfs:subClassOf :By_product ;
 	rdfs:comment "There are different kinds of caecum so it needs its own class" ;
 	rdfs:label "Caecum"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Campy_species
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Campy_species
 
 :Campy_species a owl:Class ;
 	rdfs:subClassOf :BIO_property ;
 	rdfs:label "Campy Species"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Campy_subspecies
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Campy_subspecies
 
 :Campy_subspecies a owl:Class ;
 	rdfs:subClassOf :BIO_property ;
 	rdfs:label "Campy Subspecies" .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Canada_goose
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Canada_goose
 
 :Canada_goose a owl:Class ;
 	rdfs:subClassOf :Goose ;
 	rdfs:label "Canada Goose"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Carcass
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Carcass
 
 :Carcass a owl:Class ;
 	rdfs:subClassOf :By_product ;
 	rdfs:comment "There are different kinds of carcasses so it needs its own class" ;
 	rdfs:label "Carcass"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Cat
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Cat
 
 :Cat a owl:Class ;
 	rdfs:subClassOf :Companion ;
 	rdfs:label "Cat"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Cattle
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Cattle
 
 :Cattle a owl:Class ;
 	rdfs:subClassOf :Ruminant ;
 	rdfs:label "Cattle"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Chicken
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Chicken
 
 :Chicken a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Chicken"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#City
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#City
 
 :City a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "City"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Clinical
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Clinical
 
 :Clinical a owl:Class ;
 	rdfs:subClassOf :Human_sample ;
 	rdfs:label "Clinical"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Common_merganser
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Common_merganser
 
 :Common_merganser a owl:Class ;
 	rdfs:subClassOf :Duck ;
 	rdfs:label "Common Merganser"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Companion
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Companion
 
 :Companion a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Companion"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Country
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Country
 
 :Country a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "Country"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Cow
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Cow
 
 :Cow a owl:Class ;
 	rdfs:subClassOf :Cattle ;
 	rdfs:label "Cow"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Deer
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Deer
 
 :Deer a owl:Class ;
 	rdfs:subClassOf :Ruminant ;
 	rdfs:label "Deer"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Deer_mouse
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Deer_mouse
 
 :Deer_mouse a owl:Class ;
 	rdfs:subClassOf :Rodent ;
 	rdfs:label "Deer Mouse"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Dog
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Dog
 
 :Dog a owl:Class ;
 	rdfs:subClassOf :Companion ;
 	rdfs:label "Dog"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Donkey
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Donkey
 
 :Donkey a owl:Class ;
 	rdfs:subClassOf :Equine ;
 	rdfs:label "Donkey"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Droppings
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Droppings
 
 :Droppings a owl:Class ;
 	rdfs:subClassOf :Faecal ;
 	rdfs:label "Droppings" .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Duck
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Duck
 
 :Duck a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Duck"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#EPI_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#EPI_property
 
 :EPI_property a owl:Class ;
 	rdfs:subClassOf :Property ;
 	rdfs:label "EPI Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Egg
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Egg
 
 :Egg a owl:Class ;
 	rdfs:subClassOf :Food ;
 	rdfs:label "Egg"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Environment
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Environment
 
 :Environment a owl:Class ;
 	rdfs:subClassOf :Object , :Sample_source ;
 	rdfs:label "Environment"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Equine
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Equine
 
 :Equine a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Equine"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#FNC_sentinel_site
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#FNC_sentinel_site
 
 :FNC_sentinel_site a owl:Class ;
 	rdfs:subClassOf :Surveillance_site ;
 	rdfs:label "FNC Sentinel Site"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Faecal
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Faecal
 
 :Faecal a owl:Class ;
 	rdfs:subClassOf :Animal_sample ;
 	rdfs:label "Faecal"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Fly
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Fly
 
 :Fly a owl:Class ;
 	rdfs:subClassOf :Insect ;
 	rdfs:label "Fly"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Food
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Food
 
 :Food a owl:Class ;
 	rdfs:subClassOf :Animal_sample ;
 	rdfs:label "Food"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Goat
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Goat
 
 :Goat a owl:Class ;
 	rdfs:subClassOf :Ruminant ;
 	rdfs:label "Goat"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Goose
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Goose
 
 :Goose a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Goose"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Ground
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ground
 
 :Ground a owl:Class ;
 	rdfs:subClassOf :Meat_cut ;
 	rdfs:comment "There are different kinds of ground meat so it needs its own class" ;
 	rdfs:label "Ground"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Health_authority
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Health_authority
 
 :Health_authority a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "Health Authority"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Heifer
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Heifer
 
 :Heifer a owl:Class ;
 	rdfs:subClassOf :Cattle ;
 	rdfs:label "Heifer"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Horse
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Horse
 
 :Horse a owl:Class ;
 	rdfs:subClassOf :Equine ;
 	rdfs:label "Horse"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Human
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human
 
 :Human a owl:Class ;
 	rdfs:subClassOf :Organism , :Sample_source ;
 	owl:disjointWith :Isolate ;
 	rdfs:label "Human"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Human_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human_property
 
 :Human_property a owl:Class ;
 	rdfs:subClassOf :Property ;
 	rdfs:label "Human Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Human_sample
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Human_sample
 
 :Human_sample a owl:Class ;
 	rdfs:subClassOf :Sample_type ;
 	rdfs:label "Human Sample"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Insect
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Insect
 
 :Insect a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Insect"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Isolate
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate
 
 :Isolate a owl:Class ;
 	rdfs:subClassOf :Organism ;
 	rdfs:label "Isolate"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Isolate_location
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolate_location
 
 :Isolate_location a owl:Class ;
 	rdfs:subClassOf :LIMS_property , :Location ;
 	rdfs:label "Isolate Location"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Isolation_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Isolation_property
 
 :Isolation_property a owl:Class ;
 	rdfs:subClassOf :Property ;
 	rdfs:label "Isolation Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#LIMS_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#LIMS_property
 
 :LIMS_property a owl:Class ;
 	rdfs:subClassOf :Property ;
 	rdfs:label "LIMS Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Lagoon
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lagoon
 
 :Lagoon a owl:Class ;
 	rdfs:subClassOf :Environment .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Lesser_scaup
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Lesser_scaup
 
 :Lesser_scaup a owl:Class ;
 	rdfs:subClassOf :Duck ;
 	rdfs:label "Lesser Scaup"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Llama
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Llama
 
 :Llama a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Llama"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Location
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Location
 
 :Location a owl:Class ;
 	rdfs:subClassOf :Object .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Loin
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Loin
 
 :Loin a owl:Class ;
 	rdfs:subClassOf :Meat_cut ;
 	rdfs:comment "There are different kinds of loin cuts so it needs its own class" ;
 	rdfs:label "Loin"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Marmot
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Marmot
 
 :Marmot a owl:Class ;
 	rdfs:subClassOf :Rodent ;
 	rdfs:label "Marmot"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Meat_cut
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Meat_cut
 
 :Meat_cut a owl:Class ;
 	rdfs:subClassOf :Food ;
 	rdfs:label "Meat Cut"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Methodology_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Methodology_property
 
 :Methodology_property a owl:Class ;
 	rdfs:subClassOf :Isolation_property ;
 	rdfs:label "Methodology Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Municipality
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Municipality
 
 :Municipality a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "Municipality"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Mute_swan
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Mute_swan
 
 :Mute_swan a owl:Class ;
 	rdfs:subClassOf :Swan ;
 	rdfs:label "Mute Swan"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Object
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Object
 
 :Object a owl:Class ;
 	rdfs:label "Object" .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Opossum
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Opossum
 
 :Opossum a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Opossum"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Organism
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Organism
 
 :Organism a owl:Class ;
 	rdfs:subClassOf :Object ;
 	rdfs:label "Organism"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Outbreak
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Outbreak
 
 :Outbreak a owl:Class ;
 	rdfs:subClassOf :EPI_property , :Object ;
 	rdfs:label "Outbreak"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Patient
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Patient
 
 :Patient a owl:Class ;
 	rdfs:subClassOf :Human ;
 	rdfs:label "Patient"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Patient_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Patient_property
 
 :Patient_property a owl:Class ;
 	rdfs:subClassOf :Human_property ;
 	rdfs:label "Patient Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Pelican
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Pelican
 
 :Pelican a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Pelican"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Pig
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Pig
 
 :Pig a owl:Class ;
 	rdfs:subClassOf :Porcine ;
 	rdfs:label "Pig"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Pit
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Pit
 
 :Pit a owl:Class ;
 	rdfs:subClassOf :Faecal ;
 	rdfs:label "Pit" .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Porcine
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Porcine
 
 :Porcine a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Porcine" .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Project
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Project
 
 :Project a owl:Class ;
 	rdfs:subClassOf :LIMS_property , :Object ;
 	rdfs:label "Project"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Project_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Project_property
 
 :Project_property a owl:Class ;
 	rdfs:subClassOf :Property ;
 	rdfs:label "Project Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Property
 
 :Property a owl:Class ;
 	rdfs:label "Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Raccoon
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Raccoon
 
 :Raccoon a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Raccoon"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Rat
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Rat
 
 :Rat a owl:Class ;
 	rdfs:subClassOf :Rodent ;
 	rdfs:label "Rat"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Rodent
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Rodent
 
 :Rodent a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Rodent"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Ruminant
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Ruminant
 
 :Ruminant a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Ruminant"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Sample_source
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sample_source
 
 :Sample_source a owl:Class ;
 	rdfs:subClassOf :Source_property ;
 	rdfs:label "Sample Source"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Sample_type
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sample_type
 
 :Sample_type a owl:Class ;
 	rdfs:subClassOf :Source_property ;
 	rdfs:label "Sample Type"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Sampling_site
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sampling_site
 
 :Sampling_site a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "Sampling Site"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Seagull
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Seagull
 
 :Seagull a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Seagull"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Sewage
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sewage
 
 :Sewage a owl:Class ;
 	rdfs:subClassOf :Environment ;
 	rdfs:label "Sewage"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Sheep
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sheep
 
 :Sheep a owl:Class ;
 	rdfs:subClassOf :Ruminant ;
 	rdfs:label "Sheep"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Shore_bird
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Shore_bird
 
 :Shore_bird a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Shore Bird"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Skunk
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Skunk
 
 :Skunk a owl:Class ;
 	rdfs:subClassOf :Animal ;
 	rdfs:label "Skunk"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Source_property
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Source_property
 
 :Source_property a owl:Class ;
 	rdfs:subClassOf :EPI_property ;
 	rdfs:label "Source Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Sparrow
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sparrow
 
 :Sparrow a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Sparrow"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Sub_project
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Sub_project
 
 :Sub_project a owl:Class ;
 	rdfs:subClassOf :Project ;
 	rdfs:label "Sub-Project"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Subnational
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Subnational
 
 :Subnational a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "Subnational"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Substrate
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Substrate
 
 :Substrate a owl:Class ;
 	rdfs:subClassOf :Environment ;
 	rdfs:label "Substrate"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Surveillance_site
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Surveillance_site
 
 :Surveillance_site a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "Surveillance Site"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Swab
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Swab
 
 :Swab a owl:Class ;
 	rdfs:subClassOf :Faecal ;
 	rdfs:label "Swab" .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Swan
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Swan
 
 :Swan a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Swan" .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Thigh
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Thigh
 
 :Thigh a owl:Class ;
 	rdfs:subClassOf :Meat_cut ;
 	rdfs:comment "There are different kinds of thigh cuts so it needs its own class" ;
 	rdfs:label "Thigh"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Trumpeter_swan
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Trumpeter_swan
 
 :Trumpeter_swan a owl:Class ;
 	rdfs:subClassOf :Swan ;
 	rdfs:label "Trumpeter Swan"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Turkey
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Turkey
 
 :Turkey a owl:Class ;
 	rdfs:subClassOf :Avian ;
 	rdfs:label "Turkey"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Water
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Water
 
 :Water a owl:Class ;
 	rdfs:subClassOf :Environment ;
 	rdfs:label "Water"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Watershed
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Watershed
 
 :Watershed a owl:Class ;
 	rdfs:subClassOf :Location ;
 	rdfs:label "Watershed"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#Weep
+# https://github.com/samuel-peers/campyOntology/blob/master/CampyOntology.owl#Weep
 
 :Weep a owl:Class ;
 	rdfs:subClassOf :By_product ;
 	rdfs:comment "There are different kinds of weep so it needs its own class" ;
 	rdfs:label "Weep"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_drug
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> rdfs:subClassOf :Object ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_drug> rdfs:subClassOf :Object ;
 	rdfs:label "AMR Drug"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug_property
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_drug_property
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug_property> a owl:Class ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#AMR_drug_property> a owl:Class ;
 	rdfs:subClassOf :Property ;
 	rdfs:label "AMR Drug Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Cluster
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Cluster> rdfs:subClassOf :Object ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster> rdfs:subClassOf :Object ;
 	rdfs:label "Cluster"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Cluster_property
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster_property
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Cluster_property> rdfs:subClassOf :Property ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Cluster_property> rdfs:subClassOf :Property ;
 	rdfs:label "Cluster Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#DrugMIC
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#DrugMIC
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#DrugMIC> rdfs:subClassOf :Object .
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#DrugMIC> rdfs:subClassOf :Object .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Lab_test
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Lab_test> rdfs:subClassOf :BIO_property , :Object ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test> rdfs:subClassOf :BIO_property , :Object ;
 	rdfs:label "Lab Test"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Lab_test_property
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test_property
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Lab_test_property> rdfs:subClassOf :Property ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Lab_test_property> rdfs:subClassOf :Property ;
 	rdfs:label "Lab Test Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_allele
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_allele> rdfs:subClassOf :Object ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele> rdfs:subClassOf :Object ;
 	rdfs:label "Typing Allele"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_allele_property
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele_property
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_allele_property> rdfs:subClassOf :Property ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_allele_property> rdfs:subClassOf :Property ;
 	rdfs:label "Typing Allele Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_gene
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_gene> rdfs:subClassOf :Object ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene> rdfs:subClassOf :Object ;
 	rdfs:label "Typing Gene"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_gene_property
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene_property
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_gene_property> rdfs:subClassOf :Property ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_gene_property> rdfs:subClassOf :Property ;
 	rdfs:label "Typing Gene Property"@en .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_lab
+# https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_lab
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_lab> rdfs:subClassOf :Location ;
+<https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl#Typing_lab> rdfs:subClassOf :Location ;
 	rdfs:label "Typing Lab"@en .
 # 
 # Generated by the OWL API (version 4.2.1.20160306-0033) https://github.com/owlcs/owlapi
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Asp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Asp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Asp" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Gln> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Gln> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Gln" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Glt> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Glt> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Glt" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Gly> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Gly> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Gly" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Pgm> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Pgm> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Pgm" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Tkt> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Tkt> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Tkt" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Unc_atpA> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Unc_atpA> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Unc (atpA)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flaA_SVR> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flaA_SVR> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "flaA SVR" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flaPeptide> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flaPeptide> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "flaPeptide" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#porA> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#porA> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "porA" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#MOMP> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#MOMP> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "MOMP" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0008_486bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0008_486bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0008 (486bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0033_206bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0033_206bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0033 (206bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0035_541bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0035_541bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0035 (541bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0057_175bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0057_175bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0057 (175bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0177_399bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0177_399bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0177 (399bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0181_486bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0181_486bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0181 (486bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0264_406bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0264_406bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0264 (406bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0297c_300bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0297c_300bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0297c (300bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0298c_198bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0298c_198bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0298c (198bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0307_347bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0307_347bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0307 (347bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0421c_127bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0421c_127bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0421c (127bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0483_612bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0483_612bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0483 (612bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0486_301bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0486_301bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0486 (301bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0566_558bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0566_558bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0566 (558bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0569_399bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0569_399bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0569 (399bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0570_405bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0570_405bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0570 (405bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0625_498bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0625_498bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0625 (498bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0728_296bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0728_296bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0728 (296bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0733_441bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0733_441bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0733 (441bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0736_205bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0736_205bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0736 (205bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0755_101bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0755_101bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0755 (101bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0860_282bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0860_282bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0860 (282bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0967_301bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0967_301bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0967 (301bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1134_152bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1134_152bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1134 (152bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1136_510bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1136_510bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1136 (510bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1141_413bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1141_413bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1141 (413bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1294_160bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1294_160bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1294 (160bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1324_440bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1324_440bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1324 (440bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1329_307bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1329_307bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1329 (307bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1334_462bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1334_462bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1334 (462bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1427c_613bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1427c_613bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1427c (613bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1431c_307bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1431c_307bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1431c (307bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1439_307bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1439_307bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1439 (307bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1550c_188bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1550c_188bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1550c (188bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1551_241bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1551_241bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1551 (241bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1552_222bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1552_222bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1552 (222bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1585_630bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1585_630bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1585 (630bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1679_529bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1679_529bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1679 (529bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1721_415bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1721_415bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1721 (415bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1727c_369bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1727c_369bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1727c (369bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#azm> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#chl> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cip> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cli> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#ery> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flr> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#gen> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#nal> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#tel> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#tet> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Asp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Asp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Asp" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Gln> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Gln> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Gln" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Glt> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Glt> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Glt" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Gly> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Gly> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Gly" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Pgm> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Pgm> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Pgm" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Tkt> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Tkt> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Tkt" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Unc_atpA> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Unc_atpA> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "Unc (atpA)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flaA_SVR> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flaA_SVR> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "flaA SVR" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flaPeptide> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flaPeptide> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "flaPeptide" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#porA> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#porA> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "porA" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#MOMP> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#MOMP> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "MOMP" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0008_486bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0008_486bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0008 (486bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0033_206bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0033_206bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0033 (206bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0035_541bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0035_541bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0035 (541bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0057_175bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0057_175bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0057 (175bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0177_399bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0177_399bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0177 (399bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0181_486bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0181_486bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0181 (486bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0264_406bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0264_406bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0264 (406bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0297c_300bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0297c_300bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0297c (300bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0298c_198bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0298c_198bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0298c (198bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0307_347bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0307_347bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0307 (347bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0421c_127bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0421c_127bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0421c (127bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0483_612bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0483_612bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0483 (612bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0486_301bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0486_301bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0486 (301bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0566_558bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0566_558bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0566 (558bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0569_399bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0569_399bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0569 (399bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0570_405bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0570_405bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0570 (405bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0625_498bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0625_498bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0625 (498bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0728_296bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0728_296bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0728 (296bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0733_441bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0733_441bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0733 (441bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0736_205bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0736_205bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0736 (205bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0755_101bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0755_101bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0755 (101bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0860_282bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0860_282bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0860 (282bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0967_301bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj0967_301bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj0967 (301bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1134_152bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1134_152bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1134 (152bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1136_510bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1136_510bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1136 (510bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1141_413bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1141_413bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1141 (413bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1294_160bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1294_160bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1294 (160bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1324_440bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1324_440bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1324 (440bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1329_307bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1329_307bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1329 (307bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1334_462bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1334_462bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1334 (462bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1427c_613bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1427c_613bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1427c (613bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1431c_307bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1431c_307bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1431c (307bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1439_307bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1439_307bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1439 (307bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1550c_188bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1550c_188bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1550c (188bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1551_241bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1551_241bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1551 (241bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1552_222bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1552_222bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1552 (222bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1585_630bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1585_630bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1585 (630bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1679_529bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1679_529bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1679 (529bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1721_415bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1721_415bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1721 (415bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1727c_369bp> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cj1727c_369bp> <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasName> "cj1727c (369bp)" .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#azm> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#chl> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cip> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#cli> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#ery> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#flr> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#gen> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#nal> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#tel> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#tet> rdf:type owl:NamedIndividual , <https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug> .

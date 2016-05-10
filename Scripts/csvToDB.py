@@ -148,7 +148,7 @@ def arguments(max_):
 ####################################################################################################
 def main():
 
-    df = pd.read_csv(r"/home/student/Campy/CSVs/2016-02-10 CGF_DB_22011_2.csv")
+    df = pd.read_csv(r"/home/student/Campy/CSVs/2016-02-10 CGF_DB_22011.csv")
 
     max_rows = df["Strain Name"].count()
 

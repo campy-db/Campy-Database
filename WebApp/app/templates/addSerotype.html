@@ -1,0 +1,17 @@
+
+<div class=section>Drug Resistance Data</div>
+
+<p class=field>
+
+  <span>
+    Serotype 
+    {{ form.antigen(size=11, placeholder = 'antigen') }}{{ form.serotype(size=29, placeholder = 'serotype') }}
+  </span>
+  {% for error in form.serotype.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+  {% for error in form.antigen.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+</p>

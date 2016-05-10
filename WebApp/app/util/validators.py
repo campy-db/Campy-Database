@@ -9,10 +9,12 @@
 # pylint: disable=W0613
 
 from wtforms.validators import ValidationError, Regexp
-from ..shared.valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES
+from ..shared.valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES, ANTIGENS
 from ..sparql import queries as q
 from ..shared.shared_validators import validSpecies, validBinaryFP, validSource, genValue,\
-                                       validPostalCode, checkGenAnimal, checkGenType, validMIC
+                                       validPostalCode, checkGenAnimal, checkGenType, validMIC,\
+                                       validAntigen, validSero
+
 from ..shared.extractValue import getSpecies, getAnimal, getType
 
 ####################################################################################################
@@ -254,14 +256,9 @@ def postalCode():
 
 def micValue():
     def _validMIC(form, field):
-        print("BEFORE>>>>>>>>>>>>>")
-        print("SPEC EVALUATION: " + str(form.spec.data == (u"")))
-        print("SPEC DATA TYPE: " + str(type(form.spec.data)))
-        print("<<<<<<<<<<<<<ATTEMPT VALIDATION 2>>>>>>>>>>>")
         value = field.data
         drug = field.name
 
-        
         if (form.spec.data == (u"")):
             valid, message = validMIC(value, drug)
         else:
@@ -271,4 +268,27 @@ def micValue():
             raise ValidationError(message)
 
     return _validMIC
+
+def antigenType():
+    def _validAntigen(form, field):
+        antigen = field.data
+        valid, message = validAntigen(antigen)
+
+        if not valid:
+            raise ValidationError(message)
+
+    return _validAntigen
+
+def seroValue():
+    def _validSero(form, field):
+        serotype = field.data
+        valid, message = validSero(serotype)
+
+        if not valid:
+            raise ValidationError(message)
+
+    return _validSero        
+ 
+            
+
 

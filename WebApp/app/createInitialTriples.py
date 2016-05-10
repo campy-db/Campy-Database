@@ -1,15 +1,25 @@
-#from .extractValue import getSpecies
-#from .shared_validators import validSpecies
+#!/usr/bin/env python
+from .shared.tripleWriters.createAntigenTriple import createAntigenTriple
 from Scripts.endpoint import update as update
+def createInitialTriples():
+    
+    #triple = createGeneTriples(df)
 
-def popVals(my_dict):
-    return {x:y for x, y in my_dict.iteritems() if y != ""}
+    #AMR
+    #triple += createDrugTriples(df)
+    triple = createAntigenTriple()
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>*******>>>>>" + triple)
+    return triple
+    #writeToBG(triple)
+    #for row in range(num_rows):
+    #    createTriples(df, row)
 
-#def isValidSpecies(name):
-#    spec, subspec, un_spec= getSpecies(name)
-#    valid, message = validSpecies(spec, subspec, un_spec)
-#    return valid
 
+
+
+# Just throws the triples into the owl file. Just for testing purposes. Later the triples will be
+# insterted into blazegraph.
+####################################################################################################
 def writeToOnt(t):
     print ("<<<<<<<<<<<<<<<<<<<<ATTEMPT>")
     with open("/home/student/CampyCopy/CampyDatabase/Ontologies/CampyOntology.owl", "a") as w:

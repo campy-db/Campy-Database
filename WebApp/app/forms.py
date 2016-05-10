@@ -13,8 +13,7 @@ from wtforms.fields.core import UnboundField
 from wtforms.validators import DataRequired, Optional 
 from app.util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
-range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue
-
+range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue, antigenType, seroValue
 NOW = datetime.datetime.now()
 
 def validate_mic(drug):
@@ -192,6 +191,9 @@ class AddForm(Form):
                                 ("f", "Female")])
 
     pID = StringField("pID", validators=[Optional(), nonemptySource()])
+    
+    serotype = StringField("serotype", validators=[Optional(), seroValue()])
+    antigen = StringField("antigen", validators = [Optional(), antigenType()])
 
 
 

@@ -8,6 +8,7 @@ from werkzeug import secure_filename
 from app import app, ALLOWED_EXTENSIONS
 from .sparql import data_queries as dq
 from .forms import AddForm, IsoNameForm, FilterIsoForm
+from .shared.util import writeToOnt
 import app.form_to_triple as ft
 import app.BatchUploader as Uploader
 
@@ -36,6 +37,7 @@ def add():
         triple = ft.formToTriple(form)
         #q.writeToBG(triple)
         print triple
+        #writeToOnt(triple)
         flash("Isolate added")
         return redirect("/index")
 
