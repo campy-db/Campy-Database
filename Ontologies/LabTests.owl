@@ -97,9 +97,8 @@
 # https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundSerotype
 
 :foundSerotype a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasSerotypeProperty ;
-	rdfs:domain :Serotype_test ;
-	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+	rdfs:subPropertyOf :hasSerotypeProperty ;
+	rdfs:domain :Serotype_test .
 # 
 # https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundSusceptibilityTo
 
@@ -134,6 +133,15 @@
 	rdfs:subPropertyOf :hasTypingTestProperty ;
 	rdfs:domain :Allelic_test ;
 	rdfs:range :Allelic_property .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasAntigen
+
+:hasAntigen a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasAntigenProperty .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasAntigenProperty
+
+:hasAntigenProperty a owl:ObjectProperty .
 # 
 # https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasBinaryProperty
 
@@ -227,6 +235,11 @@
 	rdfs:subPropertyOf :hasTypingTestProperty ;
 	rdfs:domain :PFGE ;
 	rdfs:range :PFGE_property .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasSerotype
+
+:hasSerotype a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasAntigenProperty .
 # 
 # https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasSerotypeProperty
 
@@ -350,6 +363,16 @@ _:genid1 a owl:Restriction ;
 :Allelic_typing_gene a owl:Class ;
 	rdfs:subClassOf :Typing_gene .
 # 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Antigen
+
+:Antigen a owl:Class ;
+	rdfs:subClassOf :Antigen_property .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Antigen_property
+
+:Antigen_property a owl:Class ;
+	rdfs:subClassOf :Lab_test_property .
+# 
 # https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Binary_property
 
 :Binary_property a owl:Class ;
@@ -441,6 +464,11 @@ _:genid1 a owl:Restriction ;
 
 :SMA1_test a owl:Class ;
 	rdfs:subClassOf :PFGE .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Serotype
+
+:Serotype a owl:Class ;
+	rdfs:subClassOf :Antigen_property .
 # 
 # https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Serotype_property
 
