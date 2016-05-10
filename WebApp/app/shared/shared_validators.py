@@ -249,7 +249,6 @@ def validSero(serotype):
     message = ""
     valid = True
     serotype = serotype.split(",")
-    #serotypes = {isInt(s) for s in serotype if s not ""}
     for s in serotype:
         if not isInt(s):
             valid = False
