@@ -5,9 +5,6 @@ from .dictionary.antigenDictionary import getAntigens
 from Scripts.tripleWriters.labTM import LAB as ltm
 
 
-def createAntigenTriple():
-    triple = ""
-    antigens = getAntigens()
-    for a in antigens:
-        triple += ltm.indTriple(a, "Antigen")
+def createAntigenTriple(antigen):
+    triple = ltm.indTriple(antigen, "Antigen")
     return triple

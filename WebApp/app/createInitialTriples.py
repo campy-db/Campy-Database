@@ -1,14 +1,18 @@
 #!/usr/bin/env python
 from .shared.tripleWriters.createAntigenTriple import createAntigenTriple
 from Scripts.endpoint import update as update
+from .shared.tripleWriters.dictionary.antigenDictionary import getAntigens
 def createInitialTriples():
     
     #triple = createGeneTriples(df)
 
     #AMR
-    #triple += createDrugTriples(df)
-    triple = createAntigenTriple()
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>*******>>>>>" + triple)
+    #triple += createDrugTriples(df)\
+    triple = ""
+    antigens = getAntigens()
+    for a in antigens:
+        triple += createAntigenTriple(a)
+        
     return triple
     #writeToBG(triple)
     #for row in range(num_rows):
