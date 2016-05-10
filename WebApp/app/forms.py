@@ -67,13 +67,6 @@ class AddForm(Form):
                 if addError:
                     self.source.errors.append(e.args[0])
 
-            #try:
-            #    micValue(self, self.source)
-            #except ValueError as e:
-            #    gen_result = False
-            #    if addError:
-            #        self.source.errors.append(e.args[0])
-
             try:
                 genSample(self, self.source, other_errors)
             except ValueError as e:
@@ -90,7 +83,7 @@ class AddForm(Form):
         return result
 
     name = StringField("name", validators=[DataRequired(), specialChars("<>")])
-    print dir(name)
+
     spec = StringField("spec", validators=[Optional(), species()])
 
     fp = StringField("fp", validators=\
@@ -109,13 +102,8 @@ class AddForm(Form):
     # <<<<<NOTE>>>>> THIS SECTION REQUIRES REFACTORING
     ################################################################################################
     # drugs = ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet']
-    
-    try: 
-        print ("spec: " + spec)
-    except:
-        print ("failed to print spec")
-    #if(isinstance(spec, UnboundField)):
-    #print("<<<<<<UNBOUND>>>>>>")
+    # resistance = {drug:validate_mic(drug) for drug in drugs}
+
     azm = validate_mic("azm")
     chl = validate_mic("chl")
     cip = validate_mic("cip")
@@ -126,19 +114,7 @@ class AddForm(Form):
     nal = validate_mic("nal")
     tel = validate_mic("tel")
     tet = validate_mic("tet")
-        # resistance = {drug:validate_mic(drug) for drug in drugs}
-        # print(dir(resistance["azm"]))
 
-
-    # chl = StringField("chl", validators=[micValue(spec)])
-    # cip = StringField("cip", validators=[micValue(spec)])
-    # cli = StringField("cli", validators=[micValue(spec)])
-    # ery = StringField("ery", validators=[micValue(spec)])
-    # flr = StringField("flr", validators=[micValue(spec)])
-    # gen = StringField("gen", validators=[micValue(spec)])
-    # nal = StringField("nal", validators=[micValue(spec)])
-    # tel = StringField("tel", validators=[micValue(spec)])
-    # tet = StringField("tet", validators=[micValue(spec)])
     ################################################################################################
 
     lab = StringField("lab")

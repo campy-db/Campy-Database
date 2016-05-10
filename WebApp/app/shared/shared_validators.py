@@ -235,7 +235,6 @@ def validAntigen(antigen):
     if not antigen in ANTIGENS:
         valid = False
         message = "Antigen is not among list of allowed antigens. Currently allowed antigens are " + str(ANTIGENS) + "."
-    print ("ANTIGEN VALID: " + str(valid))
     return valid, message
 
 def validSero(serotype):
@@ -254,6 +253,5 @@ def validSero(serotype):
             valid = False
             message = "Serotypes must be entered as integers seperated by a comma (no spaces)."
             break
-    print ("SEROTYPE VALID: " + str(valid))
     return valid, message
     
