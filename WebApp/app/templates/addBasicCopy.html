@@ -20,18 +20,33 @@
   {% for error in form.spec.errors %}
     <br><span style="color: #db4437;">[{{ error }}]</span>
   {% endfor %}
+
   <br><br>
   <span>
-  {{ form.date.label }}
-  {% for field in form.date %}
-    {{ field(size = 11, placeholder = field.description) }}
-  {% endfor %}
+    Date Completed 
+  
+    {{ form.isy(size=11, placeholder = 'Year') }} 
+    {{ form.ism(size=11, placeholder = 'Month') }} 
+    {{ form.isd(size=11, placeholder = 'Day') }}
   </span>
 
-  {% for field in form.date %}
-    {% for error in field.errors %}
-      <br><span style="color: #db4437;">[{{ error }}]</span>
-    {% endfor %}
+  {% for error in form.isy.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
   {% endfor %}
+  <br>
+  {% for error in form.ism.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+  <br>
+  {% for error in form.isd.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+
+
+
+
+
+
   <br>
 </p>

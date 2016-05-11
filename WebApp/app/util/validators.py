@@ -13,9 +13,37 @@ from ..shared.valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES, A
 from ..sparql import queries as q
 from ..shared.shared_validators import validSpecies, validBinaryFP, validSource, genValue,\
                                        validPostalCode, checkGenAnimal, checkGenType, validMIC,\
-                                       validAntigen, validSero
+                                       validAntigen, validSero, validLogicalDate
 
 from ..shared.extractValue import getSpecies, getAnimal, getType
+
+class Requires(object):
+    """
+    Compares the values of two fields.
+    :param fieldname:
+        The name of the other field to compare to.
+    :param message:
+        Error message to raise in case of a validation error. Can be
+        interpolated with `%(other_label)s` and `%(other_name)s` to provide a
+        more helpful error.
+    """
+    def __init__(self, fieldname, message=None):
+        self.fieldname = fieldname
+        self.message = message
+
+    def __call__(self, form, field):
+        try:
+            other = form[self.fieldname]
+        except KeyError:
+            raise ValidationError(field.gettext("Invalid field name '%s'.") % self.fieldname)
+        if not other.data:
+            d = {
+                'other_label': hasattr(other, 'label') and other.label.text or self.fieldname,
+                'other_name': self.fieldname
+            }
+            message = field.name + " requires the field " + d["other_name"]
+            print ("MESSAGE: " + message)
+            raise ValidationError(message)
 
 ####################################################################################################
 # Raises an error if the field value does not contain any of the characters in bad_chars.
@@ -289,6 +317,23 @@ def seroValue():
 
     return _validSero        
  
+def logicalDate():
+    def _logicalDate(form, field):
+        day = form.isd.data
+        month = form.ism.data
+        year = form.isy.data
+
+        valid, message = validLogicalDate(year, month, day)
+
+        if not valid:
+            raise ValidationError(message)
+    
+    return _logicalDate
+
+
+
+
+
             
 
 

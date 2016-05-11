@@ -8,17 +8,26 @@
 import datetime
 
 from flask_wtf import Form
-from wtforms import StringField, BooleanField, SelectField
+from wtforms import StringField, BooleanField, SelectField, IntegerField, FormField, SubmitField
 from wtforms.fields.core import UnboundField
-from wtforms.validators import DataRequired, Optional 
+from wtforms.validators import DataRequired, Optional, ValidationError
 from app.util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
-range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue, antigenType, seroValue
+range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue, antigenType, seroValue,\
+logicalDate, Requires
 NOW = datetime.datetime.now()
 
 def validate_mic(drug):
     return StringField(drug, validators=[micValue(), Optional()])
+    
+class DrugForm(Form):
+    drugs = ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet']
+    resistance = {drug:validate_mic(drug) for drug in drugs}
 
+class DateForm(Form):
+    year = IntegerField('Year', validators=[Optional()], description = "yyyy")
+    month = IntegerField('Month', validators=[Optional(), Requires('year')], description = "mm")
+    day = IntegerField('Day', validators=[Optional(), Requires('year'), Requires('month')], description = "dd")
 
 ####################################################################################################
 # A form for filtering isolates on the names.html page
@@ -98,11 +107,12 @@ class AddForm(Form):
     dcd = StringField("dcd", validators=\
     	                     [Optional(), digit("Day"), range_("Day", 1, 31)])
 
+
     ################################################################################################
     # <<<<<NOTE>>>>> THIS SECTION REQUIRES REFACTORING
     ################################################################################################
-    # drugs = ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet']
-    # resistance = {drug:validate_mic(drug) for drug in drugs}
+    drugs = ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet']
+    resistance = {drug:validate_mic(drug) for drug in drugs}
 
     azm = validate_mic("azm")
     chl = validate_mic("chl")
@@ -170,6 +180,8 @@ class AddForm(Form):
     
     serotype = StringField("serotype", validators=[Optional(), seroValue()])
     antigen = StringField("antigen", validators = [Optional(), antigenType()])
+    ism = StringField("ism", validators=[Optional()])
+    isd = StringField("isd", validators=[Optional(), Requires("ism")])
+    isy = StringField("isy", validators=[Optional()])
 
-
-
+    date = FormField(DateForm, label="Date Taken: ")

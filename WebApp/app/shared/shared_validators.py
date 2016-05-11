@@ -255,3 +255,26 @@ def validSero(serotype):
             break
     return valid, message
     
+def validLogicalDate(year, month, day):
+    message = ""
+    valid = True
+    print ("YEAR type: "  + str(type(year)))
+    print ("MONTH type: "  + str(type(month)))
+    print ("DAY type: "  + str(type(day)))
+
+
+
+    if day:
+        if not month:
+            valid = False
+            message += "Month is required. "
+        if not year:
+            valid = False
+            message += "Year is required. "
+    elif month:
+        if not year:
+            valid = False
+            message += "Year is required. "
+
+
+    return valid, message

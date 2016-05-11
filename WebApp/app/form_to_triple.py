@@ -27,6 +27,16 @@ def formToTriple(form):
 
     triple.append(createIsolateTriple(iso_title, spec_str))
 
+    year = int(form.isy.data) if form.isy.data else 0
+    month = int(form.ism.data) if form.ism.data else 0
+    day = int(form.isd.data) if form.isd.data else 0
+
+    date_data = {
+
+    }
+    #triple.append(createDTakenTriple(iso_title,))
+
+
     def formSerotype():
         serotype = str(form.serotype.data) if form.fp.data else ""
         antigen = str(form.antigen.data) if form.antigen.data else ""
