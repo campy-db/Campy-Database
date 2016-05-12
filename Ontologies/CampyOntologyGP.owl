@@ -5,7 +5,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/CampyOntology.owl> a owl:Ontology ;
+<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl> a owl:Ontology ;
 	owl:imports <https://github.com/samuel-peers/campyOntology/blob/master/LabTests.owl> ;
 	rdfs:comment """An ontology for storing information related to Campylobacter Jejuni. The main categories of info are: EPI data (source type, source location, isolation date etc.), BIO data (typing results, AMR info etc.), and LIMS data (typing lab, project etc.). 
 Most fields are derived from the csv \"database\" 2016-02-10_CGF_DB_22011.csv."""^^xsd:string .
