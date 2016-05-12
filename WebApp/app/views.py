@@ -37,7 +37,7 @@ def add():
         triple = ft.formToTriple(form)
         #q.writeToBG(triple)
         print triple
-        #writeToOnt(triple)
+        writeToOnt(triple)
         flash("Isolate added")
         return redirect("/index")
 

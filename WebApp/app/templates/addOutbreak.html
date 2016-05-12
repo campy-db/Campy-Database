@@ -1,0 +1,37 @@
+
+<div class=section>Basic Data</div>
+
+<p class=field>
+  <span>  
+    Outbreak Name: {{ form.outbreakName(size=40) }}
+  </span>
+
+  <br><br>
+
+  {{ form.outbreakDateLowerBound.label }}
+  {% for field in form.outbreakDateLowerBound %}
+    {{ field(size = 11, placeholder = field.description) }}
+  {% endfor %}
+  </span>
+
+  {% for field in form.outbreakDateLowerBound %}
+    {% for error in field.errors %}
+      <br><span style="color: #db4437;">[{{ error }}]</span>
+    {% endfor %}
+  {% endfor %}
+
+  <br><br>
+  
+  {{ form.outbreakDateUpperBound.label }}
+  {% for field in form.outbreakDateUpperBound %}
+    {{ field(size = 11, placeholder = field.description) }}
+  {% endfor %}
+  </span>
+
+  {% for field in form.outbreakDateUpperBound %}
+    {% for error in field.errors %}
+      <br><span style="color: #db4437;">[{{ error }}]</span>
+    {% endfor %}
+  {% endfor %}
+  <br>
+</p>

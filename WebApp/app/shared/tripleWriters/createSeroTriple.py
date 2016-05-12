@@ -7,8 +7,8 @@ def createSeroTriple(isoTitle, serotype, antigen):
     seroTitle = "{}_{}".format(serotype, antigen)
     if serotype and antigen:
         triple += ltm.indTriple(seroTitle, "Serotype_test")
-        triple += ltm.propTriple(seroTitle, {"hasSerotype":"0"}, True, True)
-        triple += ltm.propTriple(seroTitle, {"hasAntigen":"O"})
+        triple += ltm.propTriple(seroTitle, {"hasSerotype":serotype}, True, True)
+        triple += ltm.propTriple(seroTitle, {"hasAntigen":antigen})
         triple += ltm.propTriple(title, {"foundSerotype":seroTitle})
         triple += tm.multiURI((isoTitle, "hasLabTest", title), (ctm.uri, ctm.uri, ltm.uri))
 

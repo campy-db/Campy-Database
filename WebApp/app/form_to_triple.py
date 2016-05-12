@@ -28,13 +28,22 @@ def formToTriple(form):
     triple.append(createIsolateTriple(iso_title, spec_str))
     triple.append(createDTakenTriple(iso_title, form.date.data))
 
+    def formOutbreak():
+        data = {"name":form.outbreakName,
+                "lower":form.outbreakDateLowerBound,
+                "upper":form.outbreakDateUpperBound}
+        return createOutbreakTriple(iso_title, data)
+
+
 
     def formSerotype():
-        serotype = str(form.serotype.data) if form.fp.data else ""
+        serotype = str(form.serotype.data) if form.serotype.data else ""
         antigen = str(form.antigen.data) if form.antigen.data else ""
         serotypes = serotype.split(",")
         triples = ""
+        print "SEEEEEERRRRRRRRRRRROOOOOOOO " + serotype
         for s in serotypes:
+            print("s value IS " + s)
             triples += createSeroTriple(iso_title, s, antigen)
         return triples
 
@@ -157,6 +166,6 @@ def formToTriple(form):
             if human:
                 return formHumanSource(human, source)
 
-    triple.append(" ".join([formCGF(), formDrugResistance(), formSource(), createInitialTriples(), formSerotype()]))
+    triple.append(" ".join([formCGF(), formDrugResistance(), formSource(), formSerotype(), formOutbreak()]))
 
     return "".join(triple)

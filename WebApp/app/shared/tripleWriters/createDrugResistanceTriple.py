@@ -43,10 +43,12 @@ def createDrugResistanceTriple(data, isoTitle, species):
             triples += [ltm.indTriple(testTitle, "AMR_test"),
                 tm.multiURI((isoTitle, "hasLabTest", testTitle), (ctm.uri, ctm.uri, ltm.uri))]
         return "".join(triples)
-    else:
+    elif micTriples:
         micTriples += [ltm.indTriple(testTitle, "AMR_test"),
             tm.multiURI((isoTitle, "hasLabTest", testTitle), (ctm.uri, ctm.uri, ltm.uri))]
         return "".join(micTriples)
+    else:
+        return ""
 
 
 

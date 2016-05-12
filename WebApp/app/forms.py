@@ -196,3 +196,6 @@ class AddForm(Form):
     antigen = StringField("antigen", validators = [Optional(), antigenType()])
 
     date = FormField(DateForm, label="Date Taken: ")
+    outbreakName = StringField("outbreakName", validators=[Optional()])
+    outbreakDateLowerBound = FormField(DateForm, label="Outbreak date start: ")
+    outbreakDateUpperBound = FormField(DateForm, label="Outbreak date end (optional): ")
