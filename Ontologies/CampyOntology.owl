@@ -279,6 +279,75 @@ I just considered domestic to mean dogs and other pets.""" .
 	rdfs:domain :Isolate ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakDate
+
+:hasOutbreakDate a owl:ObjectProperty ;
+	rdfs:subPropertyOf :partOfOutbreak .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakDateLowerBound
+
+:hasOutbreakDateLowerBound a owl:ObjectProperty ;
+	rdfs:subPropertyOf :partOfOutbreak .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakDateUpperBound
+
+:hasOutbreakDateUpperBound a owl:ObjectProperty ;
+	rdfs:subPropertyOf :partOfOutbreak .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakDay
+
+:hasOutbreakDay a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDate ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakDayLowerBound
+
+:hasOutbreakDayLowerBound a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDateLowerBound ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakDayUpperBound
+
+:hasOutbreakDayUpperBound a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDateUpperBound ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakMonth
+
+:hasOutbreakMonth a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDate ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakMonthLowerBound
+
+:hasOutbreakMonthLowerBound a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDateLowerBound ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakMonthUpperBound
+
+:hasOutbreakMonthUpperBound a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDateUpperBound ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakYear
+
+:hasOutbreakYear a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDate ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakYearLowerBound
+
+:hasOutbreakYearLowerBound a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDateLowerBound ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
+# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasOutbreakYearUpperBound
+
+:hasOutbreakYearUpperBound a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasOutbreakDateUpperBound ;
+	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
+# 
 # https://github.com/campy-db/Campy-Database/blob/master/Ontologies/CampyOntology.owl#hasPatientID
 
 :hasPatientID a owl:ObjectProperty ;
