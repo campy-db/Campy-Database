@@ -24,48 +24,11 @@
     {{ form.tet(size=11, placeholder = 'mic_tet') }} 
   </span>
 
-  {% for error in form.azm.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% for field in form %}
+    {% if field.id in ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet'] %}
+      {% for error in field.errors %}
+        <br><span style="color: #db4437;">[{{ error }}]</span>
+      {% endfor %}
+    {% endif %}
   {% endfor %}
-
-  {% for error in form.chl.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  {% for error in form.cip.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  {% for error in form.cli.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  {% for error in form.ery.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  {% for error in form.flr.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  {% for error in form.gen.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  {% for error in form.nal.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  {% for error in form.tel.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  {% for error in form.tet.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-
-
-  
-
 </p>

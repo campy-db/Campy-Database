@@ -14,20 +14,33 @@ from wtforms.validators import DataRequired, Optional, ValidationError
 from app.util.validators import\
 source_, specialChars, species, length, digit, fpBinary,\
 range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue, antigenType, seroValue,\
-logicalDate, Requires
+dateTaken, Requires
 NOW = datetime.datetime.now()
 
 def validate_mic(drug):
-    return StringField(drug, validators=[micValue(), Optional()])
+    return StringField(drug, validators=[micValue(), Optional()], description = drug)
     
-class DrugForm(Form):
-    drugs = ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet']
-    resistance = {drug:validate_mic(drug) for drug in drugs}
+# class DrugForm(Form):
+#     azm = validate_mic("azm")
+#     chl = validate_mic("chl")
+#     cip = validate_mic("cip")
+#     cli = validate_mic("cli")
+#     ery = validate_mic("ery")
+#     flr = validate_mic("flr")
+#     gen = validate_mic("gen")
+#     nal = validate_mic("nal")
+#     tel = validate_mic("tel")
+#     tet = validate_mic("tet")
 
 class DateForm(Form):
-    year = IntegerField('Year', validators=[Optional()], description = "yyyy")
-    month = IntegerField('Month', validators=[Optional(), Requires('year')], description = "mm")
-    day = IntegerField('Day', validators=[Optional(), Requires('year'), Requires('month')], description = "dd")
+    year = StringField('Year', validators=[Optional(), range_("Year", 1900, NOW.year), dateTaken()],\
+        description = "yyyy")
+
+    month = StringField('Month', validators=[Optional(), Requires('year'), range_("Month", 1, 12),\
+        dateTaken()], description = "mm")
+
+    day = StringField('Day', validators=[Optional(), Requires('year'), Requires('month'),\
+        dateTaken(), range_("Day", 1, 31)], description = "dd")
 
 ####################################################################################################
 # A form for filtering isolates on the names.html page
@@ -111,8 +124,10 @@ class AddForm(Form):
     ################################################################################################
     # <<<<<NOTE>>>>> THIS SECTION REQUIRES REFACTORING
     ################################################################################################
-    drugs = ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet']
-    resistance = {drug:validate_mic(drug) for drug in drugs}
+    # drugs = ['azm', 'chl', 'cip', 'cli', 'ery', 'flr', 'gen', 'nal', 'tel', 'tet']
+    # resistance = {drug:validate_mic(drug) for drug in drugs}
+
+    # drugs = FormField(DrugForm, label="Drug resistance: ")
 
     azm = validate_mic("azm")
     chl = validate_mic("chl")
@@ -124,7 +139,6 @@ class AddForm(Form):
     nal = validate_mic("nal")
     tel = validate_mic("tel")
     tet = validate_mic("tet")
-
     ################################################################################################
 
     lab = StringField("lab")
@@ -180,8 +194,5 @@ class AddForm(Form):
     
     serotype = StringField("serotype", validators=[Optional(), seroValue()])
     antigen = StringField("antigen", validators = [Optional(), antigenType()])
-    ism = StringField("ism", validators=[Optional()])
-    isd = StringField("isd", validators=[Optional(), Requires("ism")])
-    isy = StringField("isy", validators=[Optional()])
 
     date = FormField(DateForm, label="Date Taken: ")

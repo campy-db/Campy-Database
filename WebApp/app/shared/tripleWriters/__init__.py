@@ -7,3 +7,4 @@ from util import popVals
 from createDrugResistanceTriple import createDrugResistanceTriple
 from createAntigenTriple import createAntigenTriple
 from createSeroTriple import createSeroTriple
+from createDTakenTriple import createDTakenTriple

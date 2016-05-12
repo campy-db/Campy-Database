@@ -208,7 +208,7 @@ def validMIC(value, drug, species=None):
         float(micValue)
     except ValueError:
         isFloat = False
-        message += "Invalid MIC value. "
+        message += "Invalid MIC value for field " + drug + "."
         valid = False
     if isFloat:
         if float(micValue) <= 0:
@@ -255,26 +255,13 @@ def validSero(serotype):
             break
     return valid, message
     
-def validLogicalDate(year, month, day):
+def validDate(value, dateType):
     message = ""
     valid = True
-    print ("YEAR type: "  + str(type(year)))
-    print ("MONTH type: "  + str(type(month)))
-    print ("DAY type: "  + str(type(day)))
-
-
-
-    if day:
-        if not month:
-            valid = False
-            message += "Month is required. "
-        if not year:
-            valid = False
-            message += "Year is required. "
-    elif month:
-        if not year:
-            valid = False
-            message += "Year is required. "
-
+    try:
+        int(value)
+    except ValueError:
+        message += dateType + " must be an integer (whole number) value."
+        valid = False
 
     return valid, message

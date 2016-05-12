@@ -26,15 +26,7 @@ def formToTriple(form):
     spec_str = str(form.spec.data) if form.spec.data else ""
 
     triple.append(createIsolateTriple(iso_title, spec_str))
-
-    year = int(form.isy.data) if form.isy.data else 0
-    month = int(form.ism.data) if form.ism.data else 0
-    day = int(form.isd.data) if form.isd.data else 0
-
-    date_data = {
-
-    }
-    #triple.append(createDTakenTriple(iso_title,))
+    triple.append(createDTakenTriple(iso_title, form.date.data))
 
 
     def formSerotype():

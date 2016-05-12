@@ -1,6 +1,6 @@
 from Scripts.tripleWriters.campyTM import CAMPY as ctm
 
-def createDTakenTriple(isoTitle, data):
+def createDTakenTriples(isoTitle, data):
     triple = ""
 
     if data["day"]:

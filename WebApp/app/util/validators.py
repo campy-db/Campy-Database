@@ -13,7 +13,7 @@ from ..shared.valid_values import GEN_ANIMALS, SAMPLE_TYPES, GEN_SAMPLE_TYPES, A
 from ..sparql import queries as q
 from ..shared.shared_validators import validSpecies, validBinaryFP, validSource, genValue,\
                                        validPostalCode, checkGenAnimal, checkGenType, validMIC,\
-                                       validAntigen, validSero, validLogicalDate
+                                       validAntigen, validSero, validDate
 
 from ..shared.extractValue import getSpecies, getAnimal, getType
 
@@ -317,18 +317,17 @@ def seroValue():
 
     return _validSero        
  
-def logicalDate():
-    def _logicalDate(form, field):
-        day = form.isd.data
-        month = form.ism.data
-        year = form.isy.data
+def dateTaken():
+    def _validDate(form, field):
+        value = field.data
+        dateType = field.name
 
-        valid, message = validLogicalDate(year, month, day)
+        valid, message = validDate(value, dateType)
 
         if not valid:
             raise ValidationError(message)
     
-    return _logicalDate
+    return _validDate
 
 
 
