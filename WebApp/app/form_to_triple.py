@@ -27,7 +27,12 @@ def formToTriple(form):
 
     triple.append(createIsolateTriple(iso_title, spec_str))
     triple.append(createDTakenTriple(iso_title, form.date.data))
-
+    def formMLSTGenes():
+        data = {"Clonal Complex":form.clonalComplex.data,
+                "ST":form.st.data,
+                "Genes":form.genes.data}
+        pass
+        #return createMLSTTriple(iso_title, form.mlst.data)
     def formOutbreak():
         data = {"name":form.outbreakName,
                 "lower":form.outbreakDateLowerBound,
@@ -43,7 +48,6 @@ def formToTriple(form):
         antigen = str(form.antigen.data) if form.antigen.data else ""
         serotypes = serotype.split(",")
         triples = ""
-        print "SEEEEEERRRRRRRRRRRROOOOOOOO " + serotype
         for s in serotypes:
             print("s value IS " + s)
             triples += createSeroTriple(iso_title, s, antigen)

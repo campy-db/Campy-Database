@@ -1,0 +1,31 @@
+
+<div class=section>Typing Data</div>
+
+<p class=field>
+  Clonal Complex: 
+  {{ form.clonalComplex}}
+  {% for error in form.clonalComplex.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+  <br><br>
+  ST: 
+  {{ form.st}}
+  {% for error in form.st.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+  <br><br>
+  <span>
+  {{ form.mlstGenes.label }}
+  <br>
+  {% for field in form.mlstGenes %}
+    {{ field(size = 11, placeholder = field.description) }}
+  {% endfor %}
+  </span>
+
+  {% for field in form.mlstGenes %}
+    {% for error in field.errors %}
+      <br><span style="color: #db4437;">[{{ error }}]</span>
+    {% endfor %}
+  {% endfor %}
+  <br>
+</p>

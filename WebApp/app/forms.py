@@ -16,6 +16,7 @@ source_, specialChars, species, length, digit, fpBinary,\
 range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue, antigenType, seroValue,\
 dateTaken, Requires
 NOW = datetime.datetime.now()
+from .shared.tripleWriters.dictionary.geneDictionary import getRGenes, getMLSTGenes
 
 def validate_mic(drug):
     return StringField(drug, validators=[micValue(), Optional()], description = drug)
@@ -31,6 +32,29 @@ def validate_mic(drug):
 #     nal = validate_mic("nal")
 #     tel = validate_mic("tel")
 #     tet = validate_mic("tet")
+
+subclass = {}
+def generateStringFields(formName, dict, validators):
+    i = 1
+    for g in dict:
+        exec("subclass[\"" + formName +"\"].field" + str(i) + "= StringField(\""+ g +"\", validators=["+validators+"],\
+        description = \"" +g + "\")")
+        i = i + 1
+
+def validateSubForm(formName, dict, validators = "", labelName = ""):
+    subclass[formName] = getSubform()
+    generateStringFields(formName, dict, validators)
+    if labelName:
+        return FormField(subclass[formName], label = labelName)
+    else:
+        return FormField(subclass[formName])
+
+#mlstGenes = validateSubForm("MLSTGenesForm", getMLSTGenes(), "Optional()")
+
+def getSubform():
+    class Subform(Form):
+        pass
+    return Subform
 
 class DateForm(Form):
     year = StringField('Year', validators=[Optional(), range_("Year", 1900, NOW.year), dateTaken()],\
@@ -141,6 +165,7 @@ class AddForm(Form):
     tet = validate_mic("tet")
     ################################################################################################
 
+
     lab = StringField("lab")
 
     silico = BooleanField("silico")
@@ -201,3 +226,14 @@ class AddForm(Form):
     outbreakDateUpperBound = FormField(DateForm, label="Outbreak date end (optional): ")
 
     sma1 = StringField("sma1", validators=[Optional()])
+    
+    rGenes = validateSubForm("RGenesForm", getRGenes(), "Optional()")
+
+    mlstGenes = validateSubForm("MLSTGenesForm", getMLSTGenes(), "Optional()")
+
+    clonalComplex = StringField("clonalComplex", validators=[Optional()])
+    st = StringField = StringField("ST", validators=[Optional()])
+
+
+
+

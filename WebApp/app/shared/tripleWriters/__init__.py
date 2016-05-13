@@ -11,3 +11,4 @@ from createDTakenTriple import createDTakenTriple
 from createOutbreakTriple import createOutbreakTriple
 from createSMATriple import createSMATriple
 from createDAddedTriple import createDAddedTriple
+from createMLSTTriple import createMLSTTriple
