@@ -9,3 +9,4 @@ from createAntigenTriple import createAntigenTriple
 from createSeroTriple import createSeroTriple
 from createDTakenTriple import createDTakenTriple
 from createOutbreakTriple import createOutbreakTriple
+from createSMATriple import createSMATriple

@@ -34,7 +34,9 @@ def formToTriple(form):
                 "upper":form.outbreakDateUpperBound}
         return createOutbreakTriple(iso_title, data)
 
-
+    def formSMA1():
+        pulsovar = form.sma1.data
+        return createSMATriple(iso_title, pulsovar)
 
     def formSerotype():
         serotype = str(form.serotype.data) if form.serotype.data else ""

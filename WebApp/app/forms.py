@@ -199,3 +199,5 @@ class AddForm(Form):
     outbreakName = StringField("outbreakName", validators=[Optional()])
     outbreakDateLowerBound = FormField(DateForm, label="Outbreak date start: ")
     outbreakDateUpperBound = FormField(DateForm, label="Outbreak date end (optional): ")
+
+    sma1 = StringField("sma1", validators=[Optional()])

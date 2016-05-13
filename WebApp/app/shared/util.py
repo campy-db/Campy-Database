@@ -23,5 +23,20 @@ def writeToBG(t):
     print update("insert data{"+t+"}")
     #print ("[TEST]: " + t)
 
-def main():
-    print("[INFO] Required population of the database has started. Please run this script only once.")
+def isGoodVal(v):
+    bad_words =\
+    ("", "none", "-", "unknown", "n/a", "n\\a", "#n/a",\
+     "#n\\a", "missing", "not given", "other", "na")
+
+    v = v.strip().lower() if not isNumber(v) else v
+
+    return v not in bad_words
+
+def isNumber(s):
+
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+

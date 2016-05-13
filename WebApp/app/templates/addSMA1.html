@@ -1,0 +1,12 @@
+
+<div class=section>SMA1</div>
+
+<p class=field>
+  <span>
+    Pfge Sma I  / Pulsovar {{ form.sma1(size=30) }}
+  </span>
+
+  {% for error in form.sma1.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+</p>
