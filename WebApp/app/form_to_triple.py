@@ -168,6 +168,6 @@ def formToTriple(form):
             if human:
                 return formHumanSource(human, source)
 
-    triple.append(" ".join([formCGF(), formDrugResistance(), formSource(), formSerotype(), formOutbreak()]))
+    triple.append(" ".join([formCGF(), formDrugResistance(), formSource(), formSerotype(), formOutbreak(), createDAddedTriple(iso_title)]))
 
     return "".join(triple)

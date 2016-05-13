@@ -10,3 +10,4 @@ from createSeroTriple import createSeroTriple
 from createDTakenTriple import createDTakenTriple
 from createOutbreakTriple import createOutbreakTriple
 from createSMATriple import createSMATriple
+from createDAddedTriple import createDAddedTriple
