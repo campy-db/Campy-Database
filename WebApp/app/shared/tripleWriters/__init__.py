@@ -12,3 +12,4 @@ from createOutbreakTriple import createOutbreakTriple
 from createSMATriple import createSMATriple
 from createDAddedTriple import createDAddedTriple
 from createTypingTriple import createTypingTriple
+from createProjTriple import createProjTriple

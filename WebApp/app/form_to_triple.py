@@ -27,6 +27,12 @@ def formToTriple(form):
 
     triple.append(createIsolateTriple(iso_title, spec_str))
     triple.append(createDTakenTriple(iso_title, form.date.data))
+    def formProj():
+        data = {"Project Name":str(form.projName.data),
+                "Subproject Name":str(form.subprojName.data)}
+        return createProjTriple(data, iso_title)
+
+
     def formTyping():
         aGenes = {field.description:str(field.data) for field in form.aGenes}
         mlstGenes = {field.description:str(field.data) for field in form.mlstGenes}
@@ -175,6 +181,6 @@ def formToTriple(form):
             if human:
                 return formHumanSource(human, source)
 
-    triple.append(" ".join([formCGF(), formDrugResistance(), formSource(), formSerotype(), formOutbreak(), formTyping(), createDAddedTriple(iso_title)]))
+    triple.append(" ".join([formCGF(), formDrugResistance(), formSource(), formSerotype(), formOutbreak(), formTyping(), formProj(), createDAddedTriple(iso_title)]))
 
     return "".join(triple)

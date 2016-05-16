@@ -8,7 +8,8 @@
 import datetime
 
 from flask_wtf import Form
-from wtforms import StringField, BooleanField, SelectField, IntegerField, FormField, SubmitField
+from wtforms import StringField, BooleanField, SelectField, IntegerField, FormField, SubmitField,\
+RadioField
 from wtforms.fields.core import UnboundField
 from wtforms.validators import DataRequired, Optional, ValidationError
 from app.util.validators import\
@@ -232,7 +233,13 @@ class AddForm(Form):
     mlstGenes = validateSubForm("MLSTGenesForm", getMLSTGenes(), "Optional()", "mlstGenes")
 
     clonalComplex = StringField("clonalComplex", validators=[Optional()])
-    st = StringField = StringField("ST", validators=[Optional()])
+    st = StringField("ST", validators=[Optional()])
+    projName = StringField("projName", validators=[Optional()])
+    subprojName = StringField("subprojName", validators=[Optional()])
+    
+    projRef = RadioField("refStrain", choices =[("yes", "yes"), ("no", "no")])
+
+
 
 
 

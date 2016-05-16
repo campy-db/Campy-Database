@@ -1,5 +1,6 @@
 #from .extractValue import getSpecies
 #from .shared_validators import validSpecies
+import pandas as pd
 from Scripts.endpoint import update as update
 
 def popVals(my_dict):
@@ -40,3 +41,9 @@ def isNumber(s):
     except ValueError:
         return False
 
+def cleanInt(s):
+
+    if not pd.isnull(s) and isNumber(s):
+        s = str(int(float(s)))
+
+    return s

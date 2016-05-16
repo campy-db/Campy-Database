@@ -18,8 +18,8 @@ def createTypingTriple(data, isoTitle):
     def alleleTriple(gene, data):
         triple = ""
         print (">>>>>>>>>>>>>>>" + str(data))
-        geneIndex = int(data[gene])
-        if geneIndex:
+        if data[gene]:
+            geneIndex = int(data[gene])
             alTitle = "{}_{}".format(gene, geneIndex)
             tClass = "{}_test".format(gene)
             tTitle =  mTitle if gene in data.keys() else "{}_{}".format(tClass, isoTitle)
@@ -36,8 +36,9 @@ def createTypingTriple(data, isoTitle):
 
     def alleleTripleMLST(gene, data):
         triple = ""
-        geneIndex = int(data[gene])
-        if geneIndex:
+        if data[gene]:
+            geneIndex = int(data[gene])
+
             alTitle = "{}_{}".format(gene, geneIndex)
             tClass = "{}_test".format(gene)
             tTitle =  mTitle if gene in data.keys() else "{}_{}".format(tClass, isoTitle)
