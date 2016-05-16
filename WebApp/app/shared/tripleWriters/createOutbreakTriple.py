@@ -12,6 +12,7 @@ def createOutbreakTriple(isoTitle, data):
     triple = ctm.propTriple(isoTitle, {"isPartOfOutbreak":True}, True, True)
     outbreakTitle = ""
 
+    print str(">>>>>>>>>>>>>>>>>>"+data["name"])
     if data["name"]:
         outbreakTitle = str(data["name"].data)
         triple += ctm.indTriple(str(outbreakTitle), "Outbreak")

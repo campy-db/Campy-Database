@@ -16,7 +16,7 @@ source_, specialChars, species, length, digit, fpBinary,\
 range_, genAnimal, genSample, nonemptySource, isA, postalCode, micValue, antigenType, seroValue,\
 dateTaken, Requires
 NOW = datetime.datetime.now()
-from .shared.tripleWriters.dictionary.geneDictionary import getRGenes, getMLSTGenes
+from .shared.tripleWriters.dictionary.geneDictionary import getAGenes, getMLSTGenes
 
 def validate_mic(drug):
     return StringField(drug, validators=[micValue(), Optional()], description = drug)
@@ -227,9 +227,9 @@ class AddForm(Form):
 
     sma1 = StringField("sma1", validators=[Optional()])
     
-    rGenes = validateSubForm("RGenesForm", getRGenes(), "Optional()")
+    aGenes = validateSubForm("AGenesForm", getAGenes(), "Optional()", "aGenes")
 
-    mlstGenes = validateSubForm("MLSTGenesForm", getMLSTGenes(), "Optional()")
+    mlstGenes = validateSubForm("MLSTGenesForm", getMLSTGenes(), "Optional()", "mlstGenes")
 
     clonalComplex = StringField("clonalComplex", validators=[Optional()])
     st = StringField = StringField("ST", validators=[Optional()])

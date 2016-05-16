@@ -27,16 +27,19 @@ def formToTriple(form):
 
     triple.append(createIsolateTriple(iso_title, spec_str))
     triple.append(createDTakenTriple(iso_title, form.date.data))
-    def formMLSTGenes():
-        data = {"Clonal Complex":form.clonalComplex.data,
-                "ST":form.st.data,
-                "Genes":form.genes.data}
-        pass
+    def formTyping():
+        aGenes = {field.description:str(field.data) for field in form.aGenes}
+        mlstGenes = {field.description:str(field.data) for field in form.mlstGenes}
+        data = {"Clonal Complex":str(form.clonalComplex.data),
+                "ST":str(form.st.data),
+                "aGenes":aGenes,
+                "mlstGenes":mlstGenes}
+        return createTypingTriple(data,iso_title)
         #return createMLSTTriple(iso_title, form.mlst.data)
     def formOutbreak():
-        data = {"name":form.outbreakName,
-                "lower":form.outbreakDateLowerBound,
-                "upper":form.outbreakDateUpperBound}
+        data = {"name":form.outbreakName.data,
+                "lower":form.outbreakDateLowerBound.data,
+                "upper":form.outbreakDateUpperBound.data}
         return createOutbreakTriple(iso_title, data)
 
     def formSMA1():
@@ -172,6 +175,6 @@ def formToTriple(form):
             if human:
                 return formHumanSource(human, source)
 
-    triple.append(" ".join([formCGF(), formDrugResistance(), formSource(), formSerotype(), formOutbreak(), createDAddedTriple(iso_title)]))
+    triple.append(" ".join([formCGF(), formDrugResistance(), formSource(), formSerotype(), formOutbreak(), formTyping(), createDAddedTriple(iso_title)]))
 
     return "".join(triple)

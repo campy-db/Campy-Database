@@ -27,5 +27,19 @@
       <br><span style="color: #db4437;">[{{ error }}]</span>
     {% endfor %}
   {% endfor %}
+  <br><br>
+  <span>
+  {{ form.aGenes.label }}
+  <br>
+  {% for field in form.aGenes %}
+    {{ field(size = 11, placeholder = field.description) }}
+  {% endfor %}
+  </span>
+
+  {% for field in form.aGenes %}
+    {% for error in field.errors %}
+      <br><span style="color: #db4437;">[{{ error }}]</span>
+    {% endfor %}
+  {% endfor %}
   <br>
 </p>
