@@ -47,3 +47,9 @@ def cleanInt(s):
         s = str(int(float(s)))
 
     return s
+
+def remPrefix(val, l):
+
+    if val != "" and not pd.isnull(val) and "_" in val:
+        val = val[l:]
+    return val

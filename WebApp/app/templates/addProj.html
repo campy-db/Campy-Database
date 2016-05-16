@@ -2,19 +2,6 @@
 <div class=section>Project Info</div>
 
 <p class=field>
-  Reference strain?
-  {% for subfield in form.projRef %}
-    <tr>
-        <td>{{ subfield }}</td>
-        <td>{{ subfield.label }}</td>
-    </tr>
-  {% endfor %}
-
-  {% for error in form.projRef.errors %}
-    <br><span style="color: #db4437;">[{{ error }}]</span>
-  {% endfor %}
-
-  <br><br>
   <span>  
   Project Name {{ form.projName(size=40) }}
   </span>

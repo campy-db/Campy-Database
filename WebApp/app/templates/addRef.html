@@ -1,0 +1,35 @@
+
+<div class=section>Reference Data</div>
+
+<p class=field>
+  <font size = "4">Is this a reference strain? 
+  {% for subfield in form.ref %}
+    <tr>
+        <td>{{ subfield }}</td>
+        <td>{{ subfield.label }}</td>
+    </tr>
+  {% endfor %}
+  </font>
+
+  {% for error in form.ref.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+  <br><br>
+
+  <font size = "4">Source:
+  {% for subfield in form.refSource %}
+    <tr>
+        <td>{{ subfield }}</td>
+        <td>{{ subfield.label }}</td>
+    </tr>
+  {% endfor %}
+  </font>
+
+  {% for error in form.refSource.errors %}
+    <br><span style="color: #db4437;">[{{ error }}]</span>
+  {% endfor %}
+
+  
+
+
+</p>

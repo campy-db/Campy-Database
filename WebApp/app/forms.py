@@ -237,7 +237,8 @@ class AddForm(Form):
     projName = StringField("projName", validators=[Optional()])
     subprojName = StringField("subprojName", validators=[Optional()])
     
-    projRef = RadioField("refStrain", choices =[("yes", "yes"), ("no", "no")])
+    ref = RadioField("refStrain", choices =[("yes", "yes"), ("no", "no")])
+    refSource = RadioField("refSouce", choices=[("animal", "animal"), ("human", "human"), ("", "omit/unknown")])
 
 
 
