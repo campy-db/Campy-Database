@@ -5,7 +5,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl> a owl:Ontology ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl> a owl:Ontology ;
 	rdfs:comment "An ontology for all the lab tests done on campybacter jejuni. All data comes from the csv 2016-02-10 CGF_DB_22011.csv. The ontology CampyOntology.owl imports this ontology." .
 # 
 # 
@@ -21,284 +21,284 @@
 <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> a owl:ObjectProperty ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#doneAtLab
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#doneAtLab
 
-:doneAtLab a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasLabTestProperty ;
-	rdfs:domain :Lab_test ;
-	rdfs:range :Typing_lab .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#doneAtLab> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_lab> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundAllele
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundAllele
 
-:foundAllele a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasAllelicProperty ;
-	rdfs:domain :Allelic_test ;
-	rdfs:range :Typing_allele .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundAllele> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAllelicProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundClonalComplex
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundClonalComplex
 
-:foundClonalComplex a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasMLSTproperty ;
-	rdfs:domain :MLST_test ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundClonalComplex> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasMLSTproperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundFingerprint
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundFingerprint
 
-:foundFingerprint a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCGFproperty ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundFingerprint> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasCGFproperty> ;
 	a owl:FunctionalProperty ;
-	rdfs:domain :CGF_test ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundHexNum
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundHexNum
 
-:foundHexNum a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCGFproperty ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundHexNum> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasCGFproperty> ;
 	a owl:FunctionalProperty ;
-	rdfs:domain :CGF_test ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundLegacyHexNum
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundLegacyHexNum
 
-:foundLegacyHexNum a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasCGFproperty ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundLegacyHexNum> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasCGFproperty> ;
 	a owl:FunctionalProperty ;
-	rdfs:domain :CGF_test ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundMIC
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundMIC
 
-:foundMIC a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasAMRproperty ;
-	rdfs:domain :AMR_test ;
-	rdfs:range :DrugMIC .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundMIC> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAMRproperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#DrugMIC> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundPulsovar
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundPulsovar
 
-:foundPulsovar a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasPFGEproperty ;
-	rdfs:domain :PFGE ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundPulsovar> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasPFGEproperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundResistanceTo
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundResistanceTo
 
-:foundResistanceTo a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasAMRproperty ;
-	rdfs:domain :AMR_test ;
-	rdfs:range :AMR_drug .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundResistanceTo> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAMRproperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_drug> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundST
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundST
 
-:foundST a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasMLSTproperty ;
-	rdfs:domain :MLST_test ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundST> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasMLSTproperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundSerotype
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundSerotype
 
-:foundSerotype a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasSerotypeProperty ;
-	rdfs:domain :Serotype_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundSerotype> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasSerotypeProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#foundSusceptibilityTo
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundSusceptibilityTo
 
-:foundSusceptibilityTo a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasAMRproperty ;
-	rdfs:domain :AMR_test ;
-	rdfs:range :AMR_drug .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#foundSusceptibilityTo> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAMRproperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_drug> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasAMRproperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAMRproperty
 
-:hasAMRproperty a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasLabTestProperty ;
-	rdfs:domain :AMR_test ;
-	rdfs:range :AMR_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAMRproperty> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasAllele
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAllele
 
-:hasAllele a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasTypingGeneProperty ;
-	owl:inverseOf :isOfGene .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAllele> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingGeneProperty> ;
+	owl:inverseOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#isOfGene> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasAlleleIndex
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAlleleIndex
 
-:hasAlleleIndex a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasTypingAlleleProperty ;
-	rdfs:domain :Typing_allele ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAlleleIndex> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingAlleleProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasAllelicProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAllelicProperty
 
-:hasAllelicProperty a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasTypingTestProperty ;
-	rdfs:domain :Allelic_test ;
-	rdfs:range :Allelic_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAllelicProperty> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasAntigen
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAntigen
 
-:hasAntigen a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasAntigenProperty .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAntigen> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAntigenProperty> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasAntigenProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAntigenProperty
 
-:hasAntigenProperty a owl:ObjectProperty .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAntigenProperty> a owl:ObjectProperty .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasBinaryProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasBinaryProperty
 
-:hasBinaryProperty a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasTypingTestProperty ;
-	rdfs:domain :Binary_test ;
-	rdfs:range :Binary_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasBinaryProperty> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasCGFproperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasCGFproperty
 
-:hasCGFproperty a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasBinaryProperty ;
-	rdfs:domain :CGF_test ;
-	rdfs:range :CGF_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasCGFproperty> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasBinaryProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasClustNum
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasClustNum
 
-:hasClustNum a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasClusterProperty ;
-	rdfs:domain :Cluster ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasClustNum> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasClusterProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasCluster
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasCluster
 
-:hasCluster a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasTypingTestProperty ;
-	rdfs:domain :Typing_test ;
-	rdfs:range :Cluster .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasCluster> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasClusterProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasClusterProperty
 
-:hasClusterProperty a owl:ObjectProperty ;
-	rdfs:domain :Cluster ;
-	rdfs:range :Cluster_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasClusterProperty> a owl:ObjectProperty ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasDayCompleted
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasDayCompleted
 
-:hasDayCompleted a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
-	rdfs:domain :Lab_test ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasDayCompleted> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasDrug
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasDrug
 
-:hasDrug a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasDrugMICproperty ;
-	rdfs:domain :DrugMIC ;
-	rdfs:range :AMR_drug .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasDrug> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasDrugMICproperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#DrugMIC> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_drug> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasDrugMICproperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasDrugMICproperty
 
-:hasDrugMICproperty a owl:ObjectProperty .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasDrugMICproperty> a owl:ObjectProperty .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasFileLocation
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasFileLocation
 
-:hasFileLocation a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
-	rdfs:domain :Lab_test ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasFileLocation> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasLabTestProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty
 
-:hasLabTestProperty a owl:ObjectProperty ;
-	rdfs:domain :Lab_test ;
-	rdfs:range :Lab_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> a owl:ObjectProperty ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasMIC
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasMIC
 
-:hasMIC a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasDrugMICproperty ;
-	rdfs:domain :DrugMIC ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasMIC> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasDrugMICproperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#DrugMIC> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasMLSTproperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasMLSTproperty
 
-:hasMLSTproperty a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasAllelicProperty ;
-	rdfs:domain :MLST_test ;
-	rdfs:range :MLST_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasMLSTproperty> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAllelicProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasMonthCompleted
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasMonthCompleted
 
-:hasMonthCompleted a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
-	rdfs:domain :Lab_test ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasMonthCompleted> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasPFGEproperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasPFGEproperty
 
-:hasPFGEproperty a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasTypingTestProperty ;
-	rdfs:domain :PFGE ;
-	rdfs:range :PFGE_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasPFGEproperty> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasSerotype
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasSerotype
 
-:hasSerotype a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasAntigenProperty .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasSerotype> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasAntigenProperty> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasSerotypeProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasSerotypeProperty
 
-:hasSerotypeProperty a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasTypingTestProperty ;
-	rdfs:domain :Serotype_test ;
-	rdfs:range :Serotype_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasSerotypeProperty> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasSubCluster
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasSubCluster
 
-:hasSubCluster a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasClusterProperty ;
-	rdfs:domain :Cluster ;
-	rdfs:range :Cluster .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasSubCluster> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasClusterProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasThreshold
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasThreshold
 
-:hasThreshold a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasClusterProperty ;
-	rdfs:domain :Cluster ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasThreshold> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasClusterProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasTypingAlleleProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingAlleleProperty
 
-:hasTypingAlleleProperty a owl:ObjectProperty ;
-	rdfs:domain :Typing_allele ;
-	rdfs:range :Typing_allele_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingAlleleProperty> a owl:ObjectProperty ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasTypingGeneProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingGeneProperty
 
-:hasTypingGeneProperty a owl:ObjectProperty .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingGeneProperty> a owl:ObjectProperty .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasTypingTestProperty
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingTestProperty
 
-:hasTypingTestProperty a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasLabTestProperty ;
-	rdfs:domain :Typing_test ;
-	rdfs:range :Typing_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingTestProperty> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#hasYearCompleted
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasYearCompleted
 
-:hasYearCompleted a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
-	rdfs:domain :Lab_test ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasYearCompleted> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#isInSilico
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#isInSilico
 
-:isInSilico a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , :hasLabTestProperty ;
-	rdfs:domain :Lab_test ;
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#isInSilico> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <http://www.essepuntato.it/2010/06/literalreification/hasLiteral> , <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasLabTestProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> ;
 	rdfs:range <http://www.essepuntato.it/2010/06/literalreification/Literal> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#isOfGene
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#isOfGene
 
-:isOfGene a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasTypingAlleleProperty ;
-	rdfs:domain :Typing_allele ;
-	rdfs:range :Allelic_typing_gene .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#isOfGene> a owl:ObjectProperty ;
+	rdfs:subPropertyOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#hasTypingAlleleProperty> ;
+	rdfs:domain <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele> ;
+	rdfs:range <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_typing_gene> .
 # 
 # 
 # 
@@ -332,185 +332,185 @@ _:genid1 a owl:Restriction ;
 	owl:onProperty <http://www.essepuntato.it/2010/06/literalreification/hasLiteralValue> ;
 	owl:cardinality "1"^^xsd:nonNegativeInteger .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_drug
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_drug
 
-:AMR_drug a owl:Class ;
-	rdfs:subClassOf :AMR_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_drug> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_property
 
-:AMR_property a owl:Class ;
-	rdfs:subClassOf :Lab_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#AMR_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_test
 
-:AMR_test a owl:Class ;
-	rdfs:subClassOf :Lab_test ;
-	owl:disjointWith :Typing_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> ;
+	owl:disjointWith <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_property
 
-:Allelic_property a owl:Class ;
-	rdfs:subClassOf :Typing_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test
 
-:Allelic_test a owl:Class ;
-	rdfs:subClassOf :Typing_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Allelic_typing_gene
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_typing_gene
 
-:Allelic_typing_gene a owl:Class ;
-	rdfs:subClassOf :Typing_gene .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_typing_gene> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_gene> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Antigen
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Antigen
 
-:Antigen a owl:Class ;
-	rdfs:subClassOf :Antigen_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Antigen> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Antigen_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Antigen_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Antigen_property
 
-:Antigen_property a owl:Class ;
-	rdfs:subClassOf :Lab_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Antigen_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Binary_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_property
 
-:Binary_property a owl:Class ;
-	rdfs:subClassOf :Typing_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Binary_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_test
 
-:Binary_test a owl:Class ;
-	rdfs:subClassOf :Typing_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_property
 
-:CGF_property a owl:Class ;
-	rdfs:subClassOf :Binary_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_test
 
-:CGF_test a owl:Class ;
-	rdfs:subClassOf :Binary_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#CGF_typing_gene
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_typing_gene
 
-:CGF_typing_gene a owl:Class ;
-	rdfs:subClassOf :Typing_gene .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#CGF_typing_gene> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_gene> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Cluster
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster
 
-:Cluster a owl:Class ;
-	rdfs:subClassOf :Binary_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Cluster_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster_property
 
-:Cluster_property a owl:Class .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Cluster_property> a owl:Class .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#DrugMIC
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#DrugMIC
 
-:DrugMIC a owl:Class ;
-	rdfs:subClassOf :AMR_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#DrugMIC> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#AMR_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#FlaA_SVR_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#FlaA_SVR_test
 
-:FlaA_SVR_test a owl:Class ;
-	rdfs:subClassOf :Allelic_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#FlaA_SVR_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#FlaPeptide_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#FlaPeptide_test
 
-:FlaPeptide_test a owl:Class ;
-	rdfs:subClassOf :Allelic_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#FlaPeptide_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Lab_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test
 
-:Lab_test a owl:Class .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> a owl:Class .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Lab_test_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test_property
 
-:Lab_test_property a owl:Class .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test_property> a owl:Class .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#MLST_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_property
 
-:MLST_property a owl:Class ;
-	rdfs:subClassOf :Allelic_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#MLST_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_test
 
-:MLST_test a owl:Class ;
-	rdfs:subClassOf :Allelic_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#MOMP_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MOMP_test
 
-:MOMP_test a owl:Class ;
-	rdfs:subClassOf :Allelic_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MOMP_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#PFGE
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE
 
-:PFGE a owl:Class ;
-	rdfs:subClassOf :Typing_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#PFGE_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE_property
 
-:PFGE_property a owl:Class ;
-	rdfs:subClassOf :Typing_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#PorA_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PorA_test
 
-:PorA_test a owl:Class ;
-	rdfs:subClassOf :Allelic_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PorA_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#SMA1_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#SMA1_test
 
-:SMA1_test a owl:Class ;
-	rdfs:subClassOf :PFGE .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#SMA1_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Serotype
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype
 
-:Serotype a owl:Class ;
-	rdfs:subClassOf :Antigen_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Antigen_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Serotype_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype_property
 
-:Serotype_property a owl:Class ;
-	rdfs:subClassOf :Typing_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Serotype_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype_test
 
-:Serotype_test a owl:Class ;
-	rdfs:subClassOf :Typing_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_allele
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele
 
-:Typing_allele a owl:Class ;
-	rdfs:subClassOf :Allelic_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_allele_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele_property
 
-:Typing_allele_property a owl:Class .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_allele_property> a owl:Class .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_gene
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_gene
 
-:Typing_gene a owl:Class .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_gene> a owl:Class .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_gene_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_gene_property
 
-:Typing_gene_property a owl:Class .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_gene_property> a owl:Class .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_lab
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_lab
 
-:Typing_lab a owl:Class ;
-	rdfs:subClassOf :Lab_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_lab> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test_property> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_test
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test
 
-:Typing_test a owl:Class ;
-	rdfs:subClassOf :Lab_test .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test> .
 # 
-# https://github.com/campy-db/Campy-Database/blob/master/Ontologies/LabTests.owl#Typing_test_property
+# https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test_property
 
-:Typing_test_property a owl:Class ;
-	rdfs:subClassOf :Lab_test_property .
+<https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Typing_test_property> a owl:Class ;
+	rdfs:subClassOf <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Lab_test_property> .
 # 
 # 
 # 
@@ -526,19 +526,19 @@ _:genid2 a owl:AllDisjointClasses ;
 	owl:members _:genid6 .
 
 _:genid6 a rdf:List ;
-	rdf:first :Allelic_test ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Allelic_test> ;
 	rdf:rest _:genid5 .
 
 _:genid5 a rdf:List ;
-	rdf:first :Binary_test ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Binary_test> ;
 	rdf:rest _:genid4 .
 
 _:genid4 a rdf:List ;
-	rdf:first :PFGE ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PFGE> ;
 	rdf:rest _:genid3 .
 
 _:genid3 a rdf:List ;
-	rdf:first :Serotype_test ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#Serotype_test> ;
 	rdf:rest rdf:nil .
 # 
 
@@ -546,23 +546,23 @@ _:genid7 a owl:AllDisjointClasses ;
 	owl:members _:genid12 .
 
 _:genid12 a rdf:List ;
-	rdf:first :FlaA_SVR_test ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#FlaA_SVR_test> ;
 	rdf:rest _:genid11 .
 
 _:genid11 a rdf:List ;
-	rdf:first :FlaPeptide_test ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#FlaPeptide_test> ;
 	rdf:rest _:genid10 .
 
 _:genid10 a rdf:List ;
-	rdf:first :MLST_test ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MLST_test> ;
 	rdf:rest _:genid9 .
 
 _:genid9 a rdf:List ;
-	rdf:first :MOMP_test ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#MOMP_test> ;
 	rdf:rest _:genid8 .
 
 _:genid8 a rdf:List ;
-	rdf:first :PorA_test ;
+	rdf:first <https://github.com/campy-db/Campy-Database/blob/test/Ontologies/LabTests.owl#PorA_test> ;
 	rdf:rest rdf:nil .
 # 
 # Generated by the OWL API (version 4.2.1.20160306-0033) https://github.com/owlcs/owlapi
